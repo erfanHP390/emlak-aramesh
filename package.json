@@ -1,0 +1,35 @@
+{
+  "name": "amlak-aramesh",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "aos": "^3.0.0-beta.6",
+    "bcryptjs": "^3.0.2",
+    "bootstrap": "^5.3.6",
+    "ckeditor": "^4.12.1",
+    "datepicker": "^0.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "leaflet": "^1.9.4",
+    "mongoose": "^8.11.0",
+    "next": "13.4.0",
+    "react": "latest",
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "latest",
+    "react-hot-toast": "^2.5.2",
+    "react-icons": "^4.12.0",
+    "react-leaflet": "^4.2.1",
+    "react-multi-date-picker": "^4.5.2",
+    "react-select": "^5.10.1",
+    "react-toastify": "^11.0.5",
+    "recharts": "^2.10.3",
+    "request": "^2.88.2",
+    "sweetalert": "^2.1.2",
+    "swiper": "^11.0.4"
+  }
+}
