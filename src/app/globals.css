@@ -1,42 +1,95 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@font-face {
+  font-family: 'Anjoman_Black';
+  src: url('/fonts/Anjoman-Black.ttf') format('ttf');
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.Anjoman_Black {
+  font-family: 'Anjoman_Black';
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+@font-face {
+  font-family: 'Anjoman_Bold';
+  src: url('/fonts/Anjoman-Bold.ttf') format('ttf');
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.Anjoman_Bold {
+  font-family: 'Anjoman_Bold';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+@font-face {
+  font-family: 'Anjoman-ExtraBold';
+  src: url('/fonts/Anjoman-ExtraBold.ttf') format('ttf');
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.Anjoman_ExtraBold {
+  font-family: 'Anjoman-ExtraBold';
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+@font-face {
+  font-family: 'Anjoman-ExtraLight';
+  src: url('/fonts/Anjoman-ExtraLight.ttf') format('ttf');
+}
+
+.Anjoman_ExtraLight {
+  font-family: 'Anjoman-ExtraLight';
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Anjoman-Heavy';
+  src: url('/fonts/Anjoman-Heavy.ttf') format('ttf');
+}
+
+.Anjoman_Heavy {
+  font-family: 'Anjoman-Heavy';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Anjoman-Medium';
+  src: url('/fonts/Anjoman-Medium.ttf') format('ttf');
+}
+
+.Anjoman_Medium {
+  font-family: 'Anjoman-Medium';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Anjoman-Regular';
+  src: url('/fonts/Anjoman-Regular.ttf') format('ttf');
+}
+
+.Anjoman_Regular {
+  font-family: 'Anjoman-Regular';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Anjoman-SemiBold';
+  src: url('/fonts/Anjoman-SemiBold.ttf') format('ttf');
+}
+
+.Anjoman_SemiBold {
+  font-family: 'Anjoman-SemiBold';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
