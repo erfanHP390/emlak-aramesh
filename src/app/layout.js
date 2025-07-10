@@ -1,15 +1,5 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata = {
   title: "Create Next App",
@@ -19,9 +9,30 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
-      </body>
+      <head>
+        <link rel="stylesheet" href="/assets/css/vendors_css.css" />
+        <link rel="stylesheet" href="/assets/css/style.css" />
+        <link rel="stylesheet" href="/assets/css/skin_color.css" />
+        <link rel="stylesheet" href="/assets/css/style-rtl.min.css" />
+
+    <Script src="/assets/js/vendors.min.js"/>
+    <Script src="/assets/js/pages/chat-popup.js"/>
+    <Script src="/assets/icons/feather-icons/feather.min.js"/>
+<Script src="/assets/vendor_components/apexcharts-bundle/apexcharts.min.js"/>
+	<Script src="/assets/js/pages/dashboard-light.js"/>
+    <Script src="/assets/vendor_components/chart.js-master/Chart.min.js"/>
+    <Script src="/assets/vendor_components/apexcharts-bundle/irregular-data-series.js"/>
+   
+    {/* <Script src="/assets/vendor_components/Flot/jquery.flot.js"/>
+    <Script src="/assets/vendor_components/Flot/jquery.flot.resize.js"/>
+    <Script src="/assets/vendor_components/Flot/jquery.flot.pie.js"/>
+    <Script src="/assets/vendor_components/Flot/jquery.flot.categories.js"/> */}
+
+    {/* <Script src="/assets/js/template.js"/> */}
+    {/* <Script src="/assets/js/pages/dashboard.js"/> */}
+
+      </head>
+      <body>{children}</body>
     </html>
   );
 }
