@@ -14,9 +14,13 @@ const schema = mongoose.Schema(
       type: String,
       required: true,
     },
-    img: {
+    guildID: {
       type: String,
       required: false,
+    },
+    isAccept: {
+      type: Boolean,
+      default: false
     },
     role: {
       type: String,
