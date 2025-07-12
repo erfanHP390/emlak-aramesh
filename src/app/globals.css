@@ -197,3 +197,31 @@ select:focus {
 .bg-input {
   background-color: var(--input-bg) !important;
 }
+/* ============================= */
+.register-bg {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  direction: rtl;
+  padding: 2rem;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.register-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('/images/auth-bg.jpg') center/cover no-repeat fixed;
+  z-index: -2;
+}
+
+.register-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(26, 28, 35, 0.85);
+  z-index: -1;
+}
