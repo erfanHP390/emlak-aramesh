@@ -1,178 +1,199 @@
-/* ===================================================== Real Estate CMS (Next.js)
-   Light & Dark themes without CSS variables
-   Author: ChatGPT Pro
-   ===================================================== */
-
-/* -----------------------------------------------------
-   1. Font Faces (Anjoman Family)
------------------------------------------------------ */
+/*====================  FONTS  ====================*/
 @font-face {
   font-family: 'Anjoman_Black';
-  src: url('/fonts/Anjoman-Black.ttf') format('ttf');
+  src: url('/fonts/Anjoman-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-display: swap;
 }
+
 @font-face {
   font-family: 'Anjoman_Bold';
-  src: url('/fonts/Anjoman-Bold.ttf') format('ttf');
+  src: url('/fonts/Anjoman-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
 }
+
 @font-face {
   font-family: 'Anjoman_ExtraBold';
-  src: url('/fonts/Anjoman-ExtraBold.ttf') format('ttf');
+  src: url('/fonts/Anjoman-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-display: swap;
 }
+
 @font-face {
   font-family: 'Anjoman_ExtraLight';
-  src: url('/fonts/Anjoman-ExtraLight.ttf') format('ttf');
+  src: url('/fonts/Anjoman-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-display: swap;
 }
+
 @font-face {
   font-family: 'Anjoman_Heavy';
-  src: url('/fonts/Anjoman-Heavy.ttf') format('ttf');
+  src: url('/fonts/Anjoman-Heavy.ttf') format('truetype');
+  font-weight: 900;
+  font-display: swap;
 }
+
 @font-face {
   font-family: 'Anjoman_Medium';
-  src: url('/fonts/Anjoman-Medium.ttf') format('ttf');
-}
-@font-face {
-  font-family: 'Anjoman_Regular';
-  src: url('/fonts/Anjoman-Regular.ttf') format('ttf');
-}
-@font-face {
-  font-family: 'Anjoman_SemiBold';
-  src: url('/fonts/Anjoman-SemiBold.ttf') format('ttf');
+  src: url('/fonts/Anjoman-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-display: swap;
 }
 
-/* -----------------------------------------------------
-   2. Base Styles (Light Theme)
------------------------------------------------------ */
+@font-face {
+  font-family: 'Anjoman_Regular';
+  src: url('/fonts/Anjoman-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Anjoman_SemiBold';
+  src: url('/fonts/Anjoman-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-display: swap;
+}
+
+/*====================  THEME VARIABLES  ====================*/
+:root {
+  --bg-primary: #1a1c23;
+  --text-primary: #d1d5db;
+  --text-heading: #f3f4f6;
+  --link-color: #8ab4ff;
+  --link-hover: #5e92f3;
+  --button-bg: #8ab4ff;
+  --button-hover: #5e92f3;
+  --input-bg: #24262e;
+  --input-text: #d1d5db;
+  --input-border: #374151;
+  --input-focus: #8ab4ff;
+  --scrollbar-track: #374151;
+  --scrollbar-thumb: #8ab4ff;
+}
+
+/*====================  BASE STYLES  ====================*/
 body {
-  margin: 0;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   font-family: 'Anjoman_Regular', sans-serif;
-  background-color: #F9FAFC;
-  color: #374151;
   line-height: 1.6;
   direction: rtl;
-}
-
-body h1,
-h2, h3, h4, h5, h6 {
-  color: #1F2937;
-  font-family: 'Anjoman_Bold';
-}
-
-body a {
-  color: #2F6DFF;
-  text-decoration: none;
-}
-body a:hover {
-  text-decoration: underline;
-}
-
-body button {
-  background-color: #2F6DFF;
-  color: #fff;
-  border: none;
-  border-radius: .5rem;
-  padding: .6rem 1.2rem;
-  cursor: pointer;
-  font-family: 'Anjoman_SemiBold';
-}
-button:hover {
-  background-color: #1e4fd4;
-}
-
-body input,
-body textarea {
-  background-color: #fff;
-  color: #374151;
-  border: 1px solid #E5E7EB;
-  padding: .5rem .9rem;
-  border-radius: .5rem;
-  font-family: 'Anjoman_Regular';
-}
-input:focus,
-textarea:focus {
-  outline: none;
-  border-color: #2F6DFF;
-}
-
-body::-webkit-scrollbar {
-  width: 10px;
-}
-body::-webkit-scrollbar-track {
-  background: #E5E7EB;
-}
-body::-webkit-scrollbar-thumb {
-  background: #2F6DFF;
-  border-radius: 8px;
-}
-
-/* -----------------------------------------------------
-   3. Base Styles (Dark Theme)
------------------------------------------------------ */
-/* body{
   margin: 0;
-  font-family: 'Anjoman_Regular', sans-serif;
-  background-color: #1A1C23;
-  color: #D1D5DB;
-  line-height: 1.6;
-  direction: rtl;
+  padding: 0;
 }
 
-bodyh1,
-h2, h3, h4, h5, h6 {
-  color: #F3F4F6;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-heading);
   font-family: 'Anjoman_Bold';
+  margin-bottom: 1rem;
 }
 
-bodya {
-  color: #8AB4FF;
+a {
+  color: var(--link-color);
   text-decoration: none;
-}
-bodya:hover {
-  text-decoration: underline;
+  transition: color 0.2s ease;
 }
 
-bodybutton {
-  background-color: #8AB4FF;
-  color: #000;
+a:hover {
+  color: var(--link-hover);
+}
+
+button {
+  background-color: var(--button-bg);
+  color: white;
   border: none;
-  border-radius: .5rem;
-  padding: .6rem 1.2rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
   cursor: pointer;
-  font-family: 'Anjoman_SemiBold';
-}
-button:hover {
-  background-color: #5e92f3;
+  transition: background-color 0.2s ease;
+  font-family: 'Anjoman_Medium';
 }
 
-body input,
-body textarea {
-  background-color: #24262E;
-  color: #D1D5DB;
-  border: 1px solid #374151;
-  padding: .5rem .9rem;
-  border-radius: .5rem;
+button:hover {
+  background-color: var(--button-hover);
+}
+
+input,
+textarea,
+select {
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--input-border);
+  border-radius: 0.375rem;
+  padding: 0.75rem 1rem;
+  width: 100%;
   font-family: 'Anjoman_Regular';
 }
+
 input:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
   outline: none;
-  border-color: #8AB4FF;
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(138, 180, 255, 0.2);
 }
 
-body:-webkit-scrollbar {
+/*====================  SCROLLBAR STYLE  ====================*/
+::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
-body:-webkit-scrollbar-track {
-  background: #374151;
-}
-body:-webkit-scrollbar-thumb {
-  background: #8AB4FF;
-  border-radius: 8px;
-} */
 
-/* -----------------------------------------------------
-   4. Helpers
------------------------------------------------------ */
-.rounded        { border-radius: .5rem !important; }
-.shadow-sm      { box-shadow: 0 1px 2px rgba(0,0,0,.05) !important; }
-.shadow         { box-shadow: 0 4px 8px rgba(0,0,0,.08) !important; }
-.no-select      { user-select:none !important; }
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--link-hover);
+}
+
+/*====================  UTILITY FONT CLASSES  ====================*/
+.Anjoman_Black {
+  font-family: 'Anjoman_Black' !important;
+}
+.Anjoman_Bold {
+  font-family: 'Anjoman_Bold' !important;
+}
+.Anjoman_ExtraBold {
+  font-family: 'Anjoman_ExtraBold' !important;
+}
+.Anjoman_ExtraLight {
+  font-family: 'Anjoman_ExtraLight' !important;
+}
+.Anjoman_Heavy {
+  font-family: 'Anjoman_Heavy' !important;
+}
+.Anjoman_Medium {
+  font-family: 'Anjoman_Medium' !important;
+}
+.Anjoman_Regular {
+  font-family: 'Anjoman_Regular' !important;
+}
+.Anjoman_SemiBold {
+  font-family: 'Anjoman_SemiBold' !important;
+}
+
+/*====================  COLOR UTILITY CLASSES  ====================*/
+.text-primary {
+  color: var(--text-primary) !important;
+}
+.text-heading {
+  color: var(--text-heading) !important;
+}
+.bg-primary {
+  background-color: var(--bg-primary) !important;
+}
+.bg-input {
+  background-color: var(--input-bg) !important;
+}
