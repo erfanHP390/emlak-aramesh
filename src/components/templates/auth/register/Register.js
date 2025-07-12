@@ -1,6 +1,137 @@
+"use client";
+import { useRouter } from "next/navigation";
 import styles from "./register.module.css";
+import { useState } from "react";
+import { swalAlert, toastError, toastSuccess } from "@/utils/alerts";
+import { validateEmail, validatePassword } from "@/utils/auth";
 
 export default function Register() {
+  const router = useRouter();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [guildID, setGuildID] = useState("");
+  const [isReadRules, setIsReadRules] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const registerUser = async () => {
+    if (!isReadRules) {
+      setIsLoading(false);
+      return swalAlert(
+        "لطفا شرایط و قوانین را مطالعه فرمایید",
+        "error",
+        "فهمیدم"
+      );
+    }
+
+    if (!name.trim()) {
+      setIsLoading(false);
+      return swalAlert("نام نمی تواند خالی باشد", "error", "تلاش مجدد");
+    }
+
+    const isValidEmail = validateEmail(email);
+    if (!isValidEmail) {
+      setIsLoading(false);
+      return swalAlert("ایمیل نامعتبر است", "error", "تلاش مجدد");
+    }
+
+    const isValidPassword = validatePassword(password);
+    if (!isValidPassword) {
+      setIsLoading(false);
+      return swalAlert(
+        "رمز عبور نا معتبر است.رمز عبور باید شامل حداقل یک کاراکتر،یک حرف بزرگ و حرف کوچک و عدد باشد",
+        "error",
+        "تلاش مجدد"
+      );
+    }
+
+  const userData = guildID 
+    ? { name, email, password, guildID }
+    : { name, email, password };
+
+
+    const res = await fetch("/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+
+    console.log("register =>>> ",res);
+    
+
+    if (res.status === 201) {
+      setName("");
+      setGuildID("");
+      setEmail("");
+      setPassword("");
+      setIsLoading(false);
+      toastSuccess(
+        "ثبت نام با موفقیت انجام شد",
+        "top-center",
+        5000,
+        false,
+        true,
+        true,
+        true,
+        undefined,
+        "colored"
+      );
+    } else if (res.status === 422) {
+      setName("");
+      setGuildID("");
+      setEmail("");
+      setPassword("");
+      setIsLoading(false);
+      toastError(
+        "نام / ایمیل شما قبلا ثبت شده است لطفا دوباره اقدام کنید",
+        "top-center",
+        5000,
+        false,
+        true,
+        true,
+        true,
+        undefined,
+        "colored"
+      );
+    } else if (res.status === 419) {
+      setName("");
+      setEmail("");
+      setGuildID("");
+      setPassword("");
+      setIsLoading(false);
+      toastError(
+        "شماره تلفن/ایمیل باید فرمت معتبر و رمزعبور حداقل از 8 کاراکتر نماد و حرف بزرگ و کوچک و  نماد تشکیل شده باشد",
+        "top-center",
+        5000,
+        false,
+        true,
+        true,
+        true,
+        undefined,
+        "colored"
+      );
+    } else if (res.status === 500) {
+      setName("");
+      setEmail("");
+      setGuildID("");
+      setPassword("");
+      setIsLoading(false);
+      toastError(
+        "خطا در سرور ، لطفا بعدا تلاش کنید",
+        "top-center",
+        5000,
+        false,
+        true,
+        true,
+        true,
+        undefined,
+        "colored"
+      );
+    }
+  };
+
   return (
     <>
       <div className={`${styles.registerContainer} register-bg`}>
@@ -27,6 +158,8 @@ export default function Register() {
                   placeholder="نام و فامیلی"
                   name="fullname"
                   required
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
                 />
                 <span className={styles.inputIcon}>
                   <i className="ti-user"></i>
@@ -41,6 +174,8 @@ export default function Register() {
                   placeholder="ایمیل"
                   name="email"
                   required
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
                 />
                 <span className={styles.inputIcon}>
                   <i className="ti-email"></i>
@@ -50,12 +185,15 @@ export default function Register() {
               {/* Password Field */}
               <div className={styles.inputGroup}>
                 <input
-                  type="password"
+                  type="text"
                   className={styles.inputField}
-                  placeholder="رمز عبور"
-                  name="password"
+                  placeholder="شناسه صنفی (در صورت مدیر املاک)"
+                  name="guildID"
                   required
-                  minLength="6"
+                  min={6}
+                  minLength={6}
+                  value={guildID}
+                  onChange={(event) => setGuildID(event.target.value)}
                 />
                 <span className={styles.inputIcon}>
                   <i className="ti-lock"></i>
@@ -67,10 +205,11 @@ export default function Register() {
                 <input
                   type="password"
                   className={styles.inputField}
-                  placeholder="تکرار رمز عبور"
-                  name="confirmPassword"
+                  placeholder="رمز عبور"
+                  name="Password"
                   required
-                  minLength="6"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
                 />
                 <span className={styles.inputIcon}>
                   <i className="ti-lock"></i>
@@ -79,7 +218,13 @@ export default function Register() {
 
               {/* Terms Checkbox */}
               <label className={styles.termsCheckbox}>
-                <input type="checkbox" name="terms" required />
+                <input
+                  type="checkbox"
+                  name="terms"
+                  required
+                  checked={isReadRules}
+                  onChange={() => setIsReadRules((prevValue) => !prevValue)}
+                />
                 <span className={styles.checkmark}></span>
                 <span className={`${styles.termsLabel} Anjoman_Regular`}>
                   با{" "}
@@ -97,6 +242,11 @@ export default function Register() {
               <button
                 type="submit"
                 className={`${styles.submitButton} Anjoman_Medium`}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setIsLoading(true);
+                  registerUser();
+                }}
               >
                 ثبت نام
               </button>
