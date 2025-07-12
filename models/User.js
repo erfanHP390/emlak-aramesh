@@ -14,6 +14,10 @@ const schema = mongoose.Schema(
       type: String,
       required: true,
     },
+    img: {
+      type: String,
+      required: false,
+    },
     role: {
       type: String,
       default: "USER",
@@ -24,6 +28,5 @@ const schema = mongoose.Schema(
   { timestamps: true }
 );
 
-
-const model = mongoose.models.User || mongoose.model("User" , schema)
-export default model
+const model = mongoose.models.User || mongoose.model("User", schema);
+export default model;
