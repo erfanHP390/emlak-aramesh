@@ -4,9 +4,14 @@ import styles from "./register.module.css";
 import { useState } from "react";
 import { swalAlert, toastError, toastSuccess } from "@/utils/alerts";
 import { validateEmail, validatePassword } from "@/utils/auth";
+import { FaUserAlt, FaIdCard } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { RiLockPasswordFill } from "react-icons/ri";
 
 export default function Register() {
   const router = useRouter();
+
+  /* --------- state --------- */
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,6 +19,7 @@ export default function Register() {
   const [isReadRules, setIsReadRules] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  /* --------- helpers --------- */
   const registerUser = async () => {
     if (!isReadRules) {
       setIsLoading(false);
@@ -23,43 +29,31 @@ export default function Register() {
         "فهمیدم"
       );
     }
-
     if (!name.trim()) {
       setIsLoading(false);
       return swalAlert("نام نمی تواند خالی باشد", "error", "تلاش مجدد");
     }
-
-    const isValidEmail = validateEmail(email);
-    if (!isValidEmail) {
+    if (!validateEmail(email)) {
       setIsLoading(false);
       return swalAlert("ایمیل نامعتبر است", "error", "تلاش مجدد");
     }
-
-    const isValidPassword = validatePassword(password);
-    if (!isValidPassword) {
+    if (!validatePassword(password)) {
       setIsLoading(false);
       return swalAlert(
-        "رمز عبور نا معتبر است.رمز عبور باید شامل حداقل یک کاراکتر،یک حرف بزرگ و حرف کوچک و عدد باشد",
+        "رمز عبور نامعتبر است. رمز عبور باید شامل حداقل یک کاراکتر، یک حرف بزرگ، یک حرف کوچک و عدد باشد",
         "error",
         "تلاش مجدد"
       );
     }
 
-  const userData = guildID 
-    ? { name, email, password, guildID }
-    : { name, email, password };
-
-
+    const userData = guildID
+      ? { name, email, password, guildID }
+      : { name, email, password };
     const res = await fetch("/api/auth/signup", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userData),
     });
-
-    console.log("register =>>> ",res);
-    
 
     if (res.status === 201) {
       setName("");
@@ -97,12 +91,12 @@ export default function Register() {
       );
     } else if (res.status === 419) {
       setName("");
-      setEmail("");
       setGuildID("");
+      setEmail("");
       setPassword("");
       setIsLoading(false);
       toastError(
-        "شماره تلفن/ایمیل باید فرمت معتبر و رمزعبور حداقل از 8 کاراکتر نماد و حرف بزرگ و کوچک و  نماد تشکیل شده باشد",
+        "شماره تلفن/ایمیل باید فرمت معتبر و رمزعبور حداقل از 8 کاراکتر نماد و حرف بزرگ و کوچک و نماد تشکیل شده باشد",
         "top-center",
         5000,
         false,
@@ -114,12 +108,12 @@ export default function Register() {
       );
     } else if (res.status === 500) {
       setName("");
-      setEmail("");
       setGuildID("");
+      setEmail("");
       setPassword("");
       setIsLoading(false);
       toastError(
-        "خطا در سرور ، لطفا بعدا تلاش کنید",
+        "خطا در سرور، لطفا بعدا تلاش کنید",
         "top-center",
         5000,
         false,
@@ -132,12 +126,12 @@ export default function Register() {
     }
   };
 
+  /* ------------------------------------------------------------------ */
   return (
     <>
       <div className={`${styles.registerContainer} register-bg`}>
-        {/* Registration Card */}
+        {/* ---------- Card ---------- */}
         <div className={styles.registerCard}>
-          {/* Header */}
           <div className={styles.registerHeader}>
             <h2 className={`${styles.registerTitle} Anjoman_Bold`}>
               با ما شروع کن
@@ -147,10 +141,10 @@ export default function Register() {
             </p>
           </div>
 
-          {/* Registration Form */}
+          {/* ---------- Form ---------- */}
           <div className={styles.registerForm}>
             <form method="post" action="/api/register">
-              {/* Full Name Field */}
+              {/* Full Name */}
               <div className={styles.inputGroup}>
                 <input
                   type="text"
@@ -159,14 +153,14 @@ export default function Register() {
                   name="fullname"
                   required
                   value={name}
-                  onChange={(event) => setName(event.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                 />
                 <span className={styles.inputIcon}>
-                  <i className="ti-user"></i>
+                  <FaUserAlt  className={styles.iconUser} />
                 </span>
               </div>
 
-              {/* Email Field */}
+              {/* Email */}
               <div className={styles.inputGroup}>
                 <input
                   type="email"
@@ -175,14 +169,14 @@ export default function Register() {
                   name="email"
                   required
                   value={email}
-                  onChange={(event) => setEmail(event.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <span className={styles.inputIcon}>
-                  <i className="ti-email"></i>
+                  <MdEmail className={styles.iconEmail} />
                 </span>
               </div>
 
-              {/* Password Field */}
+              {/* Guild ID */}
               <div className={styles.inputGroup}>
                 <input
                   type="text"
@@ -193,14 +187,14 @@ export default function Register() {
                   min={6}
                   minLength={6}
                   value={guildID}
-                  onChange={(event) => setGuildID(event.target.value)}
+                  onChange={(e) => setGuildID(e.target.value)}
                 />
                 <span className={styles.inputIcon}>
-                  <i className="ti-lock"></i>
+                  <FaIdCard className={styles.iconGuild} />
                 </span>
               </div>
 
-              {/* Confirm Password Field */}
+              {/* Password */}
               <div className={styles.inputGroup}>
                 <input
                   type="password"
@@ -209,21 +203,21 @@ export default function Register() {
                   name="Password"
                   required
                   value={password}
-                  onChange={(event) => setPassword(event.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <span className={styles.inputIcon}>
-                  <i className="ti-lock"></i>
+                  <RiLockPasswordFill className={styles.iconPassword} />
                 </span>
               </div>
 
-              {/* Terms Checkbox */}
+              {/* Terms */}
               <label className={styles.termsCheckbox}>
                 <input
                   type="checkbox"
                   name="terms"
                   required
                   checked={isReadRules}
-                  onChange={() => setIsReadRules((prevValue) => !prevValue)}
+                  onChange={() => setIsReadRules((prev) => !prev)}
                 />
                 <span className={styles.checkmark}></span>
                 <span className={`${styles.termsLabel} Anjoman_Regular`}>
@@ -238,17 +232,17 @@ export default function Register() {
                 </span>
               </label>
 
-              {/* Submit Button */}
+              {/* Submit */}
               <button
                 type="submit"
                 className={`${styles.submitButton} Anjoman_Medium`}
-                onClick={(event) => {
-                  event.preventDefault();
+                onClick={(e) => {
+                  e.preventDefault();
                   setIsLoading(true);
                   registerUser();
                 }}
               >
-                ثبت نام
+                {isLoading ? "در حال ارسال..." : "ثبت نام"}
               </button>
             </form>
 
@@ -262,7 +256,7 @@ export default function Register() {
           </div>
         </div>
 
-        {/* Social Login Section */}
+        {/* ---------- Social ---------- */}
         <div className={styles.socialLogin}>
           <div className={styles.socialTitleContainer}>
             <div className={`${styles.socialTitle} Anjoman_Regular`}>
@@ -275,24 +269,19 @@ export default function Register() {
               href="/auth/facebook"
               className={`${styles.socialButton} ${styles.facebookButton} Anjoman_Medium`}
             >
-              <i className="fab fa-facebook-f"></i>
-              ثبت نام با فیسبوک
+              <i className="fab fa-facebook-f"></i> ثبت نام با فیسبوک
             </a>
-
             <a
               href="/auth/twitter"
               className={`${styles.socialButton} ${styles.twitterButton} Anjoman_Medium`}
             >
-              <i className="fab fa-twitter"></i>
-              ثبت نام با توییتر
+              <i className="fab fa-twitter"></i> ثبت نام با توییتر
             </a>
-
             <a
               href="/auth/instagram"
               className={`${styles.socialButton} ${styles.instagramButton} Anjoman_Medium`}
             >
-              <i className="fab fa-instagram"></i>
-              ثبت نام با اینستاگرام
+              <i className="fab fa-instagram"></i> ثبت نام با اینستاگرام
             </a>
           </div>
         </div>
