@@ -6,7 +6,7 @@ import UserModel from "@/models/User";
 const authUser = async () => {
   connectToDB();
 
-  const token = cookies().get("token");
+  const token = cookies().get("userToken");
   let user = null;
 
   if (token) {
