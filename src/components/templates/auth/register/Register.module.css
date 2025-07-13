@@ -12,7 +12,7 @@
 }
 
 .registerContainer::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   background: url('/images/auth-bg.jpg') center/cover no-repeat fixed;
@@ -20,10 +20,10 @@
 }
 
 .registerContainer::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
-  background-color: rgba(26, 28, 35, 0.85); 
+  background-color: rgba(26, 28, 35, 0.85);
   z-index: -1;
 }
 
@@ -36,14 +36,14 @@
   max-width: 480px !important;
   margin: 0 auto 2rem !important;
   overflow: hidden !important;
-  border: 1px solid #3E4049 !important;
+  border: 1px solid #3e4049 !important;
   backdrop-filter: blur(5px) !important;
 }
 
 /* Header Section */
 .registerHeader {
   padding: 1.5rem 1.5rem 1rem !important;
-  border-bottom: 1px solid #3E4049 !important;
+  border-bottom: 1px solid #3e4049 !important;
   background-color: rgba(36, 38, 46, 0.7) !important;
 }
 
@@ -73,7 +73,7 @@
 
 .inputField {
   width: 100% !important;
-  padding: 0.875rem 3rem 0.875rem 1rem !important;
+  padding: 0.875rem 3.5rem 0.875rem 1rem !important;
   font-size: 0.95rem !important;
   color: var(--text-primary) !important;
   background-color: var(--input-bg) !important;
@@ -87,13 +87,34 @@
   box-shadow: 0 0 0 3px rgba(138, 180, 255, 0.2) !important;
 }
 
+/* Icon Styles */
 .inputIcon {
   position: absolute !important;
-  left: 1rem !important;
+  right: 1rem !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
-  color: #9CA3AF !important;
-  font-size: 1.1rem !important;
+  font-size: 1.4rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+}
+
+.iconUser {
+  color: #8b5cf6 !important; /* Violet */
+}
+
+.iconEmail {
+  color: #3b82f6 !important; /* Blue */
+}
+
+.iconGuild {
+  color: #10b981 !important; /* Emerald */
+}
+
+.iconPassword {
+  color: #ef4444 !important; /* Red */
 }
 
 /* Checkbox Styles */
@@ -138,7 +159,7 @@
 }
 
 .checkmark:after {
-  content: "" !important;
+  content: '' !important;
   position: absolute !important;
   display: none !important;
   left: 6px !important;
@@ -241,7 +262,7 @@
 
 .socialTitle:before,
 .socialTitle:after {
-  content: "" !important;
+  content: '' !important;
   flex: 1 !important;
   border-bottom: 1px solid var(--input-border) !important;
 }
@@ -271,23 +292,31 @@
 }
 
 .facebookButton {
-  background-color: #1877F2 !important;
+  background-color: #1877f2 !important;
 }
 
 .facebookButton:hover {
-  background-color: #166FE5 !important;
+  background-color: #166fe5 !important;
 }
 
 .twitterButton {
-  background-color: #1DA1F2 !important;
+  background-color: #1da1f2 !important;
 }
 
 .twitterButton:hover {
-  background-color: #1A91DA !important;
+  background-color: #1a91da !important;
 }
 
 .instagramButton {
-  background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D) !important;
+  background: linear-gradient(
+    45deg,
+    #405de6,
+    #5851db,
+    #833ab4,
+    #c13584,
+    #e1306c,
+    #fd1d1d
+  ) !important;
 }
 
 .instagramButton:hover {
@@ -299,27 +328,31 @@
   .registerContainer {
     padding: 1rem !important;
   }
-  
+
   .registerCard {
     border-radius: 10px !important;
   }
-  
+
   .registerHeader {
     padding: 1.25rem 1.25rem 1rem !important;
   }
-  
+
   .registerTitle {
     font-size: 1.3rem !important;
   }
-  
+
   .registerForm {
     padding: 1.25rem !important;
   }
-  
+
   .inputField {
-    padding: 0.75rem 2.8rem 0.75rem 1rem !important;
+    padding: 0.75rem 3.2rem 0.75rem 1rem !important;
   }
-  
+
+  .inputIcon {
+    font-size: 1.2rem !important;
+  }
+
   .socialButton {
     padding: 0.75rem !important;
   }
