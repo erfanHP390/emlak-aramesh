@@ -2,7 +2,6 @@ import Script from "next/script";
 import "./globals.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import DarkModeBtn from "@/components/modules/darkModeBtn/DarkModeBtn";
 import ScrollTopBtn from "@/components/modules/ScrollTopBtn/ScrollTopBtn";
 
 export const metadata = {
@@ -49,7 +48,6 @@ export default function RootLayout({ children }) {
           pauseOnHover
           theme="colored"
         />
-        <DarkModeBtn />
         <ScrollTopBtn />
       </body>
     </html>
