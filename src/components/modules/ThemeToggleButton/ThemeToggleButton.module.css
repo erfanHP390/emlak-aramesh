@@ -1,0 +1,21 @@
+.toggle_btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--button-bg);
+  color: var(--text-heading);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.toggle_btn:hover {
+  background-color: var(--button-hover);
+}
