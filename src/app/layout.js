@@ -1,5 +1,9 @@
 import Script from "next/script";
 import "./globals.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import DarkModeBtn from "@/components/modules/darkModeBtn/DarkModeBtn";
+import ScrollTopBtn from "@/components/modules/ScrollTopBtn/ScrollTopBtn";
 
 export const metadata = {
   title: "Create Next App",
@@ -15,24 +19,39 @@ export default function RootLayout({ children }) {
         <link rel="stylesheet" href="/assets/css/skin_color.css" />
         <link rel="stylesheet" href="/assets/css/style-rtl.min.css" />
 
-    <Script src="/assets/js/vendors.min.js"/>
-    <Script src="/assets/js/pages/chat-popup.js"/>
-    <Script src="/assets/icons/feather-icons/feather.min.js"/>
-<Script src="/assets/vendor_components/apexcharts-bundle/apexcharts.min.js"/>
-	<Script src="/assets/js/pages/dashboard-light.js"/>
-    <Script src="/assets/vendor_components/chart.js-master/Chart.min.js"/>
-    <Script src="/assets/vendor_components/apexcharts-bundle/irregular-data-series.js"/>
-   
-    {/* <Script src="/assets/vendor_components/Flot/jquery.flot.js"/>
-    <Script src="/assets/vendor_components/Flot/jquery.flot.resize.js"/>
-    <Script src="/assets/vendor_components/Flot/jquery.flot.pie.js"/>
-    <Script src="/assets/vendor_components/Flot/jquery.flot.categories.js"/> */}
+        <Script src="/assets/js/vendors.min.js" />
+        <Script src="/assets/js/pages/chat-popup.js" />
+        <Script src="/assets/icons/feather-icons/feather.min.js" />
+        <Script src="/assets/vendor_components/apexcharts-bundle/apexcharts.min.js" />
+        <Script src="/assets/js/pages/dashboard-light.js" />
+        <Script src="/assets/vendor_components/chart.js-master/Chart.min.js" />
+        <Script src="/assets/vendor_components/apexcharts-bundle/irregular-data-series.js" />
 
-    {/* <Script src="/assets/js/template.js"/> */}
-    {/* <Script src="/assets/js/pages/dashboard.js"/> */}
+        {/* <Script src="/assets/vendor_components/Flot/jquery.flot.js"/>
+            <Script src="/assets/vendor_components/Flot/jquery.flot.resize.js"/>
+            <Script src="/assets/vendor_components/Flot/jquery.flot.pie.js"/>
+            <Script src="/assets/vendor_components/Flot/jquery.flot.categories.js"/> */}
 
+        {/* <Script src="/assets/js/template.js"/> */}
+        {/* <Script src="/assets/js/pages/dashboard.js"/> */}
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
+        <DarkModeBtn />
+        <ScrollTopBtn />
+      </body>
     </html>
   );
 }
