@@ -3,6 +3,8 @@ import "./globals.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ScrollTopBtn from "@/components/modules/ScrollTopBtn/ScrollTopBtn";
+import Providers from "./providers";
+import ToggleThemeButton from "@/components/modules/ThemeToggleButton/ThemeToggleButton";
 
 export const metadata = {
   title: "Create Next App",
@@ -34,8 +36,11 @@ export default function RootLayout({ children }) {
         {/* <Script src="/assets/js/template.js"/> */}
         {/* <Script src="/assets/js/pages/dashboard.js"/> */}
       </head>
-      <body>
-        {children}
+      <body suppressHydrationWarning>
+        <Providers>
+          {children}
+          <ToggleThemeButton />
+        </Providers>
         <ToastContainer
           position="top-center"
           autoClose={5000}
