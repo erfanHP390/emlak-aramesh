@@ -56,6 +56,8 @@
 }
 
 /*====================  THEME VARIABLES  ====================*/
+
+/* Default: Dark Theme */
 :root {
   --bg-primary: #1a1c23;
   --text-primary: #d1d5db;
@@ -70,6 +72,23 @@
   --input-focus: #8ab4ff;
   --scrollbar-track: #374151;
   --scrollbar-thumb: #8ab4ff;
+}
+
+/* Light Theme Overrides */
+.light {
+  --bg-primary: #f9fafc;
+  --text-primary: #374151;
+  --text-heading: #1f2937;
+  --link-color: #2f6dff;
+  --link-hover: #1e4fd4;
+  --button-bg: #2f6dff;
+  --button-hover: #1e4fd4;
+  --input-bg: #ffffff;
+  --input-text: #374151;
+  --input-border: #e5e7eb;
+  --input-focus: #2f6dff;
+  --scrollbar-track: #e5e7eb;
+  --scrollbar-thumb: #2f6dff;
 }
 
 /*====================  BASE STYLES  ====================*/
@@ -197,7 +216,8 @@ select:focus {
 .bg-input {
   background-color: var(--input-bg) !important;
 }
-/* ============================= */
+
+/*====================  REGISTER PAGE BACKGROUND  ====================*/
 .register-bg {
   position: relative;
   min-height: 100vh;
@@ -211,7 +231,7 @@ select:focus {
 }
 
 .register-bg::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   background: url('/images/auth-bg.jpg') center/cover no-repeat fixed;
@@ -219,7 +239,7 @@ select:focus {
 }
 
 .register-bg::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   background-color: rgba(26, 28, 35, 0.85);
