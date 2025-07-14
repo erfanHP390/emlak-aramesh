@@ -1,0 +1,53 @@
+.scroll_to_top {
+  position: fixed !important;
+  bottom: 20px !important;
+  left: 20px !important;
+  width: 60px !important; /* افزایش اندازه دکمه */
+  height: 60px !important; /* افزایش اندازه دکمه */
+  background-color: #8ab4ff !important;
+  color: #1a1c23 !important;
+  border: none !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  font-size: 28px !important; /* افزایش اندازه فونت */
+  cursor: pointer !important;
+  transition: all 0.3s ease-in-out !important;
+  opacity: 0 !important;
+  transform: translateY(100px) !important;
+  z-index: 1000 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+.scroll_to_top:hover {
+  background-color: #5e92f3 !important;
+  color: #f3f4f6 !important;
+  transform: translateY(-2px) !important;
+}
+
+.scroll_to_top.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* استایل‌های ریسپانسیو */
+@media (max-width: 768px) {
+  .scroll_to_top {
+    width: 55px !important;
+    height: 55px !important;
+    font-size: 26px !important;
+    bottom: 15px !important;
+    left: 15px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .scroll_to_top {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 24px !important;
+    bottom: 10px !important;
+    left: 10px !important;
+  }
+}
