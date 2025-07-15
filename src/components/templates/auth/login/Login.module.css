@@ -421,3 +421,8 @@
 :global(.light) .submitButton {
   color: #ffffff;
 }
+
+:global(.light) .socialTitleContainer {
+  color: #000;
+}
+
