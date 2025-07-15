@@ -1,0 +1,423 @@
+/* ============= Login Component ============= */
+
+.loginContainer {
+  position: relative;
+  min-height: 100vh;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  direction: rtl;
+  z-index: 1;
+  overflow-x: hidden;
+  background-color: #1a1c23;
+  color: #d1d5db;
+}
+
+.loginContainer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/images/auth-bg.jpg') center/cover no-repeat fixed;
+  z-index: -2;
+}
+
+.loginContainer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(26, 28, 35, 0.85);
+  z-index: -1;
+}
+
+/* ---------- Card Styles ---------- */
+.loginCard {
+  background-color: rgba(36, 38, 46, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto 2rem;
+  overflow: hidden;
+  border: 1px solid #374151;
+  backdrop-filter: blur(5px);
+}
+
+/* ---------- Header Section ---------- */
+.loginHeader {
+  padding: 1.5rem 1.5rem 1rem;
+  border-bottom: 1px solid #374151;
+  background-color: rgba(36, 38, 46, 0.7);
+}
+
+.loginTitle {
+  color: #f3f4f6;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.loginSubtitle {
+  color: #d1d5db;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* ---------- Form Section ---------- */
+.loginForm {
+  padding: 1.5rem;
+}
+
+.inputGroup {
+  margin-bottom: 1.25rem;
+  position: relative;
+}
+
+.inputField {
+  width: 100%;
+  padding: 0.875rem 3.5rem 0.875rem 1rem;
+  font-size: 0.95rem;
+  color: #d1d5db;
+  background-color: #24262e;
+  border: 1px solid #374151;
+  border-radius: 8px;
+  font-family: 'Anjoman_Regular';
+  transition: all 0.3s ease;
+}
+
+.inputField:focus {
+  border-color: #8ab4ff;
+  box-shadow: 0 0 0 3px rgba(138, 180, 255, 0.3);
+  outline: none;
+}
+
+/* ---------- Icon Styles ---------- */
+.inputIcon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.iconUser {
+  color: #8ab4ff;
+}
+.iconPassword {
+  color: #8ab4ff;
+}
+
+/* ---------- Checkbox Styles ---------- */
+.rememberContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.rememberCheckbox {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-right: 2rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.rememberCheckbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 1.25rem;
+  width: 1.25rem;
+  background-color: #24262e;
+  border: 1px solid #374151;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.rememberCheckbox:hover .checkmark {
+  border-color: #8ab4ff;
+}
+
+.rememberCheckbox input:checked ~ .checkmark {
+  background-color: #8ab4ff;
+  border-color: #8ab4ff;
+}
+
+.checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid #1a1c23;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.rememberCheckbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.rememberLabel {
+  color: #d1d5db;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.forgotPassword {
+  color: #8ab4ff;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.forgotPassword:hover {
+  color: #5e92f3;
+  text-decoration: underline;
+}
+
+/* ---------- Button Styles ---------- */
+.submitButton {
+  background-color: #8ab4ff;
+  color: #fff;
+  padding: 0.875rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: 'Anjoman_Medium';
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s ease;
+  border: none;
+  font-weight: 600;
+}
+
+.submitButton:hover {
+  background-color: #5e92f3;
+  color: #f3f4f6;
+}
+
+.submitButton:active {
+  transform: scale(0.98);
+}
+
+.submitButton:disabled {
+  background-color: #374151;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* ---------- Register Link ---------- */
+.registerLink {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #d1d5db;
+  font-size: 0.9rem;
+}
+
+.registerLink a {
+  color: #8ab4ff;
+  text-decoration: none;
+  margin-right: 0.5rem;
+  transition: color 0.2s;
+}
+
+.registerLink a:hover {
+  color: #5e92f3;
+  text-decoration: underline;
+}
+
+/* ---------- Social Login Section ---------- */
+.socialLogin {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.socialTitleContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  color: #d1d5db;
+}
+
+.socialTitle {
+  padding: 0 1rem;
+  font-size: 0.9rem;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.socialTitle:before,
+.socialTitle:after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #374151;
+}
+
+.socialButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.socialButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem;
+  border-radius: 8px;
+  color: #f3f4f6;
+  font-family: 'Anjoman_Medium';
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.socialButton i {
+  margin-left: 0.75rem;
+  font-size: 1.2rem;
+}
+
+.facebookButton {
+  background-color: #1877f2;
+}
+.facebookButton:hover {
+  background-color: #166fe5;
+}
+.twitterButton {
+  background-color: #1da1f2;
+}
+.twitterButton:hover {
+  background-color: #1a91da;
+}
+.instagramButton {
+  background: linear-gradient(
+    45deg,
+    #405de6,
+    #5851db,
+    #833ab4,
+    #c13584,
+    #e1306c,
+    #fd1d1d
+  );
+}
+.instagramButton:hover {
+  opacity: 0.9;
+}
+
+/* ============= Responsive Styles ============= */
+@media (max-width: 768px) {
+  .loginContainer {
+    padding: 1.5rem;
+  }
+
+  .loginCard {
+    border-radius: 10px;
+  }
+
+  .rememberContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .forgotPassword {
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 576px) {
+  .loginContainer {
+    padding: 1rem;
+  }
+
+  .loginHeader {
+    padding: 1.25rem 1.25rem 1rem;
+  }
+
+  .loginTitle {
+    font-size: 1.3rem;
+  }
+
+  .loginForm {
+    padding: 1.25rem;
+  }
+
+  .inputField {
+    padding: 0.75rem 3.2rem 0.75rem 1rem;
+  }
+
+  .inputIcon {
+    font-size: 1.2rem;
+  }
+
+  .socialButton {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .socialButton i {
+    font-size: 1rem;
+    margin-left: 0.5rem;
+  }
+}
+
+/* ============= Light Theme Overrides ============= */
+:global(.light) .loginContainer::after {
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+:global(.light) .loginCard {
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e5e7eb;
+}
+
+:global(.light) .loginHeader {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+:global(.light) .loginTitle {
+  color: #1f2937;
+}
+
+:global(.light) .loginSubtitle,
+:global(.light) .rememberLabel,
+:global(.light) .registerLink {
+  color: #4b5563;
+}
+
+:global(.light) .inputField {
+  background-color: #f9fafb;
+  color: #1f2937;
+  border-color: #e5e7eb;
+}
+
+:global(.light) .checkmark {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+}
+
+:global(.light) .submitButton {
+  color: #ffffff;
+}
