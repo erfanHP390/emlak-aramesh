@@ -169,12 +169,12 @@ export default function Login() {
                 </span>
               </label>
 
-              <a
-                href="/forgot-password"
+              <Link
+                href={"/forgotPassword"}
                 className={`${styles.forgotPassword} Anjoman_Medium`}
               >
                 رمز عبور را فراموش کرده‌اید؟
-              </a>
+              </Link>
             </div>
 
             {/* Submit */}
