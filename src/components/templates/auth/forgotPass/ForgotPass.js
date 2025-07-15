@@ -6,6 +6,7 @@ import { swalAlert, toastError, toastSuccess } from "@/utils/alerts";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { validateEmail } from "@/utils/auth";
+import Loading from "@/app/loading";
 
 function ForgotPass() {
   const router = useRouter();
@@ -31,8 +32,8 @@ function ForgotPass() {
       },
       body: JSON.stringify({ email }),
     });
-    
-        if (res.status === 200) {
+
+    if (res.status === 200) {
       setEmail("");
       setIsLoading(false);
       toastSuccess(
@@ -47,7 +48,7 @@ function ForgotPass() {
         "colored"
       );
       router.replace("/login");
-    }  else if (res.status === 422) {
+    } else if (res.status === 422) {
       setIsLoading(false);
       toastError(
         "لطفا یک ایمیل معتبر وارد نمایید",
@@ -87,60 +88,65 @@ function ForgotPass() {
         "colored"
       );
     }
-
   };
 
   return (
-    <div className={styles.forgotContainer}>
-      <div className={styles.forgotCard}>
-        <div className={styles.forgotHeader}>
-          <h3 className={`${styles.forgotTitle} Anjoman_Bold`}>
-            بازیابی رمز عبور
-          </h3>
-          <p className={`${styles.forgotSubtitle} Anjoman_Regular`}>
-            لطفا ایمیل خود را وارد کنید تا لینک بازیابی برای شما ارسال شود
-          </p>
-        </div>
-
-        <div className={styles.forgotForm}>
-          <form
-            onSubmit={(event) => {
-              event.preventDefault();
-              setIsLoading(true);
-              handleSubmit();
-            }}
-          >
-            <div className={styles.inputGroup}>
-              <input
-                type="email"
-                className={styles.inputField}
-                placeholder="ایمیل"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <span className={styles.inputIcon}>
-                <FaEnvelope className={styles.iconEmail} />
-              </span>
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className={styles.forgotContainer}>
+          <div className={styles.forgotCard}>
+            <div className={styles.forgotHeader}>
+              <h3 className={`${styles.forgotTitle} Anjoman_Bold`}>
+                بازیابی رمز عبور
+              </h3>
+              <p className={`${styles.forgotSubtitle} Anjoman_Regular`}>
+                لطفا ایمیل خود را وارد کنید تا لینک بازیابی برای شما ارسال شود
+              </p>
             </div>
 
-            <button
-              type="submit"
-              className={`${styles.submitButton} Anjoman_Medium`}
-              disabled={isLoading}
-            >
-              {isLoading ? "در حال ارسال..." : "بازیابی رمز عبور"}
-            </button>
-          </form>
+            <div className={styles.forgotForm}>
+              <form
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  setIsLoading(true);
+                  handleSubmit();
+                }}
+              >
+                <div className={styles.inputGroup}>
+                  <input
+                    type="email"
+                    className={styles.inputField}
+                    placeholder="ایمیل"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                  <span className={styles.inputIcon}>
+                    <FaEnvelope className={styles.iconEmail} />
+                  </span>
+                </div>
 
-          <div className={styles.backToLogin}>
-            <Link href={"/login"} className="Anjoman_Medium">
-              بازگشت به صفحه ورود
-            </Link>
+                <button
+                  type="submit"
+                  className={`${styles.submitButton} Anjoman_Medium`}
+                  disabled={isLoading}
+                >
+                  {"بازیابی رمز عبور"}
+                </button>
+              </form>
+
+              <div className={styles.backToLogin}>
+                <Link href={"/login"} className="Anjoman_Medium">
+                  بازگشت به صفحه ورود
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 

@@ -8,6 +8,7 @@ import { FaUserAlt, FaIdCard } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import Link from "next/link";
+import Loading from "@/app/loading";
 
 export default function Register() {
   const router = useRouter();
@@ -130,163 +131,167 @@ export default function Register() {
   /* ------------------------------------------------------------------ */
   return (
     <>
-      <div className={`${styles.registerContainer} register-bg`}>
-        {/* ---------- Card ---------- */}
-        <div className={styles.registerCard}>
-          <div className={styles.registerHeader}>
-            <h2 className={`${styles.registerTitle} Anjoman_Bold`}>
-              با ما شروع کن
-            </h2>
-            <p className={`${styles.registerSubtitle} Anjoman_Regular`}>
-              عضوی از ما شو
-            </p>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className={`${styles.registerContainer} register-bg`}>
+          {/* ---------- Card ---------- */}
+          <div className={styles.registerCard}>
+            <div className={styles.registerHeader}>
+              <h2 className={`${styles.registerTitle} Anjoman_Bold`}>
+                با ما شروع کن
+              </h2>
+              <p className={`${styles.registerSubtitle} Anjoman_Regular`}>
+                عضوی از ما شو
+              </p>
+            </div>
+
+            {/* ---------- Form ---------- */}
+            <div className={styles.registerForm}>
+              <form method="post" action="/api/register">
+                {/* Full Name */}
+                <div className={styles.inputGroup}>
+                  <input
+                    type="text"
+                    className={styles.inputField}
+                    placeholder="نام و فامیلی"
+                    name="fullname"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                  <span className={styles.inputIcon}>
+                    <FaUserAlt className={styles.iconUser} />
+                  </span>
+                </div>
+
+                {/* Email */}
+                <div className={styles.inputGroup}>
+                  <input
+                    type="email"
+                    className={styles.inputField}
+                    placeholder="ایمیل"
+                    name="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <span className={styles.inputIcon}>
+                    <MdEmail className={styles.iconEmail} />
+                  </span>
+                </div>
+
+                {/* Guild ID */}
+                <div className={styles.inputGroup}>
+                  <input
+                    type="text"
+                    className={styles.inputField}
+                    placeholder="شناسه صنفی (در صورت مدیر املاک)"
+                    name="guildID"
+                    required
+                    min={6}
+                    minLength={6}
+                    value={guildID}
+                    onChange={(e) => setGuildID(e.target.value)}
+                  />
+                  <span className={styles.inputIcon}>
+                    <FaIdCard className={styles.iconGuild} />
+                  </span>
+                </div>
+
+                {/* Password */}
+                <div className={styles.inputGroup}>
+                  <input
+                    type="password"
+                    className={styles.inputField}
+                    placeholder="رمز عبور"
+                    name="Password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <span className={styles.inputIcon}>
+                    <RiLockPasswordFill className={styles.iconPassword} />
+                  </span>
+                </div>
+
+                {/* Terms */}
+                <label className={styles.termsCheckbox}>
+                  <input
+                    type="checkbox"
+                    name="terms"
+                    required
+                    checked={isReadRules}
+                    onChange={() => setIsReadRules((prev) => !prev)}
+                  />
+                  <span className={styles.checkmark}></span>
+                  <span className={`${styles.termsLabel} Anjoman_Regular`}>
+                    با{" "}
+                    <a
+                      href="/terms"
+                      className={`${styles.termsLink} Anjoman_Medium`}
+                    >
+                      قوانین و شرایط
+                    </a>{" "}
+                    موافقم
+                  </span>
+                </label>
+
+                {/* Submit */}
+                <button
+                  type="submit"
+                  className={`${styles.submitButton} Anjoman_Medium`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsLoading(true);
+                    registerUser();
+                  }}
+                >
+                  {"ثبت نام"}
+                </button>
+              </form>
+
+              {/* Login Link */}
+              <div className={`${styles.loginLink} Anjoman_Regular`}>
+                حساب کاربری دارید؟{" "}
+                <Link href={"/login"} className="Anjoman_Medium">
+                  وارد شوید
+                </Link>
+              </div>
+            </div>
           </div>
 
-          {/* ---------- Form ---------- */}
-          <div className={styles.registerForm}>
-            <form method="post" action="/api/register">
-              {/* Full Name */}
-              <div className={styles.inputGroup}>
-                <input
-                  type="text"
-                  className={styles.inputField}
-                  placeholder="نام و فامیلی"
-                  name="fullname"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-                <span className={styles.inputIcon}>
-                  <FaUserAlt  className={styles.iconUser} />
-                </span>
+          {/* ---------- Social ---------- */}
+          <div className={styles.socialLogin}>
+            <div className={styles.socialTitleContainer}>
+              <div className={`${styles.socialTitle} Anjoman_Regular`}>
+                یا با روش های زیر ثبت نام کنید
               </div>
+            </div>
 
-              {/* Email */}
-              <div className={styles.inputGroup}>
-                <input
-                  type="email"
-                  className={styles.inputField}
-                  placeholder="ایمیل"
-                  name="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <span className={styles.inputIcon}>
-                  <MdEmail className={styles.iconEmail} />
-                </span>
-              </div>
-
-              {/* Guild ID */}
-              <div className={styles.inputGroup}>
-                <input
-                  type="text"
-                  className={styles.inputField}
-                  placeholder="شناسه صنفی (در صورت مدیر املاک)"
-                  name="guildID"
-                  required
-                  min={6}
-                  minLength={6}
-                  value={guildID}
-                  onChange={(e) => setGuildID(e.target.value)}
-                />
-                <span className={styles.inputIcon}>
-                  <FaIdCard className={styles.iconGuild} />
-                </span>
-              </div>
-
-              {/* Password */}
-              <div className={styles.inputGroup}>
-                <input
-                  type="password"
-                  className={styles.inputField}
-                  placeholder="رمز عبور"
-                  name="Password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <span className={styles.inputIcon}>
-                  <RiLockPasswordFill className={styles.iconPassword} />
-                </span>
-              </div>
-
-              {/* Terms */}
-              <label className={styles.termsCheckbox}>
-                <input
-                  type="checkbox"
-                  name="terms"
-                  required
-                  checked={isReadRules}
-                  onChange={() => setIsReadRules((prev) => !prev)}
-                />
-                <span className={styles.checkmark}></span>
-                <span className={`${styles.termsLabel} Anjoman_Regular`}>
-                  با{" "}
-                  <a
-                    href="/terms"
-                    className={`${styles.termsLink} Anjoman_Medium`}
-                  >
-                    قوانین و شرایط
-                  </a>{" "}
-                  موافقم
-                </span>
-              </label>
-
-              {/* Submit */}
-              <button
-                type="submit"
-                className={`${styles.submitButton} Anjoman_Medium`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setIsLoading(true);
-                  registerUser();
-                }}
+            <div className={styles.socialButtons}>
+              <a
+                href="/auth/facebook"
+                className={`${styles.socialButton} ${styles.facebookButton} Anjoman_Medium`}
               >
-                {isLoading ? "در حال ارسال..." : "ثبت نام"}
-              </button>
-            </form>
-
-            {/* Login Link */}
-            <div className={`${styles.loginLink} Anjoman_Regular`}>
-              حساب کاربری دارید؟{" "}
-              <Link href={"/login"} className="Anjoman_Medium">
-                وارد شوید
-              </Link>
+                <i className="fab fa-facebook-f"></i> ثبت نام با فیسبوک
+              </a>
+              <a
+                href="/auth/twitter"
+                className={`${styles.socialButton} ${styles.twitterButton} Anjoman_Medium`}
+              >
+                <i className="fab fa-twitter"></i> ثبت نام با توییتر
+              </a>
+              <a
+                href="/auth/instagram"
+                className={`${styles.socialButton} ${styles.instagramButton} Anjoman_Medium`}
+              >
+                <i className="fab fa-instagram"></i> ثبت نام با اینستاگرام
+              </a>
             </div>
           </div>
         </div>
-
-        {/* ---------- Social ---------- */}
-        <div className={styles.socialLogin}>
-          <div className={styles.socialTitleContainer}>
-            <div className={`${styles.socialTitle} Anjoman_Regular`}>
-              یا با روش های زیر ثبت نام کنید
-            </div>
-          </div>
-
-          <div className={styles.socialButtons}>
-            <a
-              href="/auth/facebook"
-              className={`${styles.socialButton} ${styles.facebookButton} Anjoman_Medium`}
-            >
-              <i className="fab fa-facebook-f"></i> ثبت نام با فیسبوک
-            </a>
-            <a
-              href="/auth/twitter"
-              className={`${styles.socialButton} ${styles.twitterButton} Anjoman_Medium`}
-            >
-              <i className="fab fa-twitter"></i> ثبت نام با توییتر
-            </a>
-            <a
-              href="/auth/instagram"
-              className={`${styles.socialButton} ${styles.instagramButton} Anjoman_Medium`}
-            >
-              <i className="fab fa-instagram"></i> ثبت نام با اینستاگرام
-            </a>
-          </div>
-        </div>
-      </div>
+      )}
     </>
   );
 }
