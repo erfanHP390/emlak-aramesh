@@ -1,82 +1,69 @@
 import connectToDB from "@/configs/db";
 import UserModel from "@/models/User";
-import { hashPassword, validatePhone } from "@/utils/auth";
-const request = require("request");
+import { hashPassword } from "@/utils/auth";
+import nodemailer from "nodemailer";
+import validator from "validator";
+
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: +process.env.SMTP_PORT || 587,
+  secure: process.env.SMTP_SECURE === "true",
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+});
 
 export async function POST(req) {
   try {
-    connectToDB();
-    const body = await req.json();
-    const { phone } = body;
+    await connectToDB();
 
-    if (!phone) {
-      return Response.json(
-        { message: "phone number is required" },
-        {
-          status: 400,
-        }
-      );
-    }
+    const { email } = await req.json();
 
-    const isValidPhone = validatePhone(phone);
-    if (!isValidPhone) {
+    if (!email || !validator.isEmail(email)) {
       return Response.json(
-        { message: "phone number is not valid" },
+        { message: "ایمیل معتبر وارد کنید" },
         { status: 422 }
       );
     }
 
-    const user = await UserModel.findOne({ phone });
-
+    const user = await UserModel.findOne({ email });
     if (!user) {
-      return Response.json({ message: "user is not found" }, { status: 404 });
+      return Response.json(
+        { message: "کاربری با این ایمیل پیدا نشد" },
+        { status: 404 }
+      );
     }
 
-    const code = Math.floor(Math.random() * 99999);
+    const code = Math.floor(100000 + Math.random() * 900000);
 
-    const newPassword = await hashPassword(String(code));
+    const hashed = await hashPassword(String(code));
 
-    request.post(
-      {
-        url: "http://ippanel.com/api/select",
-        body: {
-          op: "pattern",
-          user: "u09962939286",
-          pass: "Faraz@1971700890643903",
-          fromNum: "3000505",
-          toNum: phone,
-          patternCode: "oes337glk7g546n",
-          inputData: [{ "verification-code": code }],
-        },
-        json: true,
-      },
-      async function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-          await UserModel.findOneAndUpdate(
-            { phone },
-            {
-              $set: {
-                password: newPassword,
-              },
-            }
-          );
-          console.log(response.body);
-        } else {
-          console.log("whatever you want");
-        }
-      }
-    );
+    await transporter.sendMail({
+      from: `"emlak-aramesh" <${process.env.MAIL_FROM}>`,
+      to: email,
+      subject: "کد ورود / بازیابی حساب",
+      html: `
+        <p>سلام ${user.name || ""}</p>
+        <p>کد یکبارمصرف شما:</p>
+        <h2 style="letter-spacing:3px;">${code}</h2>
+        <p>این کد تا ۵ دقیقه اعتبار دارد.</p>
+        <small>اگر این درخواست از سوی شما نبوده، این ایمیل را نادیده بگیرید.</small>
+        <small>املاک آرامش - سیستم جامع دیجیتال مدیریت املاک</small>
+      `,
+    });
+
+    await UserModel.findOneAndUpdate({ email }, { $set: { password: hashed } });
 
     return Response.json(
-      { message: "password is changed successfully" },
+      { message: "send to email successfully" },
       { status: 200 }
     );
   } catch (err) {
+    console.error(err);
     return Response.json(
-      { message: `interval error server => ${err}` },
-      {
-        status: 500,
-      }
+      { message: `interval error server: ${err.message}` },
+      { status: 500 }
     );
   }
 }
