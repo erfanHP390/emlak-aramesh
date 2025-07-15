@@ -7,6 +7,7 @@ import { validateEmail, validatePassword } from "@/utils/auth";
 import { FaUserAlt, FaIdCard } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
+import Link from "next/link";
 
 export default function Register() {
   const router = useRouter();
@@ -249,9 +250,9 @@ export default function Register() {
             {/* Login Link */}
             <div className={`${styles.loginLink} Anjoman_Regular`}>
               حساب کاربری دارید؟{" "}
-              <a href="/login" className="Anjoman_Medium">
+              <Link href={"/login"} className="Anjoman_Medium">
                 وارد شوید
-              </a>
+              </Link>
             </div>
           </div>
         </div>
