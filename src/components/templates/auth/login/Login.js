@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import styles from "./Login.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { swalAlert, toastError, toastSuccess } from "@/utils/alerts";
 import { validateEmail, validatePassword } from "@/utils/auth";
 import { FaUserAlt } from "react-icons/fa";
@@ -18,6 +18,17 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
 
   /* --------- helpers --------- */
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const getUserInfoLogin = JSON.parse(localStorage.getItem("userLogin"));
+      if (getUserInfoLogin) {
+        setEmail(getUserInfoLogin.email);
+        setPassword(getUserInfoLogin.password);
+      }
+    }
+  }, []);
+
   const loginUser = async () => {
     if (!validateEmail(email)) {
       setIsLoading(false);
@@ -25,13 +36,19 @@ export default function Login() {
     }
     if (!validatePassword(password)) {
       setIsLoading(false);
-      return swalAlert("رمز عبور نامعتبر است", "error", "تلاش مجدد");
+      return swalAlert("ایمیل یا رمزعبور نامعتبر است", "error", "تلاش مجدد");
+    }
+
+    const user = { email, password };
+
+    if (rememberMe) {
+      localStorage.setItem("userLogin", JSON.stringify(user));
     }
 
     const res = await fetch("/api/auth/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password, rememberMe }),
+      body: JSON.stringify(user),
     });
 
     if (res.status === 200) {
@@ -51,6 +68,7 @@ export default function Login() {
       );
       router.push("/dashboard");
     } else if (res.status === 401) {
+      setEmail("")
       setPassword("");
       setIsLoading(false);
       toastError(
@@ -164,6 +182,11 @@ export default function Login() {
               type="submit"
               className={`${styles.submitButton} Anjoman_Medium`}
               disabled={isLoading}
+              // onClick={(event) => {
+              //   event.preventDefault();
+              //   setIsLoading(true);
+              //   loginUser();
+              // }}
             >
               {isLoading ? "در حال ورود..." : "ورود"}
             </button>
