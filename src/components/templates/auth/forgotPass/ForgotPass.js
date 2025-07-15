@@ -4,27 +4,39 @@ import { useState } from "react";
 import { FaEnvelope } from "react-icons/fa";
 import { swalAlert, toastError, toastSuccess } from "@/utils/alerts";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { validateEmail } from "@/utils/auth";
 
 function ForgotPass() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    // Validate email
-    if (!email.trim()) {
+  const handleSubmit = async () => {
+    if (!email) {
       setIsLoading(false);
-      return swalAlert("لطفا ایمیل خود را وارد کنید", "error", "تلاش مجدد");
+      return swalAlert("لطفا ایمیل  خود را وارد نمایید", "error", "فهمیدم");
     }
 
-    // TODO: Add API call for password reset
-    // This is just a simulation
-    setTimeout(() => {
+    const isValidٍEmail = validateEmail(email);
+    if (!isValidٍEmail) {
+      setIsLoading(false);
+      return swalAlert("لطفا ایمیل معتبر وارد نمایید", "error", "فهمیدم");
+    }
+
+    const res = await fetch("/api/auth/forgotPassword", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+    
+        if (res.status === 200) {
+      setEmail("");
       setIsLoading(false);
       toastSuccess(
-        "لینک بازیابی رمز عبور به ایمیل شما ارسال شد",
+        "رمز عبور با موفقیت به ایمیل شما ارسال شد (لطفا در صورت عدم مشاهده بخش spam ایمیل خود را چک کنید)",
         "top-center",
         5000,
         false,
@@ -34,8 +46,48 @@ function ForgotPass() {
         undefined,
         "colored"
       );
-      setEmail("");
-    }, 1500);
+      router.replace("/login");
+    }  else if (res.status === 422) {
+      setIsLoading(false);
+      toastError(
+        "لطفا یک ایمیل معتبر وارد نمایید",
+        "top-center",
+        5000,
+        false,
+        true,
+        true,
+        true,
+        undefined,
+        "colored"
+      );
+    } else if (res.status === 404) {
+      setIsLoading(false);
+      toastError(
+        "کاربر یافت نشد",
+        "top-center",
+        5000,
+        false,
+        true,
+        true,
+        true,
+        undefined,
+        "colored"
+      );
+    } else if (res.status === 500) {
+      setIsLoading(false);
+      toastError(
+        "خطا در سرور ، لطفا بعدا تلاش کنید",
+        "top-center",
+        5000,
+        false,
+        true,
+        true,
+        true,
+        undefined,
+        "colored"
+      );
+    }
+
   };
 
   return (
@@ -51,7 +103,13 @@ function ForgotPass() {
         </div>
 
         <div className={styles.forgotForm}>
-          <form onSubmit={handleSubmit}>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              setIsLoading(true);
+              handleSubmit();
+            }}
+          >
             <div className={styles.inputGroup}>
               <input
                 type="email"
