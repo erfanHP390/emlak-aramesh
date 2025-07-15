@@ -34,10 +34,6 @@ export default function Login() {
       setIsLoading(false);
       return swalAlert("ایمیل نامعتبر است", "error", "تلاش مجدد");
     }
-    if (!validatePassword(password)) {
-      setIsLoading(false);
-      return swalAlert("ایمیل یا رمزعبور نامعتبر است", "error", "تلاش مجدد");
-    }
 
     const user = { email, password };
 
@@ -68,11 +64,56 @@ export default function Login() {
       );
       router.push("/dashboard");
     } else if (res.status === 401) {
-      setEmail("")
+      setEmail("");
       setPassword("");
       setIsLoading(false);
       toastError(
         "ایمیل یا رمز عبور اشتباه است",
+        "top-center",
+        5000,
+        false,
+        true,
+        true,
+        true,
+        undefined,
+        "colored"
+      );
+    } else if (res.status === 400) {
+      setEmail("");
+      setPassword("");
+      setIsLoading(false);
+      toastError(
+        "لطفا اطلاعات مورد نیاز را کامل کنید",
+        "top-center",
+        5000,
+        false,
+        true,
+        true,
+        true,
+        undefined,
+        "colored"
+      );
+    } else if (res.status === 419) {
+      setEmail("");
+      setPassword("");
+      setIsLoading(false);
+      toastError(
+        "ایمیل معتبر وارد نمایید",
+        "top-center",
+        5000,
+        false,
+        true,
+        true,
+        true,
+        undefined,
+        "colored"
+      );
+    } else if (res.status === 404) {
+      setEmail("");
+      setPassword("");
+      setIsLoading(false);
+      toastError(
+        "کاربر یافت نشد",
         "top-center",
         5000,
         false,
