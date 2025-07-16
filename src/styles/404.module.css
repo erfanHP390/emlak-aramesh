@@ -1,0 +1,246 @@
+/* Creative Not Found Page Styles */
+.creativeNotFound {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-primary);
+  z-index: 9999;
+  padding: 2rem;
+}
+
+.notFoundContainer {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.notFoundIllustration {
+  position: relative;
+  width: 300px;
+  height: 250px;
+  margin: 0 auto 2rem;
+}
+
+.mapSearch {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.map {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-color: var(--input-bg);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 3px solid var(--button-bg);
+}
+
+.mapMarker {
+  position: absolute;
+  width: 30px;
+  height: 40px;
+  background-color: var(--button-hover);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: markerBounce 2s infinite;
+}
+
+.mapMarker::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: var(--text-heading);
+  border-radius: 50%;
+  top: 70%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.searchLight {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(
+    circle,
+    rgba(138, 180, 255, 0.3) 0%,
+    rgba(138, 180, 255, 0) 70%
+  );
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: lightPulse 3s infinite;
+}
+
+.notFoundCode {
+  font-family: 'Anjoman_Heavy';
+  font-size: 5rem;
+  color: var(--button-bg);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px rgba(138, 180, 255, 0.3);
+}
+
+.notFoundTitle {
+  font-family: 'Anjoman_Bold';
+  font-size: 2rem;
+  color: var(--text-heading);
+  margin-bottom: 1rem;
+}
+
+.notFoundMessage {
+  font-family: 'Anjoman_Regular';
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  line-height: 1.8;
+}
+
+.searchContainer {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto 2rem;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.75rem 3rem 0.75rem 1rem;
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--input-border);
+  border-radius: 0.375rem;
+  font-family: 'Anjoman_Regular';
+  transition: all 0.3s ease;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(138, 180, 255, 0.2);
+}
+
+.searchIcon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--input-text);
+}
+
+.notFoundActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.notFoundButton {
+  background-color: var(--button-bg);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Anjoman_Medium';
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.notFoundButton:hover {
+  background-color: var(--button-hover);
+  transform: translateY(-2px);
+}
+
+.notFoundButton svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Animations */
+@keyframes markerBounce {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
+@keyframes lightPulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    width: 120px;
+    height: 120px;
+  }
+  50% {
+    opacity: 0.3;
+    width: 150px;
+    height: 150px;
+  }
+}
+
+@keyframes mapRotate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .notFoundIllustration {
+    width: 250px;
+    height: 200px;
+  }
+
+  .map {
+    width: 160px;
+    height: 160px;
+  }
+
+  .notFoundCode {
+    font-size: 4rem;
+  }
+
+  .notFoundTitle {
+    font-size: 1.5rem;
+  }
+
+  .notFoundMessage {
+    font-size: 1rem;
+  }
+
+  .notFoundButton {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Light Theme Adjustments */
+:global(.light) .map {
+  background-color: var(--input-bg);
+  border-color: var(--button-bg);
+}
+
+:global(.light) .mapMarker {
+  background-color: var(--button-bg);
+}
