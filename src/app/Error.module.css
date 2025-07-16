@@ -1,0 +1,260 @@
+/* Creative Error Page Styles */
+.creativeError {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-primary);
+  z-index: 9999;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.errorContainer {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.errorIllustration {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  margin: 0 auto 2rem;
+}
+
+.brokenHouse {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 120px;
+}
+
+.housePart {
+  position: absolute;
+  background-color: var(--button-bg);
+}
+
+.houseBase {
+  bottom: 0;
+  width: 150px;
+  height: 80px;
+  border-radius: 8px 8px 0 0;
+  left: 15px;
+}
+
+.houseRoofLeft {
+  top: 0;
+  left: 15px;
+  width: 80px;
+  height: 60px;
+  clip-path: polygon(0 100%, 100% 0, 0 0);
+  background-color: var(--button-hover);
+}
+
+.houseRoofRight {
+  top: 0;
+  right: 15px;
+  width: 80px;
+  height: 60px;
+  clip-path: polygon(100% 100%, 100% 0, 0 100%);
+  background-color: var(--button-hover);
+  opacity: 0.8;
+}
+
+.crack {
+  position: absolute;
+  background-color: var(--text-heading);
+  animation: crackPulse 2s infinite;
+}
+
+.crack1 {
+  top: 30px;
+  left: 50%;
+  width: 3px;
+  height: 80px;
+  transform: rotate(15deg);
+}
+
+.crack2 {
+  top: 40px;
+  left: 50%;
+  width: 3px;
+  height: 60px;
+  transform: rotate(-10deg);
+}
+
+.fallingBrick {
+  position: absolute;
+  width: 20px;
+  height: 10px;
+  background-color: var(--button-hover);
+  border-radius: 2px;
+  animation: brickFall 3s infinite linear;
+}
+
+.brick1 {
+  top: 50px;
+  left: 40%;
+  animation-delay: 0.5s;
+}
+
+.brick2 {
+  top: 70px;
+  left: 60%;
+  animation-delay: 1s;
+}
+
+.errorCode {
+  font-family: 'Anjoman_Heavy';
+  font-size: 5rem;
+  color: var(--button-bg);
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(138, 180, 255, 0.3);
+}
+
+.errorTitle {
+  font-family: 'Anjoman_Bold';
+  font-size: 2rem;
+  color: var(--text-heading);
+  margin-bottom: 1.5rem;
+}
+
+.errorMessage {
+  font-family: 'Anjoman_Regular';
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  line-height: 1.8;
+}
+
+.errorActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.errorButton {
+  background-color: var(--button-bg);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Anjoman_Medium';
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.errorButton:hover {
+  background-color: var(--button-hover);
+  transform: translateY(-2px);
+}
+
+.errorButton svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Animations */
+@keyframes crackPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes brickFall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(200px) rotate(90deg);
+    opacity: 0;
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .errorIllustration {
+    width: 250px;
+    height: 180px;
+  }
+
+  .brokenHouse {
+    width: 150px;
+    height: 100px;
+  }
+
+  .houseBase {
+    width: 120px;
+    height: 60px;
+  }
+
+  .houseRoofLeft,
+  .houseRoofRight {
+    width: 60px;
+    height: 50px;
+  }
+
+  .errorCode {
+    font-size: 4rem;
+  }
+
+  .errorTitle {
+    font-size: 1.5rem;
+  }
+
+  .errorMessage {
+    font-size: 1rem;
+  }
+
+  .errorButton {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Light Theme Adjustments */
+:global(.light) .crack {
+  background-color: var(--button-hover);
+}
+
+:global(.light) .fallingBrick {
+  background-color: var(--button-bg);
+}
