@@ -1,0 +1,273 @@
+/* Creative Coming Soon Page Styles */
+.creativeComingSoon {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-primary);
+  z-index: 9999;
+  padding: 2rem;
+  overflow: hidden;
+}
+
+.comingSoonContainer {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.constructionIllustration {
+  position: relative;
+  width: 300px;
+  height: 250px;
+  margin: 0 auto 2rem;
+}
+
+.building {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 180px;
+}
+
+.buildingBase {
+  position: absolute;
+  bottom: 0;
+  width: 120px;
+  height: 150px;
+  background-color: var(--input-bg);
+  border-radius: 8px 8px 0 0;
+  left: 15px;
+}
+
+.buildingRoof {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 30px;
+  background-color: var(--button-bg);
+  border-radius: 8px 8px 0 0;
+}
+
+.constructionCrane {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  width: 80px;
+  height: 200px;
+}
+
+.craneTower {
+  position: absolute;
+  width: 10px;
+  height: 180px;
+  background-color: var(--text-primary);
+  left: 0;
+  bottom: 0;
+}
+
+.craneArm {
+  position: absolute;
+  width: 80px;
+  height: 6px;
+  background-color: var(--text-primary);
+  top: 30px;
+  animation: craneMove 8s infinite;
+}
+
+.craneHook {
+  position: absolute;
+  width: 6px;
+  height: 40px;
+  background-color: var(--text-primary);
+  left: 40px;
+  top: 36px;
+  animation: craneHookMove 8s infinite;
+}
+
+.brick {
+  position: absolute;
+  width: 20px;
+  height: 10px;
+  background-color: var(--button-hover);
+  border-radius: 2px;
+  animation: brickLift 8s infinite;
+  left: 50px;
+  top: 76px;
+}
+
+.comingSoonTitle {
+  font-family: 'Anjoman_ExtraBold';
+  font-size: 2.5rem;
+  color: var(--text-heading);
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(138, 180, 255, 0.3);
+}
+
+.comingSoonMessage {
+  font-family: 'Anjoman_Regular';
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  line-height: 1.8;
+}
+
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.countdownItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdownNumber {
+  font-family: 'Anjoman_Bold';
+  font-size: 2rem;
+  color: var(--button-bg);
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--input-bg);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.countdownLabel {
+  font-family: 'Anjoman_Medium';
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.notifyForm {
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.notifyInput {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--input-border);
+  border-radius: 0.375rem;
+  font-family: 'Anjoman_Regular';
+}
+
+.notifyButton {
+  background-color: var(--button-bg);
+  color: white;
+  border: none;
+  padding: 0 1.5rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Anjoman_Medium';
+}
+
+.notifyButton:hover {
+  background-color: var(--button-hover);
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.socialLink {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--input-bg);
+  border-radius: 50%;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.socialLink:hover {
+  background-color: var(--button-bg);
+  color: white;
+  transform: translateY(-3px);
+}
+
+/* Animations */
+@keyframes craneMove {
+  0%, 100% { transform: rotate(0deg); transform-origin: left center; }
+  25% { transform: rotate(15deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-15deg); }
+}
+
+@keyframes craneHookMove {
+  0%, 100% { height: 40px; }
+  25% { height: 60px; }
+  50% { height: 80px; }
+  75% { height: 60px; }
+}
+
+@keyframes brickLift {
+  0%, 100% { top: 76px; opacity: 0; }
+  25% { opacity: 1; }
+  50% { top: 30px; }
+  75% { top: 10px; opacity: 0; }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .constructionIllustration {
+    width: 250px;
+    height: 200px;
+  }
+  
+  .comingSoonTitle {
+    font-size: 2rem;
+  }
+  
+  .comingSoonMessage {
+    font-size: 1rem;
+  }
+  
+  .countdownNumber {
+    font-size: 1.5rem;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .notifyForm {
+    flex-direction: column;
+  }
+  
+  .notifyButton {
+    padding: 0.75rem;
+  }
+}
+
+/* Light Theme Adjustments */
+:global(.light) .buildingBase {
+  background-color: var(--input-bg);
+}
+
+:global(.light) .brick {
+  background-color: var(--button-bg);
+}
