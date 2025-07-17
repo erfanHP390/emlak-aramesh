@@ -1,0 +1,18 @@
+.layoutContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.mainContent {
+  flex: 1;
+  margin-right: 280px; /* Match sidebar width */
+  padding: 1rem;
+  transition: margin 0.3s ease;
+}
+
+@media (max-width: 992px) {
+  .mainContent {
+    margin-right: 0;
+  }
+}
