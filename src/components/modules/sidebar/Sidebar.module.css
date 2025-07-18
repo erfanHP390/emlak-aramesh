@@ -150,6 +150,10 @@
   color: var(--link-hover);
 }
 
+.icon_font {
+  font-size: 1.35rem;
+}
+
 @media (max-width: 992px) {
   .sidebarContainer {
     transform: translateX(100%);
