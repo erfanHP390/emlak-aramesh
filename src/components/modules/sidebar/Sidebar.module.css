@@ -18,6 +18,7 @@
   padding: 1.5rem 1rem;
   text-align: center;
   border-bottom: 1px solid var(--input-border);
+  position: relative;
 }
 
 .userImage {
@@ -34,7 +35,62 @@
   color: var(--text-heading);
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
-  display: block;
+  display: inline-block;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  position: relative;
+}
+
+.userName:hover {
+  color: var(--link-hover);
+}
+
+.userDropdown {
+  position: absolute;
+  top: 100%;
+  right: 50%;
+  transform: translateX(50%);
+  background-color: var(--input-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
+  z-index: 1100;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  padding: 0.5rem 0;
+}
+
+.userName:hover + .userDropdown,
+.userDropdown:hover {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  color: var(--text-primary);
+  font-family: 'Anjoman_Medium';
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.dropdownItem:hover {
+  background-color: rgba(138, 180, 255, 0.1);
+  color: var(--link-hover);
+}
+
+.dropdownDivider {
+  height: 1px;
+  background-color: var(--input-border);
+  margin: 0.5rem 0;
+}
+
+.dropdownIcon {
+  margin-left: 0.75rem;
+  font-size: 1rem;
 }
 
 .userSettings {
@@ -152,6 +208,12 @@
 
 .icon_font {
   font-size: 1.35rem;
+  color: var(--text-primary);
+  transition: color 0.2s ease;
+}
+
+.icon_font:hover {
+  color: var(--link-hover);
 }
 
 @media (max-width: 992px) {
@@ -162,6 +224,11 @@
 
   .sidebarContainer.open {
     transform: translateX(0);
+  }
+
+  .userDropdown {
+    right: 20px;
+    transform: none;
   }
 }
 
