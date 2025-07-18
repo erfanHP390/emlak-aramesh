@@ -3,12 +3,15 @@ import { useContext } from "react";
 import { ThemeContext } from "@/context/ThemeContext";
 import { FaSun, FaMoon } from "react-icons/fa";
 import styles from "./ThemeToggleButton.module.css";
-export default function ToggleThemeButton() {
+
+export default function ThemeToggleButton({ isScrollButtonVisible }) {
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   return (
     <button
-      className={styles.toggle_btn}
+      className={`${styles.toggle_btn} ${
+        isScrollButtonVisible ? styles.with_scroll_button : ""
+      }`}
       onClick={toggleTheme}
       aria-label="تغییر تم"
     >
