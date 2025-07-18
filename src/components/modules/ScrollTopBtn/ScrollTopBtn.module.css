@@ -2,16 +2,16 @@
   position: fixed !important;
   bottom: 20px !important;
   left: 20px !important;
-  width: 60px !important; /* افزایش اندازه دکمه */
-  height: 60px !important; /* افزایش اندازه دکمه */
-  background-color: #8ab4ff !important;
-  color: #1a1c23 !important;
+  width: 60px !important;
+  height: 60px !important;
+  background-color: var(--button-bg) !important;
+  color: var(--text-heading) !important;
   border: none !important;
   border-radius: 50% !important;
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
-  font-size: 28px !important; /* افزایش اندازه فونت */
+  font-size: 28px !important;
   cursor: pointer !important;
   transition: all 0.3s ease-in-out !important;
   opacity: 0 !important;
@@ -21,8 +21,8 @@
 }
 
 .scroll_to_top:hover {
-  background-color: #5e92f3 !important;
-  color: #f3f4f6 !important;
+  background-color: var(--button-hover) !important;
+  color: var(--text-heading) !important;
   transform: translateY(-2px) !important;
 }
 
