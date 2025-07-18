@@ -1,8 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { FiChevronsUp } from "react-icons/fi";
-import styles from "./ScrollTopBtn.module.css";
 import { FaAngleDoubleUp } from "react-icons/fa";
+import styles from "./ScrollTopBtn.module.css";
+import ThemeToggleButton from "../ThemeToggleButton/ThemeToggleButton";
+import Providers from "@/app/providers";
 
 export default function ScrollTopBtn() {
   const [isVisible, setIsVisible] = useState(false);
@@ -32,14 +33,19 @@ export default function ScrollTopBtn() {
   };
 
   return (
-    <button
-      className={`${styles.scroll_to_top}  ${
-        isVisible ? `${styles.visible}` : ""
-      }`}
-      onClick={scrollToTop}
-      aria-label="بازگشت به بالای صفحه"
-    >
-      <FaAngleDoubleUp size={20} />
-    </button>
+    <>
+      <Providers>
+        <ThemeToggleButton isScrollButtonVisible={isVisible} />
+        <button
+          className={`${styles.scroll_to_top} ${
+            isVisible ? `${styles.visible}` : ""
+          }`}
+          onClick={scrollToTop}
+          aria-label="بازگشت به بالای صفحه"
+        >
+          <FaAngleDoubleUp size={20} />
+        </button>
+      </Providers>
+    </>
   );
 }
