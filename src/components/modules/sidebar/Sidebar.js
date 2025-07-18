@@ -74,7 +74,7 @@ function Sidebar() {
       {/* User Profile Section */}
       <div className={styles.userProfile}>
         <img
-          src="/images/avatar/1.jpg"
+          src="/images/abstract-user-flat-4.svg"
           alt="User Profile"
           className={styles.userImage}
         />
