@@ -22,6 +22,8 @@ import {
   FaUser,
   FaQuestion,
   FaLock,
+  FaCog,
+  FaSignOutAlt,
 } from "react-icons/fa";
 import { IoChevronBackSharp, IoChevronDown, IoLogIn } from "react-icons/io5";
 import { FaHouseChimney, FaUserGroup } from "react-icons/fa6";
@@ -33,7 +35,7 @@ import {
 } from "react-icons/ri";
 import { GiHutsVillage } from "react-icons/gi";
 
-function Sidebar() {
+function Sidebar({ user }) {
   const [openSubmenus, setOpenSubmenus] = useState({
     propertyType: false,
     consultants: false,
@@ -78,14 +80,17 @@ function Sidebar() {
           alt="User Profile"
           className={styles.userImage}
         />
-        <span className={styles.userName}>مختار مینائی</span>
+        <span className={styles.userName}>{user ? user.name : "کاربر"}</span>
 
         <div className={styles.userSettings}>
           <a href="#" title="تنظیمات">
-            <i className="fas fa-cog"></i>
+            <FaCog className={styles.icon_font} />
           </a>
           <a href="#" title="خروج">
-            <i className="fas fa-sign-out-alt"></i>
+            <FaSignOutAlt className={styles.icon_font} />
+          </a>
+          <a href="#" title="قفل">
+            <FaLock className={styles.icon_font} />
           </a>
         </div>
       </div>
