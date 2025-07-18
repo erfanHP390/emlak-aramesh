@@ -24,6 +24,8 @@ import {
   FaLock,
   FaCog,
   FaSignOutAlt,
+  FaEnvelope,
+  FaLink,
 } from "react-icons/fa";
 import { IoChevronBackSharp, IoChevronDown, IoLogIn } from "react-icons/io5";
 import { FaHouseChimney, FaUserGroup } from "react-icons/fa6";
@@ -80,7 +82,29 @@ function Sidebar({ user }) {
           alt="User Profile"
           className={styles.userImage}
         />
-        <span className={styles.userName}>{user ? user.name : "کاربر"}</span>
+        {/* <span className={styles.userName}></span> */}
+        <div className="info mt-20">
+          <span className={styles.userName}>{user ? user.name : "کاربر"}</span>
+          <div className={styles.userDropdown}>
+            <a className={styles.dropdownItem} href="#">
+              <FaUser className={styles.dropdownIcon} />
+              پروفایل
+            </a>
+            <a className={styles.dropdownItem} href="#">
+              <FaEnvelope className={styles.dropdownIcon} />
+              صندوق ورودی
+            </a>
+            <a className={styles.dropdownItem} href="#">
+              <FaLink className={styles.dropdownIcon} />
+              ارتباطات
+            </a>
+            <div className={styles.dropdownDivider} />
+            <a className={styles.dropdownItem} href="#">
+              <FaCog className={styles.dropdownIcon} />
+              تنظیمات
+            </a>
+          </div>
+        </div>
 
         <div className={styles.userSettings}>
           <a href="#" title="تنظیمات">
