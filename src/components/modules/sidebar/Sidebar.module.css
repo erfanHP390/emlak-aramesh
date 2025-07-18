@@ -68,23 +68,48 @@
 }
 
 .text_link {
-  margin-left: 0.5rem !important;
+  margin-right: 0.5rem;
 }
 
 .menuLink {
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
-  width: 100%;
   padding: 0.75rem 1rem;
   color: var(--text-primary);
   transition: all 0.2s ease;
   cursor: pointer;
 }
 
-.menu_link_title {
+.menuLinkWithSubmenu {
+  display: flex;
   justify-content: space-between;
-  transition: all 0.5s ease;
+  align-items: center;
+  padding: 0.75rem 1rem;
+}
+
+.menuIconText {
+  display: flex;
+  align-items: center;
+}
+
+.menuIcon {
+  margin-left: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.chevronIcon {
+  font-size: 1rem;
+  margin-right: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.submenuIcon {
+  margin-left: 0.5rem;
+  font-size: 1rem;
+}
+
+.menuText {
+  margin-right: 0.5rem;
 }
 
 .menuLink:hover {
@@ -96,28 +121,17 @@
   background-color: var(--input-bg);
   border-right: 3px solid var(--link-color);
   color: var(--link-color);
-  transition: all 0.5s ease;
 }
 
-.menuIcon {
-  margin-left: 0.5rem;
-  font-size: 1.1rem;
+.submenuWrapper {
+  overflow: hidden;
+  background-color: var(--input-bg);
 }
 
 .submenu {
   list-style: none;
   padding: 0;
   margin: 0;
-  background-color: var(--input-bg);
-  height: 0;
-  overflow: hidden;
-  transition: height 0.3s ease;
-}
-
-.show {
-  display: block !important;
-  height: auto !important;
-  transition: height 0.3s ease;
 }
 
 .submenuItem {
@@ -126,7 +140,8 @@
 
 .submenuLink {
   color: var(--text-primary);
-  display: block;
+  display: flex;
+  align-items: center;
   padding: 0.5rem 0;
   transition: color 0.2s ease;
 }
