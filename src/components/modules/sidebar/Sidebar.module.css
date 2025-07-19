@@ -1,15 +1,15 @@
 /* Sidebar.module.css */
 .sidebarContainer {
   position: fixed;
-  top: 0;
+  top: 60px; /* تغییر این خط برای قرار گرفتن زیر تاپ بار */
   right: 0;
-  height: 100vh;
+  height: calc(100vh - 60px); /* تغییر این خط برای تطابق با ارتفاع تاپ بار */
   width: 280px;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: 'Anjoman_Regular';
   transition: all 0.3s ease;
-  z-index: 1000;
+  z-index: 999; /* تغییر این خط برای قرار گرفتن زیر تاپ بار */
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
 }
