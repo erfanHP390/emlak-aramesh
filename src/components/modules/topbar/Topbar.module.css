@@ -1,0 +1,490 @@
+.topbarContainer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 70px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Anjoman_Regular';
+  z-index: 1000;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.logoBox {
+  height: 100%;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  gap: 15px;
+}
+
+.logoMini {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.logoLg {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.logoTitle {
+  margin: 0;
+  font-size: 1.5rem;
+  font-family: 'Anjoman_Bold';
+  color: var(--text-heading);
+  white-space: nowrap;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.appMenu {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.headerMegamenu {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  align-items: center;
+}
+
+.navItem {
+  margin-left: 15px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.navLink {
+  color: var(--text-primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-family: 'Anjoman_Medium';
+  height: 100%;
+}
+
+.navLink:hover {
+  background-color: var(--input-bg);
+  color: var(--link-hover);
+}
+
+.svgIcon {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchBx {
+  position: relative;
+}
+
+.searchForm {
+  display: flex;
+}
+
+.searchInput {
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  padding: 10px 15px;
+  font-family: 'Anjoman_Regular';
+  width: 250px;
+  transition: all 0.2s ease;
+  direction: rtl;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(138, 180, 255, 0.2);
+}
+
+.searchButton {
+  background-color: transparent;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbarCustomMenu {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.navbarNav {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  align-items: center;
+}
+
+.dropdown {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.dropdownToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+}
+
+.dropdownMenuWrapper {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 280px;
+  z-index: 1100;
+}
+
+.dropdownMenu {
+  position: relative;
+  background-color: var(--input-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-top: 5px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  padding: 10px 0;
+  text-align: right;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.dropdown:hover .dropdownMenu {
+  opacity: 1;
+  visibility: visible;
+}
+
+.notificationsDropdown {
+  width: 350px;
+}
+
+.userDropdown {
+  width: 250px;
+}
+
+.dropdownHeader {
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--input-border);
+}
+
+.dropdownHeaderContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdownTitle {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.clearAll {
+  color: var(--text-danger);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-family: 'Anjoman_Medium';
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  gap: 15px;
+}
+
+.notificationText,
+.dropdownText {
+  flex: 1;
+  font-size: 0.95rem;
+}
+
+.dropdownItem:hover {
+  background-color: rgba(138, 180, 255, 0.1);
+  color: var(--link-hover);
+}
+
+.dropdownDivider {
+  height: 1px;
+  background-color: var(--input-border);
+  margin: 10px 0;
+}
+
+.dropdownFooter {
+  padding: 5px 20px;
+}
+
+.userBody {
+  padding: 10px 0;
+}
+
+.notificationIcon,
+.dropdownIcon {
+  font-size: 1.2rem;
+  min-width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: var(--button-hover);
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.smScroll {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.textInfo {
+  color: #17a2b8;
+}
+
+.textWarning {
+  color: #ffc107;
+}
+
+.textDanger {
+  color: #dc3545;
+}
+
+.textSuccess {
+  color: #28a745;
+}
+
+.textMuted {
+  color: #6c757d;
+}
+
+/* Media Queries for Responsive Dropdowns */
+@media (min-width: 1200px) {
+  .notificationsDropdown {
+    right: 0;
+    width: 350px;
+  }
+  .userDropdown {
+    right: 0;
+    width: 250px;
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 1124px) {
+  .notificationsDropdown {
+    right: -10px;
+    width: 340px;
+  }
+  .userDropdown {
+    right: -10px;
+    width: 240px;
+  }
+}
+
+@media (max-width: 1123px) and (min-width: 993px) {
+  .notificationsDropdown {
+    right: -20px;
+    width: 330px;
+  }
+  .userDropdown {
+    right: -20px;
+    width: 230px;
+  }
+}
+
+@media (max-width: 992px) and (min-width: 876px) {
+  .notificationsDropdown {
+    right: -30px;
+    width: 320px;
+  }
+  .userDropdown {
+    right: -30px;
+    width: 220px;
+  }
+}
+
+@media (max-width: 875px) and (min-width: 768px) {
+  .notificationsDropdown {
+    right: -40px;
+    width: 310px;
+  }
+  .userDropdown {
+    right: -40px;
+    width: 210px;
+  }
+}
+
+@media (max-width: 767px) and (min-width: 676px) {
+  .notificationsDropdown {
+    right: -50%;
+    width: 300px;
+    transform: translateX(50%);
+  }
+  .userDropdown {
+    right: -50%;
+    width: 200px;
+    transform: translateX(50%);
+  }
+}
+
+@media (max-width: 675px) and (min-width: 576px) {
+  .notificationsDropdown {
+    right: -60%;
+    width: 280px;
+    transform: translateX(50%);
+  }
+  .userDropdown {
+    right: -60%;
+    width: 180px;
+    transform: translateX(50%);
+  }
+}
+
+@media (max-width: 575px) and (min-width: 480px) {
+  .notificationsDropdown {
+    right: -70%;
+    width: 260px;
+    transform: translateX(50%);
+  }
+  .userDropdown {
+    right: -70%;
+    width: 160px;
+    transform: translateX(50%);
+  }
+}
+
+@media (max-width: 479px) and (min-width: 380px) {
+  .notificationsDropdown {
+    right: -80%;
+    width: 240px;
+    transform: translateX(50%);
+  }
+  .userDropdown {
+    right: -80%;
+    width: 150px;
+    transform: translateX(50%);
+  }
+}
+
+@media (max-width: 379px) {
+  .notificationsDropdown {
+    right: -90%;
+    width: 220px;
+    transform: translateX(50%);
+  }
+  .userDropdown {
+    right: -90%;
+    width: 140px;
+    transform: translateX(50%);
+  }
+}
+
+/* Other Media Queries */
+@media (min-width: 992px) {
+  .logoLg {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .searchBx {
+    display: none;
+  }
+
+  .logoTitle {
+    font-size: 1.2rem;
+  }
+
+  .logoMini {
+    width: 40px;
+    height: 40px;
+  }
+
+  .navItem.dNone {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .logoTitle {
+    display: none;
+  }
+
+  .logoMini {
+    width: 35px;
+    height: 35px;
+  }
+}
