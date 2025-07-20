@@ -1,0 +1,93 @@
+/* ==================== BASE STYLES ==================== */
+.box {
+  background: var(--bg-primary);
+  border: 3px solid rgb(132 129 129 / 35%);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.boxBody {
+  padding: 1rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==================== CHART CONTAINER ==================== */
+.chartContainer {
+  flex: 1;
+  min-height: 150px;
+  margin: 1rem 0;
+  direction: ltr; /* برای نمایش صحیح نمودارها */
+}
+
+/* ==================== TYPOGRAPHY ==================== */
+.fw700 {
+  font-family: 'Anjoman_Bold';
+  font-weight: 700;
+}
+
+.mt0 {
+  margin-top: 0;
+}
+
+.mb5 {
+  margin-bottom: 0.5rem;
+}
+
+.textMuted {
+  color: var(--muted-color);
+  font-family: 'Anjoman_Regular';
+}
+
+.textPrimary {
+  color: var(--primary-color);
+  font-family: 'Anjoman_SemiBold';
+}
+
+.textSuccess {
+  color: var(--success-color);
+}
+
+.textDanger {
+  color: var(--danger-color);
+}
+
+/* ==================== UTILITY CLASSES ==================== */
+.dFlex {
+  display: flex !important;
+}
+
+.justifyContentBetween {
+  justify-content: space-between !important;
+}
+
+.alignItemsCenter {
+  align-items: center !important;
+}
+
+/* ==================== RESPONSIVE ADJUSTMENTS ==================== */
+@media (max-width: 576px) {
+  .box {
+    padding: 1rem;
+  }
+  
+  .chartContainer {
+    min-height: 120px;
+  }
+}
+
+@media (min-width: 768px) {
+  .chartContainer {
+    min-height: 180px;
+  }
+}
