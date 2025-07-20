@@ -7,6 +7,7 @@ import PanelLayout from "@/components/layouts/PanelLayout";
 import Status from "@/components/templates/index/status/Status";
 import ChartContact from "@/components/templates/index/chartContact/ChartContact";
 import Reservation from "@/components/templates/index/reservation/Reservation";
+import UserInfo from "@/components/templates/index/userInfo/UserInfo";
 
 async function page() {
   connectToDB();
@@ -27,10 +28,13 @@ async function page() {
                   <div className={styles.row}>
                     <Status />
                   </div>
-                    <div className={styles.row_secondary}>
+                  <div className={styles.row_secondary}>
                     <ChartContact />
                     <Reservation />
-                    </div>
+                  </div>
+                  <div className={styles.row_secondary}>
+                    <UserInfo />
+                  </div>
                 </section>
               </div>
             </div>
