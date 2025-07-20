@@ -246,4 +246,30 @@ select:focus {
   z-index: -1;
 }
 
+.info-bg {
+  position: relative;
+  min-height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  direction: rtl;
+  padding: 2rem;
+  z-index: 1;
+  overflow: hidden;
+}
 
+.info-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/images/house-bg-info.webp') center/cover no-repeat fixed;
+  z-index: -2;
+}
+
+.info-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(26, 28, 35, 0.45);
+  z-index: -1;
+}
