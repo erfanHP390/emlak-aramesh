@@ -1,0 +1,55 @@
+
+.wrapper {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Anjoman_Regular', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.contentWrapper {
+  flex: 1;
+  padding: 2rem;
+}
+
+.containerFull {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.content {
+  padding: 1.5rem 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 1rem 0;
+}
+
+/* ==================== RESPONSIVE BREAKPOINTS ==================== */
+@media (max-width: 768px) {
+  .contentWrapper {
+    padding: 1rem;
+  }
+  
+  .row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 992px) {
+  .row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .row {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
