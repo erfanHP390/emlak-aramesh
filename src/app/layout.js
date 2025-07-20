@@ -1,4 +1,5 @@
 import Script from "next/script";
+import "../../node_modules/bootstrap/dist/css/bootstrap.rtl.min.css"
 import "./globals.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
