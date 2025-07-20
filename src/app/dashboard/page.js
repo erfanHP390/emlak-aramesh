@@ -5,6 +5,7 @@ import React from "react";
 import styles from "@/styles/dashboard.module.css";
 import PanelLayout from "@/components/layouts/PanelLayout";
 import Status from "@/components/templates/index/status/Status";
+import ChartContact from "@/components/templates/index/chartContact/ChartContact";
 
 async function page() {
   connectToDB();
@@ -24,6 +25,7 @@ async function page() {
                 <section className={styles.content}>
                   <div className={styles.row}>
                     <Status />
+                    <ChartContact />
                   </div>
                 </section>
               </div>
