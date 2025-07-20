@@ -1,0 +1,312 @@
+/* ==================== GRID LAYOUT ==================== */
+.col12 {
+  width: 100%;
+  padding: 0 10px;
+}
+
+.colXl4 {
+  flex: 0 0 33.333333%;
+  max-width: 100%;
+  margin-top: 1.5rem;
+}
+
+.colMd6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.colSm4 {
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -10px;
+}
+
+/* ==================== BOX STYLES ==================== */
+.box {
+  background: var(--bg-primary);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  gap: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.boxBody {
+  padding: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.pb10 {
+  padding-bottom: 10px;
+}
+
+.bs4 {
+  position: relative;
+}
+
+/* Hover Effect Styles */
+.borderInfoHover {
+  border-left: 8px solid rgba(138, 180, 255, 0.6);
+}
+
+.borderPrimaryHover {
+  border-left: 8px solid rgba(107, 208, 152, 0.6);
+}
+
+.borderDangerHover {
+  border-left: 8px solid rgba(255, 158, 125, 0.6);
+}
+
+.borderWarningHover {
+  border-left: 8px solid rgba(252, 196, 104,0.6);
+}
+
+.borderInfoHover::before,
+.borderPrimaryHover::before,
+.borderDangerHover::before,
+.borderWarningHover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  transition: width 0.3s ease;
+  z-index: 0;
+}
+
+.borderInfoHover::before {
+  background-color: rgba(138, 180, 255, 0.6);
+}
+
+.borderPrimaryHover::before {
+  background-color: rgba(107, 208, 152, 0.6);
+}
+
+.borderDangerHover::before {
+  background-color: rgba(255, 158, 125, 0.6);
+}
+
+.borderWarningHover::before {
+  background-color: rgba(252, 196, 104,0.6);
+}
+
+.borderInfoHover:hover::before,
+.borderPrimaryHover:hover::before,
+.borderDangerHover:hover::before,
+.borderWarningHover:hover::before {
+  width: 100%;
+}
+
+.pullUp {
+  margin-top: 10px;
+}
+
+/* ==================== TYPOGRAPHY ==================== */
+.textUppercase {
+  text-transform: uppercase;
+  font-family: 'Anjoman_Medium';
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  color: white;
+  position: relative;
+  z-index: 110;
+}
+
+:global(.light) .textUppercase {
+    color: black;
+}
+
+.fs30 {
+  font-size: 30px;
+  font-family: 'Anjoman_Bold';
+  color: var(--text-heading);
+}
+
+.textInfo {
+  color: #8ab4ff !important;
+}
+
+.textPrimary {
+  color: #6bd098 !important;
+}
+
+.textDanger {
+  color: #ff9e7d !important;
+}
+
+.textWarning {
+  color: #fcc468 !important;
+}
+
+/* ==================== USER WIDGET ==================== */
+.widgetUser4 {
+  position: relative;
+}
+
+.widgetUserHeader {
+  height: 200px;
+  background-size: cover !important;
+  position: relative;
+  border-radius: 12px 12px 0 0;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(26, 28, 35, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 12px 12px 0 0;
+}
+
+.widgetUserImage {
+  width: 90px;
+  height: 90px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.roundedCircle {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.widgetUserUsername {
+  color: white;
+  font-family: 'Anjoman_Bold';
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.widgetUserDesc {
+  color: rgba(255, 255, 255, 0.8);
+  font-family: 'Anjoman_Medium';
+  font-size: 1rem;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+/* ==================== FOOTER STYLES ==================== */
+.boxFooter {
+  padding: 1.5rem;
+  background: var(--input-bg);
+  border-radius: 0 0 12px 12px;
+}
+
+.borderStart {
+  border-left: 1px solid var(--input-border);
+}
+
+.descriptionBlock {
+  text-align: center;
+}
+
+.descriptionHeader {
+  font-family: 'Anjoman_Bold';
+  font-size: 1.25rem;
+  color: var(--text-heading);
+  margin-bottom: 5px;
+}
+
+.descriptionText {
+  font-family: 'Anjoman_Regular';
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  display: block;
+}
+
+/* ==================== UTILITY CLASSES ==================== */
+.dFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ==================== COUNT UP STYLES ==================== */
+.countUpContainer {
+  display: inline-block;
+  min-width: 80px;
+  text-align: center;
+  color: white;
+  position: relative;
+  z-index: 110;
+}
+
+:global(.light) .countUpContainer {
+    color: black;
+}
+
+/* ==================== RESPONSIVE ADJUSTMENTS ==================== */
+@media (max-width: 1200px) {
+  .colXl4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .widgetUserHeader {
+    height: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .colMd6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .widgetUserUsername {
+    font-size: 1.3rem;
+  }
+
+  .widgetUserDesc {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .colSm4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .borderStart {
+    border-left: none;
+    border-bottom: 1px solid var(--input-border);
+    padding-bottom: 15px;
+  }
+
+  .widgetUserHeader {
+    height: 160px;
+  }
+
+  .widgetUserImage {
+    width: 70px;
+    height: 70px;
+  }
+}
