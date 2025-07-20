@@ -3,7 +3,7 @@ import React from "react";
 import CountUp from "react-countup";
 import styles from "./UserInfo.module.css";
 
-function UserInfo() {
+function UserInfo({user}) {
   return (
     <div className={`${styles.colXl4} ${styles.col12}`}>
       <div className={styles.row}>
@@ -95,19 +95,18 @@ function UserInfo() {
       {/* User Widget */}
       <div className={`${styles.box} ${styles.widgetUser4}`}>
         <div
-          className={styles.widgetUserHeader}
-          style={{ background: 'url("images/photo1.png") center center' }}
+          className={`${styles.widgetUserHeader} info-bg`}
         >
           <div className={styles.overlay}>
             <div className={styles.widgetUserImage}>
               <img
                 className={styles.roundedCircle}
-                src="images/user1-128x128.jpg"
+                src="images/abstract-user-flat-4.svg"
                 alt="User Avatar"
               />
             </div>
-            <h3 className={styles.widgetUserUsername}>مختار مینائی</h3>
-            <h6 className={styles.widgetUserDesc}>فول استک</h6>
+            <h3 className={styles.widgetUserUsername}>{user ? user.name : "کاربر"}</h3>
+            <h6 className={styles.widgetUserDesc}>{user.role === "ADMIN" ? "مدیر" : "مشاور"}</h6>
           </div>
         </div>
         <div className={styles.boxFooter}>

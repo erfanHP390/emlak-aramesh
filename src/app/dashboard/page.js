@@ -33,7 +33,7 @@ async function page() {
                     <Reservation />
                   </div>
                   <div className={styles.row_secondary}>
-                    <UserInfo />
+                    <UserInfo user={user} />
                   </div>
                 </section>
               </div>
