@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+require("./Client");
 
 const schema = mongoose.Schema(
   {
@@ -16,17 +17,19 @@ const schema = mongoose.Schema(
     },
     guildID: {
       type: String,
-      required: false,
     },
     isAccept: {
       type: Boolean,
-      default: false
+      default: false,
     },
     role: {
       type: String,
       default: "USER",
     },
-
+    client: {
+      type: mongoose.Types.ObjectId,
+      ref: "Client", 
+    },
     refreshToken: String,
   },
   { timestamps: true }
