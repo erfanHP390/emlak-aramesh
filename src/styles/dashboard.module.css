@@ -5,6 +5,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden; /* جلوگیری از اسکرول افقی */
 }
 
 .contentWrapper {
@@ -17,6 +18,7 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 1rem;
+  overflow-x: hidden; /* جلوگیری از اسکرول افقی */
 }
 
 .content {
@@ -30,30 +32,120 @@
   margin: 1rem 0;
 }
 
+.row_secondary {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.row_third {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+  width: 100%;
+}
+
+.userInfo_wrapper,
+.visitTable_wrapper {
+  width: 100%;
+  overflow: hidden; /* جلوگیری از سرریز محتوا */
+}
+
 /* ==================== RESPONSIVE BREAKPOINTS ==================== */
-@media (max-width: 768px) {
+
+/* موبایل کوچک (348px به بالا) */
+@media (min-width: 348px) {
   .contentWrapper {
     padding: 1rem;
   }
+}
 
-  .row {
-    grid-template-columns: 1fr;
+/* موبایل متوسط (480px به بالا) */
+@media (min-width: 480px) {
+  .row_secondary {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (min-width: 992px) {
+/* موبایل بزرگ (568px به بالا) */
+@media (min-width: 568px) {
+  .contentWrapper {
+    padding: 1.25rem;
+  }
+}
+
+/* تبلت کوچک (676px به بالا) */
+@media (min-width: 676px) {
   .row {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
+/* تبلت (768px به بالا) */
+@media (min-width: 768px) {
+  .contentWrapper {
+    padding: 1.5rem;
+  }
+  
+  .row_third {
+    flex-direction: row;
+  }
+  
+  .userInfo_wrapper {
+    flex: 0 0 30%;
+    max-width: 30%;
+  }
+  
+  .visitTable_wrapper {
+    flex: 0 0 70%;
+    max-width: 70%;
+  }
+}
+
+/* تبلت بزرگ (993px به بالا) */
+@media (min-width: 993px) {
+  .row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .userInfo_wrapper {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+  
+  .visitTable_wrapper {
+    flex: 0 0 75%;
+    max-width: 75%;
+  }
+}
+
+/* دسکتاپ (1200px به بالا) */
 @media (min-width: 1200px) {
   .row {
     grid-template-columns: repeat(4, 1fr);
   }
+  
+  .contentWrapper {
+    padding: 2rem;
+  }
+}
+
+/* تنظیمات خاص برای موبایل‌های خیلی کوچک (زیر 480px) */
+@media (max-width: 479px) {
+  .row,
   .row_secondary {
-    grid-template-columns: repeat(2, 1fr);
-    display: grid;
-    margin-top: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+  
+  .row_third {
+    flex-direction: column;
+  }
+  
+  .userInfo_wrapper,
+  .visitTable_wrapper {
+    flex: 0 0 100%;
+    max-width: 100%;
   }
 }
