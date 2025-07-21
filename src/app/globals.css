@@ -262,12 +262,8 @@ select:focus {
   content: '';
   position: absolute;
   inset: 0;
-  background: url('/images/house-bg-info.webp') center/contain no-repeat fixed;
+  background: url('/images/house-bg-info.webp') center/cover no-repeat fixed;
   z-index: -2;
-  background-size: contain; 
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed;
 }
 
 .info-bg::after {
