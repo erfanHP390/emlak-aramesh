@@ -8,6 +8,7 @@ import Status from "@/components/templates/index/status/Status";
 import ChartContact from "@/components/templates/index/chartContact/ChartContact";
 import Reservation from "@/components/templates/index/reservation/Reservation";
 import UserInfo from "@/components/templates/index/userInfo/UserInfo";
+import VisitTable from "@/components/templates/index/visitTable/VisitTable";
 
 async function page() {
   connectToDB();
@@ -32,8 +33,13 @@ async function page() {
                     <ChartContact />
                     <Reservation />
                   </div>
-                  <div className={styles.row_secondary}>
-                    <UserInfo user={user} />
+                  <div className={styles.row_third}>
+                    <div className={styles.userInfo_wrapper}>
+                      <UserInfo user={user} />
+                    </div>
+                    <div className={styles.visitTable_wrapper}>
+                      <VisitTable />
+                    </div>
                   </div>
                 </section>
               </div>
