@@ -1,8 +1,106 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import styles from "./VisitTable.module.css";
 import { FaMarker, FaTrashAlt } from "react-icons/fa";
+import swal from "sweetalert"
+import { toastError, toastSuccess } from "@/utils/alerts";
+import { useRouter } from "next/navigation";
 
 function VisitTable({ clients }) {
+
+  const router = useRouter()
+  const [isLoading , setIsLoading] = useState(false)
+
+  const removeClient =async (clientID) => {
+    swal({
+      title: "آیا از حذف بازدید اطمینان دارین؟",
+      icon: "warning",
+      buttons: ["نه", "آره"],
+    }).then(async (result) => {
+      if(result) {
+
+        const res = await fetch(`/api/clients/${clientID}` , {
+          method: "DELETE"
+        })
+        if (res.status === 200) {
+          toastSuccess(
+            "اطلاعات بازدیدکننده با موفقیت حذف شد",
+            "top-center",
+            5000,
+            false,
+            true,
+            true,
+            true,
+            undefined,
+            "colored"
+          );
+          router.refresh();
+        } else if (res.status === 401) {
+          toastError(
+            "فقط مشاور/مدیر سایت اجازه حذف بازدیدکننده را دارد",
+            "top-center",
+            5000,
+            false,
+            true,
+            true,
+            true,
+            undefined,
+            "colored"
+          );
+        } else if (res.status === 400) {
+          toastError(
+            "شناسه بازدیدکننده ارسال نشده است",
+            "top-center",
+            5000,
+            false,
+            true,
+            true,
+            true,
+            undefined,
+            "colored"
+          );
+        } else if (res.status === 422) {
+          toastError(
+            "شناسه بازدیدکننده نامعتبر است",
+            "top-center",
+            5000,
+            false,
+            true,
+            true,
+            true,
+            undefined,
+            "colored"
+          );
+        } else if (res.status === 404) {
+          toastError(
+            "بازدیدکننده یافت نشد",
+            "top-center",
+            5000,
+            false,
+            true,
+            true,
+            true,
+            undefined,
+            "colored"
+          );
+        } else if (res.status === 500) {
+          toastError(
+            "خطا در سرور ، لطفا بعدا تلاش کنید",
+            "top-center",
+            5000,
+            false,
+            true,
+            true,
+            true,
+            undefined,
+            "colored"
+          );
+        }
+      }
+    })
+    
+  }
+
   return (
     <div className={`${styles.colXl8} ${styles.col12}`}>
       <div className={styles.tableContainer}>
@@ -16,7 +114,6 @@ function VisitTable({ clients }) {
                 <tr>
                   <th>مشتری</th>
                   <th>کد ملک</th>
-                  <th>ملک</th>
                   <th>نوع</th>
                   <th>تاریخ</th>
                   <th>وضعیت</th>
@@ -28,7 +125,6 @@ function VisitTable({ clients }) {
                   <tr key={client._id}>
                     <td>{client.name}</td>
                     <td>{client.codeHouse}</td>
-                    <td>خرید</td>
                     <td>{client.kindBuy}</td>
                     <td>
                       {new Date(client.createdAt).toLocaleDateString("fa-IR")}
@@ -41,22 +137,17 @@ function VisitTable({ clients }) {
                       </span>
                     </td>
                     <td className={styles.actionsCell}>
-                      <a
-                        href="#"
+                      <div
                         className={styles.actionLink}
-                        data-bs-toggle="tooltip"
-                        title="ویرایش"
                       >
                         <FaMarker />
-                      </a>
-                      <a
-                        href="#"
+                      </div>
+                      <div
                         className={styles.actionLink}
-                        data-bs-toggle="tooltip"
-                        title="حذف"
+                        onClick={() => removeClient(client._id)}
                       >
                         <FaTrashAlt />
-                      </a>
+                      </div>
                     </td>
                   </tr>
                 ))}
