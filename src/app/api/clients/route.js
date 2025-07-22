@@ -17,13 +17,6 @@ export async function POST(req) {
       );
     }
 
-    // const house = await HouseModel.findById(homeID);
-    // if (!house) {
-    //   return Response.json(
-    //     { message: "ملک مورد نظر پیدا نشد." },
-    //     { status: 404 }
-    //   );
-    // }
 
     // const house = await HouseModel.findOne({codeHouse})
     // if(!house) {
@@ -49,8 +42,19 @@ export async function POST(req) {
         user.client = newClient._id;
         await user.save();
       }
+
+      
     }
 
+    const client = await ClientModel.findOne({name})
+    if(client) {
+      await UserModel.findOneAndUpdate({userID} , {
+        $set: {
+          client: client._id
+        }
+      })
+    }
+    
     return Response.json(
       { message: "client is created successfully" },
       { status: 201 }
