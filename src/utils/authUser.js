@@ -25,7 +25,7 @@ const authUser = async () => {
 
 const authAdmin = async () => {
   connectToDB();
-  const token = cookies().get("token");
+  const token = cookies().get("userToken");
   let user = null;
 
   if (token) {
@@ -46,4 +46,29 @@ const authAdmin = async () => {
 
   return user;
 };
-export { authUser, authAdmin };
+
+const authConsultant = async () => {
+  connectToDB();
+  const token = cookies().get("userToken");
+  let user = null;
+
+  if (token) {
+    const tokenPayload = verifyToken(token.value);
+    if (tokenPayload) {
+      user = await UserModel.findOne({ email: tokenPayload.email });
+      if (user.role === "CONSULTANT") {
+        return user;
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+  } else {
+    return null;
+  }
+
+  return user;
+};
+
+export { authUser, authAdmin , authConsultant };
