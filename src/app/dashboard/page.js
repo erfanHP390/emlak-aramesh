@@ -9,10 +9,12 @@ import ChartContact from "@/components/templates/index/chartContact/ChartContact
 import Reservation from "@/components/templates/index/reservation/Reservation";
 import UserInfo from "@/components/templates/index/userInfo/UserInfo";
 import VisitTable from "@/components/templates/index/visitTable/VisitTable";
+import ClientModel from "@/models/Client"
 
 async function page() {
   connectToDB();
   const user = await authUser();
+  const clients = await ClientModel.find({})
 
   if (!user) {
     redirect("/login");
@@ -38,7 +40,7 @@ async function page() {
                       <UserInfo user={user} />
                     </div>
                     <div className={styles.visitTable_wrapper}>
-                      <VisitTable />
+                      <VisitTable  clients={clients} />
                     </div>
                   </div>
                 </section>
