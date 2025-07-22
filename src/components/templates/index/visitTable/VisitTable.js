@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./VisitTable.module.css";
 import { FaMarker, FaTrashAlt } from "react-icons/fa";
 
-function VisitTable() {
+function VisitTable({ clients }) {
   return (
     <div className={`${styles.colXl8} ${styles.col12}`}>
       <div className={styles.tableContainer}>
@@ -15,7 +15,7 @@ function VisitTable() {
               <thead>
                 <tr>
                   <th>مشتری</th>
-                  <th>سفارش ID</th>
+                  <th>کد ملک</th>
                   <th>ملک</th>
                   <th>نوع</th>
                   <th>تاریخ</th>
@@ -24,8 +24,44 @@ function VisitTable() {
                 </tr>
               </thead>
               <tbody>
+                {clients.map((client) => (
+                  <tr key={client._id}>
+                    <td>{client.name}</td>
+                    <td>{client.codeHouse}</td>
+                    <td>خرید</td>
+                    <td>{client.kindBuy}</td>
+                    <td>
+                      {new Date(client.createdAt).toLocaleDateString("fa-IR")}
+                    </td>
+                    <td>
+                      <span
+                        className={`${styles.label} ${styles.labelSuccess}`}
+                      >
+                        {client.status}
+                      </span>
+                    </td>
+                    <td className={styles.actionsCell}>
+                      <a
+                        href="#"
+                        className={styles.actionLink}
+                        data-bs-toggle="tooltip"
+                        title="ویرایش"
+                      >
+                        <FaMarker />
+                      </a>
+                      <a
+                        href="#"
+                        className={styles.actionLink}
+                        data-bs-toggle="tooltip"
+                        title="حذف"
+                      >
+                        <FaTrashAlt />
+                      </a>
+                    </td>
+                  </tr>
+                ))}
                 <tr>
-                  <td>مختار مینائی</td>
+                  <td>مختینائی</td>
                   <td>#8457125</td>
                   <td>خرید</td>
                   <td>کارت</td>
