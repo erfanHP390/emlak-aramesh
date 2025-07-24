@@ -36,6 +36,7 @@ import {
   RiPassValidFill,
 } from "react-icons/ri";
 import { GiHutsVillage } from "react-icons/gi";
+import Link from "next/link";
 
 function Sidebar({ user }) {
   const [openSubmenus, setOpenSubmenus] = useState({
@@ -145,10 +146,10 @@ function Sidebar({ user }) {
           </li>
 
           <li className={styles.menuItem}>
-            <a href="addproperty.html" className={styles.menuLink}>
+            <Link href={"/addHome"} className={styles.menuLink}>
               <FaPlusCircle className={styles.menuIcon} />
               <span className={styles.menuText}>ثبت ملک</span>
-            </a>
+            </Link>
           </li>
 
           <li className={styles.menuItem}>
