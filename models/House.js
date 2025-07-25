@@ -3,7 +3,7 @@ require("./Client"); // برای ارتباط با مدل Client
 
 const houseSchema = mongoose.Schema(
   {
-    code: {
+    codeHouse: {
       type: String,
       required: true,
       unique: true, // کد شش‌رقمی یکتا
@@ -29,7 +29,6 @@ const houseSchema = mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["sale", "rent"],
       required: true, // فروش یا اجاره
     },
     bedrooms: {
@@ -71,7 +70,7 @@ const houseSchema = mongoose.Schema(
     client: {
       type: mongoose.Types.ObjectId,
       ref: "Client", // ارتباط با مالک (مشتری)
-      required: true,
+      required: false,
     },
   },
   { timestamps: true }

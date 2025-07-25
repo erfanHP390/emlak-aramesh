@@ -27,14 +27,14 @@ const schema = mongoose.Schema(
       type: mongoose.Types.ObjectId,
       ref: "User",
     },
-    //  consultant: {
-    //         type:  mongoose.Types.ObjectId,
-    //         ref: "Consultant"
-    //  },
-    // house: {
-    //   type: mongoose.Types.ObjectId,
-    //   ref: "House",
-    // }
+     consultant: {
+            type:  mongoose.Types.ObjectId,
+            ref: "Consultant"
+     },
+    house: {
+      type: mongoose.Types.ObjectId,
+      ref: "House",
+    }
   },
   { timestamps: true }
 );
