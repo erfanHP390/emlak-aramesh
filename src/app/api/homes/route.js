@@ -3,13 +3,14 @@ import { writeFile } from "fs/promises";
 import path from "path";
 import HouseModel from "@/models/House";
 import ClientModel from "@/models/Client";
+import ConsultantModel from "@/models/Consultant";
 
 export async function POST(req) {
   try {
     connectToDB();
     const formData = await req.formData();
 
-    const codeHouse = formData.get("codeHouse");
+    let codeHouse = formData.get("codeHouse") || "";
     const agencyID = formData.get("agencyID");
     const name = formData.get("name");
     const location = formData.get("location");
@@ -26,12 +27,13 @@ export async function POST(req) {
     const clientID = formData.get("clientID");
     const images = formData.getAll("images"); // آرایه فایل‌ها
     const features = formData.getAll("features");
+    const clientName = formData.get("clientName");
+    const consultantCode = formData.get("consultantCode");
 
     if (!images.length) {
       return Response.json({ message: "home has no image" }, { status: 400 });
     }
 
-    // ذخیره تصاویر و ساخت آدرس‌ها
     const savedImagePaths = [];
 
     for (const image of images) {
@@ -56,6 +58,7 @@ export async function POST(req) {
       !elevator ||
       !masterRoom ||
       !yearBuilt ||
+      !consultantCode ||
       !features.length
     ) {
       return Response.json(
@@ -64,8 +67,34 @@ export async function POST(req) {
       );
     }
 
-    await HouseModel.create({
-      codeHouse: Math.floor(Math.random() * 999999),
+    const client = await ClientModel.findOne({ name: clientName });
+    if (!client) {
+      return Response.json(
+        { message: "client not found" },
+        {
+          status: 404,
+        }
+      );
+    }
+
+    const consultant = await ConsultantModel.findOne({
+      hisCode: consultantCode,
+    });
+    if (!consultant) {
+      return Response.json(
+        { message: "consultant not found" },
+        {
+          status: 404,
+        }
+      );
+    }
+
+    do {
+      codeHouse = Math.floor(Math.random() * 900000) + 100000;
+    } while (await HouseModel.findOne({ codeHouse }));
+
+    const newHouse = await HouseModel.create({
+      codeHouse,
       agencyID,
       name,
       location,
@@ -79,10 +108,17 @@ export async function POST(req) {
       elevator,
       masterRoom,
       yearBuilt,
-      // clientID,
+      consultant: consultant._id || null,
+      client: client._id || null,
       images: savedImagePaths, // ذخیره چند تصویر
       features,
     });
+
+    if (client) {
+      await ClientModel.findByIdAndUpdate(client._id, {
+        $push: { houses: newHouse._id },
+      });
+    }
 
     return Response.json(
       { message: "house-info is created successfully" },
