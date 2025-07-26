@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 require("./User");
+require("./House");
+require("./Consultant");
 
 const schema = mongoose.Schema(
   {
@@ -10,10 +12,6 @@ const schema = mongoose.Schema(
     codeHouse: {
       type: String,
       required: true,
-    },
-    home: {
-      type: mongoose.Types.ObjectId,
-      ref: "Home",
     },
     kindBuy: {
       type: String,
@@ -27,14 +25,21 @@ const schema = mongoose.Schema(
       type: mongoose.Types.ObjectId,
       ref: "User",
     },
-     consultant: {
-            type:  mongoose.Types.ObjectId,
-            ref: "Consultant"
-     },
-    house: {
+    consultantCode : {
+      type: String,
+      required: true
+    },
+    consultant: {
       type: mongoose.Types.ObjectId,
-      ref: "House",
-    }
+      ref: "Consultant",
+      required: true
+    },
+    houses: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "House",
+      },
+    ],
   },
   { timestamps: true }
 );

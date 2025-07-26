@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-require("./Client"); // برای ارتباط با مدل Client
+require("./Client");
+require("./Consultant");
 
 const houseSchema = mongoose.Schema(
   {
@@ -15,6 +16,10 @@ const houseSchema = mongoose.Schema(
     name: {
       type: String,
       required: true, // نام ملک
+    },
+    clientName: {
+      type: String,
+      required: false, // نام ملک
     },
     location: {
       type: String,
@@ -70,13 +75,16 @@ const houseSchema = mongoose.Schema(
     client: {
       type: mongoose.Types.ObjectId,
       ref: "Client", // ارتباط با مالک (مشتری)
-      required: false,
+      default: null,
+    },
+    consultant: {
+      type: mongoose.Types.ObjectId,
+      ref: "Consultant",
     },
   },
   { timestamps: true }
 );
 
-const House =
-  mongoose.models.House || mongoose.model("House", houseSchema);
+const House = mongoose.models.House || mongoose.model("House", houseSchema);
 
 module.exports = House;
