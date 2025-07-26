@@ -2,15 +2,16 @@ import connectToDB from "@/configs/db";
 import UserModel from "@/models/User";
 import ClientModel from "@/models/Client";
 import HouseModel from "@/models/House";
+import ConsultantModel from "@/models/Consultant"
 
 export async function POST(req) {
   try {
     await connectToDB();
 
     const body = await req.json();
-    const { name, codeHouse, homeID, kindBuy, status, userID } = body;
+    const { name, codeHouse, homeID,consultantCode, kindBuy, status, userID } = body;
 
-    if (!name || !codeHouse || !kindBuy || !status) {
+    if (!name || !codeHouse || !kindBuy || !status || !consultantCode) {
       return Response.json(
         { message: "همه فیلدهای ضروری باید ارسال شوند." },
         { status: 400 }
@@ -18,22 +19,26 @@ export async function POST(req) {
     }
 
 
-    // const house = await HouseModel.findOne({codeHouse})
-    // if(!house) {
-    //     return Response.json({message: "house not found!"} ,{
-    //         status: 404
-    //     })
-    // }
+    const house = await HouseModel.findOne({codeHouse})
+    if(!house) {
+        return Response.json({message: "house not found!"} ,{
+            status: 404
+        })
+    }
+
+    const consultant = await ConsultantModel.findOne({hisCode : consultantCode})
+    
 
     const user = await UserModel.findOne({name})
 
     const newClient = await ClientModel.create({
       name,
       codeHouse,
-      home: homeID || null,
       kindBuy,
       status,
-      user: user._id || null, 
+      consultant: consultant ? consultant._id : null,
+      user: user ? user._id : null, 
+      houses: house ? [house._id] : []
     });
 
     if (user) {
@@ -42,8 +47,6 @@ export async function POST(req) {
         user.client = newClient._id;
         await user.save();
       }
-
-      
     }
 
     const client = await ClientModel.findOne({name})
