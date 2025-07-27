@@ -132,10 +132,10 @@ function Sidebar({ user }) {
           </li>
 
           <li className={styles.menuItem}>
-            <a href="propertylist.html" className={styles.menuLink}>
+            <Link href={"/houseList"} className={styles.menuLink}>
               <FaListAlt className={styles.menuIcon} />
               <span className={styles.menuText}>لیست املاک</span>
-            </a>
+            </Link>
           </li>
 
           <li className={styles.menuItem}>
