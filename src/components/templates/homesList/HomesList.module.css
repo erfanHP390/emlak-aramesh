@@ -5,6 +5,7 @@
   padding: 20px;
   background-color: var(--bg-primary);
   min-height: 100vh;
+  margin-top: 2.5rem;
 }
 
 .container-full {
