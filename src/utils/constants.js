@@ -9,3 +9,7 @@ export const roles = {
   CONSULTANT: "CONSULTANT"
 };
 
+export const toPersianDigits = (str) => {
+  return str.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+};
+
