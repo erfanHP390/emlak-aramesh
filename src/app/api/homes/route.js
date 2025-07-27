@@ -7,7 +7,7 @@ import ConsultantModel from "@/models/Consultant";
 
 export async function POST(req) {
   try {
-    connectToDB();
+    await connectToDB();
     const formData = await req.formData();
 
     let codeHouse = formData.get("codeHouse") || "";
@@ -24,24 +24,35 @@ export async function POST(req) {
     const elevator = formData.get("elevator");
     const masterRoom = formData.get("masterRoom");
     const yearBuilt = formData.get("yearBuilt");
-    const clientID = formData.get("clientID");
-    const images = formData.getAll("images"); // آرایه فایل‌ها
-    const features = formData.getAll("features");
     const clientName = formData.get("clientName");
     const consultantCode = formData.get("consultantCode");
+    const imageFiles = formData.getAll("images");
+    const features = formData.getAll("features");
 
-    if (!images.length) {
-      return Response.json({ message: "home has no image" }, { status: 400 });
+    if (!imageFiles || imageFiles.length === 0) {
+      return Response.json(
+        { message: "لطفا حداقل یک تصویر آپلود کنید" },
+        { status: 400 }
+      );
     }
 
     const savedImagePaths = [];
+    for (const imageFile of imageFiles) {
+      if (!imageFile.type.startsWith("image/")) {
+        return Response.json(
+          { message: "فقط فایل‌های تصویری مجاز هستند" },
+          { status: 400 }
+        );
+      }
 
-    for (const image of images) {
-      const buffer = Buffer.from(await image.arrayBuffer());
-      const filename = Date.now() + "-" + image.name;
+      const buffer = Buffer.from(await imageFile.arrayBuffer());
+      const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+      const ext = path.extname(imageFile.name);
+      const filename = uniqueSuffix + ext;
       const imagePath = path.join(process.cwd(), "public/uploads/" + filename);
+
       await writeFile(imagePath, buffer);
-      savedImagePaths.push(`http://localhost:3000/uploads/${filename}`);
+      savedImagePaths.push(`/uploads/${filename}`);
     }
 
     if (
@@ -59,22 +70,18 @@ export async function POST(req) {
       !masterRoom ||
       !yearBuilt ||
       !consultantCode ||
-      !features.length
+      !features ||
+      features.length === 0
     ) {
       return Response.json(
-        { message: "all fields must have something" },
+        { message: "تمام فیلدهای ضروری باید پر شوند" },
         { status: 400 }
       );
     }
 
-    const client = await ClientModel.findOne({ name: clientName });
-    if (!client) {
-      return Response.json(
-        { message: "client not found" },
-        {
-          status: 404,
-        }
-      );
+    let client = await ClientModel.findOne({ name: clientName });
+    if (!client && clientName) {
+      client = await ClientModel.create({ name: clientName });
     }
 
     const consultant = await ConsultantModel.findOne({
@@ -82,10 +89,8 @@ export async function POST(req) {
     });
     if (!consultant) {
       return Response.json(
-        { message: "consultant not found" },
-        {
-          status: 404,
-        }
+        { message: "مشاور با این کد یافت نشد" },
+        { status: 404 }
       );
     }
 
@@ -108,9 +113,9 @@ export async function POST(req) {
       elevator,
       masterRoom,
       yearBuilt,
-      consultant: consultant._id || null,
-      client: client._id || null,
-      images: savedImagePaths, // ذخیره چند تصویر
+      consultant: consultant._id,
+      client: client?._id || null,
+      images: savedImagePaths,
       features,
     });
 
@@ -121,12 +126,20 @@ export async function POST(req) {
     }
 
     return Response.json(
-      { message: "house-info is created successfully" },
+      {
+        message: "ملک با موفقیت ثبت شد",
+        data: {
+          id: newHouse._id,
+          codeHouse: newHouse.codeHouse,
+          images: savedImagePaths,
+        },
+      },
       { status: 201 }
     );
   } catch (err) {
+    console.error("Error in POST /api/homes:", err);
     return Response.json(
-      { message: `interval error server: ${err.message}` },
+      { message: "خطای سرور: لطفا دوباره تلاش کنید" },
       { status: 500 }
     );
   }
