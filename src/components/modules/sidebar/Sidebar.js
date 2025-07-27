@@ -139,10 +139,10 @@ function Sidebar({ user }) {
           </li>
 
           <li className={styles.menuItem}>
-            <a href="propertygrid.html" className={styles.menuLink}>
+            <Link href={"/myHouses"} className={styles.menuLink}>
               <BiSolidBuildingHouse className={styles.menuIcon} />
-              <span className={styles.menuText}>املاک</span>
-            </a>
+              <span className={styles.menuText}>ملک های ثبت شده من</span>
+            </Link>
           </li>
 
           <li className={styles.menuItem}>
