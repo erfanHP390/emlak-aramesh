@@ -1,0 +1,281 @@
+/*====================  BASE STYLES  ====================*/
+.content-wrapper {
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+  padding: 20px;
+  direction: rtl;
+  margin-top: 8.5rem;
+}
+
+.container-full {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/*====================  SEARCH SECTION  ====================*/
+.search-section {
+  margin-bottom: 30px;
+}
+
+.box {
+  background-color: var(--input-bg);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.box-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--input-border);
+}
+
+.box-title {
+  font-family: 'Anjoman_Bold';
+  color: var(--text-heading);
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.box-body {
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+/*====================  FORM CONTROLS  ====================*/
+.form-control {
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  padding: 10px 15px;
+  width: 100%;
+  font-family: 'Anjoman_Regular';
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(138, 180, 255, 0.2);
+}
+
+.select2 {
+  height: 40px;
+}
+
+/*====================  BUTTONS  ====================*/
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-family: 'Anjoman_Medium';
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.btn-rounded {
+  border-radius: 50px;
+}
+
+.btn-info {
+  background-color: var(--button-bg);
+  color: white;
+  border: none;
+}
+
+.btn-info:hover {
+  background-color: var(--button-hover);
+}
+
+/*====================  PROPERTY CARDS  ====================*/
+.property-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.property-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.property-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
+.property-content {
+  padding: 20px;
+}
+
+.property-price {
+  font-family: 'Anjoman_Bold';
+  color: var(--link-hover);
+  margin-bottom: 10px;
+}
+
+.property-title {
+  font-family: 'Anjoman_Bold';
+  color: var(--text-heading);
+  margin-bottom: 5px;
+}
+
+.property-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.property-location {
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.property-description {
+  color: var(--text-primary);
+  margin-bottom: 15px;
+}
+
+.property-features {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-primary);
+}
+
+.property-feature {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.property-feature i {
+  margin-left: 5px;
+}
+
+/*====================  GRID SYSTEM  ====================*/
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+
+.col-12, 
+.col-md-6, 
+.col-lg-3, 
+.col-lg-4, 
+.col-xl-3 {
+  padding: 0 15px;
+  margin-bottom: 30px;
+}
+
+/* Responsive columns */
+.col-12 {
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .col-sm-6 {
+    width: 50%;
+  }
+}
+
+@media (min-width: 768px) {
+  .col-md-6 {
+    width: 50%;
+  }
+}
+
+@media (min-width: 992px) {
+  .col-lg-3 {
+    width: 25%;
+  }
+  .col-lg-4 {
+    width: 33.3333%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .col-xl-3 {
+    width: 25%;
+  }
+}
+
+/*====================  UTILITY CLASSES  ====================*/
+.text-primary {
+  color: var(--link-color) !important;
+}
+
+.text-success {
+  color: #28a745 !important;
+}
+
+.text-muted {
+  color: var(--text-primary) !important;
+  opacity: 0.8;
+}
+
+.mt-0 { margin-top: 0 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.mb-10 { margin-bottom: 10px !important; }
+.mb-20 { margin-bottom: 20px !important; }
+.mt-15 { margin-top: 15px !important; }
+.me-5 { margin-left: 5px !important; }
+.me-10 { margin-left: 10px !important; }
+.me-15 { margin-left: 15px !important; }
+.p-0 { padding: 0 !important; }
+.p-20 { padding: 20px !important; }
+.fs-18 { font-size: 18px !important; }
+
+/*====================  ICONS  ====================*/
+.mdi {
+  font-size: 1.2em;
+  vertical-align: middle;
+}
+
+/*====================  RESPONSIVE ADJUSTMENTS  ====================*/
+@media (max-width: 1199.98px) {
+  .col-xl-3 {
+    width: 33.3333%;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .col-lg-3, .col-lg-4 {
+    width: 50%;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .col-md-6 {
+    width: 100%;
+  }
+  
+  .property-features {
+    flex-wrap: wrap;
+  }
+  
+  .property-feature {
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .col-sm-6 {
+    width: 100%;
+  }
+  
+  .box-body {
+    padding: 15px;
+  }
+  
+  .property-img {
+    height: 180px;
+  }
+}
