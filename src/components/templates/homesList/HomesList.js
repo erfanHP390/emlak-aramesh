@@ -1,5 +1,7 @@
+"use client"
 import React from "react";
 import styles from "./HomesList.module.css";
+import { toPersianDigits } from "@/utils/constants";
 
 function HomesList() {
   return (
@@ -136,21 +138,21 @@ function HomesList() {
                             <h5
                               className={`${styles["text-success"]} ${styles["mt-0"]} ${styles["mb-20"]}`}
                             >
-                              480,000 - 530,000
+                              {toPersianDigits("480,000")} - {toPersianDigits("530,000")}
                             </h5>
                             <h3 className={styles["mt-0"]}>
                               <a href="#" className={styles["text-primary"]}>
                                 تهران
                               </a>
                             </h3>
-                            <p className={styles["text-muted"]}>
+                            <p className={`${styles["text-muted"]} Anjoman_Regular`}>
                               <i
-                                className={`${styles["mdi"]} ${styles["mdi-pin"]} ${styles["me-5"]}`}
+                                className={`${styles["mdi"]} ${styles["mdi-pin"]} ${styles["me-5"]}  `}
                               />
                               ولیعصر - زرتشت غربی
                             </p>
                             <p
-                              className={`${styles["text-muted"]} ${styles["mb-0"]}`}
+                              className={`${styles["text-muted"]} ${styles["mb-0"]}  Anjoman_Regular`}
                             >
                               توضیحات تستی
                             </p>
@@ -161,37 +163,37 @@ function HomesList() {
                             <a
                               href="#"
                               title="زیر بنا"
-                              className={styles["me-15"]}
+                              className={`Anjoman_Regular  ${styles["me-15"]}`}
                             >
                               <i
                                 className={`${styles["mdi"]} ${styles["mdi-view-dashboard"]} ${styles["me-10"]}`}
                               />
-                              <span>158</span>
+                              <span>{toPersianDigits("158")}</span>
                             </a>
                             <a
                               href="#"
                               title="اتاق خواب"
-                              className={styles["me-15"]}
+                              className={`${styles["me-15"]} Anjoman_Regular`}
                             >
                               <i
                                 className={`${styles["mdi"]} ${styles["mdi-hotel"]} ${styles["me-10"]}`}
                               />
-                              <span>4</span>
+                              <span>{toPersianDigits("4")}</span>
                             </a>
                             <a
                               href="#"
                               title="فضای پارکینگ"
-                              className={styles["me-15"]}
+                              className={`Anjoman_Regular  ${styles["me-15"]}`}
                             >
                               <i
                                 className={`${styles["mdi"]} ${styles["mdi-car-taxi"]} ${styles["me-10"]}`}
                               />
-                              <span>2</span>
+                              <span>{toPersianDigits("2")}</span>
                             </a>
                             <a
                               href="#"
                               title="انباری"
-                              className={styles["me-15"]}
+                              className={`Anjoman_Regular  ${styles["me-15"]}`}
                             >
                               <i
                                 className={`${styles["mdi"]} ${styles["mdi-home"]} ${styles["me-10"]}`}
