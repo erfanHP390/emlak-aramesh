@@ -1,5 +1,5 @@
 import PanelLayout from "@/components/layouts/PanelLayout";
-import MyRegistrationHouse from "@/components/templates/myRegistrationHouse/myRegistrationHouse";
+import MyRegistrationHouse from "@/components/templates/myRegistrationHouse/MyRegistrationHouse";
 import connectToDB from "@/configs/db";
 import React from "react";
 
