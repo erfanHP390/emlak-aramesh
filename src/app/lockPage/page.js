@@ -1,10 +1,16 @@
 import LockScreen from '@/components/templates/auth/lockScreen/lockScreen'
+import connectToDB from '@/configs/db'
+import { authUser } from '@/utils/authUser'
 import React from 'react'
 
-function page() {
+async function page() {
+
+  connectToDB()
+  const user = await authUser()
+
   return (
     <>
-      <LockScreen />
+      <LockScreen user={user} />
     </>
   )
 }
