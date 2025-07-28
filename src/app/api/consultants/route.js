@@ -1,15 +1,21 @@
 import connectToDB from "@/configs/db";
-import { validateEmail, validatePassword, validatePhone } from "@/utils/auth";
+import {
+  hashPassword,
+  validateEmail,
+  validatePassword,
+  validatePhone,
+} from "@/utils/auth";
 import ConsultantModel from "@/models/Consultant";
 import UserModel from "@/models/User";
 import { writeFile } from "fs/promises";
 import path from "path";
+import { roles } from "@/utils/constants";
 
 export async function POST(req) {
   try {
     connectToDB();
 
-    const formData = await req.fromData();
+    const formData = await req.formData();
     const firstName = formData.get("firstName");
     const lastName = formData.get("lastName");
     const hisCode = formData.get("hisCode");
@@ -23,6 +29,7 @@ export async function POST(req) {
     const password = formData.get("password");
     const user = formData.get("user");
     const socials = formData.getAll("socials");
+    const agencyID = formData.get("agencyID");
 
     if (
       !firstName ||
@@ -35,6 +42,7 @@ export async function POST(req) {
       !email ||
       !description ||
       !password ||
+      !agencyID ||
       !socials
     ) {
       return Response.json(
@@ -81,7 +89,19 @@ export async function POST(req) {
 
     await writeFile(imgPath, buffer);
 
-    const userID = await UserModel.findOne({});
+    const hashedPassword = await hashPassword(password);
+
+    // let userDoc = await UserModel.findOne({ guildID: agencyID });
+    // if (!userDoc) {
+      let userDoc = await UserModel.create({
+        name: firstName + " " + lastName,
+        email,
+        password: hashedPassword,
+        isAccept: false,
+        guildID: agencyID ? agencyID : null,
+        role: hisCode ? roles.CONSULTANT : roles.USER,
+      });
+    // }
 
     await ConsultantModel.create({
       firstName,
@@ -92,9 +112,10 @@ export async function POST(req) {
       age,
       sex,
       email,
-      user: userID._id || null,
+      agencyID,
+      user: userDoc._id,
       description,
-      password,
+      password: hashedPassword,
       socials,
       img: `http://localhost:3000/uploads/${filename}`,
     });
