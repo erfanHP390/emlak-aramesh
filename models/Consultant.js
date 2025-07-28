@@ -2,63 +2,64 @@ const mongoose = require("mongoose");
 
 const schema = mongoose.Schema(
   {
-    firstName: { 
-      type: String, 
-      required: true 
+    firstName: {
+      type: String,
+      required: true,
     },
-    lastName: { 
-      type: String, 
-      default: "" 
+    lastName: {
+      type: String,
+      default: "",
     },
-    hisCode: { 
-      type: String, 
-      required: true 
+    hisCode: {
+      type: String,
+      required: true,
     },
-    phone: { 
-      type: String, 
-      required: true 
+    agencyID: {
+      type: String,
+      required: true,
     },
-    birthDay: { 
-      type: String, 
-      required: true 
+    phone: {
+      type: String,
+      required: true,
     },
-    age: { 
-      type: Number, 
-      required: true 
+    birthDay: {
+      type: String,
+      required: true,
     },
-    sex: { 
-      type: String, 
-      required: true 
+    age: {
+      type: Number,
+      required: true,
     },
-    email: { 
-      type: String, 
-      required: true 
+    sex: {
+      type: String,
+      required: true,
     },
-    user: { 
-      type: mongoose.Types.ObjectId, 
-      ref: "User" 
+    email: {
+      type: String,
+      required: true,
     },
-    img: { 
-      type: String, 
-      required: true 
+    user: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
     },
-    description: { 
-      type: String, 
-      required: true 
+    img: {
+      type: String,
+      required: true,
     },
-    password: { 
-      type: String, 
-      required: true 
+    description: {
+      type: String,
+      required: true,
     },
-    socials: { 
-      type: [String], 
-      default: [] 
+    password: {
+      type: String,
+      required: true,
+    },
+    socials: {
+      type: [String],
+      default: [],
     },
   },
-  { timestamps: true, 
-    toJSON: { virtuals: true }, 
-    toObject: { virtuals: true } 
-  }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
 schema.virtual("clients", {
