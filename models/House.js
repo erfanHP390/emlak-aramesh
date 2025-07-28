@@ -7,74 +7,74 @@ const houseSchema = mongoose.Schema(
     codeHouse: {
       type: String,
       required: true,
-      unique: true, // کد شش‌رقمی یکتا
+      unique: true, 
     },
     agencyID: {
       type: String,
-      required: true, // شناسه صنفی املاک
+      required: true, 
     },
     name: {
       type: String,
-      required: true, // نام ملک
+      required: true,
     },
     clientName: {
       type: String,
-      required: false, // نام ملک
+      required: false, 
     },
     location: {
       type: String,
-      required: true, // مختصر: مثلا محدوده یا لوکیشن جی‌پی‌اس
+      required: true,
     },
     fullAddress: {
       type: String,
-      required: true, // آدرس کامل
+      required: true, 
     },
     description: {
       type: String,
     },
     status: {
       type: String,
-      required: true, // فروش یا اجاره
+      required: true, 
     },
     bedrooms: {
-      type: Number,
+      type: String,
       required: true,
     },
     floor: {
-      type: Number,
+      type: String,
       required: true,
     },
     parking: {
-      type: Boolean,
+      type: String,
       default: false,
     },
     storage: {
-      type: Boolean,
-      default: false, // انباری
+      type: String,
+      default: false, 
     },
     elevator: {
-      type: Boolean,
+      type: String,
       default: false,
     },
     masterRoom: {
-      type: Boolean,
+      type: String,
       default: false,
     },
     yearBuilt: {
-      type: Number,
+      type: String,
       required: true,
     },
     features: {
-      type: [String], // آرایه‌ای از امکانات، مثلا: ["کابینت MDF", "کولر گازی"]
+      type: [String], 
       default: [],
     },
     images: {
-      type: [String], // آرایه URL عکس‌ها
+      type: [String],
       default: [],
     },
     client: {
       type: mongoose.Types.ObjectId,
-      ref: "Client", // ارتباط با مالک (مشتری)
+      ref: "Client", 
       default: null,
     },
     consultant: {
