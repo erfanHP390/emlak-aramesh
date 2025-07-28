@@ -74,6 +74,11 @@ function Sidebar({ user }) {
     });
   };
 
+  const lockScreen = () => {
+    document.cookie = "locked=true; path=/;";
+    window.location.href = "/lockPage";
+  };
+
   return (
     <aside className={styles.sidebarContainer}>
       {/* User Profile Section */}
@@ -114,7 +119,7 @@ function Sidebar({ user }) {
           <a href="#" title="خروج">
             <FaSignOutAlt className={styles.icon_font} />
           </a>
-          <a href="#" title="قفل">
+          <a href="#" title="قفل" onClick={() => lockScreen()}>
             <FaLock className={styles.icon_font} />
           </a>
         </div>
