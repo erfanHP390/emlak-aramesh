@@ -340,7 +340,7 @@ function AddHome() {
                         <div className={styles["col-sm-6"]}>
                           <div className={styles["form-group"]}>
                             <input
-                              type="number"
+                              type="text"
                               className={styles["form-control"]}
                               placeholder="طبقه"
                               value={floor}
@@ -611,7 +611,7 @@ function AddHome() {
                             className={`${styles["form-line"]} ${styles["mb-lg-0"]}`}
                           >
                             <input
-                              type="number"
+                              type="text"
                               className={styles["form-control"]}
                               placeholder="اتاق خواب "
                               value={bedrooms}
