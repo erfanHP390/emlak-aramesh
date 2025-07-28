@@ -273,3 +273,537 @@ select:focus {
   background-color: rgba(26, 28, 35, 0.45);
   z-index: -1;
 }
+
+/* ===================================== styles for alerts =========================== */
+/*====================  TOAST NOTIFICATION STYLES  ====================*/
+.Toastify__toast-container {
+  font-family: 'Anjoman_Regular' !important;
+  direction: rtl !important;
+  z-index: 999999 !important;
+}
+
+.Toastify__toast {
+  border-radius: 8px !important;
+  padding: 15px !important;
+  background-color: var(--input-bg) !important;
+  color: var(--text-primary) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid var(--input-border) !important;
+  font-size: 14px !important;
+}
+
+.Toastify__toast--rtl {
+  text-align: right !important;
+}
+
+.Toastify__toast--default {
+  background-color: var(--input-bg) !important;
+}
+
+.Toastify__toast--info {
+  background-color: #3498db !important;
+  color: white !important;
+}
+
+.Toastify__toast--success {
+  background-color: #2ecc71 !important;
+  color: white !important;
+}
+
+.Toastify__toast--warning {
+  background-color: #f39c12 !important;
+  color: white !important;
+}
+
+.Toastify__toast--error {
+  background-color: #e74c3c !important;
+  color: white !important;
+}
+
+.Toastify__close-button {
+  color: var(--text-primary) !important;
+  opacity: 0.8 !important;
+  align-self: center !important;
+}
+
+.Toastify__close-button:hover {
+  opacity: 1 !important;
+  color: var(--link-hover) !important;
+}
+
+.Toastify__progress-bar {
+  background-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.Toastify__progress-bar--rtl {
+  right: 0 !important;
+  left: auto !important;
+}
+
+.Toastify__toast-icon {
+  margin-left: 10px !important;
+  margin-right: 0 !important;
+}
+
+/* ==================== SWEETALERT BASE STYLES ==================== */
+.swal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  z-index: 999999 !important;
+  font-family: 'Anjoman_Regular' !important;
+  direction: rtl !important;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.swal-modal {
+  background-color: var(--input-bg) !important;
+  color: var(--text-primary) !important;
+  border-radius: 12px !important;
+  border: 1px solid var(--input-border) !important;
+  padding: 30px !important;
+  width: auto !important;
+  max-width: 600px !important;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2) !important;
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.swal-header {
+  text-align: right !important;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.swal-title {
+  color: var(--text-heading) !important;
+  font-family: 'Anjoman_Bold' !important;
+  font-size: 1.5rem !important;
+  margin-bottom: 20px !important;
+  line-height: 1.4 !important;
+  padding: 0 20px;
+  position: relative;
+  display: block;
+}
+
+.swal-content {
+  color: var(--text-primary) !important;
+  font-size: 1rem !important;
+  line-height: 1.6 !important;
+  font-family: 'Anjoman_Regular' !important;
+  text-align: right !important;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.swal-icon {
+  width: 80px;
+  height: 80px;
+  border-width: 4px;
+  border-style: solid;
+  border-radius: 50%;
+  margin: 20px auto;
+  position: relative;
+  box-sizing: content-box;
+  transform: scale(1.1) !important;
+}
+
+.swal-icon--success {
+  border-color: rgba(46, 204, 113, 0.3) !important;
+  color: #2ecc71 !important;
+}
+
+.swal-icon--success__line {
+  height: 5px;
+  background-color: #2ecc71 !important;
+  display: block;
+  border-radius: 2px;
+  position: absolute;
+  z-index: 2;
+}
+
+.swal-icon--error {
+  border-color: rgba(231, 76, 60, 0.3) !important;
+  color: #e74c3c !important;
+}
+
+.swal-icon--error__line {
+  height: 5px;
+  background-color: #e74c3c !important;
+  display: block;
+  border-radius: 2px;
+  position: absolute;
+  z-index: 2;
+}
+
+.swal-icon--warning {
+  border-color: rgba(243, 156, 18, 0.3) !important;
+  color: #f39c12 !important;
+}
+
+.swal-icon--info {
+  border-color: rgba(52, 152, 219, 0.3) !important;
+  color: #3498db !important;
+}
+
+.swal-icon--question {
+  border-color: rgba(138, 180, 255, 0.3) !important;
+  color: #8ab4ff !important;
+}
+
+.swal-actions {
+  margin: 25px auto 0 auto !important;
+  flex-direction: row-reverse !important;
+  display: flex;
+  z-index: 1;
+  box-sizing: border-box;
+  justify-content: center;
+  width: 100%;
+}
+
+.swal-button {
+  font-family: 'Anjoman_Medium' !important;
+  padding: 12px 28px !important;
+  border-radius: 8px !important;
+  font-size: 0.95rem !important;
+  transition: all 0.3s ease !important;
+  box-shadow: none !important;
+  margin: 0 8px !important;
+  border: none !important;
+  cursor: pointer !important;
+  position: relative !important;
+  overflow: hidden !important;
+  font-weight: 500;
+  background-color: var(--button-bg) !important;
+  color: white !important;
+}
+
+.swal-button:hover {
+  background-color: var(--button-hover) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(138, 180, 255, 0.3) !important;
+}
+
+.swal-button:active {
+  transform: translateY(0) !important;
+}
+
+.swal-button--confirm {
+  background-color: var(--button-bg) !important;
+}
+
+.swal-button--confirm:hover {
+  background-color: var(--button-hover) !important;
+}
+
+.swal-button--cancel {
+  background-color: #6c757d !important;
+}
+
+.swal-button--cancel:hover {
+  background-color: #5a6268 !important;
+}
+
+.swal-button--deny {
+  background-color: #e74c3c !important;
+}
+
+.swal-button--deny:hover {
+  background-color: #c0392b !important;
+}
+
+.swal-button--loading {
+  position: relative !important;
+  color: transparent !important;
+}
+
+.swal-button--loading:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: swal-button-loading 0.6s linear infinite;
+}
+
+.swal-input {
+  background-color: var(--input-bg) !important;
+  color: var(--input-text) !important;
+  border: 1px solid var(--input-border) !important;
+  border-radius: 6px !important;
+  padding: 10px 15px !important;
+  font-family: 'Anjoman_Regular' !important;
+  box-shadow: none !important;
+  text-align: right !important;
+  width: 100%;
+  margin: 5px 0;
+  box-sizing: border-box;
+  transition: all 0.3s;
+}
+
+.swal-input:focus {
+  border-color: var(--input-focus) !important;
+  box-shadow: 0 0 0 3px rgba(138, 180, 255, 0.2) !important;
+}
+
+.swal-footer {
+  border-top: 1px solid var(--input-border) !important;
+  color: var(--text-primary) !important;
+  text-align: right !important;
+  padding-top: 15px !important;
+  margin-top: 15px !important;
+  font-size: 0.9em;
+}
+
+.swal-close {
+  color: var(--text-primary) !important;
+  transition: all 0.3s ease !important;
+  font-size: 1.8rem !important;
+  position: absolute !important;
+  top: 15px !important;
+  right: auto !important;
+  left: 15px !important;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.swal-close:hover {
+  color: var(--link-hover) !important;
+  transform: rotate(90deg) !important;
+}
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes swal-button-loading {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes swal-show {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes swal-hide {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+}
+
+.swal-show {
+  animation: swal-show 0.3s forwards !important;
+}
+
+.swal-hide {
+  animation: swal-hide 0.3s forwards !important;
+}
+
+/* ==================== TOAST STYLES ==================== */
+.swal-toast {
+  background-color: var(--input-bg) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--input-border) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+  padding: 15px !important;
+  width: 400px;
+  display: flex;
+  align-items: center;
+}
+
+.swal-toast .swal-icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 15px 0 0;
+}
+
+.swal-toast .swal-title {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+  text-align: right;
+}
+
+.swal-toast .swal-content {
+  font-size: 0.9rem;
+  margin-bottom: 0;
+  text-align: right;
+}
+
+/* ==================== PROGRESS STEPS ==================== */
+.swal-progress-steps {
+  padding: 0;
+  margin: 0 0 20px 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.swal-progress-step {
+  background: var(--button-bg) !important;
+  color: white !important;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 5px;
+  position: relative;
+}
+
+.swal-progress-step-line {
+  background: var(--button-bg) !important;
+  opacity: 0.3 !important;
+  height: 2px;
+  flex: 1;
+  margin: auto;
+}
+
+.swal-progress-step.swal-active-progress-step {
+  background: var(--button-hover) !important;
+}
+
+.swal-progress-step.swal-active-progress-step ~ .swal-progress-step,
+.swal-progress-step.swal-active-progress-step ~ .swal-progress-step-line {
+  opacity: 0.5 !important;
+}
+
+/* ==================== INPUT LABELS ==================== */
+.swal-input-label {
+  color: var(--text-primary) !important;
+  font-family: 'Anjoman_Medium' !important;
+  margin-bottom: 8px !important;
+  display: block !important;
+  text-align: right !important;
+  width: 100%;
+}
+
+/* ==================== CHECKBOX & RADIO ==================== */
+.swal-checkbox,
+.swal-radio {
+  text-align: right !important;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 10px 0;
+}
+
+.swal-checkbox input,
+.swal-radio input {
+  margin-left: 10px !important;
+  margin-right: 0 !important;
+}
+
+/* ==================== IMAGE STYLES ==================== */
+.swal-image {
+  max-width: 100% !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--input-border) !important;
+  margin: 10px 0;
+}
+
+/* ==================== VALIDATION ERROR ==================== */
+.swal-validation-message {
+  background-color: rgba(231, 76, 60, 0.1) !important;
+  color: var(--text-primary) !important;
+  font-family: 'Anjoman_Regular' !important;
+  border-radius: 4px !important;
+  padding: 10px !important;
+  margin: 10px 0 !important;
+  text-align: right;
+  display: block;
+}
+
+/* ==================== DARK/LIGHT THEME ADJUSTMENTS ==================== */
+.light .swal-modal {
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1) !important;
+}
+
+.light .swal-toast {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ==================== RESPONSIVE ADJUSTMENTS ==================== */
+@media (max-width: 576px) {
+  .swal-modal {
+    width: calc(100% - 20px) !important;
+    padding: 20px !important;
+  }
+
+  .swal-title {
+    font-size: 1.3rem !important;
+  }
+
+  .swal-button {
+    padding: 10px 20px !important;
+    font-size: 0.9rem !important;
+  }
+
+  .swal-toast {
+    width: calc(100% - 20px) !important;
+  }
+}
+
+.light .Toastify__toast {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+/*====================  ANIMATIONS  ====================*/
+@keyframes Toastify__slideInRight {
+  from {
+    transform: translate3d(110%, 0, 0) !important;
+  }
+  to {
+    transform: translate3d(0, 0, 0) !important;
+  }
+}
+
+@keyframes Toastify__slideOutRight {
+  from {
+    transform: translate3d(0, 0, 0) !important;
+  }
+  to {
+    transform: translate3d(110%, 0, 0) !important;
+  }
+}
+
+.Toastify__slide-enter--rtl {
+  animation-name: Toastify__slideInRight !important;
+}
+
+.Toastify__slide-exit--rtl {
+  animation-name: Toastify__slideOutRight !important;
+}
