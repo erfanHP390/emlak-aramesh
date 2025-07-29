@@ -6,6 +6,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import Loading from "@/app/loading";
 import { swalAlert, toastError, toastSuccess } from "@/utils/alerts";
+import { toPersianDigits } from "@/utils/constants";
 
 function AddHome() {
   const [rentalType, setRentalType] = useState("option1");
@@ -39,14 +40,11 @@ function AddHome() {
   const [yearBuilt, setYearBuilt] = useState("");
   const [elevator, setElevator] = useState("");
   const [masterRoom, setMasterRoom] = useState("");
+  const [price, setPrice] = useState("");
   const [features, setFeatures] = useState([]);
   const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [consultantCode, setConsultantCode] = useState("");
-
-  console.log("features", features);
-  console.log("images", images);
-  console.log(images.length);
 
   const toggleDropdown = (index) => {
     setOpenDropdownIndex((prevIndex) => (prevIndex === index ? null : index));
@@ -76,7 +74,7 @@ function AddHome() {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
-    if (files.length > 6) {
+    if (files.length > 8) {
       swalAlert("حداکثر 6 فایل می‌توانید آپلود کنید", "error", "متوجه شدم");
       return;
     }
@@ -115,6 +113,7 @@ function AddHome() {
       !elevator ||
       !masterRoom ||
       !yearBuilt ||
+      !price ||
       !features.length ||
       !images.length ||
       !consultantCode
@@ -137,6 +136,7 @@ function AddHome() {
     formData.append("elevator", elevator);
     formData.append("masterRoom", masterRoom);
     formData.append("yearBuilt", yearBuilt);
+    formData.append("price", price);
     formData.append("clientName", clientName);
     formData.append("consultantCode", consultantCode);
 
@@ -153,6 +153,8 @@ function AddHome() {
       body: formData,
     });
 
+    // console.log("response =>> ", res);
+
     if (res.status === 201) {
       setName("");
       setClientName("");
@@ -167,6 +169,7 @@ function AddHome() {
       setParking("");
       setYearBuilt("");
       setElevator("");
+      setPrice("")
       setMasterRoom("");
       setFeatures([]);
       setImages([]);
@@ -187,7 +190,7 @@ function AddHome() {
       });
       setIsLoading(false);
       toastSuccess(
-        "ملک با موفقیت انجام شد",
+        "ملک با موفقیت ثبت شد",
         "top-center",
         5000,
         false,
@@ -491,7 +494,7 @@ function AddHome() {
                             />
                           </div>
                         </div>
-                        <div className={styles["col-sm-6"]}>
+                        <div className={styles["col-sm-6"]} style={{marginTop: "1.3rem"}} >
                           <div className={styles["form-group"]}>
                             <input
                               type="text"
@@ -500,6 +503,19 @@ function AddHome() {
                               value={status}
                               onChange={(event) =>
                                 setStatus(event.target.value)
+                              }
+                            />
+                          </div>
+                        </div>
+                        <div className={styles["col-sm-6"]} style={{marginTop: "1.3rem"}} >
+                          <div className={styles["form-group"]}>
+                            <input
+                              type="text"
+                              className={styles["form-control"]}
+                              placeholder="قیمت"
+                              value={price}
+                              onChange={(event) =>
+                                setPrice(event.target.value)
                               }
                             />
                           </div>
@@ -940,7 +956,7 @@ function AddHome() {
                                 />
                               </div>
                               <h3>فایل را بکشید و رها کنید یا کلیک کنید</h3>
-                              <em>(حداکثر 6 فایل تصویری قابل آپلود است)</em>
+                              <em>{`حداکثر ${toPersianDigits(8)} فایل را می توانید انتخاب کنید`}</em>
                             </div>
                           </form>
                         </div>
