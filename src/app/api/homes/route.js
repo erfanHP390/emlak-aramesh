@@ -10,7 +10,7 @@ export async function POST(req) {
     await connectToDB();
     const formData = await req.formData();
 
-    let codeHouse = formData.get("codeHouse") || "";
+    const codeHouse = formData.get("codeHouse") || "";
     const agencyID = formData.get("agencyID");
     const name = formData.get("name");
     const location = formData.get("location");
@@ -64,6 +64,7 @@ export async function POST(req) {
       !fullAddress ||
       !status ||
       !bedrooms ||
+      !codeHouse ||
       !floor ||
       !parking ||
       !storage ||
@@ -96,8 +97,9 @@ export async function POST(req) {
       );
     }
 
+
     const newHouse = await HouseModel.create({
-      codeHouse: Math.floor(Math.random() * 999999),
+      codeHouse,
       agencyID,
       name,
       location,
