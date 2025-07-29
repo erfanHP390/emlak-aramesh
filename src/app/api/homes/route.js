@@ -26,6 +26,7 @@ export async function POST(req) {
     const yearBuilt = formData.get("yearBuilt");
     const clientName = formData.get("clientName");
     const consultantCode = formData.get("consultantCode");
+    const price = formData.get("price");
     const imageFiles = formData.getAll("images");
     const features = formData.getAll("features");
 
@@ -71,6 +72,7 @@ export async function POST(req) {
       !yearBuilt ||
       !consultantCode ||
       !features ||
+      !price ||
       features.length === 0
     ) {
       return Response.json(
@@ -94,12 +96,8 @@ export async function POST(req) {
       );
     }
 
-    do {
-      codeHouse = Math.floor(Math.random() * 900000) + 100000;
-    } while (await HouseModel.findOne({ codeHouse }));
-
     const newHouse = await HouseModel.create({
-      codeHouse,
+      codeHouse: Math.floor(Math.random() * 999999),
       agencyID,
       name,
       location,
@@ -112,6 +110,7 @@ export async function POST(req) {
       storage,
       elevator,
       masterRoom,
+      price,
       yearBuilt,
       consultant: consultant._id,
       client: client?._id || null,
