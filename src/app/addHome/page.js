@@ -1,13 +1,21 @@
 import PanelLayout from "@/components/layouts/PanelLayout";
 import AddHome from "@/components/templates/addHome/AddHome";
+import connectToDB from "@/configs/db";
+import { authUser } from "@/utils/authUser";
 import React from "react";
+import ConsultantModel from "@/models/Consultant"
 
-function page() {
+async function page() {
+
+  connectToDB()
+  const user = await authUser()
+  const consultant = await ConsultantModel.findOne({email: user.email})
+
   return (
     <>
       <PanelLayout>
         <>
-          <AddHome />
+          <AddHome consultant={consultant} />
         </>
       </PanelLayout>
     </>

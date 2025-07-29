@@ -9,7 +9,7 @@ import { swalAlert, toastError, toastSuccess } from "@/utils/alerts";
 import { toPersianDigits } from "@/utils/constants";
 import { useRouter } from "next/navigation";
 
-function AddHome() {
+function AddHome({consultant}) {
   const saveToLocalStorage = (key, data) => {
     localStorage.setItem(key, JSON.stringify(data));
   };
@@ -46,7 +46,7 @@ function AddHome() {
   const [floor, setFloor] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
-  const [agencyID, setAgencyID] = useState("");
+  const [agencyID, setAgencyID] = useState(consultant? consultant.agencyID : "");
   const [status, setStatus] = useState("");
   const [fullAddress, setFullAddress] = useState("");
   const [bedrooms, setBedrooms] = useState("");
@@ -59,7 +59,7 @@ function AddHome() {
   const [features, setFeatures] = useState([]);
   const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [consultantCode, setConsultantCode] = useState("");
+  const [consultantCode, setConsultantCode] = useState(consultant? consultant.hisCode : "");
   const [codeHouse, setCodeHouse] = useState();
 
   useEffect(() => {
@@ -331,9 +331,9 @@ function AddHome() {
     formData.append("consultantCode", consultantCode);
     formData.append("codeHouse", codeHouse);
 
-    features.forEach((feature) => {
-      formData.append("features", feature);
-    });
+    // features.forEach((feature) => {
+    //   formData.append("features", feature);
+    // });
 
     images.forEach((image) => {
       formData.append("images", image);
@@ -356,7 +356,7 @@ function AddHome() {
 
     Object.keys(amenities).forEach((key) => {
       if (amenities[key]) {
-        formData.append("amenities", amenitiesMap[key]);
+        formData.append("features", features[key]);
       }
     });
 
@@ -419,7 +419,7 @@ function AddHome() {
         undefined,
         "colored"
       );
-      router.refresh();
+      router.replace("/houseList");
     } else if (res.status === 400) {
       setIsLoading(false);
       toastError(
