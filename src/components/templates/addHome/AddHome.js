@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./AddHome.module.css";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoCloseSharp } from "react-icons/io5";
@@ -7,22 +7,37 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import Loading from "@/app/loading";
 import { swalAlert, toastError, toastSuccess } from "@/utils/alerts";
 import { toPersianDigits } from "@/utils/constants";
+import { useRouter } from "next/navigation";
 
 function AddHome() {
+  const saveToLocalStorage = (key, data) => {
+    localStorage.setItem(key, JSON.stringify(data));
+  };
+
+  const loadFromLocalStorage = (key) => {
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : null;
+  };
+
+  const removeFromLocalStorage = (key) => {
+    localStorage.removeItem(key);
+  };
+
+  const router = useRouter();
   const [rentalType, setRentalType] = useState("option1");
   const [amenities, setAmenities] = useState({
     pool: false,
     terrace: false,
-    balcony: false,
-    internet: true,
-    phone: false,
-    tv: false,
-    computer: false,
-    dishwasher: true,
-    kitchenHood: true,
-    table: false,
-    dining: false,
-    yard: false,
+    jacuzzi: false,
+    sauna: false,
+    gym: false,
+    securitySystem: false,
+    smartHome: false,
+    professionalKitchen: false,
+    homeCinema: false,
+    wineCellar: false,
+    vipReception: false,
+    panoramicView: false,
   });
   const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
   // --------------- info - house --------------------
@@ -45,6 +60,67 @@ function AddHome() {
   const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [consultantCode, setConsultantCode] = useState("");
+  const [codeHouse, setCodeHouse] = useState();
+
+  useEffect(() => {
+    const loadData = () => {
+      const basicInfo = loadFromLocalStorage("basicInfo");
+      if (basicInfo) {
+        setName(basicInfo.name || "");
+        setClientName(basicInfo.clientName || "");
+        setFloor(basicInfo.floor || "");
+        setLocation(basicInfo.location || "");
+        setDescription(basicInfo.description || "");
+      }
+
+      const propertyInfo = loadFromLocalStorage("propertyInfo");
+      if (propertyInfo) {
+        setAgencyID(propertyInfo.agencyID || "");
+        setConsultantCode(propertyInfo.consultantCode || "");
+        setStatus(propertyInfo.status || "");
+        setPrice(propertyInfo.price || "");
+        setFullAddress(propertyInfo.fullAddress || "");
+      }
+
+      const detailsInfo = loadFromLocalStorage("detailsInfo");
+      if (detailsInfo) {
+        setBedrooms(detailsInfo.bedrooms || "");
+        setStorage(detailsInfo.storage || "");
+        setParking(detailsInfo.parking || "");
+        setYearBuilt(detailsInfo.yearBuilt || "");
+        setElevator(detailsInfo.elevator || "");
+        setMasterRoom(detailsInfo.masterRoom || "");
+      }
+
+      const amenitiesInfo = loadFromLocalStorage("amenitiesInfo");
+      if (amenitiesInfo) {
+        setAmenities(
+          amenitiesInfo.amenities || {
+            pool: false,
+            terrace: false,
+            jacuzzi: false,
+            sauna: false,
+            gym: false,
+            securitySystem: false,
+            smartHome: false,
+            professionalKitchen: false,
+            homeCinema: false,
+            wineCellar: false,
+            vipReception: false,
+            panoramicView: false,
+          }
+        );
+        setFeatures(amenitiesInfo.features || []);
+      }
+
+      const imagesInfo = loadFromLocalStorage("imagesInfo");
+      if (imagesInfo) {
+        setImages(imagesInfo.images || []);
+      }
+    };
+
+    loadData();
+  }, []);
 
   const toggleDropdown = (index) => {
     setOpenDropdownIndex((prevIndex) => (prevIndex === index ? null : index));
@@ -96,6 +172,119 @@ function AddHome() {
     swalAlert(`${validFiles.length} فایل تصویری انتخاب شد`, "success", "باشه");
   };
 
+  useEffect(() => {
+    const createdCodeHouse = () => {
+      setCodeHouse(Math.floor(Math.random() * 99999));
+    };
+
+    createdCodeHouse();
+  }, []);
+
+  // ذخیره اطلاعات اولیه
+  const saveBasicInfo = () => {
+    const basicInfo = {
+      name,
+      clientName,
+      floor,
+      location,
+      description,
+    };
+    saveToLocalStorage("basicInfo", basicInfo);
+    toastSuccess("اطلاعات اولیه با موفقیت ذخیره شد", "top-center");
+  };
+
+  // حذف اطلاعات اولیه
+  const cancelBasicInfo = () => {
+    removeFromLocalStorage("basicInfo");
+    setName("");
+    setClientName("");
+    setFloor("");
+    setLocation("");
+    setDescription("");
+    toastSuccess("اطلاعات اولیه حذف شد", "top-center");
+  };
+
+  // ذخیره اطلاعات ملک
+  const savePropertyInfo = () => {
+    const propertyInfo = {
+      agencyID,
+      consultantCode,
+      status,
+      price,
+      fullAddress,
+    };
+    saveToLocalStorage("propertyInfo", propertyInfo);
+    toastSuccess("اطلاعات ملک با موفقیت ذخیره شد", "top-center");
+  };
+
+  // حذف اطلاعات ملک
+  const cancelPropertyInfo = () => {
+    removeFromLocalStorage("propertyInfo");
+    setAgencyID("");
+    setConsultantCode("");
+    setStatus("");
+    setPrice("");
+    setFullAddress("");
+    toastSuccess("اطلاعات ملک حذف شد", "top-center");
+  };
+
+  // ذخیره اطلاعات جزئیات
+  const saveDetailsInfo = () => {
+    const detailsInfo = {
+      bedrooms,
+      storage,
+      parking,
+      yearBuilt,
+      elevator,
+      masterRoom,
+    };
+    saveToLocalStorage("detailsInfo", detailsInfo);
+    toastSuccess("اطلاعات جزئیات با موفقیت ذخیره شد", "top-center");
+  };
+
+  // حذف اطلاعات جزئیات
+  const cancelDetailsInfo = () => {
+    removeFromLocalStorage("detailsInfo");
+    setBedrooms("");
+    setStorage("");
+    setParking("");
+    setYearBuilt("");
+    setElevator("");
+    setMasterRoom("");
+    toastSuccess("اطلاعات جزئیات حذف شد", "top-center");
+  };
+
+  // ذخیره اطلاعات امکانات
+  const saveAmenitiesInfo = () => {
+    const amenitiesInfo = {
+      amenities,
+      features,
+    };
+    saveToLocalStorage("amenitiesInfo", amenitiesInfo);
+    toastSuccess("اطلاعات امکانات با موفقیت ذخیره شد", "top-center");
+  };
+
+  // حذف اطلاعات امکانات
+  const cancelAmenitiesInfo = () => {
+    removeFromLocalStorage("amenitiesInfo");
+    setAmenities({
+      pool: false,
+      terrace: false,
+      jacuzzi: false,
+      sauna: false,
+      gym: false,
+      securitySystem: false,
+      smartHome: false,
+      professionalKitchen: false,
+      homeCinema: false,
+      wineCellar: false,
+      vipReception: false,
+      panoramicView: false,
+    });
+    setFeatures([]);
+    toastSuccess("اطلاعات امکانات حذف شد", "top-center");
+  };
+
   const addHouse = async () => {
     setIsLoading(true);
 
@@ -114,6 +303,7 @@ function AddHome() {
       !masterRoom ||
       !yearBuilt ||
       !price ||
+      !codeHouse ||
       !features.length ||
       !images.length ||
       !consultantCode
@@ -139,6 +329,7 @@ function AddHome() {
     formData.append("price", price);
     formData.append("clientName", clientName);
     formData.append("consultantCode", consultantCode);
+    formData.append("codeHouse", codeHouse);
 
     features.forEach((feature) => {
       formData.append("features", feature);
@@ -148,12 +339,35 @@ function AddHome() {
       formData.append("images", image);
     });
 
+    const amenitiesMap = {
+      pool: "استخر خصوصی",
+      terrace: "تراس پانوراما",
+      jacuzzi: "جکوزی اختصاصی",
+      sauna: "سونا",
+      gym: "سالن ورزش اختصاصی",
+      securitySystem: "سیستم امنیتی پیشرفته",
+      smartHome: "خانه هوشمند",
+      professionalKitchen: "لابی من 24 ساعته",
+      homeCinema: "سینمای خانگی",
+      wineCellar: "هایپرمارکت اختصاصی",
+      vipReception: "سالن پذیرایی VIP",
+      panoramicView: "نمای پانوراما",
+    };
+
+    Object.keys(amenities).forEach((key) => {
+      if (amenities[key]) {
+        formData.append("amenities", amenitiesMap[key]);
+      }
+    });
+
     const res = await fetch("/api/homes", {
       method: "POST",
       body: formData,
     });
 
-    // console.log("response =>> ", res);
+    const data = await res.json();
+
+    console.log("response =>> ", data.message);
 
     if (res.status === 201) {
       setName("");
@@ -169,7 +383,7 @@ function AddHome() {
       setParking("");
       setYearBuilt("");
       setElevator("");
-      setPrice("")
+      setPrice("");
       setMasterRoom("");
       setFeatures([]);
       setImages([]);
@@ -177,17 +391,22 @@ function AddHome() {
       setAmenities({
         pool: false,
         terrace: false,
-        balcony: false,
-        internet: true,
-        phone: false,
-        tv: false,
-        computer: false,
-        dishwasher: true,
-        kitchenHood: true,
-        table: false,
-        dining: false,
-        yard: false,
+        jacuzzi: false,
+        sauna: false,
+        gym: false,
+        securitySystem: false,
+        smartHome: false,
+        professionalKitchen: false,
+        homeCinema: false,
+        wineCellar: false,
+        vipReception: false,
+        panoramicView: false,
       });
+      removeFromLocalStorage("basicInfo");
+      removeFromLocalStorage("propertyInfo");
+      removeFromLocalStorage("detailsInfo");
+      removeFromLocalStorage("amenitiesInfo");
+      removeFromLocalStorage("imagesInfo");
       setIsLoading(false);
       toastSuccess(
         "ملک با موفقیت ثبت شد",
@@ -200,6 +419,7 @@ function AddHome() {
         undefined,
         "colored"
       );
+      router.refresh();
     } else if (res.status === 400) {
       setIsLoading(false);
       toastError(
@@ -255,67 +475,20 @@ function AddHome() {
                   <div className={styles.box}>
                     <div className={styles["box-header"]}>
                       <h4 className={styles["box-title"]}>اطلاعات اولیه</h4>
-                      {/* <ul
-                      className={`${styles["box-controls"]} ${styles["pull-right"]}`}
-                    >
-                      <li className={styles.dropdown}>
-                        <a
-                          data-bs-toggle="dropdown"
-                          href="#"
-                          className={`${styles["px-10"]} ${styles["hover-primary"]}`}
-                        >
-                          {openDropdownIndex === 1 ? (
-                            <IoCloseSharp
-                              onClick={() => toggleDropdown(1)}
-                              className={`${styles["menu-icon"]} ${styles["hover-primary"]}`}
-                              size={40}
-                            />
-                          ) : (
-                            <GiHamburgerMenu
-                              onClick={() => toggleDropdown(1)}
-                              className={`${styles["menu-icon"]} ${styles["hover-primary"]}`}
-                              size={40} // تنظیم سایز آیکون
-                            />
-                          )}
-                        </a>
-                        <div
-                          className={
-                            openDropdownIndex === 1
-                              ? `${styles["dropdown-menu"]}  ${styles["show"]}`
-                              : styles["dropdown-menu"]
-                          }
-                        >
-                          <a className={styles["dropdown-item"]} href="#">
-                            <i
-                              className={`${styles.ti} ${styles["ti-import"]}`}
-                            />
-                            دریافت
-                          </a>
-                          <a className={styles["dropdown-item"]} href="#">
-                            <i
-                              className={`${styles.ti} ${styles["ti-export"]}`}
-                            />
-                            اکسپورت
-                          </a>
-                          <a className={styles["dropdown-item"]} href="#">
-                            <i
-                              className={`${styles.ti} ${styles["ti-printer"]}`}
-                            />
-                            پرینت
-                          </a>
-                          <div className={styles["dropdown-divider"]} />
-                          <a className={styles["dropdown-item"]} href="#">
-                            <i
-                              className={`${styles.ti} ${styles["ti-settings"]}`}
-                            />{" "}
-                            تنظیمات
-                          </a>
-                        </div>
-                      </li>
-                    </ul> */}
                     </div>
                     <div className={styles["box-body"]}>
                       <div className={styles.row}>
+                        <div className={styles["col-sm-6"]}>
+                          <div className={styles["form-group"]}>
+                            <input
+                              type="text"
+                              className={styles["form-control"]}
+                              placeholder="کد اختصاصی ملک"
+                              value={codeHouse}
+                              disabled
+                            />
+                          </div>
+                        </div>
                         <div className={styles["col-sm-6"]}>
                           <div className={styles["form-group"]}>
                             <input
@@ -386,13 +559,15 @@ function AddHome() {
                     <div className={styles["box-footer"]}>
                       <button
                         type="button"
+                        onClick={cancelBasicInfo}
                         className={`${styles.btn} ${styles["btn-danger"]} ${styles["me-1"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
                       >
                         <i className={`${styles.ti} ${styles["ti-trash"]}`} />{" "}
                         لغو
                       </button>
                       <button
-                        type="submit"
+                        type="button"
+                        onClick={saveBasicInfo}
                         className={`${styles.btn} ${styles["btn-primary"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
                       >
                         <i
@@ -407,64 +582,6 @@ function AddHome() {
                   <div className={styles.box}>
                     <div className={styles["box-header"]}>
                       <h4 className={styles["box-title"]}>اطلاعات</h4>
-                      {/* <ul
-                      className={`${styles["box-controls"]} ${styles["pull-right"]}`}
-                    >
-                      <li className={styles.dropdown}>
-                        <a
-                          data-bs-toggle="dropdown"
-                          href="#"
-                          className={`${styles["px-10"]} ${styles["hover-primary"]}`}
-                        >
-                          {openDropdownIndex === 2 ? (
-                            <IoCloseSharp
-                              onClick={() => toggleDropdown(2)}
-                              className={`${styles["menu-icon"]} ${styles["hover-primary"]}`}
-                              size={40}
-                            />
-                          ) : (
-                            <GiHamburgerMenu
-                              onClick={() => toggleDropdown(2)}
-                              className={`${styles["menu-icon"]} ${styles["hover-primary"]}`}
-                              size={40} // تنظیم سایز آیکون
-                            />
-                          )}
-                        </a>
-                        <div
-                          className={
-                            openDropdownIndex === 2
-                              ? `${styles["dropdown-menu"]}  ${styles["show"]}`
-                              : styles["dropdown-menu"]
-                          }
-                        >
-                          <a className={styles["dropdown-item"]} href="#">
-                            <i
-                              className={`${styles.ti} ${styles["ti-import"]}`}
-                            />
-                            دریافت
-                          </a>
-                          <a className={styles["dropdown-item"]} href="#">
-                            <i
-                              className={`${styles.ti} ${styles["ti-export"]}`}
-                            />
-                            اکسپورت
-                          </a>
-                          <a className={styles["dropdown-item"]} href="#">
-                            <i
-                              className={`${styles.ti} ${styles["ti-printer"]}`}
-                            />
-                            پرینت
-                          </a>
-                          <div className={styles["dropdown-divider"]} />
-                          <a className={styles["dropdown-item"]} href="#">
-                            <i
-                              className={`${styles.ti} ${styles["ti-settings"]}`}
-                            />{" "}
-                            تنظیمات
-                          </a>
-                        </div>
-                      </li>
-                    </ul> */}
                     </div>
                     <div className={styles["box-body"]}>
                       <div className={styles.row}>
@@ -494,7 +611,10 @@ function AddHome() {
                             />
                           </div>
                         </div>
-                        <div className={styles["col-sm-6"]} style={{marginTop: "1.3rem"}} >
+                        <div
+                          className={styles["col-sm-6"]}
+                          style={{ marginTop: "1.3rem" }}
+                        >
                           <div className={styles["form-group"]}>
                             <input
                               type="text"
@@ -507,16 +627,17 @@ function AddHome() {
                             />
                           </div>
                         </div>
-                        <div className={styles["col-sm-6"]} style={{marginTop: "1.3rem"}} >
+                        <div
+                          className={styles["col-sm-6"]}
+                          style={{ marginTop: "1.3rem" }}
+                        >
                           <div className={styles["form-group"]}>
                             <input
                               type="text"
                               className={styles["form-control"]}
                               placeholder="قیمت"
                               value={price}
-                              onChange={(event) =>
-                                setPrice(event.target.value)
-                              }
+                              onChange={(event) => setPrice(event.target.value)}
                             />
                           </div>
                         </div>
@@ -538,13 +659,15 @@ function AddHome() {
                     <div className={styles["box-footer"]}>
                       <button
                         type="button"
+                        onClick={cancelPropertyInfo}
                         className={`${styles.btn} ${styles["btn-danger"]} ${styles["me-1"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
                       >
                         <i className={`${styles.ti} ${styles["ti-trash"]}`} />{" "}
                         لغو
                       </button>
                       <button
-                        type="submit"
+                        type="button"
+                        onClick={savePropertyInfo}
                         className={`${styles.btn} ${styles["btn-primary"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
                       >
                         <i
@@ -559,64 +682,6 @@ function AddHome() {
                   <div className={styles.box}>
                     <div className={styles["box-header"]}>
                       <h4 className={styles["box-title"]}>اطلاعات</h4>
-                      {/* <ul
-                      className={`${styles["box-controls"]} ${styles["pull-right"]}`}
-                    >
-                      <li className={styles.dropdown}>
-                        <a
-                          data-bs-toggle="dropdown"
-                          href="#"
-                          className={`${styles["px-10"]} ${styles["hover-primary"]}`}
-                        >
-                          {openDropdownIndex === 3 ? (
-                            <IoCloseSharp
-                              onClick={() => toggleDropdown(3)}
-                              className={`${styles["menu-icon"]} ${styles["hover-primary"]}`}
-                              size={40}
-                            />
-                          ) : (
-                            <GiHamburgerMenu
-                              onClick={() => toggleDropdown(3)}
-                              className={`${styles["menu-icon"]} ${styles["hover-primary"]}`}
-                              size={40} // تنظیم سایز آیکون
-                            />
-                          )}
-                        </a>
-                        <div
-                          className={
-                            openDropdownIndex === 3
-                              ? `${styles["dropdown-menu"]}  ${styles["show"]}`
-                              : styles["dropdown-menu"]
-                          }
-                        >
-                          <a className={styles["dropdown-item"]} href="#">
-                            <i
-                              className={`${styles.ti} ${styles["ti-import"]}`}
-                            />
-                            دریافت
-                          </a>
-                          <a className={styles["dropdown-item"]} href="#">
-                            <i
-                              className={`${styles.ti} ${styles["ti-export"]}`}
-                            />
-                            اکسپورت
-                          </a>
-                          <a className={styles["dropdown-item"]} href="#">
-                            <i
-                              className={`${styles.ti} ${styles["ti-printer"]}`}
-                            />
-                            پرینت
-                          </a>
-                          <div className={styles["dropdown-divider"]} />
-                          <a className={styles["dropdown-item"]} href="#">
-                            <i
-                              className={`${styles.ti} ${styles["ti-settings"]}`}
-                            />{" "}
-                            تنظیمات
-                          </a>
-                        </div>
-                      </li>
-                    </ul> */}
                     </div>
                     <div className={styles["box-body"]}>
                       <div className={styles.row}>
@@ -727,19 +792,21 @@ function AddHome() {
                     <div className={styles["box-footer"]}>
                       <button
                         type="button"
+                        onClick={cancelDetailsInfo}
                         className={`${styles.btn} ${styles["btn-danger"]} ${styles["me-1"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
                       >
                         <i className={`${styles.ti} ${styles["ti-trash"]}`} />{" "}
                         لغو
                       </button>
                       <button
-                        type="submit"
+                        type="button"
+                        onClick={saveDetailsInfo}
                         className={`${styles.btn} ${styles["btn-primary"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
                       >
                         <i
                           className={`${styles.ti} ${styles["ti-save-alt"]}`}
                         />{" "}
-                        ذخیر
+                        ذخیره
                       </button>
                     </div>
                   </div>
@@ -748,64 +815,6 @@ function AddHome() {
                   <div className={styles.box}>
                     <div className={styles["box-header"]}>
                       <h4 className={styles["box-title"]}>امکانات بیشتر</h4>
-                      {/* <ul
-                      className={`${styles["box-controls"]} ${styles["pull-right"]}`}
-                    >
-                      <li className={styles.dropdown}>
-                        <a
-                          data-bs-toggle="dropdown"
-                          href="#"
-                          className={`${styles["px-10"]} ${styles["hover-primary"]}`}
-                        >
-                          {openDropdownIndex === 4 ? (
-                            <IoCloseSharp
-                              onClick={() => toggleDropdown(4)}
-                              className={`${styles["menu-icon"]} ${styles["hover-primary"]}`}
-                              size={40}
-                            />
-                          ) : (
-                            <GiHamburgerMenu
-                              onClick={() => toggleDropdown(4)}
-                              className={`${styles["menu-icon"]} ${styles["hover-primary"]}`}
-                              size={40} // تنظیم سایز آیکون
-                            />
-                          )}
-                        </a>
-                        <div
-                          className={
-                            openDropdownIndex === 4
-                              ? `${styles["dropdown-menu"]}  ${styles["show"]}`
-                              : styles["dropdown-menu"]
-                          }
-                        >
-                          <a className={styles["dropdown-item"]} href="#">
-                            <i
-                              className={`${styles.ti} ${styles["ti-import"]}`}
-                            />
-                            دریافت
-                          </a>
-                          <a className={styles["dropdown-item"]} href="#">
-                            <i
-                              className={`${styles.ti} ${styles["ti-export"]}`}
-                            />
-                            اکسپورت
-                          </a>
-                          <a className={styles["dropdown-item"]} href="#">
-                            <i
-                              className={`${styles.ti} ${styles["ti-printer"]}`}
-                            />
-                            پرینت
-                          </a>
-                          <div className={styles["dropdown-divider"]} />
-                          <a className={styles["dropdown-item"]} href="#">
-                            <i
-                              className={`${styles.ti} ${styles["ti-settings"]}`}
-                            />{" "}
-                            تنظیمات
-                          </a>
-                        </div>
-                      </li>
-                    </ul> */}
                     </div>
                     <div className={styles["box-body"]}>
                       <div className={styles.row}>
@@ -819,7 +828,7 @@ function AddHome() {
                                 checked={amenities.pool}
                                 onChange={handleAmenityChange}
                               />
-                              <label htmlFor="checkbox1">استخر</label>
+                              <label htmlFor="checkbox1">استخر خصوصی</label>
                             </div>
                             <div className={styles.checkbox}>
                               <input
@@ -829,107 +838,117 @@ function AddHome() {
                                 checked={amenities.terrace}
                                 onChange={handleAmenityChange}
                               />
-                              <label htmlFor="checkbox2">تراس</label>
+                              <label htmlFor="checkbox2">تراس پانوراما</label>
                             </div>
                             <div className={styles.checkbox}>
                               <input
                                 id="checkbox3"
                                 type="checkbox"
-                                name="balcony"
-                                checked={amenities.balcony}
+                                name="jacuzzi"
+                                checked={amenities.jacuzzi}
                                 onChange={handleAmenityChange}
                               />
-                              <label htmlFor="checkbox3">هوا خوری</label>
+                              <label htmlFor="checkbox3">جکوزی اختصاصی</label>
                             </div>
                             <div className={styles.checkbox}>
                               <input
                                 id="checkbox4"
                                 type="checkbox"
-                                name="internet"
-                                checked={amenities.internet}
+                                name="sauna"
+                                checked={amenities.sauna}
                                 onChange={handleAmenityChange}
                               />
-                              <label htmlFor="checkbox4">اینترنت</label>
+                              <label htmlFor="checkbox4">سونا</label>
                             </div>
                             <div className={styles.checkbox}>
                               <input
                                 id="checkbox5"
                                 type="checkbox"
-                                name="phone"
-                                checked={amenities.phone}
+                                name="gym"
+                                checked={amenities.gym}
                                 onChange={handleAmenityChange}
                               />
-                              <label htmlFor="checkbox5">تلفن</label>
+                              <label htmlFor="checkbox5">
+                                سالن ورزش اختصاصی
+                              </label>
                             </div>
                             <div className={styles.checkbox}>
                               <input
                                 id="checkbox6"
                                 type="checkbox"
-                                name="tv"
-                                checked={amenities.tv}
+                                name="securitySystem"
+                                checked={amenities.securitySystem}
                                 onChange={handleAmenityChange}
                               />
-                              <label htmlFor="checkbox6">تلویزیون</label>
+                              <label htmlFor="checkbox6">
+                                سیستم امنیتی پیشرفته
+                              </label>
                             </div>
                             <div className={styles.checkbox}>
                               <input
                                 id="checkbox7"
                                 type="checkbox"
-                                name="computer"
-                                checked={amenities.computer}
+                                name="smartHome"
+                                checked={amenities.smartHome}
                                 onChange={handleAmenityChange}
                               />
-                              <label htmlFor="checkbox7">کامپیوتر</label>
+                              <label htmlFor="checkbox7">خانه هوشمند</label>
                             </div>
                             <div className={styles.checkbox}>
                               <input
                                 id="checkbox8"
                                 type="checkbox"
-                                name="dishwasher"
-                                checked={amenities.dishwasher}
+                                name="professionalKitchen"
+                                checked={amenities.professionalKitchen}
                                 onChange={handleAmenityChange}
                               />
-                              <label htmlFor="checkbox8">ظرفشویی</label>
+                              <label htmlFor="checkbox8">
+                                لابی من 24 ساعته
+                              </label>
                             </div>
                             <div className={styles.checkbox}>
                               <input
                                 id="checkbox9"
                                 type="checkbox"
-                                name="kitchenHood"
-                                checked={amenities.kitchenHood}
+                                name="homeCinema"
+                                checked={amenities.homeCinema}
                                 onChange={handleAmenityChange}
                               />
-                              <label htmlFor="checkbox9">هود اشپزخانه</label>
+                              <label htmlFor="checkbox9">سینمای خانگی</label>
                             </div>
                             <div className={styles.checkbox}>
                               <input
-                                id="checkbox0"
+                                id="checkbox10"
                                 type="checkbox"
-                                name="table"
-                                checked={amenities.table}
+                                name="wineCellar"
+                                checked={amenities.wineCellar}
                                 onChange={handleAmenityChange}
                               />
-                              <label htmlFor="checkbox0">میز</label>
+                              <label htmlFor="checkbox10">
+                                هایپرمارکت اختصاصی
+                              </label>
                             </div>
                             <div className={styles.checkbox}>
                               <input
                                 id="checkbox11"
                                 type="checkbox"
-                                name="dining"
-                                checked={amenities.dining}
+                                name="vipReception"
+                                checked={amenities.vipReception}
                                 onChange={handleAmenityChange}
                               />
-                              <label htmlFor="checkbox11">نهارخوری</label>
+                              <label htmlFor="checkbox11">
+                                سالن پذیرایی VIP
+                              </label>
                             </div>
                             <div className={styles.checkbox}>
                               <input
                                 id="checkbox12"
                                 type="checkbox"
-                                name="yard"
-                                checked={amenities.yard}
+                                name="panoramicView"
+                                checked={amenities.panoramicView}
                                 onChange={handleAmenityChange}
                               />
-                              <label htmlFor="checkbox12">بالکن</label>
+                              <label htmlFor="checkbox12">نمای پانوراما</label>
                             </div>
                           </div>
                         </div>
@@ -956,7 +975,9 @@ function AddHome() {
                                 />
                               </div>
                               <h3>فایل را بکشید و رها کنید یا کلیک کنید</h3>
-                              <em>{`حداکثر ${toPersianDigits(8)} فایل را می توانید انتخاب کنید`}</em>
+                              <em>{`حداکثر ${toPersianDigits(
+                                8
+                              )} فایل را می توانید انتخاب کنید`}</em>
                             </div>
                           </form>
                         </div>
@@ -965,10 +986,21 @@ function AddHome() {
                     <div className={styles["box-footer"]}>
                       <button
                         type="button"
+                        onClick={cancelAmenitiesInfo}
                         className={`${styles.btn} ${styles["btn-danger"]} ${styles["me-1"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
                       >
                         <i className={`${styles.ti} ${styles["ti-trash"]}`} />{" "}
                         لغو
+                      </button>
+                      <button
+                        type="button"
+                        onClick={saveAmenitiesInfo}
+                        className={`${styles.btn} ${styles["btn-primary"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
+                      >
+                        <i
+                          className={`${styles.ti} ${styles["ti-save-alt"]}`}
+                        />{" "}
+                        ذخیره
                       </button>
                       <button
                         type="submit"
@@ -976,12 +1008,12 @@ function AddHome() {
                           setIsLoading(true);
                           addHouse();
                         }}
-                        className={`${styles.btn} ${styles["btn-primary"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
+                        className={`${styles.btn} ${styles["btn-success"]} ${styles["ms-1"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
                       >
                         <i
                           className={`${styles.ti} ${styles["ti-save-alt"]}`}
                         />{" "}
-                        ارسال
+                        ارسال نهایی
                       </button>
                     </div>
                   </div>
