@@ -1,0 +1,128 @@
+/* CardHouse.module.css */
+
+/*====================  PROPERTY CARDS  ====================*/
+.property-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.property-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.property-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
+.property-bx {
+  padding: 20px;
+}
+
+.property-location {
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.property-description {
+  color: var(--text-primary);
+  margin-bottom: 15px;
+}
+
+.property-features {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-primary);
+}
+
+/*====================  GRID SYSTEM  ====================*/
+.col-12, 
+.col-md-6, 
+.col-lg-4, 
+.col-xl-3 {
+  padding: 0 15px;
+  margin-bottom: 30px;
+}
+
+/* Responsive columns */
+@media (min-width: 768px) {
+  .col-md-6 {
+    width: 50%;
+  }
+}
+
+@media (min-width: 992px) {
+  .col-lg-4 {
+    width: 33.3333%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .col-xl-3 {
+    width: 25%;
+  }
+}
+
+/*====================  UTILITY CLASSES  ====================*/
+.text-primary {
+  color: var(--link-color) !important;
+}
+
+.text-success {
+  color: #28a745 !important;
+}
+
+.text-muted {
+  color: var(--text-primary) !important;
+  opacity: 0.8;
+}
+
+.mt-0 { margin-top: 0 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.mb-10 { margin-bottom: 10px !important; }
+.mb-20 { margin-bottom: 20px !important; }
+.mt-15 { margin-top: 15px !important; }
+.me-5 { margin-left: 5px !important; }
+.me-10 { margin-left: 10px !important; }
+.me-15 { margin-left: 15px !important; }
+.p-20 { padding: 20px !important; }
+.fs-18 { font-size: 18px !important; }
+
+/*====================  ICONS  ====================*/
+.mdi {
+  font-size: 1.2em;
+  vertical-align: middle;
+}
+
+/*====================  RESPONSIVE ADJUSTMENTS  ====================*/
+@media (max-width: 1199.98px) {
+  .col-xl-3 {
+    width: 33.3333%;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .col-lg-4 {
+    width: 50%;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .col-md-6 {
+    width: 100%;
+  }
+  
+  .property-features {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .property-img {
+    height: 180px;
+  }
+}
