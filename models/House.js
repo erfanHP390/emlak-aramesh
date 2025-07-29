@@ -7,11 +7,10 @@ const houseSchema = mongoose.Schema(
     codeHouse: {
       type: String,
       required: true,
-      unique: true, 
     },
     agencyID: {
       type: String,
-      required: true, 
+      required: true,
     },
     name: {
       type: String,
@@ -19,7 +18,7 @@ const houseSchema = mongoose.Schema(
     },
     clientName: {
       type: String,
-      required: false, 
+      required: false,
     },
     location: {
       type: String,
@@ -27,14 +26,18 @@ const houseSchema = mongoose.Schema(
     },
     fullAddress: {
       type: String,
-      required: true, 
+      required: true,
     },
     description: {
       type: String,
     },
     status: {
       type: String,
-      required: true, 
+      required: true,
+    },
+    price: {
+      type: String,
+      required: true,
     },
     bedrooms: {
       type: String,
@@ -50,7 +53,7 @@ const houseSchema = mongoose.Schema(
     },
     storage: {
       type: String,
-      default: false, 
+      default: false,
     },
     elevator: {
       type: String,
@@ -65,7 +68,7 @@ const houseSchema = mongoose.Schema(
       required: true,
     },
     features: {
-      type: [String], 
+      type: [String],
       default: [],
     },
     images: {
@@ -74,7 +77,7 @@ const houseSchema = mongoose.Schema(
     },
     client: {
       type: mongoose.Types.ObjectId,
-      ref: "Client", 
+      ref: "Client",
       default: null,
     },
     consultant: {
