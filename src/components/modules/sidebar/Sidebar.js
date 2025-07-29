@@ -130,10 +130,10 @@ function Sidebar({ user }) {
         <h4 className={styles.menuHeader}>منو</h4>
         <ul className={styles.menuList}>
           <li className={`${styles.menuItem} ${styles.active}`}>
-            <a href="index.html" className={styles.menuLink}>
+            <Link href={"/dashboard"} className={styles.menuLink}>
               <MdDashboard className={styles.menuIcon} />
               <span className={styles.menuText}>داشبورد</span>
-            </a>
+            </Link>
           </li>
 
           <li className={styles.menuItem}>
