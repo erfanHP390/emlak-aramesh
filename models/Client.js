@@ -27,7 +27,7 @@ const schema = mongoose.Schema(
     },
     consultantCode : {
       type: String,
-      required: true
+      required: false
     },
     consultant: {
       type: mongoose.Types.ObjectId,
