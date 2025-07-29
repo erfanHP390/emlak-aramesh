@@ -284,6 +284,8 @@ select:focus {
 
 .Toastify__toast {
   border-radius: 8px !important;
+  font-family: 'Anjoman_Regular' !important;
+
   padding: 15px !important;
   background-color: var(--input-bg) !important;
   color: var(--text-primary) !important;
@@ -294,54 +296,72 @@ select:focus {
 
 .Toastify__toast--rtl {
   text-align: right !important;
+  font-family: 'Anjoman_Regular' !important;
 }
 
 .Toastify__toast--default {
   background-color: var(--input-bg) !important;
+  font-family: 'Anjoman_Regular' !important;
 }
 
 .Toastify__toast--info {
   background-color: #3498db !important;
+  font-family: 'Anjoman_Regular' !important;
+
   color: white !important;
 }
 
 .Toastify__toast--success {
   background-color: #2ecc71 !important;
+  font-family: 'Anjoman_Regular' !important;
+
   color: white !important;
 }
 
 .Toastify__toast--warning {
   background-color: #f39c12 !important;
+  font-family: 'Anjoman_Regular' !important;
+
   color: white !important;
 }
 
 .Toastify__toast--error {
   background-color: #e74c3c !important;
+  font-family: 'Anjoman_Regular' !important;
+
   color: white !important;
 }
 
 .Toastify__close-button {
   color: var(--text-primary) !important;
+  font-family: 'Anjoman_Regular' !important;
+
   opacity: 0.8 !important;
   align-self: center !important;
 }
 
 .Toastify__close-button:hover {
   opacity: 1 !important;
+  font-family: 'Anjoman_Regular' !important;
+
   color: var(--link-hover) !important;
 }
 
 .Toastify__progress-bar {
   background-color: rgba(255, 255, 255, 0.4) !important;
+  font-family: 'Anjoman_Regular' !important;
 }
 
 .Toastify__progress-bar--rtl {
   right: 0 !important;
   left: auto !important;
+  font-family: 'Anjoman_Regular' !important;
 }
 
 .Toastify__toast-icon {
   margin-left: 10px !important;
+  font-family: 'Anjoman_Regular' !important;
+
   margin-right: 0 !important;
 }
 
