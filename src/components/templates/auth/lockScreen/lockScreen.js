@@ -6,7 +6,7 @@ import { swalAlert, toastError, toastSuccess } from "@/utils/alerts";
 import Loading from "@/app/loading";
 import { useRouter } from "next/navigation";
 
-function LockScreen({ user }) {
+function LockScreen({ user, consultant }) {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -105,10 +105,11 @@ function LockScreen({ user }) {
               {/* User Profile Section */}
               <div className={styles.userProfile}>
                 <img
-                  src="/images/abstract-user-flat-4.svg"
+                  src={consultant?.img || "/images/abstract-user-flat-4.svg"}
                   alt="User Image"
                   className={styles.userAvatar}
                 />
+
                 <h3 className={`${styles.userName} Anjoman_Bold`}>
                   {user.name}
                 </h3>

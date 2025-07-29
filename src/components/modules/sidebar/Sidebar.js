@@ -38,7 +38,7 @@ import {
 import { GiHutsVillage } from "react-icons/gi";
 import Link from "next/link";
 
-function Sidebar({ user }) {
+function Sidebar({ user , consultant }) {
   const [openSubmenus, setOpenSubmenus] = useState({
     propertyType: false,
     consultants: false,
@@ -84,7 +84,7 @@ function Sidebar({ user }) {
       {/* User Profile Section */}
       <div className={styles.userProfile}>
         <img
-          src="/images/abstract-user-flat-4.svg"
+          src={consultant ? consultant.img : "/images/abstract-user-flat-4.svg"}
           alt="User Profile"
           className={styles.userImage}
         />
