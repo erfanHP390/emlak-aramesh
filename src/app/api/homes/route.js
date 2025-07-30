@@ -29,6 +29,8 @@ export async function POST(req) {
     const price = formData.get("price");
     const imageFiles = formData.getAll("images");
     const features = formData.getAll("features");
+    const meterage = formData.get("meterage");
+    const kind = formData.get("kind");
 
     if (!imageFiles || imageFiles.length === 0) {
       return Response.json(
@@ -74,6 +76,8 @@ export async function POST(req) {
       !consultantCode ||
       !features ||
       !price ||
+      !kind ||
+      !meterage ||
       features.length === 0
     ) {
       return Response.json(
@@ -97,7 +101,6 @@ export async function POST(req) {
       );
     }
 
-
     const newHouse = await HouseModel.create({
       codeHouse,
       agencyID,
@@ -113,6 +116,8 @@ export async function POST(req) {
       elevator,
       masterRoom,
       price,
+      meterage,
+      kind,
       yearBuilt,
       consultant: consultant._id,
       client: client?._id || null,
