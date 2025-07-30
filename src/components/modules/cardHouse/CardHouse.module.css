@@ -3,18 +3,27 @@
 /*====================  PROPERTY CARDS  ====================*/
 .property-card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  background-color: var(--input-bg);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .property-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 .property-img {
   width: 100%;
   height: 200px;
   object-fit: cover;
-  border-radius: 8px 8px 0 0;
+  border-radius: 12px 12px 0 0;
+  transition: transform 0.3s ease;
+}
+
+.property-card:hover .property-img {
+  transform: scale(1.02);
 }
 
 .property-bx {
@@ -37,6 +46,41 @@
   display: flex;
   justify-content: space-between;
   color: var(--text-primary);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.title-link {
+  font-size: 1.25rem;
+  transition: color 0.2s ease;
+}
+
+.title-link:hover {
+  color: var(--link-hover);
+}
+
+/*====================  STATUS BADGE  ====================*/
+.status-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: var(--button-bg);
+  color: white;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  z-index: 2;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+}
+
+.status-badge:hover {
+  background-color: var(--button-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 /*====================  GRID SYSTEM  ====================*/
@@ -96,6 +140,7 @@
 .mdi {
   font-size: 1.2em;
   vertical-align: middle;
+  color: var(--link-color);
 }
 
 /*====================  RESPONSIVE ADJUSTMENTS  ====================*/
@@ -117,12 +162,23 @@
   }
   
   .property-features {
-    flex-wrap: wrap;
+    gap: 8px;
   }
 }
 
 @media (max-width: 575.98px) {
   .property-img {
     height: 180px;
+  }
+  
+  .status-badge {
+    font-size: 0.75rem;
+    padding: 6px 14px;
+    top: 12px;
+    right: 12px;
+  }
+  
+  .title-link {
+    font-size: 1.1rem;
   }
 }
