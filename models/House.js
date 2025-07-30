@@ -28,6 +28,14 @@ const houseSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    meterage: {
+      type: String,
+      required: true,
+    },
+    kind: {
+      type: String,
+      required: true,
+    },
     description: {
       type: String,
     },
