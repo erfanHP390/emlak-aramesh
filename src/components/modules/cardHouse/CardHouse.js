@@ -1,10 +1,28 @@
+"use client";
 import React from "react";
 import styles from "./CardHouse.module.css";
+import { MdOutlineBedroomParent, MdCalendarMonth } from "react-icons/md";
+import { FaRegBuilding, FaChessKing, FaParking } from "react-icons/fa";
+import { toPersianDigits } from "@/utils/constants";
 
-function CardHouse({name , img}) {
-
-      const imageUrl = img?.[0] ? `http://localhost:3000${img[0]}` : "/images/house-bg-info.webp";
-
+function CardHouse({
+  name,
+  img,
+  price,
+  location,
+  bedrooms,
+  parking,
+  status,
+  floor,
+  masterRoom,
+  storage,
+  elevator,
+  yearBuilt
+}) {
+  const imageUrl =
+    Array.isArray(img) && img.length > 0
+      ? `http://localhost:3000${img[0]}`
+      : "/images/house-bg-info.webp";
 
   return (
     <>
@@ -13,6 +31,9 @@ function CardHouse({name , img}) {
       >
         <div className={`${styles.box} ${styles["property-card"]}`}>
           <div className={styles["box-body"]}>
+            <div
+              className={`${styles["status-badge"]} Anjoman_SemiBold`}
+            >{`برای ${status}`}</div>
             <img
               className={`${styles["img-fluid"]} ${styles["mb-10"]} ${styles["property-img"]}`}
               src={imageUrl}
@@ -23,12 +44,12 @@ function CardHouse({name , img}) {
                 <h5
                   className={`${styles["text-success"]} ${styles["mt-0"]} ${styles["mb-20"]}`}
                 >
-                  480,000 - 530,000
+                  {Number(price).toLocaleString("fa-IR")} تومان
                 </h5>
                 <h3 className={styles["mt-0"]}>
                   <a
                     href="#"
-                    className={`${styles["text-primary"]} ${styles["Anjoman_Bold"]}`}
+                    className={`${styles["text-primary"]} Anjoman_Bold  ${styles["title-link"]}`}
                   >
                     {name}
                   </a>
@@ -39,41 +60,61 @@ function CardHouse({name , img}) {
                   <i
                     className={`${styles.mdi} ${styles["mdi-pin"]} ${styles["me-5"]}`}
                   />
-                  ولیعصر - زرتشت غربی
-                </p>
-                <p
-                  className={`${styles["text-muted"]} ${styles["mb-0"]} ${styles["property-description"]}  Anjoman_Regular`}
-                >
-                  توضیحات تستی
+                  {location}
                 </p>
               </div>
               <div
-                className={`${styles["mt-15"]} ${styles["fs-18"]} ${styles["property-features"]}`}
+                className={`Anjoman_Regular  ${styles["mt-15"]} ${styles["fs-18"]} ${styles["property-features"]}`}
               >
-                <a href="#" title="Square Feet" className={styles["me-15"]}>
-                  <i
-                    className={`${styles.mdi} ${styles["mdi-view-dashboard"]} ${styles["me-10"]}`}
-                  />
-                  <span>158</span>
-                </a>
-                <a href="#" title="Bedroom" className={styles["me-15"]}>
-                  <i
+                <span title="تعداد خواب" className={`${styles["me-15"]}  `}>
+                  <MdOutlineBedroomParent
                     className={`${styles.mdi} ${styles["mdi-hotel"]} ${styles["me-10"]}`}
                   />
-                  <span>4</span>
-                </a>
-                <a href="#" title="Parking space" className={styles["me-15"]}>
-                  <i
-                    className={`${styles.mdi} ${styles["mdi-car-taxi"]} ${styles["me-10"]}`}
+                  <span>{Number(bedrooms).toLocaleString("fa-IR")}</span>
+                </span>
+
+                {parking && (
+                  <span
+                    title="پارکینگ"
+                    className={`Anjoman_Regular ${styles["me-15"]}`}
+                  >
+                    <FaParking
+                      className={`${styles.mdi} ${styles["mdi-car-taxi"]} ${styles["me-10"]}`}
+                    />
+                    <span>{Number(parking).toLocaleString("fa-IR")}</span>
+                  </span>
+                )}
+
+                {floor && (
+                  <span
+                    title="طبقه"
+                    className={`Anjoman_Regular  ${styles["me-15"]}`}
+                  >
+                    <FaRegBuilding
+                      className={`${styles.mdi} ${styles["mdi-floor-plan"]} ${styles["me-10"]}`}
+                    />
+                    <span>{Number(floor).toLocaleString("fa-IR")}</span>
+                  </span>
+                )}
+
+                <span
+                  title="مستر خواب"
+                  className={`Anjoman_Regular  ${styles["me-15"]}`}
+                >
+                  <FaChessKing
+                    className={`${styles.mdi} ${styles["mdi-king-bed"]} ${styles["me-10"]}`}
                   />
-                  <span>2</span>
-                </a>
-                <a href="#" title="Garages" className={styles["me-15"]}>
-                  <i
-                    className={`${styles.mdi} ${styles["mdi-home"]} ${styles["me-10"]}`}
+                  <span>{Number(masterRoom).toLocaleString("fa-IR")}</span>
+                </span>
+                <span
+                  title="سال ساخت"
+                  className={`Anjoman_Regular  ${styles["me-15"]}`}
+                >
+                  <MdCalendarMonth
+                    className={`${styles.mdi} ${styles["mdi-king-bed"]} ${styles["me-10"]}`}
                   />
-                  <span> 24H</span>
-                </a>
+                  <span>{toPersianDigits(Number(yearBuilt))}</span>
+                </span>
               </div>
             </div>
           </div>
