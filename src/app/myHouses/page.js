@@ -21,13 +21,13 @@ async function page() {
     redirect("/dashboard")
   }
 
-  const houses = await HouseModel.find({ consultant: consultant._id }).lean();
+  const houses = await HouseModel.find({ consultant: consultant._id }).populate("consultant").lean();
 
   
 
   return (
     <PanelLayout>
-      <MyRegistrationHouse houses={JSON.parse(JSON.stringify(houses))} />
+      <MyRegistrationHouse houses={JSON.parse(JSON.stringify(houses))}   />
     </PanelLayout>
   );
 }
