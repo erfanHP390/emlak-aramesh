@@ -1,15 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import styles from "./AddHome.module.css";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { IoCloseSharp } from "react-icons/io5";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import Loading from "@/app/loading";
 import { swalAlert, toastError, toastSuccess } from "@/utils/alerts";
 import { toPersianDigits } from "@/utils/constants";
 import { useRouter } from "next/navigation";
 
-function AddHome({consultant}) {
+function AddHome({ consultant }) {
   const saveToLocalStorage = (key, data) => {
     localStorage.setItem(key, JSON.stringify(data));
   };
@@ -46,7 +44,9 @@ function AddHome({consultant}) {
   const [floor, setFloor] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
-  const [agencyID, setAgencyID] = useState(consultant? consultant.agencyID : "");
+  const [agencyID, setAgencyID] = useState(
+    consultant ? consultant.agencyID : ""
+  );
   const [status, setStatus] = useState("");
   const [fullAddress, setFullAddress] = useState("");
   const [bedrooms, setBedrooms] = useState("");
@@ -59,8 +59,12 @@ function AddHome({consultant}) {
   const [features, setFeatures] = useState([]);
   const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [consultantCode, setConsultantCode] = useState(consultant? consultant.hisCode : "");
+  const [consultantCode, setConsultantCode] = useState(
+    consultant ? consultant.hisCode : ""
+  );
   const [codeHouse, setCodeHouse] = useState();
+  const [meterage, setMeterage] = useState("");
+  const [kind, setKind] = useState("");
 
   useEffect(() => {
     const loadData = () => {
@@ -71,6 +75,8 @@ function AddHome({consultant}) {
         setFloor(basicInfo.floor || "");
         setLocation(basicInfo.location || "");
         setDescription(basicInfo.description || "");
+        setKind(basicInfo.kind || "");
+        setMeterage(basicInfo.meterage || "");
       }
 
       const propertyInfo = loadFromLocalStorage("propertyInfo");
@@ -188,6 +194,8 @@ function AddHome({consultant}) {
       floor,
       location,
       description,
+      meterage,
+      kind,
     };
     saveToLocalStorage("basicInfo", basicInfo);
     toastSuccess("اطلاعات اولیه با موفقیت ذخیره شد", "top-center");
@@ -201,6 +209,8 @@ function AddHome({consultant}) {
     setFloor("");
     setLocation("");
     setDescription("");
+    setMeterage("");
+    setKind("");
     toastSuccess("اطلاعات اولیه حذف شد", "top-center");
   };
 
@@ -303,11 +313,58 @@ function AddHome({consultant}) {
       !masterRoom ||
       !yearBuilt ||
       !price ||
+      !kind ||
+      !meterage ||
       !codeHouse ||
       !features.length ||
       !images.length ||
       !consultantCode
     ) {
+      console.log(
+        "name =>>",
+        name,
+        "clientName +>>",
+        clientName,
+        "floor =>> ",
+        floor,
+        "location:: ",
+        location,
+        "description::: ",
+        description,
+        "agencyID::",
+        agencyID,
+        "status::",
+        status,
+        "fullAddress::",
+        fullAddress,
+        "bedrooms::",
+        bedrooms,
+        "storage::",
+        storage,
+        "parking::",
+        parking,
+        "yearBuilt::",
+        yearBuilt,
+        "elevator::",
+        elevator,
+        "masterRoom::",
+        masterRoom,
+        "price::",
+        price,
+        "features::",
+        features,
+        "images::",
+        images,
+        "consultantCode::",
+        consultantCode,
+        "codeHouse::",
+        codeHouse,
+        "meterage::",
+        meterage,
+        "kind::",
+        kind
+      );
+
       setIsLoading(false);
       return swalAlert("لطفا تمام فیلدهای ضروری را پر کنید", "error", "فهمیدم");
     }
@@ -330,6 +387,8 @@ function AddHome({consultant}) {
     formData.append("clientName", clientName);
     formData.append("consultantCode", consultantCode);
     formData.append("codeHouse", codeHouse);
+    formData.append("meterage", meterage);
+    formData.append("kind", kind);
 
     // features.forEach((feature) => {
     //   formData.append("features", feature);
@@ -356,7 +415,7 @@ function AddHome({consultant}) {
 
     Object.keys(amenities).forEach((key) => {
       if (amenities[key]) {
-        formData.append("features", features[key]);
+        formData.append("features", amenitiesMap[key]);
       }
     });
 
@@ -385,6 +444,8 @@ function AddHome({consultant}) {
       setElevator("");
       setPrice("");
       setMasterRoom("");
+      setKind("");
+      setMeterage("");
       setFeatures([]);
       setImages([]);
       setConsultantCode("");
@@ -534,6 +595,30 @@ function AddHome({consultant}) {
                               onChange={(event) =>
                                 setLocation(event.target.value)
                               }
+                            />
+                          </div>
+                        </div>
+                        <div className={styles["col-sm-6"]}>
+                          <div className={styles["form-group"]}>
+                            <input
+                              type="text"
+                              className={styles["form-control"]}
+                              placeholder="متر"
+                              value={meterage}
+                              onChange={(event) =>
+                                setMeterage(event.target.value)
+                              }
+                            />
+                          </div>
+                        </div>
+                        <div className={styles["col-sm-6"]}>
+                          <div className={styles["form-group"]}>
+                            <input
+                              type="text"
+                              className={styles["form-control"]}
+                              placeholder="نوع (آپارتمان، ویلا، سوئیت، اداری)"
+                              value={kind}
+                              onChange={(event) => setKind(event.target.value)}
                             />
                           </div>
                         </div>
