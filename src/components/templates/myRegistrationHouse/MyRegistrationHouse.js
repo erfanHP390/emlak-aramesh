@@ -161,7 +161,7 @@ function MyRegistrationHouse({houses}) {
 
               {
                 houses.map(house => (
-                  <CardHouse key={house._id} {...house} />
+                  <CardHouse key={house._id} {...house} img={house.images} consultant={house.consultant}  />
                 ))
               }
 
