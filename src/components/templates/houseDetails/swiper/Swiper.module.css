@@ -1,0 +1,169 @@
+/* Swiper Styles */
+.swiper_container {
+  width: 100%;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.main_swiper {
+  width: 100%;
+  height: 500px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.main_swiper .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f5f5f5;
+}
+
+.main_image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.main_swiper:hover .main_image {
+  transform: scale(1.02);
+}
+
+.thumbnail_swiper {
+  width: 100%;
+  height: 100px;
+  margin-top: 10px;
+}
+
+.thumbnail_swiper .swiper-slide {
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.thumbnail_swiper .swiper-slide:hover {
+  opacity: 0.8;
+}
+
+.thumbnail_swiper .swiper-slide-thumb-active {
+  opacity: 1;
+  border: 2px solid var(--primary-color);
+}
+
+.thumbnail_image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slide_image_container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f5f5f5;
+}
+
+.thumbnail_container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f5f5f5;
+}
+
+/* دکمه‌های ناوبری سفارشی */
+.swiper_nav_btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  background: var(--button-bg);
+  color: white !important;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.swiper_container:hover .swiper_nav_btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+.swiper_nav_btn:hover {
+  background: var(--link-hover);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.swiper_nav_btn svg {
+  width: 24px;
+  height: 24px;
+  color: var(--text-heading);
+}
+
+.swiper_button_prev {
+  left: 20px;
+}
+
+.swiper_button_next {
+  right: 20px;
+}
+
+/* نشانگر اسلاید */
+.swiper-pagination {
+  position: absolute;
+  bottom: 20px !important;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+  margin: 0 5px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: white;
+  width: 30px;
+  border-radius: 5px;
+}
+
+/* افکت hover برای thumbnails */
+.thumbnail_container {
+  position: relative;
+}
+
+.thumbnail_container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.thumbnail_swiper .swiper-slide:hover .thumbnail_container::after {
+  opacity: 1;
+}
