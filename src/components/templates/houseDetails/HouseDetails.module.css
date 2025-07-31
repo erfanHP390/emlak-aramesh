@@ -1,72 +1,148 @@
-/*====================  BASE STYLES  ====================*/
+/*====================  BASE VARIABLES  ====================*/
+/*====================  BASE LAYOUT  ====================*/
 .content-wrapper {
   background-color: var(--bg-primary);
   min-height: 100vh;
   padding: 20px;
   direction: rtl;
-  font-family: 'Anjoman_Regular';
-  color: var(--text-primary);
+  font-family: 'Anjoman', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-heading);
   line-height: 1.6;
   margin-top: 4.5rem;
 }
 
 .container-full {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 15px;
 }
 
-/*====================  TEXT STYLES  ====================*/
-.text-primary {
-  color: var(--link-color) !important;
+/*====================  RESPONSIVE LAYOUT  ====================*/
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 -12px;
 }
 
-.text-success {
-  color: #2ecc71 !important;
+.left_bar {
+  flex: 0 0 75%;
+  max-width: 75%;
+  padding: 0 12px;
+  transition: all 0.3s ease;
 }
 
-.text-warning {
-  color: #f39c12 !important;
+.right_bar {
+  flex: 0 0 25%;
+  max-width: 25%;
+  padding: 0 12px;
+  transition: all 0.3s ease;
 }
 
-.text-info {
-  color: #3498db !important;
+/* Large Desktop (1440px and up) */
+@media (min-width: 1440px) {
+  .left_bar {
+    flex: 0 0 78%;
+    max-width: 65%;
+  }
+  .right_bar {
+    flex: 0 0 40%;
+    max-width: 35%;
+  }
 }
 
-.text-muted {
-  color: var(--text-primary);
-  opacity: 0.9;
+/* Medium Desktop (1200px - 1439px) */
+@media (max-width: 1439.98px) and (min-width: 1200px) {
+  .left_bar {
+    flex: 0 0 72%;
+    max-width: 65%;
+  }
+  .right_bar {
+    flex: 0 0 45%;
+    max-width: 32%;
+  }
+}
+
+/* Small Desktop (992px - 1199px) */
+@media (max-width: 1199.98px) and (min-width: 992px) {
+  .right_bar {
+    flex: 0 0 43%;
+    max-width: 50%;
+  }
+  .left_bar {
+    flex: 0 0 70%;
+    max-width: 57%;
+  }
+}
+
+/* Tablet (768px - 991px) */
+@media (max-width: 991.98px) and (min-width: 768px) {
+  .left_bar,
+  .right_bar {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .right_bar {
+    margin-top: 30px;
+  }
+}
+
+/* Large Mobile (576px - 767px) */
+@media (max-width: 767.98px) and (min-width: 576px) {
+  .left_bar,
+  .right_bar {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .right_bar {
+    margin-top: 30px;
+  }
+}
+
+/* Small Mobile (up to 575px) */
+@media (max-width: 575.98px) {
+  .left_bar,
+  .right_bar {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .right_bar {
+    margin-top: 25px;
+  }
+  .content-wrapper {
+    padding: 15px;
+  }
 }
 
 /*====================  BOX STYLES  ====================*/
 .box {
-  background-color: var(--input-bg);
+  background-color: var(--card-bg);
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-sm);
   margin-bottom: 30px;
   overflow: hidden;
   transition: all 0.3s ease;
-  border: 1px solid var(--input-border);
+  border: 1px solid var(--border-color);
 }
 
 .box:hover {
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
 }
 
 .box-header {
   padding: 18px 25px;
-  border-bottom: 1px solid var(--input-border);
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(138, 180, 255, 0.05);
+  background-color: var(--primary-light);
 }
 
 .box-title {
   font-family: 'Anjoman_Bold';
-  color: var(--text-heading);
+  color: var(--heading-color);
   font-size: 1.4rem;
   margin: 0;
   letter-spacing: -0.5px;
@@ -74,21 +150,50 @@
 
 .box-body {
   padding: 25px;
+  color: var(--text-color);
 }
 
 .box-footer {
   padding: 18px 25px;
-  border-top: 1px solid var(--input-border);
+  border-top: 1px solid var(--border-color);
   text-align: left;
   background-color: rgba(138, 180, 255, 0.03);
 }
 
+/*====================  TEXT STYLES  ====================*/
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.text-success {
+  color: var(--success-color) !important;
+}
+
+.text-warning {
+  color: var(--warning-color) !important;
+}
+
+.text-info {
+  color: var(--info-color) !important;
+}
+
+.text-muted {
+  color: var(--text-muted);
+  opacity: 0.9;
+}
+
 /*====================  AMENITIES SECTION  ====================*/
 .amenities-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
   background-color: rgba(46, 204, 113, 0.05);
   border-radius: 10px;
   padding: 20px;
-  margin: -10px;
+}
+
+.amenities-column {
+  padding: 10px;
 }
 
 .amenities-list {
@@ -101,8 +206,9 @@
   padding: 12px 0;
   display: flex;
   align-items: center;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
   font-family: 'Anjoman_Medium';
+  color: var(--text-color);
 }
 
 .amenities-list li:last-child {
@@ -111,7 +217,7 @@
 
 .amenities-list i {
   margin-left: 12px;
-  font-size: 1.4em;
+  font-size: 1.2em;
 }
 
 /*====================  AGENT PROFILE  ====================*/
@@ -132,20 +238,20 @@
   height: 130px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid var(--link-color);
+  border: 4px solid var(--primary-color);
   margin: 0 auto 20px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .agent-name {
   font-family: 'Anjoman_Bold';
-  color: var(--text-heading);
+  color: var(--heading-color);
   font-size: 1.5rem;
   margin-bottom: 8px;
 }
 
 .agent-location {
-  color: var(--link-color);
+  color: var(--primary-color);
   font-family: 'Anjoman_Medium';
   margin-bottom: 25px;
   font-size: 1.1rem;
@@ -164,15 +270,16 @@
   margin-bottom: 15px;
 }
 
-.agent-stat h2 {
+.agent-stat strong {
   font-family: 'Anjoman_Bold';
-  color: var(--text-heading);
+  color: var(--heading-color);
   margin-bottom: 8px;
   font-size: 1.8rem;
+  display: block;
 }
 
-.agent-stat h6 {
-  color: var(--text-primary);
+.agent-stat span {
+  color: var(--text-muted);
   font-size: 0.95rem;
   font-family: 'Anjoman_Regular';
 }
@@ -184,8 +291,8 @@
 
 .form-control {
   background-color: var(--input-bg);
-  color: var(--input-text);
-  border: 1px solid var(--input-border);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 12px 18px;
   width: 100%;
@@ -197,15 +304,18 @@
 .form-control:focus {
   outline: none;
   border-color: var(--input-focus);
-  box-shadow: 0 0 0 3px rgba(138, 180, 255, 0.2);
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
 }
 
 textarea.form-control {
   min-height: 140px;
+  resize: vertical;
 }
 
-.no-resize {
-  resize: none;
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
 /*====================  BUTTON STYLES  ====================*/
@@ -233,23 +343,13 @@ textarea.form-control {
   transform: translateY(-2px);
 }
 
-.btn-success {
-  background-color: #2ecc71;
+.btn-secondary {
+  background-color: var(--text-muted);
   color: white;
 }
 
-.btn-success:hover {
-  background-color: #27ae60;
-  transform: translateY(-2px);
-}
-
-.btn-danger {
-  background-color: #e74c3c;
-  color: white;
-}
-
-.btn-danger:hover {
-  background-color: #c0392b;
+.btn-secondary:hover {
+  background-color: #6c757d;
   transform: translateY(-2px);
 }
 
@@ -258,156 +358,37 @@ textarea.form-control {
 }
 
 /*====================  TABLE STYLES  ====================*/
-.table {
+.property-table {
   width: 100%;
-  color: var(--text-primary);
+  color: var(--text-color);
   border-collapse: collapse;
 }
 
-.table th,
-.table td {
+.property-table th,
+.property-table td {
   padding: 14px 18px;
-  border: 1px solid var(--input-border);
+  border: 1px solid var(--border-color);
   text-align: right;
 }
 
-.table th {
+.property-table th {
   font-family: 'Anjoman_SemiBold';
   background-color: rgba(138, 180, 255, 0.1);
+  color: var(--heading-color);
 }
 
-.table-responsive {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+/*====================  IMAGE STYLES  ====================*/
+.img-responsive {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
-/*====================  BADGE STYLES  ====================*/
-.badge {
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  font-family: 'Anjoman_Medium';
-}
-
-.badge-primary {
-  background-color: var(--button-bg);
-  color: white;
-}
-
-/*====================  UTILITY CLASSES  ====================*/
-.mt-0 {
-  margin-top: 0 !important;
-}
-.mb-0 {
-  margin-bottom: 0 !important;
-}
-.mb-10 {
-  margin-bottom: 10px !important;
-}
-.mb-20 {
-  margin-bottom: 20px !important;
-}
-.mt-15 {
-  margin-top: 15px !important;
-}
-.mt-30 {
-  margin-top: 30px !important;
-}
-.mt-40 {
-  margin-top: 40px !important;
-}
-.me-5 {
-  margin-left: 5px !important;
-}
-.me-8 {
-  margin-left: 8px !important;
-}
-.me-10 {
-  margin-left: 10px !important;
-}
-.me-12 {
-  margin-left: 12px !important;
-}
-.me-15 {
-  margin-left: 15px !important;
-}
-.p-0 {
-  padding: 0 !important;
-}
-.p-20 {
-  padding: 20px !important;
-}
-.p-25 {
-  padding: 25px !important;
-}
-.fs-18 {
-  font-size: 18px !important;
-}
-.fs-20 {
-  font-size: 20px !important;
-}
-.w-p100 {
-  width: 100% !important;
-}
-.h-450 {
-  height: 450px !important;
-}
-.no-border {
-  border: none !important;
-}
-
-/*====================  ICON STYLES  ====================*/
-.mdi {
-  font-size: 1.3em;
-  vertical-align: middle;
-}
-
-.fa {
-  font-size: 1.4em;
-  color: var(--text-primary);
-  transition: color 0.3s ease;
-}
-
-.fa:hover {
-  color: var(--link-color);
-}
-
-.ti {
-  font-size: 1.2em;
-  vertical-align: middle;
-}
-
-/*====================  DROPDOWN MENU  ====================*/
-.dropdown-menu {
-  background-color: var(--input-bg);
-  border: 1px solid var(--input-border);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-  font-family: 'Anjoman_Regular';
+.location-map {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
   border-radius: 8px;
-  padding: 8px 0;
-}
-
-.dropdown-item {
-  color: var(--text-primary);
-  padding: 10px 18px;
-  display: flex;
-  align-items: center;
-  transition: all 0.2s ease;
-}
-
-.dropdown-item:hover {
-  background-color: rgba(138, 180, 255, 0.1);
-  color: var(--link-color);
-}
-
-.dropdown-item i {
-  margin-left: 8px;
-}
-
-.dropdown-divider {
-  border-top: 1px solid var(--input-border);
-  margin: 8px 0;
 }
 
 /*====================  SLIDER STYLES  ====================*/
@@ -434,14 +415,78 @@ textarea.form-control {
   display: block;
 }
 
-/*====================  AVATAR & IMAGE STYLES  ====================*/
-.rounded-circle {
-  border-radius: 50% !important;
+/*====================  ICON STYLES  ====================*/
+.mdi {
+  font-size: 1.3em;
+  vertical-align: middle;
 }
 
-.img-fluid {
-  max-width: 100%;
-  height: auto;
+.ti {
+  font-size: 1.2em;
+  vertical-align: middle;
+}
+
+/*====================  UTILITY CLASSES  ====================*/
+.mt-0 {
+  margin-top: 0 !important;
+}
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+.mb-10 {
+  margin-bottom: 10px !important;
+}
+.mb-20 {
+  margin-bottom: 20px !important;
+}
+.mt-15 {
+  margin-top: 15px !important;
+}
+.mt-30 {
+  margin-top: 30px !important;
+}
+.me-5 {
+  margin-left: 5px !important;
+}
+.me-10 {
+  margin-left: 10px !important;
+}
+.me-15 {
+  margin-left: 15px !important;
+}
+.p-0 {
+  padding: 0 !important;
+}
+.p-20 {
+  padding: 20px !important;
+}
+.text-center {
+  text-align: center !important;
+}
+
+/*====================  PROPERTY FEATURES  ====================*/
+.property-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.property-features a {
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.property-features a:hover {
+  color: var(--primary-color);
+}
+
+.property-features i {
+  margin-left: 8px;
+  color: var(--primary-color);
 }
 
 /*====================  RESPONSIVE ADJUSTMENTS  ====================*/
@@ -501,7 +546,7 @@ textarea.form-control {
     margin-bottom: 20px;
   }
 
-  .agent-stat h2 {
+  .agent-stat strong {
     font-size: 1.6rem;
   }
 
@@ -513,6 +558,8 @@ textarea.form-control {
 @media (max-width: 575.98px) {
   .box-header {
     padding: 14px 16px;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .box-body {
@@ -538,12 +585,17 @@ textarea.form-control {
   }
 
   .amenities-section {
-    margin: -8px;
     padding: 12px;
+    grid-template-columns: 1fr;
   }
 
   .btn {
     padding: 10px 18px;
     font-size: 0.95rem;
+  }
+
+  .property-features {
+    gap: 10px;
+    justify-content: space-between;
   }
 }
