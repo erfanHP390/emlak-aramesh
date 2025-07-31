@@ -1,13 +1,20 @@
-import PanelLayout from '@/components/layouts/PanelLayout'
-import HouseDetails from '@/components/templates/houseDetails/HouseDetails'
-import React from 'react'
+import PanelLayout from "@/components/layouts/PanelLayout";
+import HouseDetails from "@/components/templates/houseDetails/HouseDetails";
+import connectToDB from "@/configs/db";
+import React from "react";
+import HouseModel from "@/models/House";
 
-function page() {
+async function page({ params }) {
+  connectToDB();
+  const house = await HouseModel.findOne({ _id: params.id })
+    .populate("consultant")
+    .lean();
+
   return (
     <PanelLayout>
-      <HouseDetails />
+      <HouseDetails house={JSON.parse(JSON.stringify(house))} />
     </PanelLayout>
-  )
+  );
 }
 
-export default page
+export default page;
