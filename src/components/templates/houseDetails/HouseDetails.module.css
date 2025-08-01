@@ -274,7 +274,7 @@
   font-family: 'Anjoman_Bold';
   color: var(--heading-color);
   margin-bottom: 8px;
-  font-size: 1.8rem;
+  font-size: 1rem;
   display: block;
 }
 
@@ -599,4 +599,105 @@ textarea.form-control {
     gap: 10px;
     justify-content: space-between;
   }
+}
+
+/*====================  SOCIAL ICONS STYLES  ====================*/
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--input-border);
+}
+
+.social-icons .icon {
+  font-size: 1.8rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* Instagram Icon */
+.social-icons .icon[data-icon='instagram'] {
+  color: #e1306c;
+}
+
+.social-icons .icon[data-icon='instagram']:hover {
+  color: #c13584;
+  transform: translateY(-3px);
+}
+
+.social-icons .icon[data-icon='phone'] {
+  color: #2da60c;
+}
+
+.social-icons .icon[data-icon='phone']:hover {
+  color: #3ad110;
+  transform: translateY(-3px);
+}
+
+.social-icons .icon[data-icon='email'] {
+  color: #920a72;
+}
+
+.social-icons .icon[data-icon='email']:hover {
+  color: #b70f90;
+  transform: translateY(-3px);
+}
+
+
+/* Telegram Icon */
+.social-icons .icon[data-icon='telegram-plane'] {
+  color: #0088cc;
+}
+
+.social-icons .icon[data-icon='telegram-plane']:hover {
+  color: #006699;
+  transform: translateY(-3px);
+}
+
+/* WhatsApp Icon */
+.social-icons .icon[data-icon='whatsapp'] {
+  color: #25d366;
+}
+
+.social-icons .icon[data-icon='whatsapp']:hover {
+  color: #128c7e;
+  transform: translateY(-3px);
+}
+
+/* LinkedIn Icon */
+.social-icons .icon[data-icon='linkedin'] {
+  color: #0077b5;
+}
+
+.social-icons .icon[data-icon='linkedin']:hover {
+  color: #005582;
+  transform: translateY(-3px);
+}
+
+/* Twitter Icon */
+.social-icons .icon[data-icon='twitter'] {
+  color: #1da1f2;
+}
+
+.social-icons .icon[data-icon='twitter']:hover {
+  color: #0d8ecf;
+  transform: translateY(-3px);
+}
+
+/* Animation for showing social icons */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.social-icons {
+  animation: fadeInUp 0.5s ease forwards;
 }
