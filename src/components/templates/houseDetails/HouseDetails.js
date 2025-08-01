@@ -3,21 +3,9 @@ import styles from "./HouseDetails.module.css";
 import Swiper from "./swiper/Swiper";
 import BasicInfo from "./basicInfo/BasicInfo";
 import Options from "./options/Options";
+import ConsultantInfo from "./consultantInfo/ConsultantInfo";
 
 function HouseDetails({ house }) {
-
-  // اطلاعات مشاور
-  const agentInfo = {
-    name: house.consultant?.name || "نامشخص",
-    location: house.location,
-    avatar: "/images/avatar/1.jpg",
-    stats: [
-      { value: "14", label: "فایل" },
-      { value: "12GB", label: "استفاده شده" },
-      { value: "25k", label: "منقضی" },
-    ],
-    bio: house.consultant?.bio || "مشاور املاک",
-  };
 
   // مشخصات فنی ملک
   const propertyDetails = [
@@ -70,38 +58,7 @@ function HouseDetails({ house }) {
             {/* سایدبار (راست) */}
             <div className={styles.right_bar}>
               {/* پروفایل مشاور */}
-              <div className={`${styles.box} ${styles["agent-profile"]}`}>
-                <div className={styles["box-body"]}>
-                  <div className={styles["agent-avatar-container"]}>
-                    <img
-                      src={agentInfo.avatar}
-                      alt={`مشاور املاک: ${agentInfo.name}`}
-                      className={styles["agent-avatar"]}
-                    />
-                  </div>
-                  <h3 className={styles["agent-name"]}>{agentInfo.name}</h3>
-                  <p className={styles["agent-location"]}>
-                    {agentInfo.location}
-                  </p>
-                  <p className={styles["agent-bio"]}>{agentInfo.bio}</p>
-
-                  <button
-                    className={`${styles.btn} ${styles["btn-primary"]} ${styles["contact-btn"]}`}
-                  >
-                    <i className={`${styles.ti} ${styles["ti-phone"]}`} /> تماس
-                    با مشاور
-                  </button>
-
-                  <div className={styles["agent-stats"]}>
-                    {agentInfo.stats.map((stat, index) => (
-                      <div key={index} className={styles["agent-stat"]}>
-                        <strong>{stat.value}</strong>
-                        <span>{stat.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              <ConsultantInfo  consultant={house.consultant} />
 
               {/* فرم درخواست بازدید */}
               <div className={styles.box}>
