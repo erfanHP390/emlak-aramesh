@@ -36,6 +36,7 @@
   width: 100%;
   height: 100px;
   margin-top: 10px;
+  cursor: grab;
 }
 
 .thumbnail_swiper .swiper-slide {
