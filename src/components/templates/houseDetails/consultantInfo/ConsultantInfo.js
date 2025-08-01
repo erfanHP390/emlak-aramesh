@@ -10,6 +10,7 @@ import {
   FaPhone,
 } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import { toPersianDigits } from "@/utils/constants";
 
 function ConsultantInfo({ consultant }) {
   const [showSocials, setShowSocials] = useState(false);
@@ -71,18 +72,18 @@ function ConsultantInfo({ consultant }) {
             {`${consultant.firstName} ${consultant.lastName}`}
           </h3>
           <p className={styles["agent-location"]}>
-            {`کد مشاور: ${consultant.hisCode}`}
+            {`کد مشاور: ${toPersianDigits(Number(consultant.hisCode))}`}
           </p>
           <p className={styles["agent-bio"]}>{consultant.description}</p>
 
           <div className={styles["agent-stats"]}>
             <div className={styles["agent-stat"]}>
               <strong>تعداد مشتریان</strong>
-              <span>{consultant?.clients?.length || 0}</span>
+              <span>{toPersianDigits(consultant?.clients?.length) || toPersianDigits(0)}</span>
             </div>
             <div className={styles["agent-stat"]}>
               <strong>تعداد املاک ثبت شده</strong>
-              <span>{consultant?.houses?.length || 0}</span>
+              <span>{toPersianDigits(consultant?.houses?.length) || toPersianDigits(0)}</span>
             </div>
           </div>
 
