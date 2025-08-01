@@ -1,15 +1,9 @@
 import React from "react";
 import styles from "./HouseDetails.module.css";
 import Swiper from "./swiper/Swiper";
+import BasicInfo from "./basicInfo/BasicInfo";
 
 function HouseDetails({ house }) {
-  // ویژگی‌های ملک
-  const propertyFeatures = [
-    { icon: "mdi-view-dashboard", value: house.meterage, label: "متر مربع" },
-    { icon: "mdi-hotel", value: house.bedrooms, label: "اتاق خواب" },
-    { icon: "mdi-car-taxi", value: house.parking, label: "پارکینگ" },
-    { icon: "mdi-home", value: "24H", label: "نگهبانی" },
-  ];
 
   // اطلاعات مشاور
   const agentInfo = {
@@ -49,47 +43,7 @@ function HouseDetails({ house }) {
               <Swiper images={house.images} />
 
               {/* اطلاعات اصلی ملک */}
-              <div className={styles.box}>
-                <div className={styles["box-body"]}>
-                  <div className={styles["property-bx"]}>
-                    <h5
-                      className={`${styles["text-success"]} ${styles["mb-20"]}`}
-                    >
-                      {house.price} تومان
-                    </h5>
-                    <h3 className={styles["mt-0"]}>
-                      <a href="#" className={styles["text-primary"]}>
-                        {house.name}
-                      </a>
-                    </h3>
-                    <p className={styles["text-muted"]}>
-                      <i className={`${styles.mdi} ${styles["mdi-pin"]}`} />
-                      {house.location}
-                    </p>
-                    <p className={`${styles["text-muted"]} ${styles["mb-20"]}`}>
-                      {house.description}
-                    </p>
-
-                    <div className={styles["property-features"]}>
-                      {propertyFeatures.map((feature, index) => (
-                        <div key={index} className={styles["feature-item"]}>
-                          <i
-                            className={`${styles.mdi} ${styles[feature.icon]} ${
-                              styles["text-primary"]
-                            }`}
-                          />
-                          <span className={styles["feature-value"]}>
-                            {feature.value}
-                          </span>
-                          <span className={styles["feature-label"]}>
-                            {feature.label}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <BasicInfo house={house} /> 
 
               {/* بخش امکانات */}
               {house.features && house.features.length > 0 && (
