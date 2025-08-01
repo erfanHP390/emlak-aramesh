@@ -4,22 +4,9 @@ import Swiper from "./swiper/Swiper";
 import BasicInfo from "./basicInfo/BasicInfo";
 import Options from "./options/Options";
 import ConsultantInfo from "./consultantInfo/ConsultantInfo";
+import InfoTable from "./infoTable/InfoTable";
 
 function HouseDetails({ house }) {
-
-  // مشخصات فنی ملک
-  const propertyDetails = [
-    { label: "قیمت:", value: house.price },
-    { label: "نوع قرارداد:", value: house.status, badge: true },
-    { label: "اتاق خواب:", value: house.bedrooms },
-    { label: "طبقه:", value: house.floor },
-    { label: "پارکینگ:", value: house.parking },
-    { label: "انباری:", value: house.storage },
-    { label: "آسانسور:", value: house.elevator },
-    { label: "مستر روم:", value: house.masterRoom },
-    { label: "سال ساخت:", value: house.yearBuilt },
-    { label: "نوع ملک:", value: house.kind },
-  ];
 
   return (
     <div className={styles["content-wrapper"]}>
@@ -126,33 +113,7 @@ function HouseDetails({ house }) {
               </div>
 
               {/* مشخصات فنی */}
-              <div className={styles.box}>
-                <div className={styles["box-header"]}>
-                  <h4 className={styles["box-title"]}>مشخصات فنی</h4>
-                </div>
-                <div className={styles["box-body"]}>
-                  <table className={styles["property-table"]}>
-                    <tbody>
-                      {propertyDetails.map((row, index) => (
-                        <tr key={index}>
-                          <th scope="row">{row.label}</th>
-                          <td>
-                            {row.badge ? (
-                              <span
-                                className={`${styles.badge} ${styles["badge-primary"]}`}
-                              >
-                                {row.value}
-                              </span>
-                            ) : (
-                              row.value
-                            )}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+              <InfoTable  house={house}   />
             </div>
           </div>
         </section>
