@@ -419,6 +419,7 @@ textarea.form-control {
 .mdi {
   font-size: 1.3em;
   vertical-align: middle;
+  margin-left: 0.5rem;
 }
 
 .ti {
