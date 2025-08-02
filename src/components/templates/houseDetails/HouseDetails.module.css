@@ -429,6 +429,7 @@ textarea.form-control {
 .ti {
   font-size: 1.2em;
   vertical-align: middle;
+  margin-left: 0.5rem;
 }
 
 /*====================  UTILITY CLASSES  ====================*/
