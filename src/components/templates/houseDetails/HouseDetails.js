@@ -5,6 +5,7 @@ import BasicInfo from "./basicInfo/BasicInfo";
 import Options from "./options/Options";
 import ConsultantInfo from "./consultantInfo/ConsultantInfo";
 import InfoTable from "./infoTable/InfoTable";
+import MapHouse from "./mapHouse/MapHouse";
 
 function HouseDetails({ house }) {
 
@@ -25,21 +26,7 @@ function HouseDetails({ house }) {
               <Options features={house.features} />
 
               {/* نقشه موقعیت */}
-              <div className={styles.box}>
-                <div className={styles["box-header"]}>
-                  <h4 className={styles["box-title"]}>موقعیت جغرافیایی</h4>
-                </div>
-                <div className={styles["box-body"]}>
-                  <img
-                    src="/images/map.jpg"
-                    alt="موقعیت ملک روی نقشه"
-                    className={styles["location-map"]}
-                  />
-                  <div className={styles["location-description"]}>
-                    <p>آدرس کامل: {house.fullAddress}</p>
-                  </div>
-                </div>
-              </div>
+              <MapHouse  fullAddress={house.fullAddress} />
             </div>
 
             {/* سایدبار (راست) */}
@@ -55,7 +42,7 @@ function HouseDetails({ house }) {
                 <div className={styles["box-body"]}>
                   <form className={styles["request-form"]}>
                     <div className={styles["form-group"]}>
-                      <label htmlFor="name">نام کامل</label>
+                      <label className={styles.fix} htmlFor="name">نام کامل</label>
                       <input
                         type="text"
                         id="name"
@@ -65,7 +52,7 @@ function HouseDetails({ house }) {
                       />
                     </div>
                     <div className={styles["form-group"]}>
-                      <label htmlFor="phone">شماره تماس</label>
+                      <label className={styles.fix} htmlFor="phone">شماره تماس</label>
                       <input
                         type="tel"
                         id="phone"
@@ -75,7 +62,7 @@ function HouseDetails({ house }) {
                       />
                     </div>
                     <div className={styles["form-group"]}>
-                      <label htmlFor="email">ایمیل (اختیاری)</label>
+                      <label className={styles.fix} htmlFor="email">ایمیل</label>
                       <input
                         type="email"
                         id="email"
@@ -84,7 +71,7 @@ function HouseDetails({ house }) {
                       />
                     </div>
                     <div className={styles["form-group"]}>
-                      <label htmlFor="message">توضیحات</label>
+                      <label className={styles.fix} htmlFor="message">توضیحات</label>
                       <textarea
                         id="message"
                         className={`${styles["form-control"]} ${styles["no-resize"]}`}
