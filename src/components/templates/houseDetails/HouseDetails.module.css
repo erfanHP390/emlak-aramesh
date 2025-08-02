@@ -150,7 +150,7 @@
 
 .box-body {
   padding: 25px;
-  color: var(--text-color);
+  color: var(--text-heading);
 }
 
 .box-footer {
@@ -344,13 +344,17 @@ textarea.form-control {
 }
 
 .btn-secondary {
-  background-color: var(--text-muted);
+  background-color: #6c757d;
   color: white;
 }
 
 .btn-secondary:hover {
-  background-color: #6c757d;
+  background-color: #4c5258;
   transform: translateY(-2px);
+}
+
+.fix {
+  margin-bottom: 0.75rem !important;
 }
 
 .btn i {
@@ -645,7 +649,6 @@ textarea.form-control {
   transform: translateY(-3px);
 }
 
-
 /* Telegram Icon */
 .social-icons .icon[data-icon='telegram-plane'] {
   color: #0088cc;
@@ -700,4 +703,72 @@ textarea.form-control {
 
 .social-icons {
   animation: fadeInUp 0.5s ease forwards;
+}
+
+/* =================================== */
+/* HouseDetails.module.css */
+.box {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+  border: 1px solid var(--input-border);
+  background-color: var(--bg-primary);
+}
+
+.box-header {
+  padding: 16px 20px;
+  background-color: var(--input-bg);
+  border-bottom: 1px solid var(--input-border);
+}
+
+.box-title {
+  font-size: 1.25rem;
+  margin: 0;
+  color: var(--text-heading);
+  font-family: 'Anjoman_Bold';
+}
+
+.box-body {
+  padding: 20px;
+}
+
+.map-container {
+  margin-bottom: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.map {
+  width: 100%;
+  height: 400px;
+  background-color: var(--input-bg);
+}
+
+.location-description {
+  padding: 12px;
+  background-color: var(--input-bg);
+  border-radius: 8px;
+  font-family: 'Anjoman_Regular';
+  color: var(--text-primary);
+}
+
+/* استایل‌های popup نقشه */
+.leaflet-popup-content {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Anjoman_Regular';
+  margin: 12px;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.leaflet-popup-tip {
+  background-color: var(--input-bg);
 }
