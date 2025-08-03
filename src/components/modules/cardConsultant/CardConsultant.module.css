@@ -1,0 +1,121 @@
+/*==================== CARD CONSULTANT STYLES ====================*/
+.consultantCol {
+  width: 100%;
+  padding: 0.75rem;
+}
+
+.consultantCard {
+  background-color: var(--input-bg);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 1.5rem;
+}
+
+.consultantCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cardHeader {
+  position: relative;
+}
+
+.cardImage {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.cardBody {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.socialIcons {
+  margin-bottom: 1rem;
+}
+
+.socialBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.25rem;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.facebookBtn {
+  background-color: #3b5998;
+}
+
+.instagramBtn {
+  background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+}
+
+.twitterBtn {
+  background-color: #1da1f2;
+}
+
+.emailBtn {
+  background-color: #ffc107;
+}
+
+.socialBtn:hover {
+  transform: scale(1.1);
+  opacity: 0.9;
+}
+
+.consultantName {
+  margin: 1rem 0;
+  font-family: 'Anjoman_Bold';
+  color: var(--text-heading);
+}
+
+.consultantNameLink {
+  color: inherit;
+  transition: color 0.2s ease;
+}
+
+.consultantNameLink:hover {
+  color: var(--link-hover);
+}
+
+.consultantInfo {
+  font-family: 'Anjoman_Medium';
+  color: var(--text-primary);
+  margin: 0.5rem 0;
+}
+
+.contactIcon {
+  margin-left: 0.5rem;
+}
+
+.consultantEmail {
+  width: 85%;
+  margin: 0 auto;
+  color: var(--text-primary);
+  font-family: 'Anjoman_Regular';
+}
+
+/* Responsive Styles */
+@media (min-width: 576px) {
+  .consultantCol {
+    width: 50%;
+  }
+}
+
+@media (min-width: 768px) {
+  .consultantCol {
+    width: 33.333%;
+  }
+  
+  .cardBody {
+    padding: 2rem;
+  }
+}
