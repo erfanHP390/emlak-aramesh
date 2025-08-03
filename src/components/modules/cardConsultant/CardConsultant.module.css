@@ -1,84 +1,103 @@
 /*==================== CARD CONSULTANT STYLES ====================*/
 .consultantCol {
-  width: 100%;
+  flex: 0 0 100%;
+  max-width: 100%;
   padding: 0.75rem;
+  box-sizing: border-box;
 }
 
 .consultantCard {
   background-color: var(--input-bg);
-  border-radius: 0.5rem;
+  border-radius: 0.8rem;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  margin-bottom: 1.5rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .consultantCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
 .cardHeader {
   position: relative;
+  flex: 0 0 auto;
+}
+
+.imageLink {
+  display: block;
+  width: 100%;
+  height: 0;
+  padding-bottom: 70%; /* کاهش ارتفاع تصویر */
+  position: relative;
+  overflow: hidden;
 }
 
 .cardImage {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 200px;
+  height: 100%;
   object-fit: cover;
-  display: block;
+  transition: transform 0.4s ease;
 }
 
 .cardBody {
-  padding: 1.5rem;
+  padding: 1rem;
   text-align: center;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.textCenter {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .socialIcons {
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .socialBtn {
-  width: 36px;
-  height: 36px;
+  width: 2.2rem;
+  height: 2.2rem;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: 0 0.25rem;
   color: white;
-  transition: all 0.3s ease;
-}
-
-.facebookBtn {
-  background-color: #3b5998;
-}
-
-.instagramBtn {
-  background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
-}
-
-.twitterBtn {
-  background-color: #1da1f2;
-}
-
-.emailBtn {
-  background-color: #ffc107;
-}
-
-.socialBtn:hover {
-  transform: scale(1.1);
-  opacity: 0.9;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
 .consultantName {
-  margin: 1rem 0;
-  font-family: 'Anjoman_Bold';
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
   color: var(--text-heading);
+  line-height: 1.4;
+  word-break: keep-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .consultantNameLink {
   color: inherit;
+  text-decoration: none;
   transition: color 0.2s ease;
 }
 
@@ -87,35 +106,184 @@
 }
 
 .consultantInfo {
-  font-family: 'Anjoman_Medium';
+  margin: 0.4rem 0;
+  font-size: 0.85rem;
   color: var(--text-primary);
-  margin: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  word-break: break-word;
 }
 
 .contactIcon {
-  margin-left: 0.5rem;
+  margin-left: 0.4rem;
+  font-size: 0.8rem;
+  flex-shrink: 0;
 }
 
 .consultantEmail {
-  width: 85%;
-  margin: 0 auto;
+  margin: 0.4rem 0 0;
+  font-size: 0.85rem;
   color: var(--text-primary);
-  font-family: 'Anjoman_Regular';
+  word-break: break-word;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Social Buttons Colors */
+.facebookBtn {
+  background-color: #3b5998;
+}
+.instagramBtn {
+  background: linear-gradient(
+    45deg,
+    #405de6,
+    #5851db,
+    #833ab4,
+    #c13584,
+    #e1306c,
+    #fd1d1d
+  );
+}
+.twitterBtn {
+  background-color: #1da1f2;
+}
+.telegramBtn {
+  background-color: #0088cc;
+}
+.whatsappBtn {
+  background-color: #25d366;
+}
+.linkedinBtn {
+  background-color: #0077b5;
+}
+.emailBtn {
+  background-color: #d44638;
+}
+.phoneBtn {
+  background-color: #34b7f1;
+}
+
+.socialBtn:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
 }
 
 /* Responsive Styles */
-@media (min-width: 576px) {
+@media (min-width: 480px) {
   .consultantCol {
-    width: 50%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .imageLink {
+    padding-bottom: 60%; /* کاهش بیشتر ارتفاع تصویر */
+  }
+
+  .consultantName {
+    font-size: 1.15rem;
+  }
+
+  .consultantInfo,
+  .consultantEmail {
+    font-size: 0.9rem;
+  }
+
+  .socialBtn {
+    width: 2.3rem;
+    height: 2.3rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (min-width: 600px) {
+  .consultantCol {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: 0.7rem;
+  }
+
+  .imageLink {
+    padding-bottom: 65%;
+  }
+
+  .consultantName {
+    font-size: 1.2rem;
+  }
+
+  .cardBody {
+    padding: 1.2rem;
   }
 }
 
 @media (min-width: 768px) {
   .consultantCol {
-    width: 33.333%;
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: 0.8rem;
   }
-  
-  .cardBody {
-    padding: 2rem;
+
+  .imageLink {
+    padding-bottom: 75%;
+  }
+
+  .consultantName {
+    font-size: 1.25rem;
+  }
+
+  .consultantInfo,
+  .consultantEmail {
+    font-size: 0.95rem;
+  }
+
+  .socialBtn {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 850px) {
+  .consultantCol {
+    flex: 0 0 33.333%;
+    max-width: 33.333%;
+  }
+
+  .consultantName {
+    font-size: 1.3rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .consultantCol {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .imageLink {
+    padding-bottom: 80%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .consultantCol {
+    flex: 0 0 33.333%;
+    max-width: 33.333%;
+  }
+
+  .consultantName {
+    font-size: 1.4rem;
+  }
+
+  .consultantInfo,
+  .consultantEmail {
+    font-size: 1rem;
+  }
+
+  .socialBtn {
+    width: 2.8rem;
+    height: 2.8rem;
+    font-size: 1.1rem;
   }
 }
