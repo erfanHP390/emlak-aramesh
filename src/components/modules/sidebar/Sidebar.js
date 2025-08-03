@@ -241,16 +241,16 @@ function Sidebar({ user , consultant }) {
             >
               <ul className={styles.submenu}>
                 <li className={styles.submenuItem}>
-                  <a href="agentslist.html" className={styles.submenuLink}>
+                  <Link href={"/allConsultants"} className={styles.submenuLink}>
                     <FaUserGroup className={styles.submenuIcon} />
                     <span className={styles.text_link}>همه مشاوران</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className={styles.submenuItem}>
-                  <a href="addagent.html" className={styles.submenuLink}>
+                  <Link href={"/addConsultant"} className={styles.submenuLink}>
                     <FaUserEdit className={styles.submenuIcon} />
                     <span className={styles.text_link}>عضویت مشاور</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className={styles.submenuItem}>
                   <a href="agentprofile.html" className={styles.submenuLink}>
