@@ -5,7 +5,8 @@ import { toPersianDigits } from "@/utils/constants";
 import CartHouse from "@/components/modules/cartHouse/CartHouse";
 
 function HomesList({ houses: initialHouses }) {
-  const [houses, setHouses] = useState(initialHouses);
+  const [visibleHouses, setVisibleHouses] = useState(6);
+  const [houses, setHouses] = useState(initialHouses.slice(0, visibleHouses));
   const [tempFilters, setTempFilters] = useState({
     status: "",
     kind: "",
@@ -119,7 +120,13 @@ function HomesList({ houses: initialHouses }) {
       return true;
     });
 
-    setHouses(filteredHouses);
+    setVisibleHouses(6); // Reset visible houses when applying new filters
+    setHouses(filteredHouses.slice(0, 6));
+  };
+
+  const loadMore = () => {
+    setVisibleHouses((prev) => prev + 3);
+    setHouses(initialHouses.slice(0, visibleHouses + 3));
   };
 
   const handleFilterChange = (e) => {
@@ -163,7 +170,8 @@ function HomesList({ houses: initialHouses }) {
       generalFeatures: [],
       specialFeatures: [],
     });
-    setHouses(initialHouses);
+    setVisibleHouses(6);
+    setHouses(initialHouses.slice(0, 6));
   };
 
   return (
@@ -405,14 +413,28 @@ function HomesList({ houses: initialHouses }) {
               </div>
               <div className={`${styles["col-xl-9"]} ${styles["col-12"]}`}>
                 {houses.length > 0 ? (
-                  houses.map((house) => (
-                    <CartHouse
-                      key={house._id}
-                      {...house}
-                      img={house.images}
-                      consultant={house.consultant}
-                    />
-                  ))
+                  <>
+                    <div className={styles.housesGrid}>
+                      {houses.map((house) => (
+                        <CartHouse
+                          key={house._id}
+                          {...house}
+                          img={house.images}
+                          consultant={house.consultant}
+                        />
+                      ))}
+                    </div>
+                    {visibleHouses < initialHouses.length && (
+                      <div className={styles.buttonContainer}>
+                        <button
+                          className={styles.loadMoreBtn}
+                          onClick={loadMore}
+                        >
+                          نمایش خانه‌های بیشتر
+                        </button>
+                      </div>
+                    )}
+                  </>
                 ) : (
                   <div className={`${styles["no-results"]} Anjoman_Medium`}>
                     <div className={styles["no-results-content"]}>
