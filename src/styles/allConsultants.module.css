@@ -1,0 +1,42 @@
+/*==================== ALL CONSULTANTS PAGE STYLES ====================*/
+.contentWrapper {
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+  padding: 2rem;
+  direction: rtl;
+}
+
+.containerFull {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1400px;
+}
+
+.contentSection {
+  padding: 1rem 0;
+}
+
+.consultantsRow {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -0.75rem;
+}
+
+/* Responsive Styles */
+@media (min-width: 576px) {
+  .contentWrapper {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .contentWrapper {
+    padding: 3rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .containerFull {
+    padding: 0 2rem;
+  }
+}
