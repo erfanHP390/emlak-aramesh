@@ -6,23 +6,51 @@ import ConsultantModel from "@/models/Consultant"
 import CardConsultant from "@/components/modules/cardConsultant/CardConsultant";
 
 async function page() {
+  try {
+    await connectToDB();
+    const consultants = await ConsultantModel.find({}).lean();
 
-    connectToDB()
-    const consultants = await  ConsultantModel.find({})
-
-  return (
-    <PanelLayout>
-      <div className={styles.contentWrapper}>
-        <div className={styles.containerFull}>
-          <section className={styles.contentSection}>
-            <div className={styles.consultantsRow}>
-             <CardConsultant />
-            </div>
-          </section>
+    return (
+      <PanelLayout>
+        <div className={styles.contentWrapper}>
+          <div className={styles.containerFull}>
+            <section className={styles.contentSection}>
+              <div className={styles.consultantsRow}>
+                {consultants.length > 0 ? (
+                  consultants.map(consultant => (
+                    <CardConsultant 
+                      key={consultant._id.toString()}  
+                      {...consultant} 
+                      image={consultant.img}   
+                    />
+                  ))
+                ) : (
+                  <div className={styles.noConsultants}>
+                    <p>هیچ مشاوری یافت نشد</p>
+                  </div>
+                )}
+              </div>
+            </section>
+          </div>
         </div>
-      </div>
-    </PanelLayout>
-  );
+      </PanelLayout>
+    );
+  } catch (error) {
+    console.error("Error fetching consultants:", error);
+    return (
+      <PanelLayout>
+        <div className={styles.contentWrapper}>
+          <div className={styles.containerFull}>
+            <section className={styles.contentSection}>
+              <div className={styles.errorMessage}>
+                <p>خطا در بارگذاری اطلاعات مشاوران</p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </PanelLayout>
+    );
+  }
 }
 
 export default page;
