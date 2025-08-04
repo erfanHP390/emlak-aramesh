@@ -91,6 +91,32 @@
   --scrollbar-thumb: #2f6dff;
 }
 
+/*====================  UTILITY FONT CLASSES  ====================*/
+.Anjoman_Black {
+  font-family: 'Anjoman_Black' !important;
+}
+.Anjoman_Bold {
+  font-family: 'Anjoman_Bold' !important;
+}
+.Anjoman_ExtraBold {
+  font-family: 'Anjoman_ExtraBold' !important;
+}
+.Anjoman_ExtraLight {
+  font-family: 'Anjoman_ExtraLight' !important;
+}
+.Anjoman_Heavy {
+  font-family: 'Anjoman_Heavy' !important;
+}
+.Anjoman_Medium {
+  font-family: 'Anjoman_Medium' !important;
+}
+.Anjoman_Regular {
+  font-family: 'Anjoman_Regular' !important;
+}
+.Anjoman_SemiBold {
+  font-family: 'Anjoman_SemiBold' !important;
+}
+
 /*====================  BASE STYLES  ====================*/
 body {
   background-color: var(--bg-primary);
@@ -175,32 +201,6 @@ select:focus {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--link-hover);
-}
-
-/*====================  UTILITY FONT CLASSES  ====================*/
-.Anjoman_Black {
-  font-family: 'Anjoman_Black' !important;
-}
-.Anjoman_Bold {
-  font-family: 'Anjoman_Bold' !important;
-}
-.Anjoman_ExtraBold {
-  font-family: 'Anjoman_ExtraBold' !important;
-}
-.Anjoman_ExtraLight {
-  font-family: 'Anjoman_ExtraLight' !important;
-}
-.Anjoman_Heavy {
-  font-family: 'Anjoman_Heavy' !important;
-}
-.Anjoman_Medium {
-  font-family: 'Anjoman_Medium' !important;
-}
-.Anjoman_Regular {
-  font-family: 'Anjoman_Regular' !important;
-}
-.Anjoman_SemiBold {
-  font-family: 'Anjoman_SemiBold' !important;
 }
 
 /*====================  COLOR UTILITY CLASSES  ====================*/
@@ -826,4 +826,207 @@ select:focus {
 
 .Toastify__slide-exit--rtl {
   animation-name: Toastify__slideOutRight !important;
+}
+
+/* =================================================== */
+
+/* ==================== REACT-MULTI-DATE-PICKER CUSTOM STYLES ==================== */
+/* Base Container */
+.rmdp-wrapper {
+  font-family: 'Anjoman_Regular', sans-serif !important;
+  direction: rtl !important;
+  background-color: var(--input-bg) !important;
+  border: 1px solid var(--input-border) !important;
+  border-radius: 0.5rem !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Header Styles */
+.rmdp-header {
+  padding: 0.75rem 1rem !important;
+}
+
+.rmdp-header-values {
+  font-family: 'Anjoman_Bold' !important;
+  color: var(--text-heading) !important;
+  font-size: 1rem !important;
+}
+
+.rmdp-header-values span {
+  margin: 0 4px !important;
+}
+
+/* Arrow Navigation */
+.rmdp-arrow-container {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  transition: all 0.2s ease !important;
+}
+
+.rmdp-arrow-container:hover {
+  background-color: rgba(138, 180, 255, 0.1) !important;
+}
+
+.rmdp-arrow {
+  border-color: var(--text-primary) !important;
+}
+
+/* Week Days */
+.rmdp-week-day {
+  color: var(--text-heading) !important;
+  font-family: 'Anjoman_Medium' !important;
+  font-size: 0.8rem !important;
+  padding: 0.5rem 0 !important;
+}
+
+/* Day Cells */
+.rmdp-day {
+  color: var(--text-primary) !important;
+  font-family: 'Anjoman_Regular' !important;
+  border-radius: 50% !important;
+  width: 36px !important;
+  height: 36px !important;
+  margin: 2px !important;
+  transition: all 0.2s ease !important;
+}
+
+.rmdp-day:hover {
+  background-color: rgba(138, 180, 255, 0.2) !important;
+}
+
+.rmdp-day.rmdp-today {
+  background-color: rgba(138, 180, 255, 0.3) !important;
+  color: var(--text-primary) !important;
+}
+
+.rmdp-day.rmdp-selected {
+  background-color: var(--button-bg) !important;
+  color: white !important;
+}
+
+.rmdp-day.rmdp-selected:hover {
+  background-color: var(--button-hover) !important;
+}
+
+.rmdp-day.rmdp-disabled {
+  color: var(--input-border) !important;
+  opacity: 0.5 !important;
+}
+
+/* Input Field */
+.rmdp-input {
+  background-color: var(--input-bg) !important;
+  color: var(--input-text) !important;
+  border: 1px solid var(--input-border) !important;
+  border-radius: 0.375rem !important;
+  padding: 0.75rem 1rem !important;
+  font-family: 'Anjoman_Regular' !important;
+  font-size: 0.875rem !important;
+  width: 100% !important;
+  transition: all 0.2s ease !important;
+}
+
+.rmdp-input:focus {
+  border-color: var(--input-focus) !important;
+  box-shadow: 0 0 0 3px rgba(138, 180, 255, 0.2) !important;
+  outline: none !important;
+}
+
+/* Month/Year Picker */
+.rmdp-month-picker,
+.rmdp-year-picker {
+  padding: 0.5rem !important;
+}
+
+.rmdp-ym {
+  display: flex !important;
+  justify-content: space-between !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.rmdp-ym .rmdp-day {
+  flex: 1 !important;
+  margin: 0 0.25rem !important;
+  border-radius: 0.375rem !important;
+  height: auto !important;
+  padding: 0.5rem 0 !important;
+}
+
+/* Time Picker */
+.rmdp-time-picker {
+  padding: 0.5rem !important;
+}
+
+.rmdp-time-picker div input {
+  background-color: var(--input-bg) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--input-border) !important;
+  border-radius: 0.25rem !important;
+  font-family: 'Anjoman_Regular' !important;
+}
+
+.custom-rmdp-container {
+  width: 100% !important;
+}
+
+/* Buttons */
+.rmdp-button {
+  color: var(--button-bg) !important;
+  font-family: 'Anjoman_Medium' !important;
+  transition: all 0.2s ease !important;
+}
+
+.rmdp-button:hover {
+  color: var(--button-hover) !important;
+  background-color: transparent !important;
+}
+
+/* Shadow Arrow */
+.rmdp-ep-arrow {
+  display: none !important;
+}
+
+/* RTL Adjustments */
+.rmdp-rtl .rmdp-panel {
+  padding-right: 0 !important;
+  padding-left: 5px !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .rmdp-day {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 0.8rem !important;
+  }
+  
+  .rmdp-header-values {
+    font-size: 0.9rem !important;
+  }
+}
+
+/* Dark/Light Theme Adjustments */
+.light .rmdp-wrapper {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.light .rmdp-day.rmdp-today {
+  background-color: rgba(47, 109, 255, 0.1) !important;
+}
+
+/* Override Default Styles with Higher Specificity */
+div.rmdp-wrapper {
+  z-index: 9999 !important;
+}
+
+div.rmdp-day-picker {
+  padding: 0.5rem !important;
+}
+
+/* Custom Placeholder Style */
+.rmdp-input::placeholder {
+  color: var(--input-border) !important;
+  opacity: 1 !important;
+  font-family: 'Anjoman_Regular' !important;
 }
