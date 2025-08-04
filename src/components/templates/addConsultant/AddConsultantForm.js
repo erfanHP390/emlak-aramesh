@@ -20,13 +20,14 @@ function AddConsultantForm() {
   const [age, setAge] = useState("");
   const [sex, setSex] = useState("");
   const [email, setEmail] = useState("");
-  const [img, setImg] = useState("");
+  const [img, setImg] = useState(null);
   const [description, setDescription] = useState("");
   const [password, setPassword] = useState("");
-  const [socials, setSocials] = useState([]);
+  const [socials, setSocials] = useState(Array(4).fill(""));
   const [hisCode, setHisCode] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [hasWarned, setHasWarned] = useState(false);
 
   // توابع مدیریت localStorage
   const saveToLocalStorage = (key, data) => {
@@ -53,7 +54,7 @@ function AddConsultantForm() {
       setBirthDay(loadBasicInfo.birthDay || "");
       setAge(loadBasicInfo.age || "");
       setSex(loadBasicInfo.sex || "");
-      setImg(loadBasicInfo.img || "");
+      setImg(loadBasicInfo.img || null);
       setDescription(loadBasicInfo.description || "");
     }
 
@@ -66,11 +67,17 @@ function AddConsultantForm() {
 
     const loadSocialInfo = loadFromLocalStorage("consultantSocialInfo");
     if (loadSocialInfo) {
-      setSocials(loadSocialInfo.socials || []);
+      const loadedSocials = Array.isArray(loadSocialInfo.socials)
+        ? [...loadSocialInfo.socials]
+        : [];
+      while (loadedSocials.length < 4) {
+        loadedSocials.push("");
+      }
+      setSocials(loadedSocials.slice(0, 4));
     }
   }, []);
 
-  // اعتبارسنجی نام کاربری/آیدی شبکه‌های اجتماعی
+  // اعتبارسنجی نام کاربری/آیدی شبکه‌های اجتماعی (فقط برای مقادیر پر شده)
   const validateSocialUsernames = () => {
     const socialPatterns = {
       0: /^[a-zA-Z0-9._]{1,30}$/, // اینستاگرام
@@ -94,28 +101,30 @@ function AddConsultantForm() {
     return true;
   };
 
-  // ساخت لینک کامل برای شبکه‌های اجتماعی
+  // ساخت لینک کامل فقط برای شبکه‌های اجتماعی پر شده
   const buildSocialLinks = () => {
-    return socials.map((username, index) => {
-      if (!username) return "";
+    return socials
+      .map((username, index) => {
+        if (!username) return null;
 
-      switch (index) {
-        case 0: // اینستاگرام
-          return `https://instagram.com/${username.replace(/^@/, "")}`;
-        case 1: // لینکدین
-          return `https://linkedin.com/in/${username}`;
-        case 2: // تلگرام
-          return username.startsWith("@")
-            ? `https://t.me/${username.substring(1)}`
-            : `https://t.me/${username}`;
-        case 3: // واتساپ
-          return `https://wa.me/${username
-            .replace(/^0/, "98")
-            .replace(/^\+/, "")}`;
-        default:
-          return username;
-      }
-    });
+        switch (index) {
+          case 0: // اینستاگرام
+            return `https://instagram.com/${username.replace(/^@/, "")}`;
+          case 1: // لینکدین
+            return `https://linkedin.com/in/${username}`;
+          case 2: // تلگرام
+            return username.startsWith("@")
+              ? `https://t.me/${username.substring(1)}`
+              : `https://t.me/${username}`;
+          case 3: // واتساپ
+            return `https://wa.me/${username
+              .replace(/^0/, "98")
+              .replace(/^\+/, "")}`;
+          default:
+            return null;
+        }
+      })
+      .filter((social) => social !== null);
   };
 
   // ذخیره اطلاعات اولیه
@@ -145,7 +154,7 @@ function AddConsultantForm() {
     setBirthDay("");
     setAge("");
     setSex("");
-    setImg("");
+    setImg(null);
     setDescription("");
     toastSuccess("اطلاعات اولیه حذف شد", "top-center");
   };
@@ -184,7 +193,7 @@ function AddConsultantForm() {
   // حذف اطلاعات شبکه‌های اجتماعی
   const cancelSocialInfo = () => {
     removeFromLocalStorage("consultantSocialInfo");
-    setSocials([]);
+    setSocials(Array(4).fill(""));
     toastSuccess("اطلاعات شبکه‌های اجتماعی حذف شد", "top-center");
   };
 
@@ -255,48 +264,86 @@ function AddConsultantForm() {
     formData.append("age", age);
     formData.append("sex", sex);
     formData.append("email", email);
-    formData.append("description" , description)
+    formData.append("description", description);
     formData.append("password", password);
+
     if (img instanceof File) {
       formData.append("img", img);
     }
 
-    formattedSocials.forEach((social, index) => {
-      if (social) {
-        formData.append(`socials[${index}]`, social);
+    formattedSocials.forEach((social) => {
+      formData.append("socials", social);
+    });
+
+    try {
+      setIsLoading(true);
+      const res = await fetch("/api/consultants", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.status === 201) {
+        cancelAccountInfo();
+        cancelBasicInfo();
+        cancelSocialInfo();
+        setIsLoading(false);
+        toastSuccess(
+          "ثبت نام مشاور با موفقیت انجام شد",
+          "top-center",
+          5000,
+          false,
+          true,
+          true,
+          true,
+          undefined,
+          "colored"
+        );
+        router.replace("/allConsultants");
+      } else if (res.status === 400) {
+        // const errorData = await res.json();
+        setIsLoading(false);
+        toastError(
+          errorData.message || "لطفا تمامی موارد را ارسال نمایید",
+          "top-center",
+          5000,
+          false,
+          true,
+          true,
+          true,
+          undefined,
+          "colored"
+        );
+      } else if (res.status === 422) {
+        setIsLoading(false);
+        toastError(
+          "شماره تلفن/ایمیل باید فرمت معتبر و رمزعبور حداقل از 8 کاراکتر نماد و حرف بزرگ و کوچک و نماد تشکیل شده باشد",
+          "top-center",
+          5000,
+          false,
+          true,
+          true,
+          true,
+          undefined,
+          "colored"
+        );
+      } else if (res.status === 500) {
+        setIsLoading(false);
+        toastError(
+          "خطا در سرور، لطفا بعدا تلاش کنید",
+          "top-center",
+          5000,
+          false,
+          true,
+          true,
+          true,
+          undefined,
+          "colored"
+        );
       }
-    });
-
-    // console.log(formData);
-    
-
-    const res = await fetch("/api/consultants", {
-      method: "POST",
-      body: formData,
-    });
-
-
-    if (res.status === 201) {
-      cancelAccountInfo();
-      cancelBasicInfo();
-      cancelSocialInfo();
-      setIsLoading(false);
-      toastSuccess(
-        "ثبت نام مشاور با موفقیت انجام شد",
-        "top-center",
-        5000,
-        false,
-        true,
-        true,
-        true,
-        undefined,
-        "colored"
-      );
-      router.replace("/allConsultants")
-    } else if (res.status === 400) {
+    } catch (error) {
       setIsLoading(false);
       toastError(
-        "لطفا تمامی موارد را ارسال نمایید",
+        "خطا در ارتباط با سرور",
         "top-center",
         5000,
         false,
@@ -306,32 +353,17 @@ function AddConsultantForm() {
         undefined,
         "colored"
       );
-    } else if (res.status === 422) {
-      setIsLoading(false);
-      toastError(
-        "شماره تلفن/ایمیل باید فرمت معتبر و رمزعبور حداقل از 8 کاراکتر نماد و حرف بزرگ و کوچک و نماد تشکیل شده باشد",
-        "top-center",
-        5000,
-        false,
-        true,
-        true,
-        true,
-        undefined,
-        "colored"
+    }
+  };
+
+  const notifWarn = () => {
+    if (!hasWarned) {
+      swalAlert(
+        "برای انتخاب سال میتوانید روی سال و همچنین برای انتخاب ماه می توانید روی ماه کلیک کنید تا برای انتخاب به شما نشان داده شود",
+        "warning",
+        "فهمیدم"
       );
-    } else if (res.status === 500) {
-      setIsLoading(false);
-      toastError(
-        "خطا در سرور، لطفا بعدا تلاش کنید",
-        "top-center",
-        5000,
-        false,
-        true,
-        true,
-        true,
-        undefined,
-        "colored"
-      );
+      setHasWarned(true);
     }
   };
 
@@ -413,6 +445,7 @@ function AddConsultantForm() {
                         <div className={styles.responsiveCol}>
                           <div
                             className={`${styles.formGroup} ${styles.datePickerContainer}`}
+                            onClick={() => notifWarn()}
                           >
                             <label className={styles.inputLabel}>
                               تاریخ تولد
@@ -478,6 +511,8 @@ function AddConsultantForm() {
                                     event.target.files[0]
                                   ) {
                                     setImg(event.target.files[0]);
+                                  } else {
+                                    setImg(null);
                                   }
                                 }}
                               />
@@ -492,7 +527,7 @@ function AddConsultantForm() {
                               </label>
                               {img && (
                                 <span className={styles.fileName}>
-                                  {img.name || "فایل انتخاب نشده"}
+                                  {img.name || "فایل انتخاب شده"}
                                 </span>
                               )}
                             </div>
