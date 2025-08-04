@@ -17,68 +17,163 @@ function CardConsultant({ image, firstName, lastName, phone, email, socials }) {
   const renderSocialIcons = () => {
     if (!socials || !socials.length) return null;
 
-    const socialNetworks = socials[0]
-      .split(",")
-      .map((s) => s.trim().toLowerCase());
+    // اگر socials آرایه‌ای از لینک‌های مستقیم باشد
+    if (typeof socials[0] === "string" && socials[0].startsWith("http")) {
+      return (
+        <>
+          {socials.map((link, index) => {
+            if (link.includes("instagram.com")) {
+              return (
+                <a
+                  key={index}
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${styles.socialBtn} ${styles.instagramBtn}`}
+                  aria-label="Instagram"
+                >
+                  <FaInstagram />
+                </a>
+              );
+            } else if (link.includes("telegram.me") || link.includes("t.me")) {
+              return (
+                <a
+                  key={index}
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${styles.socialBtn} ${styles.telegramBtn}`}
+                  aria-label="Telegram"
+                >
+                  <FaTelegram />
+                </a>
+              );
+            } else if (link.includes("facebook.com")) {
+              return (
+                <a
+                  key={index}
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${styles.socialBtn} ${styles.facebookBtn}`}
+                  aria-label="Facebook"
+                >
+                  <FaFacebook />
+                </a>
+              );
+            } else if (link.includes("twitter.com") || link.includes("x.com")) {
+              return (
+                <a
+                  key={index}
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${styles.socialBtn} ${styles.twitterBtn}`}
+                  aria-label="Twitter"
+                >
+                  <FaTwitter />
+                </a>
+              );
+            } else if (
+              link.includes("whatsapp.com") ||
+              link.includes("wa.me")
+            ) {
+              return (
+                <a
+                  key={index}
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${styles.socialBtn} ${styles.whatsappBtn}`}
+                  aria-label="WhatsApp"
+                >
+                  <FaWhatsapp />
+                </a>
+              );
+            } else if (link.includes("linkedin.com")) {
+              return (
+                <a
+                  key={index}
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${styles.socialBtn} ${styles.linkedinBtn}`}
+                  aria-label="LinkedIn"
+                >
+                  <FaLinkedin />
+                </a>
+              );
+            }
+            return null;
+          })}
+        </>
+      );
+    }
+    // اگر socials آرایه‌ای از نام شبکه‌ها باشد (فرمت قدیمی)
+    else {
+      const socialNetworks = socials[0]
+        .split(",")
+        .map((s) => s.trim().toLowerCase());
 
-    return (
-      <>
-        {socialNetworks.includes("instagram") && (
-          <a
-            href="#"
-            className={`${styles.socialBtn} ${styles.instagramBtn}`}
-            aria-label="Instagram"
-          >
-            <FaInstagram />
-          </a>
-        )}
-        {socialNetworks.includes("telegram") && (
-          <a
-            href="#"
-            className={`${styles.socialBtn} ${styles.telegramBtn}`}
-            aria-label="Telegram"
-          >
-            <FaTelegram />
-          </a>
-        )}
-        {socialNetworks.includes("facebook") && (
-          <a
-            href="#"
-            className={`${styles.socialBtn} ${styles.facebookBtn}`}
-            aria-label="Facebook"
-          >
-            <FaFacebook />
-          </a>
-        )}
-        {socialNetworks.includes("twitter") && (
-          <a
-            href="#"
-            className={`${styles.socialBtn} ${styles.twitterBtn}`}
-            aria-label="Twitter"
-          >
-            <FaTwitter />
-          </a>
-        )}
-        {socialNetworks.includes("whatsapp") && (
-          <a
-            href="#"
-            className={`${styles.socialBtn} ${styles.whatsappBtn}`}
-            aria-label="WhatsApp"
-          >
-            <FaWhatsapp />
-          </a>
-        )}
-        {socialNetworks.includes("linkedin") && (
-          <a
-            href="#"
-            className={`${styles.socialBtn} ${styles.linkedinBtn}`}
-            aria-label="LinkedIn"
-          >
-            <FaLinkedin />
-          </a>
-        )}
-      </>
-    );
+      return (
+        <>
+          {socialNetworks.includes("instagram") && (
+            <a
+              href="#"
+              className={`${styles.socialBtn} ${styles.instagramBtn}`}
+              aria-label="Instagram"
+            >
+              <FaInstagram />
+            </a>
+          )}
+          {socialNetworks.includes("telegram") && (
+            <a
+              href="#"
+              className={`${styles.socialBtn} ${styles.telegramBtn}`}
+              aria-label="Telegram"
+            >
+              <FaTelegram />
+            </a>
+          )}
+          {socialNetworks.includes("facebook") && (
+            <a
+              href="#"
+              className={`${styles.socialBtn} ${styles.facebookBtn}`}
+              aria-label="Facebook"
+            >
+              <FaFacebook />
+            </a>
+          )}
+          {socialNetworks.includes("twitter") && (
+            <a
+              href="#"
+              className={`${styles.socialBtn} ${styles.twitterBtn}`}
+              aria-label="Twitter"
+            >
+              <FaTwitter />
+            </a>
+          )}
+          {socialNetworks.includes("whatsapp") && (
+            <a
+              href="#"
+              className={`${styles.socialBtn} ${styles.whatsappBtn}`}
+              aria-label="WhatsApp"
+            >
+              <FaWhatsapp />
+            </a>
+          )}
+          {socialNetworks.includes("linkedin") && (
+            <a
+              href="#"
+              className={`${styles.socialBtn} ${styles.linkedinBtn}`}
+              aria-label="LinkedIn"
+            >
+              <FaLinkedin />
+            </a>
+          )}
+        </>
+      );
+    }
   };
 
   return (
