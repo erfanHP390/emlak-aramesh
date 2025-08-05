@@ -1,0 +1,70 @@
+.navTabsCustom {
+  background-color: var(--content-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.navTabs {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.navItem {
+  margin-bottom: -1px;
+}
+
+.navLink {
+  display: block;
+  padding: 12px 24px;
+  color: var(--text-primary);
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  font-family: 'Anjoman_Medium';
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background: none;
+  cursor: pointer;
+}
+
+.navLink:hover {
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.active {
+  color: var(--text-primary);
+  background-color: var(--content-bg);
+  border-color: var(--border-color) var(--border-color) var(--content-bg);
+  font-family: 'Anjoman_Bold';
+}
+
+.tabContent {
+  padding: 24px;
+}
+
+.tabPane {
+  display: none;
+}
+
+.tabPane.active {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .navLink {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+  }
+  
+  .tabContent {
+    padding: 16px;
+  }
+}
