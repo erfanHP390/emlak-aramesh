@@ -1,0 +1,159 @@
+.box {
+  background-color: var(--content-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  margin-bottom: 30px;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.boxBody {
+  padding: 24px;
+}
+
+.boxProfile {
+  padding: 24px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -12px;
+}
+
+.col12 {
+  width: 100%;
+  padding: 0 12px;
+  margin-bottom: 24px;
+}
+
+.contactInfo {
+  margin-bottom: 24px;
+}
+
+.contactItem {
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  line-height: 1.6;
+}
+
+.contactValue {
+  color: var(--text-secondary);
+  margin-right: 8px;
+  font-size: 0.9rem;
+}
+
+.socialSection {
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 24px;
+}
+
+.socialTitle {
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.socialIcons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.socialBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.socialBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.socialIcon {
+  font-size: 1.2rem;
+}
+
+.instagramBtn {
+  background: linear-gradient(
+    45deg,
+    #405de6,
+    #5851db,
+    #833ab4,
+    #c13584,
+    #e1306c,
+    #fd1d1d
+  );
+}
+
+.telegramBtn {
+  background-color: #0088cc;
+}
+
+.facebookBtn {
+  background-color: #3b5998;
+}
+
+.twitterBtn {
+  background-color: #1da1f2;
+}
+
+.whatsappBtn {
+  background-color: #25d366;
+}
+
+.linkedinBtn {
+  background-color: #0077b5;
+}
+
+.emailBtn {
+  background-color: #d44638;
+}
+
+.phoneBtn {
+  background-color: #34b7f1;
+}
+
+.mapContainer {
+  margin-top: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.mapIframe {
+  border: none;
+  min-height: 150px;
+}
+
+.anjomanRegular {
+  font-family: 'Anjoman_Regular', sans-serif;
+}
+
+/* Dark Mode Variables */
+
+@media (max-width: 768px) {
+  .boxBody,
+  .boxProfile {
+    padding: 16px;
+  }
+
+  .socialBtn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .socialIcon {
+    font-size: 1rem;
+  }
+}
