@@ -218,6 +218,19 @@ function VisitTable({ clients }) {
     }
   };
 
+  const getStatusClass = (status) => {
+  switch(status) {
+    case 'پرداخت شده':
+      return `${styles.label} ${styles.labelSuccess}`;
+    case 'بدهکار':
+      return `${styles.label} ${styles.labelWarning}`;
+    case 'ناموفق':
+      return `${styles.label} ${styles.labelError}`;
+    default:
+      return `${styles.label}`;
+  }
+};
+
   return (
     <div className={`${styles.colXl8} ${styles.col12}`}>
       {/* Modal ویرایش */}
@@ -318,7 +331,7 @@ function VisitTable({ clients }) {
                     </td>
                     <td>
                       <span
-                        className={`${styles.label} ${styles.labelSuccess}`}
+                        className={getStatusClass(client.status)}
                       >
                         {client.status}
                       </span>
