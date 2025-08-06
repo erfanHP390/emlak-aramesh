@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 
 export async function POST() {
 
-    cookies().delete("token")
+    cookies().delete("userToken")
     return Response.json({message: "user logged out successfully"})
 
 }
