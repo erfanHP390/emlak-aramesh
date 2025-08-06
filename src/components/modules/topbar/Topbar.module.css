@@ -262,7 +262,7 @@
   transition: all 0.2s ease;
   font-family: 'Anjoman_Medium';
   flex-direction: row-reverse;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 15px;
 }
 
