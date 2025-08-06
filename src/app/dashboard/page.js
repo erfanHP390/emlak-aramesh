@@ -1,5 +1,5 @@
 import connectToDB from "@/configs/db";
-import { authUser } from "@/utils/authUser";
+import { authConsultant, authUser } from "@/utils/authUser";
 import { redirect } from "next/navigation";
 import React from "react";
 import styles from "@/styles/dashboard.module.css";
@@ -16,11 +16,17 @@ import ReqBuyModel from "@/models/ReqBuy";
 async function page() {
   connectToDB();
   const user = await authUser();
+  const consultantLoggedIn = await authConsultant()
   const clients = await ClientModel.find({});
   const consultant = await ConsultantModel.findOne({ user: user._id })
     .populate("clients")
     .populate("houses")
     .lean();
+
+    if(!consultantLoggedIn) {
+      redirect("/houseList")
+    }
+
   const reqBuys = await ReqBuyModel.find({ consultant: consultant._id })
     .populate("consultant")
     .lean();
