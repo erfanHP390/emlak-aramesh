@@ -3,13 +3,14 @@ import MyRegistrationHouse from "@/components/templates/myRegistrationHouse/MyRe
 import connectToDB from "@/configs/db";
 import HouseModel from "@/models/House";
 import ConsultantModel from "@/models/Consultant";
-import { authUser } from "@/utils/authUser";
+import { authConsultant, authUser } from "@/utils/authUser";
 import { redirect } from "next/navigation";
 
 async function page() {
   await connectToDB();
 
   const user = await authUser();
+  const consultantLoggedIn = await authConsultant()
 
   if (!user) {
     redirect("/login")
@@ -17,7 +18,7 @@ async function page() {
 
   const consultant = await ConsultantModel.findOne({ user: user._id });
 
-  if (!consultant) {
+  if (!consultantLoggedIn) {
     redirect("/dashboard")
   }
 
