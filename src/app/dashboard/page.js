@@ -15,6 +15,7 @@ import ReqBuyModel from "@/models/ReqBuy";
 
 async function page() {
   connectToDB();
+  let reqBuys;
   const user = await authUser();
   const consultantLoggedIn = await authConsultant();
   const clients = await ClientModel.find({});
@@ -33,7 +34,7 @@ async function page() {
   }
 
   if (consultant) {
-    const reqBuys = await ReqBuyModel.find({ consultant: consultant._id })
+    reqBuys = await ReqBuyModel.find({ consultant: consultant._id })
       .populate("consultant")
       .lean();
   }
