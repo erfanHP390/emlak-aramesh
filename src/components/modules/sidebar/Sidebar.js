@@ -37,8 +37,10 @@ import {
 } from "react-icons/ri";
 import { GiHutsVillage } from "react-icons/gi";
 import Link from "next/link";
+import swal from "sweetalert";
+import { toastSuccess } from "@/utils/alerts";
 
-function Sidebar({ user , consultant }) {
+function Sidebar({ user, consultant, admin, consultantInfo }) {
   const [openSubmenus, setOpenSubmenus] = useState({
     propertyType: false,
     consultants: false,
@@ -79,12 +81,45 @@ function Sidebar({ user , consultant }) {
     window.location.href = "/lockPage";
   };
 
+  const signOutUser = async () => {
+    swal({
+      title: "آیا از خروج اطمینان دارید؟",
+      icon: "warning",
+      buttons: ["نه", "آره"],
+    }).then(async (result) => {
+      if (result) {
+        const res = await fetch("/api/auth/signout", {
+          method: "POST",
+        });
+
+        if (res.status === 200) {
+          toastSuccess(
+            "با موفقیت خارج شدید",
+            "top-center",
+            5000,
+            false,
+            true,
+            true,
+            true,
+            undefined,
+            "colored"
+          );
+          router.replace("/login");
+        }
+      }
+    });
+  };
+
   return (
     <aside className={styles.sidebarContainer}>
       {/* User Profile Section */}
       <div className={styles.userProfile}>
         <img
-          src={consultant ? consultant.img : "/images/abstract-user-flat-4.svg"}
+          src={
+            consultantInfo
+              ? consultantInfo.img
+              : "/images/abstract-user-flat-4.svg"
+          }
           alt="User Profile"
           className={styles.userImage}
         />
@@ -116,7 +151,7 @@ function Sidebar({ user , consultant }) {
           <a href="#" title="تنظیمات">
             <FaCog className={styles.icon_font} />
           </a>
-          <a href="#" title="خروج">
+          <a href="#" title="خروج" onClick={() => signOutUser()}>
             <FaSignOutAlt className={styles.icon_font} />
           </a>
           <a href="#" title="قفل" onClick={() => lockScreen()}>
@@ -129,26 +164,32 @@ function Sidebar({ user , consultant }) {
       <div className={styles.menuContainer}>
         <h4 className={styles.menuHeader}>منو</h4>
         <ul className={styles.menuList}>
-          <li className={`${styles.menuItem} ${styles.active}`}>
-            <Link href={"/dashboard"} className={styles.menuLink}>
-              <MdDashboard className={styles.menuIcon} />
-              <span className={styles.menuText}>داشبورد</span>
-            </Link>
-          </li>
-
+          {consultant || admin ? (
+            <>
+              <li className={`${styles.menuItem} ${styles.active}`}>
+                <Link href={"/dashboard"} className={styles.menuLink}>
+                  <MdDashboard className={styles.menuIcon} />
+                  <span className={styles.menuText}>داشبورد</span>
+                </Link>
+              </li>
+            </>
+          ) : null}
           <li className={styles.menuItem}>
             <Link href={"/houseList"} className={styles.menuLink}>
               <FaListAlt className={styles.menuIcon} />
               <span className={styles.menuText}>لیست املاک</span>
             </Link>
           </li>
-
-          <li className={styles.menuItem}>
-            <Link href={"/myHouses"} className={styles.menuLink}>
-              <BiSolidBuildingHouse className={styles.menuIcon} />
-              <span className={styles.menuText}>ملک های ثبت شده من</span>
-            </Link>
-          </li>
+          {consultant && (
+            <>
+              <li className={styles.menuItem}>
+                <Link href={"/myHouses"} className={styles.menuLink}>
+                  <BiSolidBuildingHouse className={styles.menuIcon} />
+                  <span className={styles.menuText}>ملک های ثبت شده من</span>
+                </Link>
+              </li>
+            </>
+          )}
 
           <li className={styles.menuItem}>
             <Link href={"/addHome"} className={styles.menuLink}>
@@ -157,12 +198,12 @@ function Sidebar({ user , consultant }) {
             </Link>
           </li>
 
-          <li className={styles.menuItem}>
+          {/* <li className={styles.menuItem}>
             <a href="propertydetails.html" className={styles.menuLink}>
               <FaInfoCircle className={styles.menuIcon} />
               <span className={styles.menuText}>جزئیات ملک</span>
             </a>
-          </li>
+          </li> */}
 
           {/* Property Type Submenu */}
           <li className={styles.menuItem}>
@@ -246,16 +287,21 @@ function Sidebar({ user , consultant }) {
                     <span className={styles.text_link}>همه مشاوران</span>
                   </Link>
                 </li>
-                <li className={styles.submenuItem}>
-                  <Link href={"/addConsultant"} className={styles.submenuLink}>
-                    <FaUserEdit className={styles.submenuIcon} />
-                    <span className={styles.text_link}>عضویت مشاور</span>
-                  </Link>
-                </li>
+                {admin && (
+                  <li className={styles.submenuItem}>
+                    <Link
+                      href={"/addConsultant"}
+                      className={styles.submenuLink}
+                    >
+                      <FaUserEdit className={styles.submenuIcon} />
+                      <span className={styles.text_link}>عضویت مشاور</span>
+                    </Link>
+                  </li>
+                )}
                 <li className={styles.submenuItem}>
                   <a href="agentprofile.html" className={styles.submenuLink}>
                     <RiProfileFill className={styles.submenuIcon} />
-                    <span className={styles.text_link}>پروفایل مشاور</span>
+                    <span className={styles.text_link}>پروفایل من</span>
                   </a>
                 </li>
               </ul>
