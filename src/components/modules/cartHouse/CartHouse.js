@@ -7,8 +7,10 @@ import {
   MdGasMeter,
 } from "react-icons/md";
 import { FaRegBuilding, FaChessKing, FaParking } from "react-icons/fa";
+import Link from "next/link";
 
 function CartHouse({
+  _id,
   img,
   price,
   location,
@@ -40,9 +42,9 @@ function CartHouse({
             </div>
             <div className={styles["title-section"]}>
               <h3 className={styles.title}>
-                <a href="#" className={styles["title-link"]}>
+                <Link href={`/houseDetails/${_id}`} className={styles["title-link"]}>
                   {name || "ملک نمونه در منطقه خوب"}
-                </a>
+                </Link>
               </h3>
             </div>
             <div className={styles["location-section"]}>
