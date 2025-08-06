@@ -4,8 +4,10 @@ import styles from "./CardHouse.module.css";
 import { MdOutlineBedroomParent, MdCalendarMonth } from "react-icons/md";
 import { FaRegBuilding, FaChessKing, FaParking } from "react-icons/fa";
 import { toPersianDigits } from "@/utils/constants";
+import Link from "next/link";
 
 function CardHouse({
+  _id,
   name,
   img,
   price,
@@ -47,12 +49,12 @@ function CardHouse({
                   {Number(price).toLocaleString("fa-IR")} تومان
                 </h5>
                 <h3 className={styles["mt-0"]}>
-                  <a
-                    href="#"
+                  <Link
+                    href={`/houseDetails/${_id}`}
                     className={`${styles["text-primary"]} Anjoman_Bold  ${styles["title-link"]}`}
                   >
                     {name}
-                  </a>
+                  </Link>
                 </h3>
                 <p
                   className={`${styles["text-muted"]} ${styles["property-location"]}  Anjoman_Regular`}
