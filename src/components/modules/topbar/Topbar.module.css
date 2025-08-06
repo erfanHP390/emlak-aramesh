@@ -190,25 +190,35 @@
   max-width: calc(100vw - 40px);
 }
 
-.dropdownMenu {
+.dropdown {
   position: relative;
-  background-color: var(--input-bg);
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  margin-top: 5px;
+}
+
+.dropdownMenuWrapper {
+  position: absolute;
+  right: -13rem;
+  top: 100%;
+  z-index: 1000;
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
+  min-width: 280px; /* عرض مناسب برای منوها */
+}
+
+.dropdown.show .dropdownMenuWrapper {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dropdownMenu {
+  background-color: var(--input-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   padding: 10px 0;
   text-align: right;
   max-height: 80vh;
   overflow-y: auto;
   width: 100%;
-}
-
-.dropdown:hover .dropdownMenu {
-  opacity: 1;
-  visibility: visible;
 }
 
 .notificationsDropdown {
@@ -401,6 +411,6 @@
 
 @media (max-width: 365px) {
   .dropdownMenuWrapper {
-    right: -135px;
+    right: 1rem;
   }
 }
