@@ -1,0 +1,251 @@
+/* Layout Styles */
+.contentWrapper {
+  padding: 20px;
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+}
+
+.containerFull {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.contentHeader {
+  margin-bottom: 20px;
+}
+
+.headerFlex {
+  display: flex;
+  align-items: center;
+}
+
+.headerTitle {
+  flex-grow: 1;
+}
+
+.pageTitle {
+  font-size: 1.5rem;
+  color: var(--text-heading);
+  font-family: 'Anjoman_Bold';
+  margin: 0;
+}
+
+/* Content Styles */
+.content {
+  margin-top: 20px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+
+.col12 {
+  width: 100%;
+  padding: 0 15px;
+}
+
+/* Box Styles */
+.box {
+  background-color: var(--content-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  margin-bottom: 30px;
+  border: 1px solid var(--border-color);
+}
+
+.boxHeader {
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.boxTitle {
+  font-size: 1rem;
+  color: var(--text-primary);
+  font-family: 'Anjoman_Medium';
+  margin: 0;
+}
+
+.boxBody {
+  padding: 20px;
+}
+
+.boxFooter {
+  padding: 15px 20px;
+  border-top: 1px solid var(--border-color);
+  text-align: left;
+}
+
+/* Form Styles */
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.formRow {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+
+.col6 {
+  width: 50%;
+  padding: 0 15px;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.formLabel {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  font-family: 'Anjoman_Medium';
+  font-size: 0.9rem;
+}
+
+.formControl {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  font-family: 'Anjoman_Regular';
+  transition: all 0.3s ease;
+}
+
+.formControl:focus {
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(138, 180, 255, 0.2);
+  outline: none;
+}
+
+textarea.formControl {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* File Upload Styles */
+.fileUploadWrapper {
+  position: relative;
+  margin-top: 8px;
+}
+
+.fileUploadInput {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.fileUploadLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  border: 2px dashed var(--border-color);
+  border-radius: 6px;
+  background-color: var(--input-bg);
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  min-height: 120px;
+}
+
+.fileUploadLabel:hover,
+.fileUploadLabel.dragover {
+  border-color: var(--link-color);
+  background-color: rgba(138, 180, 255, 0.1);
+}
+
+.fileUploadIcon {
+  font-size: 2rem;
+  color: var(--link-color);
+  margin-bottom: 10px;
+}
+
+.fileUploadText {
+  font-family: 'Anjoman_Medium';
+  color: var(--text-primary);
+  margin-bottom: 5px;
+}
+
+.fileUploadHint {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-family: 'Anjoman_Regular';
+}
+
+.fileUploadPreview {
+  margin-top: 15px;
+  display: none;
+}
+
+.fileUploadPreview.active {
+  display: block;
+}
+
+/* Section Styles */
+.sectionTitle {
+  color: var(--link-color);
+  font-family: 'Anjoman_Medium';
+  font-size: 1rem;
+  margin: 20px 0 10px;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  margin-left: 10px;
+  font-size: 1.1rem;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 15px 0;
+}
+
+/* Button Styles */
+.submitButton {
+  background-color: var(--button-bg);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  font-family: 'Anjoman_Medium';
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.submitButton:hover {
+  background-color: var(--button-hover);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .col6 {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .boxHeader,
+  .boxBody,
+  .boxFooter {
+    padding: 15px;
+  }
+
+  .fileUploadLabel {
+    padding: 20px 15px;
+  }
+}
