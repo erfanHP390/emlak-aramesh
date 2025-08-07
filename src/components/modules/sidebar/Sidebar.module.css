@@ -1,17 +1,23 @@
 /* Sidebar.module.css */
 .sidebarContainer {
   position: fixed;
-  top: 60px; /* تغییر این خط برای قرار گرفتن زیر تاپ بار */
+  top: 60px;
   right: 0;
-  height: calc(100vh - 60px); /* تغییر این خط برای تطابق با ارتفاع تاپ بار */
+  height: calc(100vh - 60px);
   width: 280px;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: 'Anjoman_Regular';
-  transition: all 0.3s ease;
-  z-index: 999; /* تغییر این خط برای قرار گرفتن زیر تاپ بار */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 999;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
+  transform: translateX(0);
+}
+
+.sidebarContainer.closed {
+  transform: translateX(100%);
+  box-shadow: none;
 }
 
 .userProfile {
@@ -216,6 +222,19 @@
   color: var(--link-hover);
 }
 
+.closeButton {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1001;
+  display: none;
+}
+
 @media (max-width: 992px) {
   .sidebarContainer {
     transform: translateX(100%);
@@ -230,11 +249,15 @@
     right: 20px;
     transform: none;
   }
+
+  .closeButton {
+    display: block;
+  }
 }
 
 @media (min-width: 993px) {
-  .mainContent {
-    margin-right: 280px;
+  .sidebarContainer.closed {
+    transform: translateX(100%);
   }
 }
 
