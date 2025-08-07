@@ -2,17 +2,22 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  position: relative;
 }
 
 .mainContent {
   background-color: var(--bg-primary) !important;
   flex: 1;
-  margin-right: 280px; /* Match sidebar width */
   padding: 1rem;
-  transition: margin 0.3s ease;
+  transition: margin-right 0.3s ease;
+  margin-right: 280px; 
 }
 
-@media (max-width: 992px) {
+.mainContent.fullWidth {
+  margin-right: 0;
+}
+
+@media (max-width: 991.98px) {
   .mainContent {
     margin-right: 0;
   }
