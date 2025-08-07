@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import styles from "./Topbar.module.css";
 import {
   FaSearch,
@@ -10,11 +11,111 @@ import {
   FaShoppingCart,
   FaUsers,
   FaExclamationTriangle,
+  FaBars,
 } from "react-icons/fa";
-import { MdEvent, MdTaskAlt, MdFullscreen } from "react-icons/md";
-import { HiMenu } from "react-icons/hi";
+import {
+  MdEvent,
+  MdTaskAlt,
+  MdFullscreen,
+  MdFullscreenExit,
+} from "react-icons/md";
+import { useState, useRef } from "react";
+import { toastSuccess } from "@/utils/alerts";
+import { useRouter } from "next/navigation";
+import swal from "sweetalert";
+import Link from "next/link";
 
-function Topbar() {
+function Topbar({ user, consultant, admin, consultantInfo, toggleSidebar }) {
+  const router = useRouter();
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+
+  const notificationsRef = useRef(null);
+  const userMenuRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        notificationsRef.current &&
+        !notificationsRef.current.contains(event.target)
+      ) {
+        setIsNotificationsOpen(false);
+      }
+
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setIsUserMenuOpen(false);
+      }
+    };
+
+    if (isNotificationsOpen || isUserMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isNotificationsOpen, isUserMenuOpen]);
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement
+          .requestFullscreen()
+          .then(() => setIsFullscreen(true))
+          .catch((err) => console.error("Error entering fullscreen:", err));
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document
+          .exitFullscreen()
+          .then(() => setIsFullscreen(false))
+          .catch((err) => console.error("Error exiting fullscreen:", err));
+      }
+    }
+  };
+
+  const toggleNotifications = (e) => {
+    e.preventDefault();
+    setIsNotificationsOpen(!isNotificationsOpen);
+    if (isUserMenuOpen) setIsUserMenuOpen(false);
+  };
+
+  const toggleUserMenu = (e) => {
+    e.preventDefault();
+    setIsUserMenuOpen(!isUserMenuOpen);
+    if (isNotificationsOpen) setIsNotificationsOpen(false);
+  };
+
+  const signOutUser = async () => {
+    swal({
+      title: "آیا از خروج اطمینان دارید؟",
+      icon: "warning",
+      buttons: ["نه", "آره"],
+    }).then(async (result) => {
+      if (result) {
+        const res = await fetch("/api/auth/signout", {
+          method: "POST",
+        });
+
+        if (res.status === 200) {
+          toastSuccess(
+            "با موفقیت خارج شدید",
+            "top-center",
+            5000,
+            false,
+            true,
+            true,
+            true,
+            undefined,
+            "colored"
+          );
+          router.replace("/login");
+        }
+      }
+    });
+  };
+
   return (
     <header className={styles.topbarContainer}>
       <div className={styles.logoBox}>
@@ -38,9 +139,13 @@ function Topbar() {
         <div className={styles.appMenu}>
           <ul className={styles.headerMegamenu}>
             <li className={styles.navItem}>
-              <a href="#" className={styles.navLink} role="button">
-                <HiMenu className={styles.svgIcon} />
-              </a>
+              <button
+                className={styles.navLink}
+                onClick={toggleSidebar} // این خط باید دقیقاً همین باشد
+                title="منو"
+              >
+                <FaBars className={styles.svgIcon} />
+              </button>
             </li>
             <li className={`${styles.navItem} d-lg-inline-flex d-none`}>
               <div className={styles.searchBx}>
@@ -61,141 +166,164 @@ function Topbar() {
                 </form>
               </div>
             </li>
-            <li className={`${styles.navItem} d-none d-xl-inline-block`}>
-              <a
-                href="extra_calendar.html"
-                className={styles.navLink}
-                title="تقویم"
-              >
-                <MdEvent className={styles.svgIcon} />
-              </a>
-            </li>
-            <li className={`${styles.navItem} d-none d-xl-inline-block`}>
-              <a
-                href="extra_taskboard.html"
-                className={styles.navLink}
-                title="تسک بار"
-              >
-                <MdTaskAlt className={styles.svgIcon} />
-              </a>
-            </li>
           </ul>
         </div>
 
         <div className={styles.navbarCustomMenu}>
           <ul className={styles.navbarNav}>
             <li className={`${styles.navItem} d-lg-inline-flex d-none`}>
-              <a href="#" className={styles.navLink} title="تمام صفحه">
-                <MdFullscreen className={styles.svgIcon} />
+              <a
+                href="#"
+                className={styles.navLink}
+                title={isFullscreen ? "خروج از تمام صفحه" : "تمام صفحه"}
+                onClick={(e) => {
+                  e.preventDefault();
+                  toggleFullscreen();
+                }}
+              >
+                {isFullscreen ? (
+                  <MdFullscreenExit className={styles.svgIcon} />
+                ) : (
+                  <MdFullscreen className={styles.svgIcon} />
+                )}
               </a>
             </li>
 
-            <li className={`${styles.dropdown} ${styles.notificationsMenu}`}>
+            <li
+              ref={notificationsRef}
+              className={`${styles.dropdown} ${styles.notificationsMenu} ${
+                isNotificationsOpen ? styles.show : ""
+              }`}
+            >
               <a
                 href="#"
                 className={`${styles.navLink} ${styles.dropdownToggle}`}
                 title="اعلانات"
+                onClick={toggleNotifications}
               >
                 <FaBell className={styles.svgIcon} />
                 <span className={styles.badge}>3</span>
               </a>
-              <div className={styles.dropdownMenuWrapper}>
-                <ul
-                  className={`${styles.dropdownMenu} ${styles.notificationsDropdown}`}
-                >
-                  <li className={styles.dropdownHeader}>
-                    <div className={styles.dropdownHeaderContent}>
-                      <h4 className={styles.dropdownTitle}>اعلانات</h4>
-                      <a href="#" className={styles.clearAll}>
-                        پاک کردن همه
+              {isNotificationsOpen && (
+                <div className={styles.dropdownMenuWrapper}>
+                  <ul
+                    className={`${styles.dropdownMenu} ${styles.notificationsDropdown}`}
+                  >
+                    <li className={styles.dropdownHeader}>
+                      <div className={styles.dropdownHeaderContent}>
+                        <h4 className={styles.dropdownTitle}>اعلانات</h4>
+                        <a href="#" className={styles.clearAll}>
+                          پاک کردن همه
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <ul className={`${styles.menu} ${styles.smScroll}`}>
+                        <li>
+                          <a href="#" className={styles.dropdownItem}>
+                            <FaUsers
+                              className={`${styles.notificationIcon} ${styles.textInfo}`}
+                            />
+                            <span className={styles.notificationText}>
+                              گروه جدید مشاوران تصمیمات جدیدی را ...
+                            </span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#" className={styles.dropdownItem}>
+                            <FaExclamationTriangle
+                              className={`${styles.notificationIcon} ${styles.textWarning}`}
+                            />
+                            <span className={styles.notificationText}>
+                              خطایی در ثبت بوجود امد...
+                            </span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#" className={styles.dropdownItem}>
+                            <FaUsers
+                              className={`${styles.notificationIcon} ${styles.textDanger}`}
+                            />
+                            <span className={styles.notificationText}>
+                              بررسی کامل کارشناسان تائید شد...
+                            </span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#" className={styles.dropdownItem}>
+                            <FaShoppingCart
+                              className={`${styles.notificationIcon} ${styles.textSuccess}`}
+                            />
+                            <span className={styles.notificationText}>
+                              ثبت سفارش جدید اعلام شد
+                            </span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li className={styles.dropdownDivider} />
+                    <li className={styles.dropdownFooter}>
+                      <a href="#" className={styles.dropdownItem}>
+                        مشاهده همه
                       </a>
-                    </div>
-                  </li>
-                  <li>
-                    <ul className={`${styles.menu} ${styles.smScroll}`}>
-                      <li>
-                        <a href="#" className={styles.dropdownItem}>
-                          <FaUsers
-                            className={`${styles.notificationIcon} ${styles.textInfo}`}
-                          />
-                          <span className={styles.notificationText}>
-                            گروه جدید مشاوران تصمیمات جدیدی را ...
-                          </span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className={styles.dropdownItem}>
-                          <FaExclamationTriangle
-                            className={`${styles.notificationIcon} ${styles.textWarning}`}
-                          />
-                          <span className={styles.notificationText}>
-                            خطایی در ثبت بوجود امد...
-                          </span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className={styles.dropdownItem}>
-                          <FaUsers
-                            className={`${styles.notificationIcon} ${styles.textDanger}`}
-                          />
-                          <span className={styles.notificationText}>
-                            بررسی کامل کارشناسان تائید شد...
-                          </span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className={styles.dropdownItem}>
-                          <FaShoppingCart
-                            className={`${styles.notificationIcon} ${styles.textSuccess}`}
-                          />
-                          <span className={styles.notificationText}>
-                            ثبت سفارش جدید اعلام شد
-                          </span>
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li className={styles.dropdownDivider} />
-                  <li className={styles.dropdownFooter}>
-                    <a href="#" className={styles.dropdownItem}>
-                      مشاهده همه
-                    </a>
-                  </li>
-                </ul>
-              </div>
+                    </li>
+                  </ul>
+                </div>
+              )}
             </li>
 
-            <li className={`${styles.dropdown} ${styles.userMenu}`}>
+            <li
+              ref={userMenuRef}
+              className={`${styles.dropdown} ${styles.userMenu} ${
+                isUserMenuOpen ? styles.show : ""
+              }`}
+            >
               <a
                 href="#"
                 className={`${styles.navLink} ${styles.dropdownToggle}`}
                 title="کاربر"
+                onClick={toggleUserMenu}
               >
                 <FaUser className={styles.svgIcon} />
               </a>
-              <div className={styles.dropdownMenuWrapper}>
-                <ul className={`${styles.dropdownMenu} ${styles.userDropdown}`}>
-                  <li className={styles.userBody}>
-                    <a className={styles.dropdownItem} href="#">
-                      <FaUser className={styles.dropdownIcon} />
-                      <span className={styles.dropdownText}>پروفایل</span>
-                    </a>
-                    <a className={styles.dropdownItem} href="#">
-                      <FaWallet className={styles.dropdownIcon} />
-                      <span className={styles.dropdownText}>کیف پول</span>
-                    </a>
-                    <a className={styles.dropdownItem} href="#">
-                      <FaCog className={styles.dropdownIcon} />
-                      <span className={styles.dropdownText}>تنظیمات</span>
-                    </a>
-                    <div className={styles.dropdownDivider} />
-                    <a className={styles.dropdownItem} href="#">
-                      <FaSignOutAlt className={styles.dropdownIcon} />
-                      <span className={styles.dropdownText}>خروج</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
+              {isUserMenuOpen && (
+                <div className={styles.dropdownMenuWrapper}>
+                  <ul
+                    className={`${styles.dropdownMenu} ${styles.userDropdown}`}
+                  >
+                    <li className={styles.userBody}>
+                      <Link
+                        className={styles.dropdownItem}
+                        href={
+                          consultant
+                            ? `/consultantDetails/${consultantInfo._id}`
+                            : `/dashboard+`
+                        }
+                      >
+                        <FaUser className={styles.dropdownIcon} />
+                        <span className={styles.dropdownText}>پروفایل</span>
+                      </Link>
+                      <a className={styles.dropdownItem} href="#">
+                        <FaWallet className={styles.dropdownIcon} />
+                        <span className={styles.dropdownText}>کیف پول</span>
+                      </a>
+                      <a className={styles.dropdownItem} href="#">
+                        <FaCog className={styles.dropdownIcon} />
+                        <span className={styles.dropdownText}>تنظیمات</span>
+                      </a>
+                      <div className={styles.dropdownDivider} />
+                      <a
+                        className={styles.dropdownItem}
+                        href="#"
+                        onClick={() => signOutUser()}
+                      >
+                        <FaSignOutAlt className={styles.dropdownIcon} />
+                        <span className={styles.dropdownText}>خروج</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              )}
             </li>
 
             <li className={styles.navItem}>
