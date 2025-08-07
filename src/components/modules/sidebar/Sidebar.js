@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Sidebar.module.css";
 import {
   MdDashboard,
@@ -26,6 +26,7 @@ import {
   FaSignOutAlt,
   FaEnvelope,
   FaLink,
+  FaTimes,
 } from "react-icons/fa";
 import { IoChevronBackSharp, IoChevronDown, IoLogIn } from "react-icons/io5";
 import { FaHouseChimney, FaUserGroup } from "react-icons/fa6";
@@ -39,8 +40,17 @@ import { GiHutsVillage } from "react-icons/gi";
 import Link from "next/link";
 import swal from "sweetalert";
 import { toastSuccess } from "@/utils/alerts";
+import { useRouter } from "next/navigation";
 
-function Sidebar({ user, consultant, admin, consultantInfo }) {
+function Sidebar({
+  user,
+  consultant,
+  admin,
+  consultantInfo,
+  isOpen,
+  toggleSidebar,
+}) {
+  const router = useRouter();
   const [openSubmenus, setOpenSubmenus] = useState({
     propertyType: false,
     consultants: false,
@@ -57,6 +67,19 @@ function Sidebar({ user, consultant, admin, consultantInfo }) {
     essential: "0px",
   });
 
+  useEffect(() => {
+    // بستن تمام ساب منوها وقتی سایدبار بسته می‌شود
+    if (!isOpen) {
+      setOpenSubmenus({
+        propertyType: false,
+        consultants: false,
+        pages: false,
+        auth: false,
+        essential: false,
+      });
+    }
+  }, [isOpen]);
+
   const toggleSubmenu = (menuName) => {
     setOpenSubmenus((prev) => {
       const newState = {
@@ -64,7 +87,6 @@ function Sidebar({ user, consultant, admin, consultantInfo }) {
         [menuName]: !prev[menuName],
       };
 
-      // Update heights after state change
       setTimeout(() => {
         setSubmenuHeights((prevHeights) => ({
           ...prevHeights,
@@ -111,7 +133,19 @@ function Sidebar({ user, consultant, admin, consultantInfo }) {
   };
 
   return (
-    <aside className={styles.sidebarContainer}>
+    <aside
+      className={`${styles.sidebarContainer} ${isOpen ? styles.open : ""}`}
+            style={{ transform: isOpen ? 'translateX(0)' : 'translateX(100%)' }}
+
+    >
+      {/* دکمه بستن برای حالت موبایل */}
+      <button 
+        className={styles.closeButton} 
+        onClick={toggleSidebar} // اینجا تابع را مستقیماً فراخوانی کنید
+      >
+        <FaTimes />
+      </button>
+
       {/* User Profile Section */}
       <div className={styles.userProfile}>
         <img
@@ -123,7 +157,6 @@ function Sidebar({ user, consultant, admin, consultantInfo }) {
           alt="User Profile"
           className={styles.userImage}
         />
-        {/* <span className={styles.userName}></span> */}
         <div className="info mt-20">
           <span className={styles.userName}>{user ? user.name : "کاربر"}</span>
           <div className={styles.userDropdown}>
@@ -197,13 +230,6 @@ function Sidebar({ user, consultant, admin, consultantInfo }) {
               <span className={styles.menuText}>ثبت ملک</span>
             </Link>
           </li>
-
-          {/* <li className={styles.menuItem}>
-            <a href="propertydetails.html" className={styles.menuLink}>
-              <FaInfoCircle className={styles.menuIcon} />
-              <span className={styles.menuText}>جزئیات ملک</span>
-            </a>
-          </li> */}
 
           {/* Property Type Submenu */}
           <li className={styles.menuItem}>
