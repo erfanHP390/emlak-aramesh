@@ -1,11 +1,22 @@
 import PanelLayout from '@/components/layouts/PanelLayout'
 import ContactForm from '@/components/templates/contactForm/ContactForm'
+import connectToDB from '@/configs/db'
+import { authUser } from '@/utils/authUser'
+import { redirect } from 'next/navigation'
 import React from 'react'
 
-function page() {
+async function page() {
+
+  connectToDB()
+  const user = await authUser()
+
+  if(!user) {
+    redirect("/login")
+  }
+
   return (
     <PanelLayout>
-      <ContactForm />
+      <ContactForm user={user} />
     </PanelLayout>
   )
 }
