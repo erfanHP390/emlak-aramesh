@@ -3,6 +3,7 @@
   padding: 20px;
   min-height: 100vh;
   background-color: var(--bg-primary);
+  margin-top: 6.5rem;
 }
 
 .containerFull {
