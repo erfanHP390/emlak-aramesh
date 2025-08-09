@@ -28,7 +28,7 @@ function UserList({ users }) {
       buttons: ["نه", "آره"],
     }).then(async (result) => {
       if (result) {
-        const res = await fetch(`/api/users/${userID}`, {
+        const res = await fetch(`/api/auth/${userID}`, {
           method: "DELETE",
         });
         if (res.status === 200) {
@@ -46,7 +46,7 @@ function UserList({ users }) {
           router.refresh();
         } else if (res.status === 401) {
           toastError(
-            "فقط مدیر سایت اجازه حذف کاربر را دارد",
+            "فقط مدیر/مشاور سایت اجازه حذف کاربر را دارد",
             "top-center",
             5000,
             false,
@@ -59,6 +59,30 @@ function UserList({ users }) {
         } else if (res.status === 400) {
           toastError(
             "شناسه کاربر ارسال نشده است",
+            "top-center",
+            5000,
+            false,
+            true,
+            true,
+            true,
+            undefined,
+            "colored"
+          );
+        } else if (res.status === 422) {
+          toastError(
+            "شناسه کاربر نامعتبر است لطفا با پشتیبانی سایت تماس بگیرید",
+            "top-center",
+            5000,
+            false,
+            true,
+            true,
+            true,
+            undefined,
+            "colored"
+          );
+        } else if (res.status === 403) {
+          toastError(
+            "شما مجاز به حذف مدیر نیستید",
             "top-center",
             5000,
             false,
@@ -326,7 +350,9 @@ function UserList({ users }) {
                             )}
                           </td>
                           <td>
-                            {user.guildID ? toPersianStrDigits(user.guildID) : "کاربرعادی"}
+                            {user.guildID
+                              ? toPersianStrDigits(user.guildID)
+                              : "کاربرعادی"}
                           </td>
                           <td>
                             {user.isAccept ? "تاییدشده" : "در انتظار تایید"}
