@@ -1,0 +1,457 @@
+/* Layout Styles */
+.contentWrapper {
+  padding: 20px;
+  min-height: calc(100vh - var(--header-height));
+  background-color: var(--bg-primary);
+  direction: rtl;
+  margin-top: 5.5rem;
+}
+
+.containerFull {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Content Styles */
+.content {
+  padding: 20px 0;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -15px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .contentWrapper {
+    padding: 15px;
+  }
+  
+  .content {
+    padding: 15px 0;
+  }
+}
+
+/* ==================== GENERAL STYLES ==================== */
+.contentWrapper {
+  min-height: calc(100vh - 60px);
+  padding: 20px;
+  background-color: var(--bg-secondary);
+}
+
+.containerFull {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.content {
+  padding: 15px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  /* margin-right: -15px; */
+  margin-left: -15px;
+}
+
+/* ==================== TABLE STYLES ==================== */
+.tableContainer {
+  background: var(--bg-primary);
+  border: 1px solid var(--input-border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.tableHeader {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--input-border);
+}
+
+.tableTitle {
+  color: var(--text-heading);
+  font-family: 'Anjoman_Bold';
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.tableBody {
+  padding: 1rem;
+}
+
+.tableResponsive {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  color: var(--text-primary);
+  font-family: 'Anjoman_Regular';
+  border-collapse: collapse;
+}
+
+.table thead th {
+  background-color: rgba(138, 180, 255, 0.1);
+  color: var(--text-heading);
+  font-family: 'Anjoman_SemiBold';
+  padding: 1rem;
+  text-align: right;
+  border-bottom: 2px solid var(--input-border);
+}
+
+.table tbody td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--input-border);
+  vertical-align: middle;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr:hover {
+  background-color: rgba(138, 180, 255, 0.05);
+}
+
+/* ==================== STATUS & ROLE LABELS ==================== */
+.label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.75rem;
+  border-radius: 50px;
+  font-family: 'Anjoman_Medium';
+  font-size: 0.85rem;
+  min-width: 80px;
+  max-width: 120px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.labelSuccess {
+  background-color: rgba(40, 167, 69, 0.2);
+  color: #28a745;
+}
+
+.labelWarning {
+  background-color: rgba(255, 193, 7, 0.2);
+  color: #ffc107;
+}
+
+.labelError {
+  background-color: rgba(220, 53, 69, 0.2);
+  color: #dc3545;
+}
+
+.labelPrimary {
+  background-color: rgba(13, 110, 253, 0.2);
+  color: #0d6efd;
+}
+
+.labelInfo {
+  background-color: rgba(23, 162, 184, 0.2);
+  color: #17a2b8;
+}
+
+.labelSecondary {
+  background-color: rgba(108, 117, 125, 0.2);
+  color: #6c757d;
+}
+
+/* ==================== ACTION BUTTONS ==================== */
+.actionsCell {
+  white-space: nowrap;
+}
+
+.actionLink {
+  color: var(--text-primary) !important;
+  margin-left: 1rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.actionLink:hover {
+  color: var(--link-hover) !important;
+  background-color: rgba(138, 180, 255, 0.1);
+}
+
+/* ==================== MODAL STYLES ==================== */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.modalContainer {
+  background-color: var(--bg-primary);
+  border-radius: 12px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 500px;
+  overflow: hidden;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modalHeader {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--input-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modalTitle {
+  color: var(--text-heading);
+  font-family: 'Anjoman_Bold';
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  background-color: var(--link-color);
+  color: #fff;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  padding: 0.25rem;
+  line-height: 1;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeButton:hover {
+  background-color: var(--link-hover);
+  color: #fff;
+}
+
+.modalBody {
+  padding: 1.5rem;
+}
+
+.formGroup {
+  margin-bottom: 1.25rem;
+}
+
+.formLabel {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-heading);
+  font-family: 'Anjoman_Medium';
+  font-size: 0.9rem;
+}
+
+.formInput {
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  font-family: 'Anjoman_Regular';
+  transition: all 0.2s ease;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(138, 180, 255, 0.2);
+}
+
+.modalFooter {
+  padding: 1.5rem;
+  border-top: 1px solid var(--input-border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.modalButton {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-family: 'Anjoman_Medium';
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.cancelButton {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--input-border);
+}
+
+.cancelButton:hover {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+}
+
+.saveButton {
+  background-color: var(--button-bg);
+  color: white;
+}
+
+.saveButton:hover {
+  background-color: var(--button-hover);
+}
+
+.saveButton:disabled {
+  background-color: var(--input-border);
+  cursor: not-allowed;
+}
+
+/* ==================== RESPONSIVE ADJUSTMENTS ==================== */
+@media (max-width: 1200px) {
+  .tableContainer {
+    overflow-x: auto;
+  }
+
+  .table {
+    min-width: 900px;
+  }
+}
+
+@media (max-width: 992px) {
+  .label {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+    min-width: 70px;
+  }
+
+  .actionLink {
+    width: 28px;
+    height: 28px;
+    margin-left: 0.75rem;
+  }
+
+  .modalContainer {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .tableHeader {
+    padding: 1rem;
+  }
+
+  .tableTitle {
+    font-size: 1.3rem;
+  }
+
+  .table thead th,
+  .table tbody td {
+    padding: 0.75rem;
+  }
+
+  .label {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    min-width: 60px;
+    max-width: 100px;
+  }
+
+  .actionLink {
+    width: 26px;
+    height: 26px;
+    margin-left: 0.5rem;
+  }
+
+  .modalHeader,
+  .modalBody,
+  .modalFooter {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .contentWrapper {
+    padding: 10px;
+  }
+
+  .tableHeader {
+    padding: 0.75rem;
+  }
+
+  .tableTitle {
+    font-size: 1.2rem;
+  }
+
+  .table thead th,
+  .table tbody td {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .label {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+    min-width: 50px;
+    max-width: 80px;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.2;
+    display: inline-block;
+  }
+
+  .actionLink {
+    width: 24px;
+    height: 24px;
+    margin-left: 0.4rem;
+  }
+
+  .actionsCell {
+    padding-right: 0.2rem;
+    padding-left: 0.2rem;
+  }
+
+  .modalFooter {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .modalButton {
+    width: 100%;
+  }
+}
