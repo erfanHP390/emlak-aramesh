@@ -1,10 +1,17 @@
+/* ==================== BASE STYLES ==================== */
 .box {
   background-color: var(--content-bg);
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--box-shadow-primary);
   margin-bottom: 30px;
-  border: 1px solid var(--border-color);
+  border: var(--box-border);
   overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.box:hover {
+  box-shadow: var(--box-shadow-hover);
+  transform: translateY(-3px);
 }
 
 .boxBody {
@@ -27,6 +34,7 @@
   margin-bottom: 24px;
 }
 
+/* ==================== CONTACT INFO ==================== */
 .contactInfo {
   margin-bottom: 24px;
 }
@@ -46,6 +54,7 @@
   font-size: 0.9rem;
 }
 
+/* ==================== SOCIAL SECTION ==================== */
 .socialSection {
   padding-bottom: 16px;
   border-bottom: 1px solid var(--border-color);
@@ -74,17 +83,19 @@
   justify-content: center;
   transition: all 0.3s ease;
   color: white;
+  box-shadow: var(--box-shadow-primary);
 }
 
 .socialBtn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px) scale(1.1);
+  box-shadow: var(--box-shadow-hover);
 }
 
 .socialIcon {
   font-size: 1.2rem;
 }
 
+/* Social Button Colors */
 .instagramBtn {
   background: linear-gradient(
     45deg,
@@ -125,23 +136,26 @@
   background-color: #34b7f1;
 }
 
+/* ==================== MAP SECTION ==================== */
 .mapContainer {
   margin-top: 16px;
   border-radius: 8px;
   overflow: hidden;
+  border: var(--box-border);
 }
 
 .mapIframe {
   border: none;
   min-height: 150px;
+  width: 100%;
 }
 
+/* ==================== TYPOGRAPHY ==================== */
 .anjomanRegular {
   font-family: 'Anjoman_Regular', sans-serif;
 }
 
-/* Dark Mode Variables */
-
+/* ==================== RESPONSIVE STYLES ==================== */
 @media (max-width: 768px) {
   .boxBody,
   .boxProfile {
@@ -155,5 +169,23 @@
 
   .socialIcon {
     font-size: 1rem;
+  }
+  
+  .contactItem {
+    font-size: 0.9rem;
+  }
+  
+  .contactValue {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .socialIcons {
+    justify-content: center;
+  }
+  
+  .mapIframe {
+    min-height: 120px;
   }
 }

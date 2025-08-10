@@ -1,11 +1,20 @@
+
+
+/* ==================== MAIN CONTAINER ==================== */
 .navTabsCustom {
   background-color: var(--content-bg);
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  border: 1px solid var(--border-color);
+  box-shadow: var(--box-shadow-primary);
+  border: var(--box-border);
   overflow: hidden;
+  transition: all 0.3s ease;
 }
 
+.navTabsCustom:hover {
+  box-shadow: var(--box-shadow-hover);
+}
+
+/* ==================== TAB NAVIGATION ==================== */
 .navTabs {
   display: flex;
   flex-wrap: wrap;
@@ -17,6 +26,7 @@
 
 .navItem {
   margin-bottom: -1px;
+  position: relative;
 }
 
 .navLink {
@@ -24,7 +34,7 @@
   padding: 12px 24px;
   color: var(--text-primary);
   text-decoration: none;
-  border: 1px solid transparent;
+  border: none;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   font-family: 'Anjoman_Medium';
@@ -32,32 +42,57 @@
   transition: all 0.3s ease;
   background: none;
   cursor: pointer;
+  position: relative;
 }
 
 .navLink:hover {
-  color: var(--text-primary);
-  border-color: var(--border-color);
+  color: var(--link-hover);
+  background-color: rgba(138, 180, 255, 0.05);
 }
 
-.active {
-  color: var(--text-primary);
+.navLink.active {
+  color: var(--text-heading);
   background-color: var(--content-bg);
-  border-color: var(--border-color) var(--border-color) var(--content-bg);
   font-family: 'Anjoman_Bold';
 }
 
+.navLink.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: var(--tab-active-border);
+  background-color: var(--button-bg);
+  border-radius: 3px 3px 0 0;
+}
+
+/* ==================== TAB CONTENT ==================== */
 .tabContent {
   padding: 24px;
 }
 
 .tabPane {
   display: none;
+  animation: fadeIn 0.3s ease-out;
 }
 
 .tabPane.active {
   display: block;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================== RESPONSIVE STYLES ==================== */
 @media (max-width: 768px) {
   .navLink {
     padding: 10px 16px;
@@ -66,5 +101,20 @@
   
   .tabContent {
     padding: 16px;
+  }
+  
+  .navTabs {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .navLink {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+  
+  .tabContent {
+    padding: 12px;
   }
 }
