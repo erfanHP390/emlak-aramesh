@@ -12,26 +12,32 @@
 /* ==================== CHART BOX ==================== */
 .box {
   background: var(--bg-primary);
-  /* border: 1px solid rgba(255, 255, 255, 0.1); */
+  border: var(--box-border);
   border-radius: 12px;
   padding: 1.5rem;
   transition: all 0.3s ease;
   height: 100%;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--box-shadow-primary);
   display: flex;
   flex-direction: column;
-  width: 100%; /* اضافه شده */
-  margin: 0 auto; /* اضافه شده */
+  width: 100%;
+  margin: 0 auto;
 }
 
 .box:hover {
   transform: translateY(-8px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--box-shadow-hover);
+  border-color: var(--input-focus);
+}
+
+.box:focus-within {
+  box-shadow: var(--box-shadow-focus);
+  outline: none;
 }
 
 .boxHeader {
   padding-bottom: 1.25rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid var(--input-border);
   margin-bottom: 1.5rem;
 }
 
