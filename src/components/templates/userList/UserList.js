@@ -16,6 +16,8 @@ function UserList({ users }) {
   const [role, setRole] = useState("");
   const [status, setStatus] = useState("");
   const [userID, setUserID] = useState("");
+  const [isAccept, setIsAccept] = useState(null);
+  const [guildID, setGuildID] = useState("");
 
   const toPersianStrDigits = (str) => {
     return str?.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
@@ -146,10 +148,10 @@ function UserList({ users }) {
       name,
       email,
       role,
-      status,
+      isAccept,
     };
 
-    const res = await fetch(`/api/users/${userID}`, {
+    const res = await fetch(`/api/auth/${userID}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -158,6 +160,7 @@ function UserList({ users }) {
     });
 
     if (res.status === 200) {
+      setIsLoading(false);
       toastSuccess(
         "اطلاعات کاربر با موفقیت ویرایش شد",
         "top-center",
@@ -171,9 +174,22 @@ function UserList({ users }) {
       );
       closeModal();
       router.refresh();
-    } else if (res.status === 401) {
+    } else if (res.status === 403) {
       toastError(
-        "فقط مدیر سایت اجازه ویرایش کاربر را دارد",
+        "شما مجاز به ویرایش اطلاعات مدیر نیستید",
+        "top-center",
+        5000,
+        false,
+        true,
+        true,
+        true,
+        undefined,
+        "colored"
+      );
+    } else if (res.status === 401) {
+      setIsLoading(false);
+      toastError(
+        "فقط مدیر/مشاور سایت اجازه ویرایش کاربر را دارد",
         "top-center",
         5000,
         false,
@@ -184,6 +200,7 @@ function UserList({ users }) {
         "colored"
       );
     } else if (res.status === 400) {
+      setIsLoading(false);
       toastError(
         "شناسه کاربر ارسال نشده است",
         "top-center",
@@ -196,6 +213,7 @@ function UserList({ users }) {
         "colored"
       );
     } else if (res.status === 404) {
+      setIsLoading(false);
       toastError(
         "کاربر یافت نشد",
         "top-center",
@@ -208,6 +226,7 @@ function UserList({ users }) {
         "colored"
       );
     } else if (res.status === 500) {
+      setIsLoading(false);
       toastError(
         "خطا در سرور ، لطفا بعدا تلاش کنید",
         "top-center",
@@ -282,6 +301,16 @@ function UserList({ users }) {
                         onChange={(e) => setEmail(e.target.value)}
                         className={styles.formInput}
                       />
+                    </div>{" "}
+                    <div className={styles.formGroup}>
+                      <label className={styles.formLabel}>وضعیت</label>
+                      <select
+                        value={isAccept}
+                        onChange={(e) => setIsAccept(e.target.value === "true")}
+                      >
+                        <option value="true">تایید</option>
+                        <option value="false">عدم تایید</option>
+                      </select>
                     </div>
                     <div className={styles.formGroup}>
                       <label className={styles.formLabel}>نقش</label>
@@ -290,11 +319,22 @@ function UserList({ users }) {
                         onChange={(e) => setRole(e.target.value)}
                         className={styles.formInput}
                       >
-                        <option value="مدیر">مدیر</option>
-                        <option value="مشاور">مشاور</option>
-                        <option value="کاربر">کاربر</option>
+                        <option value="ADMIN">مدیر</option>
+                        <option value="CONSULTANT">مشاور</option>
+                        <option value="USER">کاربر</option>
                       </select>
                     </div>
+                    {role === "CONSULTANT" || role === "ADMIN" ? (
+                      <div className={styles.formGroup}>
+                        <label className={styles.formLabel}>شناسه صنفی</label>
+                        <input
+                          type="text"
+                          value={guildID}
+                          onChange={(e) => setGuildID(e.target.value)}
+                          className={styles.formInput}
+                        />
+                      </div>
+                    ) : null}
                   </div>
                   <div className={styles.modalFooter}>
                     <button
