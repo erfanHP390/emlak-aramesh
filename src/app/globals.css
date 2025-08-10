@@ -72,6 +72,11 @@
   --input-focus: #8ab4ff;
   --scrollbar-track: #374151;
   --scrollbar-thumb: #8ab4ff;
+  --box-shadow-primary: 0 4px 6px -1px rgba(138, 180, 255, 0.1),
+    0 2px 4px -1px rgba(138, 180, 255, 0.06);
+  --box-shadow-hover: 0 10px 15px -3px rgba(138, 180, 255, 0.1),
+    0 4px 6px -2px rgba(138, 180, 255, 0.05);
+  --box-shadow-focus: 0 0 0 3px rgba(138, 180, 255, 0.45);
 }
 
 /* Light Theme Overrides */
@@ -89,6 +94,11 @@
   --input-focus: #2f6dff;
   --scrollbar-track: #e5e7eb;
   --scrollbar-thumb: #2f6dff;
+  --box-shadow-primary: 0 4px 6px -1px rgba(47, 109, 255, 0.1),
+    0 2px 4px -1px rgba(47, 109, 255, 0.06);
+  --box-shadow-hover: 0 10px 15px -3px rgba(47, 109, 255, 0.1),
+    0 4px 6px -2px rgba(47, 109, 255, 0.05);
+  --box-shadow-focus: 0 0 0 3px rgba(47, 109, 255, 0.45);
 }
 
 /*====================  UTILITY FONT CLASSES  ====================*/
@@ -1001,7 +1011,7 @@ select:focus {
     height: 32px !important;
     font-size: 0.8rem !important;
   }
-  
+
   .rmdp-header-values {
     font-size: 0.9rem !important;
   }
