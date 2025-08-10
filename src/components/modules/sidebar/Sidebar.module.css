@@ -10,9 +10,10 @@
   font-family: 'Anjoman_Regular';
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   z-index: 999;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--box-shadow-primary); /* Modified */
   overflow-y: auto;
   transform: translateX(0);
+  border-left: 1px solid var(--input-border); /* Added */
 }
 
 .sidebarContainer.closed {
@@ -58,13 +59,14 @@
   transform: translateX(50%);
   background-color: var(--input-bg);
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--box-shadow-primary); /* Modified */
   min-width: 200px;
   z-index: 1100;
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
   padding: 0.5rem 0;
+  border: 1px solid var(--input-border); /* Added */
 }
 
 .userName:hover + .userDropdown,
@@ -243,6 +245,7 @@
 
   .sidebarContainer.open {
     transform: translateX(0);
+    box-shadow: var(--box-shadow-hover); /* Modified */
   }
 
   .userDropdown {
@@ -273,3 +276,4 @@
 .sidebarContainer::-webkit-scrollbar-track {
   background-color: var(--scrollbar-track);
 }
+
