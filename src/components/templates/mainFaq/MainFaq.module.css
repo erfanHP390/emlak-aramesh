@@ -1,6 +1,7 @@
-/* Layout Styles */
+
+/* ==================== LAYOUT STYLES ==================== */
 .contentWrapper {
-  padding: 20px;
+  padding: 30px 20px;
   min-height: 100vh;
   background-color: var(--bg-primary);
   margin-top: 5.5rem;
@@ -8,17 +9,19 @@
 
 .containerFull {
   width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-/* Header Styles */
+/* ==================== HEADER STYLES ==================== */
 .contentHeader {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .headerFlex {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .headerTitle {
@@ -26,39 +29,16 @@
 }
 
 .pageTitle {
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: var(--text-heading);
   font-family: 'Anjoman_Bold';
   margin: 0;
+  line-height: 1.3;
 }
 
-/* Breadcrumb Styles */
-.breadcrumb {
-  display: flex;
-  padding: 0;
-  list-style: none;
-  margin: 10px 0 0;
-}
-
-.breadcrumbItem {
-  font-size: 0.9rem;
-  color: var(--text-primary);
-  font-family: 'Anjoman_Regular';
-  margin-left: 10px;
-}
-
-.breadcrumbItem.active {
-  color: var(--link-color);
-}
-
-.homeIcon {
-  font-size: 1.2rem;
-  color: var(--text-primary);
-}
-
-/* Content Styles */
+/* ==================== CONTENT STYLES ==================== */
 .content {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .row {
@@ -72,20 +52,26 @@
   padding: 0 15px;
 }
 
-/* Box Styles */
+/* ==================== BOX STYLES ==================== */
 .box {
   background-color: var(--content-bg);
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  box-shadow: var(--box-shadow-primary);
   margin-bottom: 30px;
-  border: 1px solid var(--border-color);
+  border: var(--box-border);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.box:hover {
+  box-shadow: var(--box-shadow-hover);
 }
 
 .boxBody {
-  padding: 20px;
+  padding: 25px;
 }
 
-/* Tab Navigation */
+/* ==================== TAB NAVIGATION ==================== */
 .navTabs {
   display: flex;
   list-style: none;
@@ -97,56 +83,92 @@
 .navItem {
   flex: 1;
   text-align: center;
+  position: relative;
 }
 
 .navLink {
   display: block;
-  padding: 12px 15px;
+  padding: 15px 20px;
   color: var(--text-primary);
   text-decoration: none;
   font-family: 'Anjoman_Medium';
   transition: all 0.3s ease;
+  position: relative;
 }
 
 .navLink.active {
-  color: var(--link-color);
-  border-bottom: 2px solid var(--link-color);
+  color: var(--text-heading);
+  font-family: 'Anjoman_SemiBold';
+}
+
+.navLink.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: var(--button-bg);
+  border-radius: 3px 3px 0 0;
 }
 
 .navLink:hover {
   color: var(--link-hover);
+  background-color: rgba(138, 180, 255, 0.05);
 }
 
-/* FAQ Accordion */
+/* ==================== FAQ ACCORDION ==================== */
 .tabContent {
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 .tabPane {
   display: none;
+  animation: fadeIn 0.3s ease-out;
 }
 
 .tabPane.active {
   display: block;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .panel {
   margin-bottom: 15px;
   border: 1px solid var(--border-color);
-  border-radius: 6px;
+  border-radius: 8px;
   overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.panel:hover {
+  border-color: var(--link-color);
 }
 
 .panelHeading {
-  padding: 15px;
+  padding: 18px 20px;
   background-color: var(--input-bg);
-  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.panelHeading:hover {
+  background-color: rgba(138, 180, 255, 0.1);
 }
 
 .panelTitle {
   display: block;
   color: var(--text-heading);
-  font-family: 'Anjoman_Medium';
+  font-family: 'Anjoman_SemiBold';
   text-decoration: none;
   position: relative;
   padding-right: 25px;
@@ -159,6 +181,7 @@
   top: 50%;
   transform: translateY(-50%);
   font-size: 0.8rem;
+  color: var(--link-color);
   transition: all 0.3s ease;
 }
 
@@ -167,33 +190,98 @@
 }
 
 .panelBody {
-  padding: 15px;
+  padding: 20px;
   background-color: var(--content-bg);
   color: var(--text-primary);
   font-family: 'Anjoman_Regular';
+  line-height: 1.8;
 }
 
 .panelCollapse {
   transition: all 0.3s ease;
 }
 
-/* Responsive Styles */
+.panelBody ul,
+.panelBody ol {
+  padding-right: 20px;
+  margin: 10px 0;
+}
+
+.panelBody li {
+  margin-bottom: 8px;
+}
+
+/* ==================== RESPONSIVE STYLES ==================== */
+@media (max-width: 992px) {
+  .contentWrapper {
+    margin-top: 5rem;
+    padding: 20px 15px;
+  }
+  
+  .pageTitle {
+    font-size: 1.8rem;
+  }
+  
+  .panelHeading {
+    padding: 15px;
+  }
+  
+  .panelBody {
+    padding: 15px;
+  }
+}
+
 @media (max-width: 768px) {
+  .navTabs {
+    flex-direction: column;
+  }
+  
   .navItem {
-    flex: none;
     width: 100%;
     margin-bottom: 5px;
   }
   
   .navLink {
-    padding: 10px;
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 5px;
   }
   
-  .panelHeading {
-    padding: 12px;
+  .navLink.active::after {
+    display: none;
+  }
+  
+  .navLink.active {
+    background-color: rgba(138, 180, 255, 0.1);
+    border-left: 3px solid var(--button-bg);
+  }
+  
+  .panelTitle {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .contentWrapper {
+    margin-top: 4rem;
+    padding: 15px 10px;
+  }
+  
+  .pageTitle {
+    font-size: 1.5rem;
+  }
+  
+  .boxBody {
+    padding: 18px;
+  }
+  
+  .panelTitle {
+    padding-right: 20px;
+    font-size: 0.9rem;
   }
   
   .panelBody {
+    font-size: 0.9rem;
     padding: 12px;
   }
 }
