@@ -232,56 +232,7 @@ function Sidebar({
           </li>
 
           {/* Property Type Submenu */}
-          <li className={styles.menuItem}>
-            <div
-              className={`${styles.menuLink} ${styles.menuLinkWithSubmenu}`}
-              onClick={() => toggleSubmenu("propertyType")}
-            >
-              <div className={styles.menuIconText}>
-                <FaHouseChimney className={styles.menuIcon} />
-                <span className={styles.menuText}>نوع ملک</span>
-              </div>
-              {openSubmenus.propertyType ? (
-                <IoChevronDown className={styles.chevronIcon} />
-              ) : (
-                <IoChevronBackSharp className={styles.chevronIcon} />
-              )}
-            </div>
-            <div
-              className={styles.submenuWrapper}
-              style={{
-                height: submenuHeights.propertyType,
-                transition: "height 0.3s ease-in-out",
-              }}
-            >
-              <ul className={styles.submenu}>
-                <li className={styles.submenuItem}>
-                  <a href="apartment.html" className={styles.submenuLink}>
-                    <MdApartment className={styles.submenuIcon} />
-                    <span className={styles.text_link}>آپارتمان</span>
-                  </a>
-                </li>
-                <li className={styles.submenuItem}>
-                  <a href="office.html" className={styles.submenuLink}>
-                    <RiHomeOfficeFill className={styles.submenuIcon} />
-                    <span className={styles.text_link}>اداره</span>
-                  </a>
-                </li>
-                <li className={styles.submenuItem}>
-                  <a href="shop.html" className={styles.submenuLink}>
-                    <MdAddHome className={styles.submenuIcon} />
-                    <span className={styles.text_link}>خرید املاک</span>
-                  </a>
-                </li>
-                <li className={styles.submenuItem}>
-                  <a href="villa.html" className={styles.submenuLink}>
-                    <GiHutsVillage className={styles.submenuIcon} />
-                    <span className={styles.text_link}>ویلا</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
+
 
           {/* Consultants Submenu */}
           <li className={styles.menuItem}>
@@ -409,7 +360,7 @@ function Sidebar({
           </li>
 
           {/* Authentication Submenu */}
-          <li className={styles.menuItem}>
+          {/* <li className={styles.menuItem}>
             <div
               className={`${styles.menuLink} ${styles.menuLinkWithSubmenu}`}
               onClick={() => toggleSubmenu("auth")}
@@ -458,10 +409,10 @@ function Sidebar({
                 </li>
               </ul>
             </div>
-          </li>
+          </li> */}
 
           {/* Essential Pages Submenu */}
-          <li className={styles.menuItem}>
+          {/* <li className={styles.menuItem}>
             <div
               className={`${styles.menuLink} ${styles.menuLinkWithSubmenu}`}
               onClick={() => toggleSubmenu("essential")}
@@ -506,7 +457,7 @@ function Sidebar({
                 </li>
               </ul>
             </div>
-          </li>
+          </li> */}
         </ul>
       </div>
     </aside>
