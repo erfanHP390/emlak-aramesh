@@ -46,6 +46,12 @@ export async function PUT(req, { params }) {
       return Response.json({ message: "User is not found" }, { status: 404 });
     }
 
+    if (user.role === "ADMIN" && !admin) {
+      return Response.json(
+        { message: "you have not access to delete admin" },
+        { status: 403 }
+      );
+    }
 
     await UserModel.findOneAndUpdate(
       { _id: id },
@@ -121,12 +127,10 @@ export async function DELETE(req, { params }) {
       );
     }
 
-    if (user.role === "ADMIN") {
+    if (user.role === "ADMIN" && !admin) {
       return Response.json(
         { message: "you have not access to delete admin" },
-        {
-          status: 403,
-        }
+        { status: 403 }
       );
     }
 
