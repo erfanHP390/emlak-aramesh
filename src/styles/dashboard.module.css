@@ -11,6 +11,7 @@
 .contentWrapper {
   flex: 1;
   padding: 2rem;
+  margin-top: 4rem;
 }
 
 .containerFull {

@@ -4,7 +4,7 @@
   transition: margin-left 0.3s ease-in-out;
   margin-left: var(--sidebar-width);
   background-color: var(--body-bg);
-  margin-top: 4rem;
+  margin-top: 5rem;
 }
 
 .containerFull {
