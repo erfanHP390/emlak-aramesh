@@ -1,4 +1,5 @@
-/* Layout Styles */
+
+/* ==================== LAYOUT STYLES ==================== */
 .contentWrapper {
   padding: 20px;
   min-height: 100vh;
@@ -8,16 +9,19 @@
 
 .containerFull {
   width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
+/* ==================== HEADER STYLES ==================== */
 .contentHeader {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .headerFlex {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .headerTitle {
@@ -25,15 +29,16 @@
 }
 
 .pageTitle {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   color: var(--text-heading);
   font-family: 'Anjoman_Bold';
   margin: 0;
+  line-height: 1.3;
 }
 
-/* Content Styles */
+/* ==================== CONTENT STYLES ==================== */
 .content {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .row {
@@ -47,38 +52,46 @@
   padding: 0 15px;
 }
 
-/* Box Styles */
+/* ==================== BOX STYLES ==================== */
 .box {
   background-color: var(--content-bg);
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  box-shadow: var(--box-shadow-primary);
   margin-bottom: 30px;
-  border: 1px solid var(--border-color);
+  border: var(--box-border);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.box:hover {
+  box-shadow: var(--box-shadow-hover);
 }
 
 .boxHeader {
-  padding: 15px 20px;
+  padding: 20px;
   border-bottom: 1px solid var(--border-color);
+  background-color: rgba(138, 180, 255, 0.05);
 }
 
 .boxTitle {
-  font-size: 1rem;
-  color: var(--text-primary);
-  font-family: 'Anjoman_Medium';
+  font-size: 1.2rem;
+  color: var(--text-heading);
+  font-family: 'Anjoman_SemiBold';
   margin: 0;
 }
 
 .boxBody {
-  padding: 20px;
+  padding: 25px;
 }
 
 .boxFooter {
-  padding: 15px 20px;
+  padding: 20px;
   border-top: 1px solid var(--border-color);
   text-align: left;
+  background-color: rgba(138, 180, 255, 0.03);
 }
 
-/* Form Styles */
+/* ==================== FORM STYLES ==================== */
 .form {
   display: flex;
   flex-direction: column;
@@ -96,22 +109,22 @@
 }
 
 .formGroup {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .formLabel {
   display: block;
-  margin-bottom: 8px;
-  color: var(--text-primary);
+  margin-bottom: 10px;
+  color: var(--text-heading);
   font-family: 'Anjoman_Medium';
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 
 .formControl {
   width: 100%;
-  padding: 10px 15px;
+  padding: 12px 18px;
   border: 1px solid var(--input-border);
-  border-radius: 6px;
+  border-radius: 8px;
   background-color: var(--input-bg);
   color: var(--text-primary);
   font-family: 'Anjoman_Regular';
@@ -120,19 +133,19 @@
 
 .formControl:focus {
   border-color: var(--input-focus);
-  box-shadow: 0 0 0 3px rgba(138, 180, 255, 0.2);
+  box-shadow: var(--box-shadow-focus);
   outline: none;
 }
 
 textarea.formControl {
-  min-height: 120px;
+  min-height: 150px;
   resize: vertical;
 }
 
-/* File Upload Styles */
+/* ==================== FILE UPLOAD STYLES ==================== */
 .fileUploadWrapper {
   position: relative;
-  margin-top: 8px;
+  margin-top: 10px;
 }
 
 .fileUploadInput {
@@ -151,42 +164,49 @@ textarea.formControl {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 30px;
+  padding: 40px 20px;
   border: 2px dashed var(--border-color);
-  border-radius: 6px;
+  border-radius: 8px;
   background-color: var(--input-bg);
   text-align: center;
   transition: all 0.3s ease;
   position: relative;
-  min-height: 120px;
+  min-height: 150px;
 }
 
 .fileUploadLabel:hover,
 .fileUploadLabel.dragover {
   border-color: var(--link-color);
   background-color: rgba(138, 180, 255, 0.1);
+  box-shadow: var(--box-shadow-primary);
 }
 
 .fileUploadIcon {
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: var(--link-color);
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.fileUploadLabel:hover .fileUploadIcon {
+  transform: translateY(-5px);
 }
 
 .fileUploadText {
   font-family: 'Anjoman_Medium';
-  color: var(--text-primary);
+  color: var(--text-heading);
   margin-bottom: 5px;
+  font-size: 1rem;
 }
 
 .fileUploadHint {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--text-secondary);
   font-family: 'Anjoman_Regular';
 }
 
 .fileUploadPreview {
-  margin-top: 15px;
+  margin-top: 20px;
   display: none;
 }
 
@@ -194,59 +214,105 @@ textarea.formControl {
   display: block;
 }
 
-/* Section Styles */
+/* ==================== SECTION STYLES ==================== */
 .sectionTitle {
   color: var(--link-color);
-  font-family: 'Anjoman_Medium';
-  font-size: 1rem;
-  margin: 20px 0 10px;
+  font-family: 'Anjoman_SemiBold';
+  font-size: 1.1rem;
+  margin: 30px 0 15px;
   display: flex;
   align-items: center;
 }
 
 .icon {
-  margin-left: 10px;
-  font-size: 1.1rem;
+  margin-left: 12px;
+  font-size: 1.3rem;
 }
 
 .divider {
   border: none;
   border-top: 1px solid var(--border-color);
-  margin: 15px 0;
+  margin: 20px 0;
 }
 
-/* Button Styles */
+/* ==================== BUTTON STYLES ==================== */
 .submitButton {
   background-color: var(--button-bg);
   color: white;
-  padding: 10px 20px;
-  border-radius: 6px;
+  padding: 12px 30px;
+  border-radius: 8px;
   border: none;
-  font-family: 'Anjoman_Medium';
+  font-family: 'Anjoman_SemiBold';
   cursor: pointer;
   transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
+  box-shadow: var(--box-shadow-primary);
 }
 
 .submitButton:hover {
   background-color: var(--button-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--box-shadow-hover);
 }
 
-/* Responsive Styles */
+.submitButton .icon {
+  margin-left: 10px;
+  font-size: 1.1rem;
+}
+
+/* ==================== RESPONSIVE STYLES ==================== */
+@media (max-width: 992px) {
+  .contentWrapper {
+    margin-top: 5rem;
+    padding: 15px;
+  }
+  
+  .pageTitle {
+    font-size: 1.5rem;
+  }
+}
+
 @media (max-width: 768px) {
   .col6 {
     width: 100%;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
 
   .boxHeader,
   .boxBody,
   .boxFooter {
-    padding: 15px;
+    padding: 18px;
   }
 
   .fileUploadLabel {
-    padding: 20px 15px;
+    padding: 30px 15px;
+    min-height: 120px;
+  }
+  
+  .sectionTitle {
+    font-size: 1rem;
+    margin: 25px 0 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .contentWrapper {
+    margin-top: 4rem;
+    padding: 10px;
+  }
+  
+  .pageTitle {
+    font-size: 1.3rem;
+  }
+  
+  .boxTitle {
+    font-size: 1.1rem;
+  }
+  
+  .submitButton {
+    padding: 10px 20px;
+    width: 100%;
+    justify-content: center;
   }
 }
