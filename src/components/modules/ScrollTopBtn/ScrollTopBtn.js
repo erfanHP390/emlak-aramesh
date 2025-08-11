@@ -43,7 +43,7 @@ export default function ScrollTopBtn() {
           onClick={scrollToTop}
           aria-label="بازگشت به بالای صفحه"
         >
-          <FaAngleDoubleUp size={20} />
+          <FaAngleDoubleUp size={28} />
         </button>
       </Providers>
     </>

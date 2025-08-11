@@ -15,7 +15,7 @@ export default function ThemeToggleButton({ isScrollButtonVisible }) {
       onClick={toggleTheme}
       aria-label="تغییر تم"
     >
-      {theme === "dark" ? <FaSun size={24} /> : <FaMoon size={24} />}
+      {theme === "dark" ? <FaSun size={28} /> : <FaMoon size={28} />}
     </button>
   );
 }
