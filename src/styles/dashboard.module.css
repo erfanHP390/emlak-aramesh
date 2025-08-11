@@ -80,7 +80,13 @@
 /* تبلت کوچک (676px به بالا) */
 @media (min-width: 676px) {
   .row {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (max-width: 875px) {
+  .row_secondary {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
@@ -89,16 +95,16 @@
   .contentWrapper {
     padding: 1.5rem;
   }
-  
+
   .row_third {
     flex-direction: row;
   }
-  
+
   .userInfo_wrapper {
     flex: 0 0 30%;
     max-width: 30%;
   }
-  
+
   .visitTable_wrapper {
     flex: 0 0 70%;
     max-width: 70%;
@@ -106,16 +112,16 @@
 }
 
 /* تبلت بزرگ (993px به بالا) */
-@media (min-width: 993px) {
+@media (max-width: 993px) {
   .row {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
-  
+
   .userInfo_wrapper {
     flex: 0 0 25%;
     max-width: 25%;
   }
-  
+
   .visitTable_wrapper {
     flex: 0 0 75%;
     max-width: 75%;
@@ -125,9 +131,9 @@
 /* دسکتاپ (1200px به بالا) */
 @media (min-width: 1200px) {
   .row {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
-  
+
   .contentWrapper {
     padding: 2rem;
   }
@@ -139,11 +145,11 @@
   .row_secondary {
     grid-template-columns: 1fr;
   }
-  
+
   .row_third {
     flex-direction: column;
   }
-  
+
   .userInfo_wrapper,
   .visitTable_wrapper {
     flex: 0 0 100%;
