@@ -61,7 +61,7 @@
 .valueText {
   font-family: 'Anjoman_Bold';
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 2rem  !important;
   margin: 0;
   color: var(--text-primary);
 }
@@ -75,7 +75,7 @@
 .titleText {
   color: var(--primary-color);
   font-family: 'Anjoman_SemiBold';
-  font-size: 1.1rem;
+  font-size: 1.5rem !important;
   margin: 0.5rem 0;
 }
 
