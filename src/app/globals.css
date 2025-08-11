@@ -1041,3 +1041,7 @@ div.rmdp-day-picker {
   opacity: 1 !important;
   font-family: 'Anjoman_Regular' !important;
 }
+
+.recharts-pie-labels {
+  display: none !important;
+}
