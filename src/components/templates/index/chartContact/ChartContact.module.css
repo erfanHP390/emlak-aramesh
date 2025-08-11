@@ -14,7 +14,7 @@
   background: var(--bg-primary);
   border: var(--box-border);
   border-radius: 12px;
-  padding: 1.5rem;
+  padding: 1.25rem;
   transition: all 0.3s ease;
   height: 100%;
   box-shadow: var(--box-shadow-primary);
@@ -25,26 +25,21 @@
 }
 
 .box:hover {
-  transform: translateY(-8px);
+  transform: translateY(-5px);
   box-shadow: var(--box-shadow-hover);
   border-color: var(--input-focus);
 }
 
-.box:focus-within {
-  box-shadow: var(--box-shadow-focus);
-  outline: none;
-}
-
 .boxHeader {
-  padding-bottom: 1.25rem;
+  padding-bottom: 1rem;
   border-bottom: 1px solid var(--input-border);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .boxTitle {
   color: var(--text-heading);
   font-family: 'Anjoman_Bold';
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   margin: 0;
   text-align: center;
 }
@@ -54,50 +49,115 @@
   display: flex;
   flex-direction: column;
   padding: 0;
-  width: 100%; /* اضافه شده */
+  width: 100%;
 }
 
 /* ==================== CHART CONTAINER ==================== */
 .chartContainer {
   flex: 1;
-  min-height: 350px;
+  min-height: 300px;
   direction: ltr;
   position: relative;
-  width: 100%; /* اضافه شده */
-  padding: 10px; /* اضافه شده */
+  width: 100%;
+  padding: 5px;
+}
+
+/* ==================== CUSTOM TOOLTIP ==================== */
+.customTooltip {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tooltipLabel {
+  font-weight: bold;
+  margin: 0 0 5px 0;
+  color: var(--text-heading);
+  font-family: 'Anjoman_SemiBold';
+  font-size: 0.9rem;
+}
+
+.tooltipValue {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 0.85rem;
+}
+
+/* ==================== CUSTOM LEGEND ==================== */
+.legendContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 0;
+  margin: 15px 0 0 0;
+  list-style: none;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+}
+
+.legendIcon {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.legendText {
+  color: var(--text-primary);
+  font-family: 'Anjoman_Regular';
 }
 
 /* ==================== RESPONSIVE ADJUSTMENTS ==================== */
 @media (min-width: 1600px) {
   .box {
-    max-width: 420px; /* عرض بیشتر برای صفحات بزرگ */
+    max-width: 400px;
+  }
+  
+  .chartContainer {
+    min-height: 350px;
   }
 }
 
 @media (max-width: 1400px) {
   .chartContainer {
-    min-height: 300px;
+    min-height: 280px;
   }
 }
 
 @media (max-width: 1200px) {
   .colXl4 {
     flex: 0 0 50%;
-    max-width: 50%;
+    max-width: 100%;
   }
 
   .boxTitle {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 
   .chartContainer {
-    min-height: 280px;
+    min-height: 250px;
   }
 }
 
 @media (max-width: 992px) {
   .chartContainer {
-    min-height: 250px;
+    min-height: 220px;
+  }
+  
+  .legendContainer {
+    gap: 8px;
+  }
+  
+  .legendItem {
+    font-size: 0.75rem;
   }
 }
 
@@ -108,26 +168,38 @@
   }
 
   .box {
-    padding: 1.25rem;
-    max-width: 500px; /* عرض مناسب برای موبایل */
-  }
-
-  .chartContainer {
-    min-height: 220px;
-  }
-}
-
-@media (max-width: 576px) {
-  .boxTitle {
-    font-size: 1.25rem;
+    padding: 1rem;
+    max-width: 100%;
   }
 
   .chartContainer {
     min-height: 200px;
   }
+  
+  .boxTitle {
+    font-size: 1.15rem;
+  }
+}
 
-  .box {
-    padding: 1rem;
-    max-width: 100%; /* عرض کامل در موبایل */
+@media (max-width: 576px) {
+  .boxTitle {
+    font-size: 1.1rem;
+  }
+
+  .chartContainer {
+    min-height: 180px;
+  }
+  
+  .legendContainer {
+    gap: 6px;
+  }
+  
+  .legendItem {
+    font-size: 0.7rem;
+  }
+  
+  .customTooltip {
+    padding: 8px;
+    font-size: 0.8rem;
   }
 }
