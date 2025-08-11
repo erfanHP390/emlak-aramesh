@@ -13,162 +13,118 @@ export function toPersianNumDigits(num) {
 
 function UserInfo({ consultant, reqBuys }) {
   return (
-    <div className={`${styles.colXl4} ${styles.col12}`}>
-      <div className={styles.row}>
-        {/* Box: تعداد مشتریان */}
-        <div className={`${styles.colMd6} ${styles.col12}`}>
-          <div
-            className={`${styles.box} ${styles.boxBody} ${styles.pb10} ${styles.bs4} ${styles.borderInfoHover} ${styles.pullUp}`}
-          >
-            <h6 className={styles.textUppercase}>تعداد مشتریان</h6>
-            <div className={styles.dFlex}>
-              <span className={styles.fs30}>
-                <CountUp
-                  end={consultant.clients?.length || 0}
-                  duration={2.5}
-                  formattingFn={(val) =>
-                    toPersianNumDigits(val.toLocaleString())
-                  }
-                  className={styles.countUpContainer}
-                />
-              </span>
-              <span
-                className={`${styles.fs30} ${styles.textInfo} mdi mdi-city`}
+    <div className={styles.userInfoContainer}>
+      {/* بخش باکس‌های اطلاعاتی */}
+      {/* <div className={styles.infoBoxesGrid}>
+        Box 1: تعداد مشتریان
+        <div className={`${styles.infoBox} ${styles.infoBox1}`}>
+          <h6 className={styles.boxTitle}>تعداد مشتریان</h6>
+          <div className={styles.boxContent}>
+            <span className={styles.boxNumber}>
+              <CountUp
+                end={consultant.clients?.length || 0}
+                duration={2.5}
+                formattingFn={(val) => toPersianNumDigits(val.toLocaleString())}
               />
-            </div>
+            </span>
+            <span className={`${styles.boxIcon} mdi mdi-account-group`} />
           </div>
         </div>
 
-        {/* Box: املاک ثبت شده */}
-        <div className={`${styles.colMd6} ${styles.col12}`}>
-          <div
-            className={`${styles.box} ${styles.boxBody} ${styles.pb10} ${styles.bs4} ${styles.borderPrimaryHover} ${styles.pullUp}`}
-          >
-            <h6 className={styles.textUppercase}>املاک ثبت شده</h6>
-            <div className={styles.dFlex}>
-              <span className={styles.fs30}>
-                <CountUp
-                  end={consultant.houses?.length || 0}
-                  duration={2.5}
-                  formattingFn={(val) =>
-                    toPersianNumDigits(val.toLocaleString())
-                  }
-                  className={styles.countUpContainer}
-                />
-              </span>
-              <span
-                className={`${styles.fs30} ${styles.textPrimary} mdi mdi-seal`}
+        Box 2: املاک ثبت شده
+        <div className={`${styles.infoBox} ${styles.infoBox2}`}>
+          <h6 className={styles.boxTitle}>املاک ثبت شده</h6>
+          <div className={styles.boxContent}>
+            <span className={styles.boxNumber}>
+              <CountUp
+                end={consultant.houses?.length || 0}
+                duration={2.5}
+                formattingFn={(val) => toPersianNumDigits(val.toLocaleString())}
               />
-            </div>
+            </span>
+            <span className={`${styles.boxIcon} mdi mdi-home-city`} />
           </div>
         </div>
 
-        {/* Box: کد مشاور */}
-        <div className={`${styles.colMd6} ${styles.col12}`}>
-          <div
-            className={`${styles.box} ${styles.boxBody} ${styles.pb10} ${styles.bs4} ${styles.borderDangerHover} ${styles.pullUp}`}
-          >
-            <h6 className={styles.textUppercase}>کد شما</h6>
-            <div className={styles.dFlex}>
-              <span className={styles.fs30}>
-                {toPersianStrDigits(consultant.hisCode)}
-              </span>
-              <span
-                className={`${styles.fs30} ${styles.textDanger} mdi mdi-city`}
-              />
-            </div>
+        Box 3: کد مشاور
+        <div className={`${styles.infoBox} ${styles.infoBox3}`}>
+          <h6 className={styles.boxTitle}>کد مشاور</h6>
+          <div className={styles.boxContent}>
+            <span className={styles.boxNumber}>
+              {toPersianStrDigits(consultant.hisCode)}
+            </span>
+            <span className={`${styles.boxIcon} mdi mdi-identifier`} />
           </div>
         </div>
 
-        {/* Box: تعداد درخواست‌ها */}
-        <div className={`${styles.colMd6} ${styles.col12}`}>
-          <div
-            className={`${styles.box} ${styles.boxBody} ${styles.pb10} ${styles.bs4} ${styles.borderWarningHover} ${styles.pullUp}`}
-          >
-            <h6 className={styles.textUppercase}>درخواست‌ها</h6>
-            <div className={styles.dFlex}>
-              <span className={styles.fs30}>
-                <CountUp
-                  end={reqBuys?.length || 0}
-                  duration={2.5}
-                  formattingFn={(val) =>
-                    toPersianNumDigits(val.toLocaleString())
-                  }
-                  className={styles.countUpContainer}
-                />
-              </span>
-              <span
-                className={`${styles.fs30} ${styles.textWarning} mdi mdi-home`}
+        Box 4: درخواست‌ها
+        <div className={`${styles.infoBox} ${styles.infoBox4}`}>
+          <h6 className={styles.boxTitle}>درخواست‌ها</h6>
+          <div className={styles.boxContent}>
+            <span className={styles.boxNumber}>
+              <CountUp
+                end={reqBuys?.length || 0}
+                duration={2.5}
+                formattingFn={(val) => toPersianNumDigits(val.toLocaleString())}
               />
-            </div>
+            </span>
+            <span className={`${styles.boxIcon} mdi mdi-clipboard-list`} />
           </div>
         </div>
-      </div>
+</div>       */}
 
-      {/* اطلاعات کامل مشاور */}
-      <div className={`${styles.box} ${styles.widgetUser4}`}>
-        <div className={`${styles.widgetUserHeader} info-bg`}>
-          <div className={styles.overlay}>
-            <div className={styles.widgetUserImage}>
+      {/* کارت پروفایل مشاور */}
+      <div className={styles.profileCard}>
+        <div className={styles.profileHeader}>
+          <div className={styles.profileOverlay}>
+            <div className={styles.avatarContainer}>
               <img
-                className={styles.roundedCircle}
                 src={consultant.img || "/images/abstract-user-flat-4.svg"}
-                alt="User Avatar"
+                alt="پروفایل مشاور"
+                className={styles.avatar}
               />
             </div>
-            <h3 className={styles.widgetUserUsername}>
+            <h3 className={styles.userName}>
               {consultant.firstName} {consultant.lastName}
             </h3>
-            <h6 className={styles.widgetUserDesc}>
-              {toPersianStrDigits(consultant.hisCode)}
-            </h6>
+            <p className={styles.userCode}>
+              کد مشاور: {toPersianStrDigits(consultant.hisCode)}
+            </p>
           </div>
         </div>
 
-        <div className={styles.boxFooter}>
-          <div className={styles.row}>
-            <div className={`${styles.colSm4} ${styles.borderStart}`}>
-              <div className={styles.descriptionBlock}>
-                <h5 className={styles.descriptionHeader}>
-                  <CountUp
-                    end={consultant.houses?.length || 0}
-                    duration={3}
-                    formattingFn={(val) =>
-                      toPersianNumDigits(val.toLocaleString())
-                    }
-                  />
-                </h5>
-                <span className={styles.descriptionText}>املاک</span>
-              </div>
+        <div className={styles.profileStats}>
+          <div className={styles.statItem}>
+            <div className={styles.statValue}>
+              <CountUp
+                end={consultant.houses?.length || 0}
+                duration={2}
+                formattingFn={(val) => toPersianNumDigits(val.toLocaleString())}
+              />
             </div>
-            <div className={`${styles.colSm4} ${styles.borderStart}`}>
-              <div className={styles.descriptionBlock}>
-                <h5 className={styles.descriptionHeader}>
-                  <CountUp
-                    end={consultant.clients?.length || 0}
-                    duration={3}
-                    formattingFn={(val) =>
-                      toPersianNumDigits(val.toLocaleString())
-                    }
-                  />
-                </h5>
-                <span className={styles.descriptionText}>مشتریان</span>
-              </div>
+            <div className={styles.statLabel}>املاک</div>
+          </div>
+
+          <div className={styles.statItem}>
+            <div className={styles.statValue}>
+              <CountUp
+                end={consultant.clients?.length || 0}
+                duration={2}
+                formattingFn={(val) => toPersianNumDigits(val.toLocaleString())}
+              />
             </div>
-            <div className={styles.colSm4}>
-              <div className={styles.descriptionBlock}>
-                <h5 className={styles.descriptionHeader}>
-                  <CountUp
-                    end={reqBuys?.length || 0}
-                    duration={3}
-                    formattingFn={(val) =>
-                      toPersianNumDigits(val.toLocaleString())
-                    }
-                  />
-                </h5>
-                <span className={styles.descriptionText}>درخواست‌ها</span>
-              </div>
+            <div className={styles.statLabel}>مشتریان</div>
+          </div>
+
+          <div className={styles.statItem}>
+            <div className={styles.statValue}>
+              <CountUp
+                end={reqBuys?.length || 0}
+                duration={2}
+                formattingFn={(val) => toPersianNumDigits(val.toLocaleString())}
+              />
             </div>
+            <div className={styles.statLabel}>درخواست‌ها</div>
           </div>
         </div>
       </div>

@@ -1,312 +1,352 @@
-/* ==================== GRID LAYOUT ==================== */
-.col12 {
-  width: 100%;
-  padding: 0 10px;
-}
-
-.colXl4 {
-  flex: 0 0 33.333333%;
-  max-width: 100%;
-  margin-top: 1.5rem;
-}
-
-.colMd6 {
-  flex: 0 0 50%;
-  max-width: 50%;
-}
-
-.colSm4 {
-  flex: 0 0 33.333333%;
-  max-width: 33.333333%;
-}
-
-.row {
+/* Container Styles */
+.userInfoContainer {
   display: flex;
-  flex-wrap: wrap;
-  margin: -10px;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  padding: 0;
 }
 
-/* ==================== BOX STYLES ==================== */
-.box {
+/* Info Boxes Grid */
+.infoBoxesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  width: 100%;
+}
+
+.infoBox {
   background: var(--bg-primary);
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
-  gap: 30px;
+  display: flex;
+  flex-direction: column;
   position: relative;
   overflow: hidden;
 }
 
-.box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.boxBody {
-  padding: 1.5rem;
-  position: relative;
-  z-index: 1;
-}
-
-.pb10 {
-  padding-bottom: 10px;
-}
-
-.bs4 {
-  position: relative;
-}
-
-/* Hover Effect Styles */
-.borderInfoHover {
-  border-left: 8px solid rgba(138, 180, 255, 0.6);
-}
-
-.borderPrimaryHover {
-  border-left: 8px solid rgba(107, 208, 152, 0.6);
-}
-
-.borderDangerHover {
-  border-left: 8px solid rgba(255, 158, 125, 0.6);
-}
-
-.borderWarningHover {
-  border-left: 8px solid rgba(252, 196, 104,0.6);
-}
-
-.borderInfoHover::before,
-.borderPrimaryHover::before,
-.borderDangerHover::before,
-.borderWarningHover::before {
+.infoBox::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
-  width: 0;
+  width: 5px;
   height: 100%;
-  transition: width 0.3s ease;
-  z-index: 0;
 }
 
-.borderInfoHover::before {
-  background-color: rgba(138, 180, 255, 0.6);
+.infoBox:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
-.borderPrimaryHover::before {
-  background-color: rgba(107, 208, 152, 0.6);
+.infoBox1 {
+  border-right: 5px solid #8ab4ff;
 }
 
-.borderDangerHover::before {
-  background-color: rgba(255, 158, 125, 0.6);
+.infoBox1::before {
+  background-color: #8ab4ff;
 }
 
-.borderWarningHover::before {
-  background-color: rgba(252, 196, 104,0.6);
+.infoBox2 {
+  border-right: 5px solid #6bd098;
 }
 
-.borderInfoHover:hover::before,
-.borderPrimaryHover:hover::before,
-.borderDangerHover:hover::before,
-.borderWarningHover:hover::before {
-  width: 100%;
+.infoBox2::before {
+  background-color: #6bd098;
 }
 
-.pullUp {
-  margin-top: 10px;
+.infoBox3 {
+  border-right: 5px solid #ff9e7d;
 }
 
-/* ==================== TYPOGRAPHY ==================== */
-.textUppercase {
-  text-transform: uppercase;
+.infoBox3::before {
+  background-color: #ff9e7d;
+}
+
+.infoBox4 {
+  border-right: 5px solid #fcc468;
+}
+
+.infoBox4::before {
+  background-color: #fcc468;
+}
+
+.boxTitle {
   font-family: 'Anjoman_Medium';
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   color: var(--text-primary);
-  margin-bottom: 0.5rem;
-  color: white;
-  position: relative;
-  z-index: 110;
+  margin-bottom: 0.75rem;
+  text-align: right;
 }
 
-:global(.light) .textUppercase {
-    color: black;
-}
-
-.fs30 {
-  font-size: 30px;
-  font-family: 'Anjoman_Bold';
-  color: var(--text-heading);
-}
-
-.textInfo {
-  color: #8ab4ff !important;
-}
-
-.textPrimary {
-  color: #6bd098 !important;
-}
-
-.textDanger {
-  color: #ff9e7d !important;
-}
-
-.textWarning {
-  color: #fcc468 !important;
-}
-
-/* ==================== USER WIDGET ==================== */
-.widgetUser4 {
-  position: relative;
-}
-
-.widgetUserHeader {
-  height: 200px;
-  background-size: cover !important;
-  position: relative;
-  border-radius: 12px 12px 0 0;
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(26, 28, 35, 0.85);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  border-radius: 12px 12px 0 0;
-}
-
-.widgetUserImage {
-  width: 90px;
-  height: 90px;
-  border: 3px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  overflow: hidden;
-  margin-bottom: 15px;
-}
-
-.roundedCircle {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.widgetUserUsername {
-  color: white;
-  font-family: 'Anjoman_Bold';
-  font-size: 1.5rem;
-  margin-bottom: 5px;
-  text-align: center;
-}
-
-.widgetUserDesc {
-  color: rgba(255, 255, 255, 0.8);
-  font-family: 'Anjoman_Medium';
-  font-size: 1rem;
-  margin-bottom: 0;
-  text-align: center;
-}
-
-/* ==================== FOOTER STYLES ==================== */
-.boxFooter {
-  padding: 1.5rem;
-  background: var(--input-bg);
-  border-radius: 0 0 12px 12px;
-}
-
-.borderStart {
-  border-left: 1px solid var(--input-border);
-}
-
-.descriptionBlock {
-  text-align: center;
-}
-
-.descriptionHeader {
-  font-family: 'Anjoman_Bold';
-  font-size: 1.25rem;
-  color: var(--text-heading);
-  margin-bottom: 5px;
-}
-
-.descriptionText {
-  font-family: 'Anjoman_Regular';
-  font-size: 0.875rem;
-  color: var(--text-primary);
-  display: block;
-}
-
-/* ==================== UTILITY CLASSES ==================== */
-.dFlex {
+.boxContent {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* ==================== COUNT UP STYLES ==================== */
-.countUpContainer {
-  display: inline-block;
-  min-width: 80px;
-  text-align: center;
-  color: white;
+.boxNumber {
+  font-family: 'Anjoman_Bold';
+  font-size: 1.5rem;
+  color: var(--text-heading);
+}
+
+.boxIcon {
+  font-size: 1.8rem;
+  opacity: 0.8;
+}
+
+.infoBox1 .boxIcon {
+  color: #8ab4ff;
+}
+
+.infoBox2 .boxIcon {
+  color: #6bd098;
+}
+
+.infoBox3 .boxIcon {
+  color: #ff9e7d;
+}
+
+.infoBox4 .boxIcon {
+  color: #fcc468;
+}
+
+/* Profile Card Styles */
+.profileCard {
+  background: var(--bg-primary);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.profileHeader {
+  height: 200px;
+  background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%);
   position: relative;
-  z-index: 110;
 }
 
-:global(.light) .countUpContainer {
-    color: black;
+.profileOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
 }
 
-/* ==================== RESPONSIVE ADJUSTMENTS ==================== */
+.avatarContainer {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.userName {
+  font-family: 'Anjoman_Bold';
+  font-size: 1.4rem;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.userCode {
+  font-family: 'Anjoman_Medium';
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+}
+
+.profileStats {
+  display: flex;
+  justify-content: space-around;
+  padding: 1.25rem;
+  background: var(--input-bg);
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+
+.statItem:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 40px;
+  width: 1px;
+  background: var(--input-border);
+}
+
+.statValue {
+  font-family: 'Anjoman_Bold';
+  font-size: 1.3rem;
+  color: var(--text-heading);
+  margin-bottom: 0.25rem;
+}
+
+.statLabel {
+  font-family: 'Anjoman_Regular';
+  font-size: 0.8rem;
+  color: var(--text-primary);
+}
+
+/* Responsive Adjustments */
 @media (max-width: 1200px) {
-  .colXl4 {
-    flex: 0 0 100%;
-    max-width: 100%;
+  .userInfoContainer {
+    gap: 1.25rem;
+  }
+  
+  /* .profileHeader {
+    height: 170px;
+  } */
+  
+  /* .avatarContainer {
+    width: 85px;
+    height: 85px;
+  } */
+}
+
+@media (max-width: 992px) {
+
+    .profileHeader {
+    height: 215px !important;
+  }
+  
+  .avatarContainer {
+    width: 95px !important;
+    height: 95px  !important;
   }
 
-  .widgetUserHeader {
-    height: 180px;
+  .infoBoxesGrid {
+    gap: 0.8rem;
+  }
+  
+  .boxNumber {
+    font-size: 1.4rem;
+  }
+  
+  .boxIcon {
+    font-size: 1.6rem;
+  }
+  
+  .profileHeader {
+    height: 160px;
+  }
+  
+  .userName {
+    font-size: 1.3rem;
   }
 }
 
 @media (max-width: 768px) {
-  .colMd6 {
-    flex: 0 0 100%;
-    max-width: 100%;
+  .userInfoContainer {
+    gap: 1rem;
   }
-
-  .widgetUserUsername {
-    font-size: 1.3rem;
+  
+  .infoBoxesGrid {
+    grid-template-columns: 1fr;
   }
-
-  .widgetUserDesc {
-    font-size: 0.9rem;
+  
+  /* .profileHeader {
+    height: 150px;
+  }
+  
+  .avatarContainer {
+    width: 80px;
+    height: 80px;
+  } */
+  
+  .userName {
+    font-size: 1.2rem;
+  }
+  
+  .userCode {
+    font-size: 0.85rem;
+  }
+  
+  .statValue {
+    font-size: 1.2rem;
   }
 }
 
 @media (max-width: 576px) {
-  .colSm4 {
-    flex: 0 0 100%;
-    max-width: 100%;
-    margin-bottom: 15px;
+  /* .profileHeader {
+    height: 140px;
+  } */
+  
+  .avatarContainer {
+    /* width: 75px; */
+    /* height: 75px; */
+    margin-bottom: 0.75rem;
   }
-
-  .borderStart {
-    border-left: none;
-    border-bottom: 1px solid var(--input-border);
-    padding-bottom: 15px;
+  
+  .userName {
+    font-size: 1.1rem;
   }
-
-  .widgetUserHeader {
-    height: 160px;
+  
+  .boxTitle {
+    font-size: 0.8rem;
   }
+  
+  .boxNumber {
+    font-size: 1.3rem;
+  }
+  
+  .profileStats {
+    padding: 1rem;
+  }
+  
+  .statItem:not(:last-child)::after {
+    height: 30px;
+  }
+}
 
-  .widgetUserImage {
+@media (max-width: 480px) {
+  /* .profileHeader {
+    height: 130px;
+  }
+  
+  .avatarContainer {
     width: 70px;
     height: 70px;
+  } */
+  
+  .profileStats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .statItem:not(:last-child)::after {
+    display: none;
+  }
+  
+  .statItem:not(:last-child) {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--input-border);
+  }
+  
+  .statItem {
+    width: 100%;
   }
 }
