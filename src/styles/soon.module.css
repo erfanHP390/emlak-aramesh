@@ -1,6 +1,6 @@
 /* Creative Coming Soon Page Styles */
 .creativeComingSoon {
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;
@@ -10,9 +10,13 @@
   align-items: center;
   justify-content: center;
   background-color: var(--bg-primary);
-  z-index: 9999;
   padding: 2rem;
-  overflow: hidden;
+}
+
+@media (max-width: 480px) {
+  .creativeComingSoon {
+    height: 135%;
+  }
 }
 
 .comingSoonContainer {
@@ -126,6 +130,7 @@
   justify-content: center;
   gap: 1rem;
   margin-bottom: 2rem;
+  direction: ltr;
 }
 
 .countdownItem {
