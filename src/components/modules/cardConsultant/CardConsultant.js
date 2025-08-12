@@ -12,8 +12,9 @@ import {
   FaPhone,
   FaEnvelope,
 } from "react-icons/fa";
+import Link from "next/link";
 
-function CardConsultant({ image, firstName, lastName, phone, email, socials }) {
+function CardConsultant({ image, firstName, lastName, phone, email, socials , _id }) {
   const renderSocialIcons = () => {
     if (!socials || !socials.length) return null;
 
@@ -216,9 +217,9 @@ function CardConsultant({ image, firstName, lastName, phone, email, socials }) {
               )}
             </div>
             <h3 className={styles.consultantName}>
-              <a href="#" className={styles.consultantNameLink}>
+              <Link href={`/consultantDetails/${_id}`} className={styles.consultantNameLink}>
                 {`${firstName} ${lastName}`}
-              </a>
+              </Link>
             </h3>
             {phone && (
               <h6 className={styles.consultantInfo}>
