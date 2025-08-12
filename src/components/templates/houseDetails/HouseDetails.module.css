@@ -56,11 +56,11 @@
 @media (max-width: 1439.98px) and (min-width: 1200px) {
   .left_bar {
     flex: 0 0 72%;
-    max-width: 65%;
+    max-width: 62%;
   }
   .right_bar {
     flex: 0 0 45%;
-    max-width: 32%;
+    max-width: 38%;
   }
 }
 
@@ -68,11 +68,11 @@
 @media (max-width: 1199.98px) and (min-width: 992px) {
   .right_bar {
     flex: 0 0 43%;
-    max-width: 50%;
+    max-width: 44%;
   }
   .left_bar {
     flex: 0 0 70%;
-    max-width: 57%;
+    max-width: 56%;
   }
 }
 
