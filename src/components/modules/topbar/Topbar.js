@@ -123,7 +123,7 @@ function Topbar({ user, consultant, admin, consultantInfo, toggleSidebar }) {
           <div className={styles.logoMini}>
             <span className="light-logo">
               <img
-                src="images/logo-w-bg.png"
+                src="/images/logo-w-bg.png"
                 alt="logo"
                 className={styles.logoImage}
               />
