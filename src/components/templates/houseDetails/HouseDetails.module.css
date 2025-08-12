@@ -552,10 +552,6 @@ textarea.form-control {
     margin-bottom: 20px;
   }
 
-  .agent-stat strong {
-    font-size: 1.6rem;
-  }
-
   .form-control {
     padding: 10px 15px;
   }
@@ -603,6 +599,21 @@ textarea.form-control {
   .property-features {
     gap: 10px;
     justify-content: space-between;
+  }
+}
+
+@media (max-width: 475px) {
+  .agent-stats {
+    flex-direction: column !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .form-actions {
+    flex-direction: column;
+  }
+  .btn-secondary {
+    margin-top: 0.5rem;
   }
 }
 
