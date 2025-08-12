@@ -9,7 +9,6 @@
   transition: box-shadow 0.3s ease;
 }
 
-
 .container-full {
   width: 100%;
   margin: 0 auto;
@@ -99,6 +98,20 @@
   background-color: var(--button-hover);
 }
 
+.btn-danger {
+  background-color: #f44336;
+  color: white;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #d32f2f;
+}
+
+.me-2 {
+  margin-left: 0.5rem;
+}
+
 /*====================  GRID SYSTEM  ====================*/
 .row {
   display: flex;
@@ -139,3 +152,109 @@
   margin-bottom: 30px !important;
 }
 
+/*====================  FEATURES SECTION  ====================*/
+.feature-title {
+  color: var(--text-heading);
+  margin-bottom: 15px;
+  font-size: 1rem;
+  border-bottom: 1px solid var(--input-border);
+  padding-bottom: 8px;
+  font-family: 'Anjoman_Medium';
+}
+
+.checkbox-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  width: 100%;
+  padding: 5px 0;
+}
+
+.checkbox {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.checkbox label {
+  padding-right: 25px;
+  cursor: pointer;
+  font-family: 'Anjoman_Regular';
+  color: var(--text-primary);
+  display: inline-block;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.checkbox input[type='checkbox'] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  top: 0;
+}
+
+.checkbox label:before {
+  content: '';
+  position: absolute;
+  right: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--input-border);
+  background-color: var(--input-bg);
+  transition: all 0.3s ease;
+  border-radius: 3px;
+}
+
+.checkbox input[type='checkbox']:checked + label:before {
+  border-color: var(--button-bg);
+  background-color: var(--button-bg);
+}
+
+.checkbox input[type='checkbox']:checked + label:after {
+  content: '\2713';
+  position: absolute;
+  right: 2px;
+  top: 0;
+  font-size: 14px;
+  color: white;
+}
+
+/*====================  NO RESULTS SECTION  ====================*/
+.no-results {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  background-color: var(--input-bg);
+  border-radius: 8px;
+  padding: 40px;
+  text-align: center;
+  border: 1px dashed var(--input-border);
+}
+
+.no-results-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 20px;
+  color: var(--button-bg);
+}
+
+.no-results-title {
+  color: var(--text-heading);
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-family: 'Anjoman_Bold';
+}
+
+.no-results-text {
+  color: var(--text-primary);
+  font-size: 1rem;
+  margin-bottom: 20px;
+  font-family: 'Anjoman_Regular';
+}
