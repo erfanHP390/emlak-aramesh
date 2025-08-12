@@ -253,3 +253,15 @@
   }
 }
 
+@media (max-width: 1320.98px) and (min-width: 993px) {
+  .cart-container {
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  .image-wrapper {
+    max-width: 80% !important;
+    flex: 0  0  80% !important;
+  }
+}
+
