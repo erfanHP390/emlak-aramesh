@@ -337,10 +337,10 @@ function Sidebar({
                   </a>
                 </li>
                 <li className={styles.submenuItem}>
-                  <a href="sample_faq.html" className={styles.submenuLink}>
+                  <Link href={"/faq"} className={styles.submenuLink}>
                     <FaQuestion className={styles.submenuIcon} />
                     <span className={styles.text_link}>سوالات</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className={styles.submenuItem}>
                   <a href="sample_pricing.html" className={styles.submenuLink}>
