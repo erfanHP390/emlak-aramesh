@@ -469,7 +469,7 @@ function AddConsultantForm() {
                           <div className={styles.formGroup}>
                             <label className={styles.inputLabel}>سن</label>
                             <input
-                              type="text"
+                              type="number"
                               className={styles.formControl}
                               placeholder="سن را وارد کنید"
                               value={age}
