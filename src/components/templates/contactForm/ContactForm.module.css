@@ -87,7 +87,7 @@
 .boxFooter {
   padding: 20px;
   border-top: 1px solid var(--border-color);
-  text-align: left;
+  text-align: center;
   background-color: rgba(138, 180, 255, 0.03);
 }
 
