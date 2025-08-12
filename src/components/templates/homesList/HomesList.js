@@ -392,7 +392,7 @@ function HomesList({ houses: initialHouses }) {
                         placeholder="منطقه (اختیاری)"
                       />
                     </div>
-                    <div className={styles["form-group"]}>
+                    <div className={`${styles["form-group"]} ${styles["form-btns"]}`}>
                       <button
                         type="button"
                         onClick={resetFilters}

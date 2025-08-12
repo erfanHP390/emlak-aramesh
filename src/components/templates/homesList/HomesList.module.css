@@ -64,7 +64,6 @@
   outline: none;
 }
 
-
 .box-header {
   padding: 15px 20px;
   border-bottom: 1px solid var(--input-border);
@@ -93,6 +92,11 @@
 /* Form Elements */
 .form-group {
   margin-bottom: 20px;
+}
+
+.form-btns {
+  display: flex;
+  justify-content: space-between;
 }
 
 .form-control {
@@ -184,6 +188,7 @@ select.form-control {
   overflow-y: auto;
   padding-right: 5px;
   margin-bottom: 15px;
+  overflow-x: hidden;
 }
 
 .scrollable-checkbox::-webkit-scrollbar {
@@ -443,3 +448,50 @@ select.form-control {
     font-size: 0.85rem;
   }
 }
+
+@media (max-width: 1439.98px) and (min-width: 1200px) {
+  .col-xl-9 {
+    flex: 0 0 65% !important;
+    max-width: 65% !important;
+  }
+  .col-xl-3 {
+    flex: 0 0 35% !important;
+    max-width: 35% !important;
+  }
+}
+
+@media (max-width: 1320.98px) and (min-width: 993px) {
+  .col-xl-9 {
+    flex: 0 0 60% !important;
+    max-width: 60% !important;
+  }
+  .col-xl-3 {
+    flex: 0 0 40% !important;
+    max-width: 40% !important;
+  }
+}
+
+@media (max-width: 1024.98px) and (min-width: 993px) {
+  .form-btns {
+    flex-direction: column !important;
+    max-width: 98% !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  .btn-info {
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .form-btns {
+    flex-direction: column !important;
+    max-width: 98% !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  .btn-info {
+    margin-top: 0.5rem;
+  }
+}
+
