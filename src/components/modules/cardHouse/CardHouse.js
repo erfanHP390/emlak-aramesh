@@ -19,7 +19,7 @@ function CardHouse({
   masterRoom,
   storage,
   elevator,
-  yearBuilt
+  yearBuilt,
 }) {
   const imageUrl =
     Array.isArray(img) && img.length > 0
@@ -72,7 +72,12 @@ function CardHouse({
                   <MdOutlineBedroomParent
                     className={`${styles.mdi} ${styles["mdi-hotel"]} ${styles["me-10"]}`}
                   />
-                  <span>{Number(bedrooms).toLocaleString("fa-IR")}</span>
+                  <span>
+                    {" "}
+                    {Number(bedrooms)
+                      ? `${Number(bedrooms).toLocaleString("fa-IR")}`
+                      : "ندارد"}
+                  </span>
                 </span>
 
                 {parking && (
@@ -83,7 +88,12 @@ function CardHouse({
                     <FaParking
                       className={`${styles.mdi} ${styles["mdi-car-taxi"]} ${styles["me-10"]}`}
                     />
-                    <span>{Number(parking).toLocaleString("fa-IR")}</span>
+                    <span>
+                      {" "}
+                      {Number(parking)
+                        ? `${Number(parking).toLocaleString("fa-IR")}`
+                        : "ندارد"}
+                    </span>
                   </span>
                 )}
 
@@ -95,7 +105,12 @@ function CardHouse({
                     <FaRegBuilding
                       className={`${styles.mdi} ${styles["mdi-floor-plan"]} ${styles["me-10"]}`}
                     />
-                    <span>{Number(floor).toLocaleString("fa-IR")}</span>
+                    <span>
+                      {" "}
+                      {Number(floor)
+                        ? `${Number(floor).toLocaleString("fa-IR")}`
+                        : "ندارد"}
+                    </span>
                   </span>
                 )}
 
@@ -106,7 +121,12 @@ function CardHouse({
                   <FaChessKing
                     className={`${styles.mdi} ${styles["mdi-king-bed"]} ${styles["me-10"]}`}
                   />
-                  <span>{Number(masterRoom).toLocaleString("fa-IR")}</span>
+                  <span>
+                    {" "}
+                    {Number(masterRoom)
+                      ? `${Number(masterRoom).toLocaleString("fa-IR")}`
+                      : "ندارد"}
+                  </span>
                 </span>
                 <span
                   title="سال ساخت"
@@ -115,7 +135,12 @@ function CardHouse({
                   <MdCalendarMonth
                     className={`${styles.mdi} ${styles["mdi-king-bed"]} ${styles["me-10"]}`}
                   />
-                  <span>{toPersianDigits(Number(yearBuilt))}</span>
+                  <span>
+                    {" "}
+                    {Number(yearBuilt)
+                      ? `${Number(yearBuilt).toLocaleString("fa-IR")}`
+                      : "--"}
+                  </span>
                 </span>
               </div>
             </div>
