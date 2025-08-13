@@ -1,10 +1,10 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import styles from "./ConsultantTabs.module.css";
 import TimeLineTab from "../timeLineTab/TimeLineTab";
 import EditConsultantInfo from "../editConsultantInfo/EditConsultantInfo";
 
-function ConsultantTabs({consultant}) {
+function ConsultantTabs({ consultant , clients , reqBuys }) {
   const [activeTab, setActiveTab] = useState("timeline");
 
   return (
@@ -17,7 +17,17 @@ function ConsultantTabs({consultant}) {
             }`}
             onClick={() => setActiveTab("timeline")}
           >
-            تایم لاین
+            فعالیت ها
+          </button>
+        </li>
+        <li className={styles.navItem}>
+          <button
+            className={`${styles.navLink} ${
+              activeTab === "myHouses" ? styles.active : ""
+            }`}
+            onClick={() => setActiveTab("myHouses")}
+          >
+            ملک های من
           </button>
         </li>
         <li className={styles.navItem}>
@@ -37,7 +47,7 @@ function ConsultantTabs({consultant}) {
             activeTab === "timeline" ? styles.active : ""
           }`}
         >
-          <TimeLineTab />
+          <TimeLineTab clients={clients}  reqBuys={reqBuys} />
         </div>
         <div
           className={`${styles.tabPane} ${
