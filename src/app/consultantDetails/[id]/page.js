@@ -27,7 +27,7 @@ async function Page({params}) {
                 <ConsultantCallInfo consultant={JSON.parse(JSON.stringify(consultant))} />
               </div>
               <div className={`${styles.col12} ${styles.colLg7} ${styles.colXl8}`}>
-                <ConsultantTabs />
+                <ConsultantTabs  consultant={JSON.parse(JSON.stringify(consultant))} />
                 {/* /.nav-tabs-custom */}
               </div>
             </div>
