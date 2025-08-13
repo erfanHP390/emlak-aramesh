@@ -4,10 +4,24 @@ import path from "path";
 import HouseModel from "@/models/House";
 import ClientModel from "@/models/Client";
 import ConsultantModel from "@/models/Consultant";
+import { authAdmin, authConsultant } from "@/utils/authUser";
 
 export async function POST(req) {
   try {
     await connectToDB();
+
+    const admin = await authAdmin();
+    const consultantLoggedIn = await authConsultant();
+
+    if (!admin && !consultantLoggedIn) {
+      return Response.json(
+        { message: "this route is protected" },
+        {
+          status: 401,
+        }
+      );
+    }
+
     const formData = await req.formData();
 
     const codeHouse = formData.get("codeHouse") || "";

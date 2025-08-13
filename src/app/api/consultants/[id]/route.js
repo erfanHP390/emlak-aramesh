@@ -21,7 +21,7 @@ export async function PUT(req, { params }) {
 
     if (!admin && !consultant) {
       return Response.json(
-        { message: "این مسیر محافظت شده است" },
+        { message: "this route is protected" },
         { status: 401 }
       );
     }

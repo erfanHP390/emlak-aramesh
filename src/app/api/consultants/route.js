@@ -10,10 +10,23 @@ import UserModel from "@/models/User";
 import { writeFile } from "fs/promises";
 import path from "path";
 import { roles } from "@/utils/constants";
+import { authAdmin, authConsultant } from "@/utils/authUser";
 
 export async function POST(req) {
   try {
     connectToDB();
+
+    const admin = await authAdmin();
+    const consultant = await authConsultant();
+
+    if (!admin && !consultant) {
+      return Response.json(
+        { message: "this route is protected" },
+        {
+          status: 401,
+        }
+      );
+    }
 
     const formData = await req.formData();
     const firstName = formData.get("firstName");
@@ -93,14 +106,14 @@ export async function POST(req) {
 
     // let userDoc = await UserModel.findOne({ guildID: agencyID });
     // if (!userDoc) {
-      let userDoc = await UserModel.create({
-        name: firstName + " " + lastName,
-        email,
-        password: hashedPassword,
-        isAccept: false,
-        guildID: agencyID ? agencyID : null,
-        role: hisCode ? roles.CONSULTANT : roles.USER,
-      });
+    let userDoc = await UserModel.create({
+      name: firstName + " " + lastName,
+      email,
+      password: hashedPassword,
+      isAccept: false,
+      guildID: agencyID ? agencyID : null,
+      role: hisCode ? roles.CONSULTANT : roles.USER,
+    });
     // }
 
     await ConsultantModel.create({
