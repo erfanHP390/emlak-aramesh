@@ -4,11 +4,18 @@ import styles from "@/styles/allConsultants.module.css"
 import connectToDB from "@/configs/db";
 import ConsultantModel from "@/models/Consultant"
 import CardConsultant from "@/components/modules/cardConsultant/CardConsultant";
+import { authUser } from "@/utils/authUser";
+import { redirect } from "next/navigation";
 
 async function page() {
   try {
     await connectToDB();
+    const user = await authUser()
     const consultants = await ConsultantModel.find({}).lean();
+
+    if(!user) {
+      redirect("/login")
+    }
 
     return (
       <PanelLayout>
