@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./EditConsultantInfo.module.css";
-import { FaCloudUploadAlt } from "react-icons/fa";
+import { FaCloudUploadAlt, FaPaperPlane } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { validateEmail, validatePassword, validatePhone } from "@/utils/auth";
 import { swalAlert, toastError, toastSuccess } from "@/utils/alerts";
@@ -357,6 +357,9 @@ function EditConsultantInfo({ consultant }) {
                   }}
                   className={styles.submitButton}
                 >
+                  <FaPaperPlane
+                    className={`fa fa-paper-plane ${styles.icon}`}
+                  />
                   ارسال
                 </button>
               </div>
