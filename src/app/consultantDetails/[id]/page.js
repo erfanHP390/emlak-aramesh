@@ -6,6 +6,8 @@ import React from "react";
 import styles from "@/styles/consultantDetails.module.css";
 import connectToDB from "@/configs/db";
 import ConsultantModel from "@/models/Consultant"
+import { authConsultant, authUser } from "@/utils/authUser";
+import { redirect } from "next/navigation";
 
 async function Page({params}) {
 
@@ -14,6 +16,16 @@ async function Page({params}) {
     .populate('clients')
     .populate('houses')
     .lean();
+
+    const user = await authUser()
+    if(!user) {
+      redirect("/login")
+    }
+
+    const consultantLoggedIn = await authConsultant()
+    if(!consultantLoggedIn) {
+      redirect("/allConsultants")
+    }
 
   return (
     <PanelLayout>

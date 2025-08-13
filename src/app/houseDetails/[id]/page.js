@@ -5,6 +5,8 @@ import React from "react";
 import HouseModel from "@/models/House";
 import ConsultantModel from "@/models/Consultant";
 import ClientModel from "@/models/Client"
+import { authUser } from "@/utils/authUser";
+import { redirect } from "next/navigation";
 
 async function page({ params }) {
   connectToDB();
@@ -25,6 +27,11 @@ const house = await HouseModel.findOne({ _id: params.id })
     ],
   })
   .lean();
+
+  const user = await authUser()
+  if(!user) {
+    redirect("/login")
+  }
 
 
   return (
