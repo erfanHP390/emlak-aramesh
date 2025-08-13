@@ -4,7 +4,7 @@ import styles from "./ConsultantTabs.module.css";
 import TimeLineTab from "../timeLineTab/TimeLineTab";
 import EditConsultantInfo from "../editConsultantInfo/EditConsultantInfo";
 
-function ConsultantTabs() {
+function ConsultantTabs({consultant}) {
   const [activeTab, setActiveTab] = useState("timeline");
 
   return (
@@ -44,7 +44,7 @@ function ConsultantTabs() {
             activeTab === "settings" ? styles.active : ""
           }`}
         >
-          <EditConsultantInfo />
+          <EditConsultantInfo consultant={consultant} />
         </div>
       </div>
     </div>
