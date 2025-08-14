@@ -30,6 +30,7 @@
 
 .icon {
   color: var(--button-bg);
+  margin-left: 0.5rem;
 }
 
 /* کارت‌ها */
@@ -92,6 +93,14 @@
   max-width: 60%;
 }
 
+.value_set {
+  max-width: 100% !important;
+}
+
+.fix-set {
+  text-align: right !important;
+}
+
 /* اطلاعات خانه */
 .houseInfo {
   margin-top: 15px;
@@ -136,6 +145,7 @@
   align-items: center;
   gap: 5px;
   opacity: 0.8;
+    font-family: 'Anjoman_Regular';
 }
 
 /* نشان‌ها (Badges) */
@@ -214,5 +224,50 @@
   .label, .value {
     width: 100%;
     max-width: 100%;
+  }
+}
+
+.loadMoreBtn {
+  font-family: 'Anjoman_Medium', sans-serif;
+  background-color: var(--button-bg);
+  color: white;
+  padding: 0.75rem 1.75rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  margin: 1.5rem auto;
+  display: block;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.loadMoreBtn:hover {
+  background-color: var(--button-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.loadMoreBtn:active {
+  transform: translateY(0);
+}
+
+.loadMoreBtn:focus {
+  outline: 2px solid var(--input-focus);
+  outline-offset: 2px;
+}
+
+/* Button Container */
+.buttonContainer {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1rem 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .loadMoreBtn {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.85rem;
   }
 }
