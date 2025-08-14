@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import styles from "./ConsultantTabs.module.css";
 import TimeLineTab from "../timeLineTab/TimeLineTab";
 import EditConsultantInfo from "../editConsultantInfo/EditConsultantInfo";
+import HouseTabs from "../houseTabs/HouseTabs";
 
-function ConsultantTabs({ consultant , clients , reqBuys }) {
+function ConsultantTabs({ consultant , clients , reqBuys , houses }) {
   const [activeTab, setActiveTab] = useState("timeline");
 
   return (
@@ -48,6 +49,13 @@ function ConsultantTabs({ consultant , clients , reqBuys }) {
           }`}
         >
           <TimeLineTab clients={clients}  reqBuys={reqBuys} />
+        </div>
+                <div
+          className={`${styles.tabPane} ${
+            activeTab === "myHouses" ? styles.active : ""
+          }`}
+        >
+          <HouseTabs houses={houses} />
         </div>
         <div
           className={`${styles.tabPane} ${
