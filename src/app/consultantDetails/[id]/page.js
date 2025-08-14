@@ -32,8 +32,6 @@ async function Page({ params }) {
     redirect("/login");
   }
 
-  
-
   const consultantLoggedIn = await authConsultant();
   if (!consultantLoggedIn) {
     redirect("/allConsultants");
@@ -62,6 +60,7 @@ async function Page({ params }) {
                 className={`${styles.col12} ${styles.colLg7} ${styles.colXl8}`}
               >
                 <ConsultantTabs
+                  houses={JSON.parse(JSON.stringify(consultant.houses))}
                   consultant={JSON.parse(JSON.stringify(consultant))}
                   clients={JSON.parse(JSON.stringify(clients))}
                   reqBuys={JSON.parse(JSON.stringify(reqBuys))}
