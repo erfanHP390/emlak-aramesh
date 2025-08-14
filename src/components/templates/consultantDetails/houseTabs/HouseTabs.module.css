@@ -1,0 +1,290 @@
+/* سبک‌های اصلی */
+.housesContainer {
+  padding: 20px;
+  background-color: var(--bg-primary);
+  border-radius: 12px;
+  box-shadow: var(--box-shadow-primary);
+  margin-bottom: 30px;
+}
+
+.sectionTitle {
+  color: var(--text-heading);
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  color: var(--button-bg);
+  margin-left: 0.5rem;
+}
+
+/* گرید املاک */
+.housesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 15px;
+}
+
+/* کارت ملک */
+.houseCard {
+  background-color: var(--input-bg);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--box-shadow-primary);
+  transition: all 0.3s ease;
+  border: 1px solid var(--input-border);
+}
+
+.houseCard:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--box-shadow-hover);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid var(--input-border);
+}
+
+.houseName {
+  color: var(--text-heading);
+  font-size: 1.1rem;
+  margin: 0;
+  flex: 1;
+}
+
+/* نشان‌ها (Badges) */
+.badgePrimary {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-family: 'Anjoman_Bold';
+  background-color: rgba(59, 130, 246, 0.2);
+  color: #3b82f6;
+  margin-right: 10px;
+}
+
+/* تصویر ملک */
+.cardImage {
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.houseImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.houseCard:hover .houseImage {
+  transform: scale(1.05);
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholderIcon {
+  color: #ccc;
+  font-size: 3rem;
+}
+
+/* بدنه کارت */
+.cardBody {
+  padding: 15px;
+}
+
+.houseDetail {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+  font-family: 'Anjoman_Regular';
+}
+
+.detailsRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.detailLabel {
+  color: var(--text-heading);
+  font-family: 'Anjoman_Medium';
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+  min-width: 80px;
+}
+
+.detailIcon {
+  color: var(--button-bg);
+  margin-left: 5px;
+  font-size: 0.9rem;
+}
+
+.detailValue {
+  text-align: left;
+}
+
+/* قیمت */
+.priceContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+  padding: 10px;
+  background-color: rgba(138, 180, 255, 0.05);
+  border-radius: 6px;
+}
+
+.priceLabel {
+  color: var(--text-heading);
+  font-family: 'Anjoman_Bold';
+}
+
+.priceValue {
+  color: var(--button-bg);
+  font-family: 'Anjoman_SemiBold';
+}
+
+/* ویژگی‌ها */
+.featuresContainer {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed var(--input-border);
+}
+
+.featuresTitle {
+  color: var(--text-heading);
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  font-family: 'Anjoman_Medium';
+}
+
+.featuresList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.featureItem {
+  background-color: rgba(138, 180, 255, 0.1);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+}
+
+.featureMore {
+  background-color: rgba(138, 180, 255, 0.2);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: var(--button-bg);
+  cursor: pointer;
+}
+
+/* فوتر کارت */
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-top: 1px solid var(--input-border);
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  font-family: 'Anjoman_Regular';
+}
+
+.date, .code {
+  display: flex;
+  align-items: center;
+}
+
+/* حالت عدم وجود داده */
+.noData {
+  color: var(--text-primary);
+  text-align: center;
+  padding: 40px 20px;
+  background-color: var(--input-bg);
+  border-radius: 8px;
+  font-family: 'Anjoman_Regular';
+}
+
+/* دکمه نمایش بیشتر */
+.loadMoreBtn {
+  font-family: 'Anjoman_Medium', sans-serif;
+  background-color: var(--button-bg);
+  color: white;
+  padding: 0.75rem 1.75rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  margin: 1.5rem auto;
+  display: block;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.loadMoreBtn:hover {
+  background-color: var(--button-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.loadMoreBtn:active {
+  transform: translateY(0);
+}
+
+.loadMoreBtn:focus {
+  outline: 2px solid var(--input-focus);
+  outline-offset: 2px;
+}
+
+.buttonContainer {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1rem 0;
+}
+
+/* حالت واکنش‌گرا */
+@media (max-width: 768px) {
+  .housesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .loadMoreBtn {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .detailsRow {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .houseDetail {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
