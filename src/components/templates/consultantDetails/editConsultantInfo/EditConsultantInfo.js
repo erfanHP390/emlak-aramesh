@@ -10,13 +10,12 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import Loading from "@/app/loading";
 
-function EditConsultantInfo({ consultant, user }) {
+function EditConsultantInfo({ consultant }) {
   const router = useRouter();
-  const [name , setName] = useState(user.name)
   const [firstName, setFirstName] = useState(consultant?.firstName);
   const [lastName, setLastName] = useState(consultant?.lastName);
   const [phone, setPhone] = useState(consultant?.phone);
-  const [email, setEmail] = useState(user ? user.email : consultant.email);
+  const [email, setEmail] = useState(consultant.email);
   const [description, setDescription] = useState(consultant?.description);
   const [isLoading, setIsLoading] = useState(false);
   const [birthDay, setBirthDay] = useState(consultant?.birthDay);
@@ -199,280 +198,177 @@ function EditConsultantInfo({ consultant, user }) {
         <Loading />
       ) : (
         <>
-          {user ? (
-            <>
-              {" "}
-              <div className={styles.tabPane} id="settings">
-                <div className={styles.box}>
-                  <form className={styles.formContainer}>
-                    {/* فیلد نام */}
-                    <div className={styles.formGroup}>
-                      <label
-                        htmlFor="inputName"
-                        className={styles.controlLabel}
-                      >
-                        نام و نام خانوادگی
-                      </label>
-                      <input
-                        type="text"
-                        className={styles.formControl}
-                        id="inputName"
-                        placeholder=""
-                        value={name}
-                        onChange={(event) => setName(event.target.value)}
-                      />
-                    </div>
-
-                    {/* فیلد ایمیل */}
-                    <div className={styles.formGroup}>
-                      <label
-                        htmlFor="inputEmail"
-                        className={styles.controlLabel}
-                      >
-                        ایمیل
-                      </label>
-                      <input
-                        type="email"
-                        className={styles.formControl}
-                        id="inputEmail"
-                        placeholder=""
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
-                      />
-                    </div>
-
-                    {/* فیلد رمز عبور */}
-                    <div className={styles.formGroup}>
-                      <label
-                        htmlFor="inputPhone"
-                        className={styles.controlLabel}
-                      >
-                        پسورد
-                      </label>
-                      <input
-                        type="password"
-                        className={styles.formControl}
-                        id="inputPhone"
-                        placeholder=""
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
-                      />
-                    </div>
-
-
-                    {/* دکمه ارسال */}
-                    <div className={styles.submitGroup}>
-                      <button
-                        type="submit"
-                        onClick={(event) => {
-                          event.preventDefault();
-                        }}
-                        className={styles.submitButton}
-                      >
-                        <FaPaperPlane
-                          className={`fa fa-paper-plane ${styles.icon}`}
-                        />
-                        ارسال
-                      </button>
-                    </div>
-                  </form>
+          <div className={styles.tabPane} id="settings">
+            <div className={styles.box}>
+              <form className={styles.formContainer}>
+                {/* فیلد نام */}
+                <div className={styles.formGroup}>
+                  <label htmlFor="inputName" className={styles.controlLabel}>
+                    نام
+                  </label>
+                  <input
+                    type="text"
+                    className={styles.formControl}
+                    id="inputName"
+                    placeholder=""
+                    value={firstName}
+                    onChange={(event) => setFirstName(event.target.value)}
+                  />
                 </div>
-              </div>
-            </>
-          ) : (
-            <>
-              {" "}
-              <div className={styles.tabPane} id="settings">
-                <div className={styles.box}>
-                  <form className={styles.formContainer}>
-                    {/* فیلد نام */}
-                    <div className={styles.formGroup}>
-                      <label
-                        htmlFor="inputName"
-                        className={styles.controlLabel}
-                      >
-                        نام
-                      </label>
-                      <input
-                        type="text"
-                        className={styles.formControl}
-                        id="inputName"
-                        placeholder=""
-                        value={firstName}
-                        onChange={(event) => setFirstName(event.target.value)}
-                      />
-                    </div>
 
-                    {/* فیلد نام خانوادگی */}
-                    <div className={styles.formGroup}>
-                      <label
-                        htmlFor="inputName"
-                        className={styles.controlLabel}
-                      >
-                        نام خانوادگی
-                      </label>
-                      <input
-                        type="text"
-                        className={styles.formControl}
-                        id="inputName"
-                        placeholder=""
-                        value={lastName}
-                        onChange={(event) => setLastName(event.target.value)}
-                      />
-                    </div>
-
-                    {/* فیلد تاریخ تولد */}
-                    <div
-                      className={`${styles.formGroup} ${styles.datePickerContainer}`}
-                      onClick={() => notifWarn()}
-                    >
-                      <label className={styles.controlLabel}>تاریخ تولد</label>
-                      <DatePicker
-                        inputClass="rmdp-input"
-                        placeholder="تاریخ را انتخاب کنید"
-                        value={birthDay}
-                        onChange={(date) =>
-                          setBirthDay(date ? date.toString() : "")
-                        }
-                        calendar={persian}
-                        locale={persian_fa}
-                        calendarPosition="bottom-right"
-                        render={<input className="rmdp-input" />}
-                        containerClassName="custom-rmdp-container"
-                      />
-                    </div>
-
-                    {/* فیلد ایمیل */}
-                    <div className={styles.formGroup}>
-                      <label
-                        htmlFor="inputEmail"
-                        className={styles.controlLabel}
-                      >
-                        ایمیل
-                      </label>
-                      <input
-                        type="email"
-                        className={styles.formControl}
-                        id="inputEmail"
-                        placeholder=""
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
-                      />
-                    </div>
-
-                    {/* فیلد تلفن */}
-                    <div className={styles.formGroup}>
-                      <label
-                        htmlFor="inputPhone"
-                        className={styles.controlLabel}
-                      >
-                        تلفن
-                      </label>
-                      <input
-                        type="tel"
-                        className={styles.formControl}
-                        id="inputPhone"
-                        placeholder=""
-                        value={phone}
-                        onChange={(event) => setPhone(event.target.value)}
-                      />
-                    </div>
-
-                    {/* فیلد رمز عبور */}
-                    <div className={styles.formGroup}>
-                      <label
-                        htmlFor="inputPhone"
-                        className={styles.controlLabel}
-                      >
-                        پسورد
-                      </label>
-                      <input
-                        type="password"
-                        className={styles.formControl}
-                        id="inputPhone"
-                        placeholder=""
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
-                      />
-                    </div>
-
-                    {/* فیلد آپلود تصویر */}
-                    <div className={styles.formGroup}>
-                      <label className={styles.controlLabel}>آپلود تصویر</label>
-                      <div className={styles.fileUploadWrapper}>
-                        <input
-                          type="file"
-                          className={styles.fileInput}
-                          id="profileImage"
-                          onChange={handleImageChange}
-                          accept="image/*"
-                        />
-                        <label
-                          htmlFor="profileImage"
-                          className={styles.fileLabel}
-                        >
-                          <FaCloudUploadAlt
-                            className={`mdi mdi-upload ${styles.uploadIcon}`}
-                          />
-                          <span>انتخاب فایل</span>
-                        </label>
-                        {fileName && (
-                          <span className={styles.fileName}>{fileName}</span>
-                        )}
-                      </div>
-                      {consultant.img && !fileName && (
-                        <div className={styles.currentImageInfo}>
-                          <span>تصویر فعلی: </span>
-                          <a
-                            href={consultant.img}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            مشاهده تصویر
-                          </a>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* فیلد توضیحات */}
-                    <div className={styles.formGroup}>
-                      <label
-                        htmlFor="inputExperience"
-                        className={styles.controlLabel}
-                      >
-                        توضیحات
-                      </label>
-                      <textarea
-                        className={styles.formControl}
-                        id="inputExperience"
-                        placeholder=""
-                        rows="4"
-                        value={description}
-                        onChange={(event) => setDescription(event.target.value)}
-                      />
-                    </div>
-
-                    {/* دکمه ارسال */}
-                    <div className={styles.submitGroup}>
-                      <button
-                        type="submit"
-                        onClick={(event) => {
-                          event.preventDefault();
-                          editInfos();
-                        }}
-                        className={styles.submitButton}
-                      >
-                        <FaPaperPlane
-                          className={`fa fa-paper-plane ${styles.icon}`}
-                        />
-                        ارسال
-                      </button>
-                    </div>
-                  </form>
+                {/* فیلد نام خانوادگی */}
+                <div className={styles.formGroup}>
+                  <label htmlFor="inputName" className={styles.controlLabel}>
+                    نام خانوادگی
+                  </label>
+                  <input
+                    type="text"
+                    className={styles.formControl}
+                    id="inputName"
+                    placeholder=""
+                    value={lastName}
+                    onChange={(event) => setLastName(event.target.value)}
+                  />
                 </div>
-              </div>
-            </>
-          )}
+
+                {/* فیلد تاریخ تولد */}
+                <div
+                  className={`${styles.formGroup} ${styles.datePickerContainer}`}
+                  onClick={() => notifWarn()}
+                >
+                  <label className={styles.controlLabel}>تاریخ تولد</label>
+                  <DatePicker
+                    inputClass="rmdp-input"
+                    placeholder="تاریخ را انتخاب کنید"
+                    value={birthDay}
+                    onChange={(date) =>
+                      setBirthDay(date ? date.toString() : "")
+                    }
+                    calendar={persian}
+                    locale={persian_fa}
+                    calendarPosition="bottom-right"
+                    render={<input className="rmdp-input" />}
+                    containerClassName="custom-rmdp-container"
+                  />
+                </div>
+
+                {/* فیلد ایمیل */}
+                <div className={styles.formGroup}>
+                  <label htmlFor="inputEmail" className={styles.controlLabel}>
+                    ایمیل
+                  </label>
+                  <input
+                    type="email"
+                    className={styles.formControl}
+                    id="inputEmail"
+                    placeholder=""
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                  />
+                </div>
+
+                {/* فیلد تلفن */}
+                <div className={styles.formGroup}>
+                  <label htmlFor="inputPhone" className={styles.controlLabel}>
+                    تلفن
+                  </label>
+                  <input
+                    type="tel"
+                    className={styles.formControl}
+                    id="inputPhone"
+                    placeholder=""
+                    value={phone}
+                    onChange={(event) => setPhone(event.target.value)}
+                  />
+                </div>
+
+                {/* فیلد رمز عبور */}
+                <div className={styles.formGroup}>
+                  <label htmlFor="inputPhone" className={styles.controlLabel}>
+                    پسورد
+                  </label>
+                  <input
+                    type="password"
+                    className={styles.formControl}
+                    id="inputPhone"
+                    placeholder=""
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                  />
+                </div>
+
+                {/* فیلد آپلود تصویر */}
+                <div className={styles.formGroup}>
+                  <label className={styles.controlLabel}>آپلود تصویر</label>
+                  <div className={styles.fileUploadWrapper}>
+                    <input
+                      type="file"
+                      className={styles.fileInput}
+                      id="profileImage"
+                      onChange={handleImageChange}
+                      accept="image/*"
+                    />
+                    <label htmlFor="profileImage" className={styles.fileLabel}>
+                      <FaCloudUploadAlt
+                        className={`mdi mdi-upload ${styles.uploadIcon}`}
+                      />
+                      <span>انتخاب فایل</span>
+                    </label>
+                    {fileName && (
+                      <span className={styles.fileName}>{fileName}</span>
+                    )}
+                  </div>
+                  {consultant.img && !fileName && (
+                    <div className={styles.currentImageInfo}>
+                      <span>تصویر فعلی: </span>
+                      <a
+                        href={consultant.img}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        مشاهده تصویر
+                      </a>
+                    </div>
+                  )}
+                </div>
+
+                {/* فیلد توضیحات */}
+                <div className={styles.formGroup}>
+                  <label
+                    htmlFor="inputExperience"
+                    className={styles.controlLabel}
+                  >
+                    توضیحات
+                  </label>
+                  <textarea
+                    className={styles.formControl}
+                    id="inputExperience"
+                    placeholder=""
+                    rows="4"
+                    value={description}
+                    onChange={(event) => setDescription(event.target.value)}
+                  />
+                </div>
+
+                {/* دکمه ارسال */}
+                <div className={styles.submitGroup}>
+                  <button
+                    type="submit"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      editInfos();
+                    }}
+                    className={styles.submitButton}
+                  >
+                    <FaPaperPlane
+                      className={`fa fa-paper-plane ${styles.icon}`}
+                    />
+                    ارسال
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
         </>
       )}
     </>

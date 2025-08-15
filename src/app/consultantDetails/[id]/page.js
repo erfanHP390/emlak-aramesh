@@ -37,6 +37,10 @@ async function Page({ params }) {
     redirect("/allConsultants");
   }
 
+  if(!consultant) {
+    redirect("/dashboard")
+  }
+
   return (
     <PanelLayout>
       <div className={styles.contentWrapper}>
