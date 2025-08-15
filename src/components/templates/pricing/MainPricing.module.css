@@ -1,0 +1,279 @@
+/* MainPricing.module.css */
+
+/*====================  BASE STYLES  ====================*/
+.pricingWrapper {
+  direction: rtl;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  padding: 3rem 1rem;
+  min-height: 100vh;
+  margin-top: 2.5rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.pricingSection {
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.sectionTitle {
+  color: var(--text-heading);
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.sectionSubtitle {
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+}
+
+.pricingRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 0 -15px;
+}
+
+.pricingColumn {
+  flex: 1;
+  min-width: 300px;
+  padding: 0 15px;
+  position: relative;
+}
+
+/*====================  PRICING BOX STYLES  ====================*/
+.pricingBox {
+  background-color: var(--input-bg);
+  border-radius: 16px;
+  padding: 2.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--input-border);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--box-shadow-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.pricingBox:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--box-shadow-hover);
+}
+
+.highlightedBox {
+  border: 1px solid var(--button-bg);
+  background-color: rgba(138, 180, 255, 0.05);
+}
+
+.bestValueBadge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--button-bg);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  font-size: 0.85rem;
+  border-bottom-right-radius: 16px;
+  font-family: 'Anjoman_Medium';
+}
+
+/*====================  TITLE STYLES  ====================*/
+.pricingTitle {
+  color: var(--text-heading);
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.pricingTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50px;
+  height: 2px;
+  background-color: currentColor;
+}
+
+.basicBox .pricingTitle {
+  color: #ef4444;
+}
+
+.proBox .pricingTitle {
+  color: var(--text-heading);
+}
+
+.premiumBox .pricingTitle {
+  color: #10b981;
+}
+
+/*====================  FEATURES LIST  ====================*/
+.pricingFeatures {
+  flex-grow: 1;
+  margin-bottom: 1.5rem;
+  text-align: right;
+}
+
+.pricingFeatures p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+  position: relative;
+  padding-right: 1.5rem;
+}
+
+.pricingFeatures p::before {
+  content: '•';
+  position: absolute;
+  right: 0;
+  color: var(--link-color);
+  font-size: 1.2rem;
+}
+
+/*====================  PRICE TAG  ====================*/
+.priceTag {
+  margin: 2rem 0;
+  font-size: 2.5rem;
+  color: var(--text-heading);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.priceTag sup {
+  font-size: 1rem;
+  margin-left: 0.25rem;
+  opacity: 0.8;
+}
+
+.priceTag span {
+  font-size: 1rem;
+  margin-right: 0.25rem;
+  opacity: 0.8;
+}
+
+/*====================  BUTTON STYLES  ====================*/
+.pricingButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 1.75rem;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  border: 2px solid transparent;
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.pricingButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.pricingButton:hover::before {
+  width: 100%;
+}
+
+.basicButton {
+  background-color: #ef4444;
+  color: white;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+}
+
+.basicButton:hover {
+  background-color: #dc2626;
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+}
+
+.proButton {
+  background-color: var(--button-bg);
+  color: white;
+  box-shadow: 0 4px 15px rgba(138, 180, 255, 0.3);
+}
+
+.proButton:hover {
+  background-color: var(--button-hover);
+  box-shadow: 0 6px 20px rgba(94, 146, 243, 0.4);
+}
+
+.premiumButton {
+  background-color: #10b981;
+  color: white;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.premiumButton:hover {
+  background-color: #059669;
+  box-shadow: 0 6px 20px rgba(5, 150, 105, 0.4);
+}
+
+/*====================  RESPONSIVE STYLES  ====================*/
+@media (max-width: 992px) {
+  .pricingRow {
+    gap: 1.5rem;
+  }
+
+  .highlightedBox {
+    margin-top: 0;
+  }
+
+  .pricingBox {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .pricingColumn {
+    min-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.75rem;
+  }
+
+  .sectionSubtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .pricingWrapper {
+    padding: 2rem 1rem;
+  }
+
+  .pricingBox {
+    padding: 1.75rem;
+  }
+
+  .priceTag {
+    font-size: 2.2rem;
+  }
+
+  .pricingButton {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
