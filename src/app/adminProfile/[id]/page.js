@@ -8,6 +8,7 @@ import UserModel from "@/models/User";
 import HouseModel from "@/models/House";
 import ClientModel from "@/models/Client";
 import ReqBuyModel from "@/models/ReqBuy";
+import ContactModel from "@/models/Contact";
 
 async function page({ params }) {
   connectToDB();
@@ -24,9 +25,12 @@ async function page({ params }) {
 
   const houses = await HouseModel.find({ agencyID: userAdmin.guildID }).lean();
   const clients = await ClientModel.find({}).populate("houses").lean();
-  const reqBuys = await ReqBuyModel.find({ })
+  const reqBuys = await ReqBuyModel.find({})
     .populate("houses") // خانه‌های مربوط به هر درخواست خرید
     .lean();
+  const contacts = await ContactModel.find({}).lean();
+
+
 
   return (
     <PanelLayout>
@@ -42,6 +46,7 @@ async function page({ params }) {
                   houses={JSON.parse(JSON.stringify(houses))}
                   clients={JSON.parse(JSON.stringify(clients))}
                   reqBuys={JSON.parse(JSON.stringify(reqBuys))}
+                  contacts={JSON.parse(JSON.stringify(contacts))}
                 />
                 {/* /.nav-tabs-custom */}
               </div>
