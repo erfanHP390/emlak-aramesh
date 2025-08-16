@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import styles from "./HouseTabs.module.css";
 import { FaMapMarkerAlt, FaHome, FaBed, FaCar, FaBuilding, FaCalendarAlt } from "react-icons/fa";
+import Link from "next/link";
 
 function HouseTabs({ houses: initialHouses }) {
   // حالت‌های نمایش تدریجی
@@ -47,9 +48,9 @@ function HouseTabs({ houses: initialHouses }) {
             {houses.map((house) => (
               <div key={house._id} className={styles.houseCard}>
                 <div className={styles.cardHeader}>
-                  <h3 className={`${styles.houseName} Anjoman_SemiBold`}>
+                  <Link href={`/houseDetails/${house._id}`} className={`${styles.houseName} Anjoman_SemiBold`}>
                     {house.name}
-                  </h3>
+                  </Link>
                   <span className={styles.badgePrimary}>
                     {house.status}
                   </span>
