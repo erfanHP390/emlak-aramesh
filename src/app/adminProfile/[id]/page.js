@@ -34,6 +34,7 @@ async function page({ params }) {
     .populate("clients")
     .populate("houses")
     .lean();
+    const users = await UserModel.find({}).lean()
 
 
   return (
@@ -52,6 +53,7 @@ async function page({ params }) {
                   reqBuys={JSON.parse(JSON.stringify(reqBuys))}
                   contacts={JSON.parse(JSON.stringify(contacts))}
                   consultants={JSON.parse(JSON.stringify(consultants))}
+                  users={JSON.parse(JSON.stringify(users))}
                 />
                 {/* /.nav-tabs-custom */}
               </div>
