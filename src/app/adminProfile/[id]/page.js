@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import connectToDB from "@/configs/db";
 import UserModel from "@/models/User";
 import HouseModel from "@/models/House"
+import ClientModel from "@/models/Client"
 
 async function page({ params }) {
   connectToDB();
@@ -25,6 +26,11 @@ async function page({ params }) {
   }
 
   const houses = await HouseModel.find({agencyID: userAdmin.guildID}).lean()
+  const clients = await ClientModel.find({  })
+    .populate("houses") 
+    .lean();
+
+
 
   return (
     <PanelLayout>
@@ -38,6 +44,7 @@ async function page({ params }) {
               >
                 <AdminTabs
                 houses={JSON.parse(JSON.stringify(houses))}
+                clients={JSON.parse(JSON.stringify(clients))}
                 />
                 {/* /.nav-tabs-custom */}
               </div>
