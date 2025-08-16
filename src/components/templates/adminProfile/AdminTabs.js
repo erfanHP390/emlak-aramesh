@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import styles from "../consultantDetails/ConsultantTabs/ConsultantTabs.module.css";
 import HouseTabs from "../consultantDetails/houseTabs/HouseTabs";
 import ClientTab from "./tabs/clientTab/ClientTab";
+import ReqBuysTab from "./tabs/reqBuysTab/ReqBuysTab";
 
-function AdminTabs({houses , clients}) {
+function AdminTabs({houses , clients , reqBuys}) {
   const [activeTab, setActiveTab] = useState("houses");
 
   return (
@@ -33,11 +34,11 @@ function AdminTabs({houses , clients}) {
         <li className={styles.navItem}>
           <button
             className={`${styles.navLink} ${
-              activeTab === "settings" ? styles.active : ""
+              activeTab === "reqBuys" ? styles.active : ""
             }`}
-            onClick={() => setActiveTab("settings")}
+            onClick={() => setActiveTab("reqBuys")}
           >
-            تنظیمات
+            درخواست ها
           </button>
         </li>
       </ul>
@@ -59,9 +60,11 @@ function AdminTabs({houses , clients}) {
         </div>
         <div
           className={`${styles.tabPane} ${
-            activeTab === "settings" ? styles.active : ""
+            activeTab === "reqBuys" ? styles.active : ""
           }`}
-        ></div>
+        >
+          <ReqBuysTab reqBuys={reqBuys} />
+        </div>
       </div>
     </div>
   );
