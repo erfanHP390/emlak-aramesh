@@ -9,6 +9,7 @@ import HouseModel from "@/models/House";
 import ClientModel from "@/models/Client";
 import ReqBuyModel from "@/models/ReqBuy";
 import ContactModel from "@/models/Contact";
+import ConsultantModel from "@/models/Consultant"
 
 async function page({ params }) {
   connectToDB();
@@ -29,7 +30,10 @@ async function page({ params }) {
     .populate("houses") // خانه‌های مربوط به هر درخواست خرید
     .lean();
   const contacts = await ContactModel.find({}).lean();
-
+  const consultants = await ConsultantModel.find({  })
+    .populate("clients")
+    .populate("houses")
+    .lean();
 
 
   return (
@@ -47,6 +51,7 @@ async function page({ params }) {
                   clients={JSON.parse(JSON.stringify(clients))}
                   reqBuys={JSON.parse(JSON.stringify(reqBuys))}
                   contacts={JSON.parse(JSON.stringify(contacts))}
+                  consultants={JSON.parse(JSON.stringify(consultants))}
                 />
                 {/* /.nav-tabs-custom */}
               </div>
