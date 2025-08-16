@@ -5,8 +5,9 @@ import AdminTabs from "@/components/templates/adminProfile/AdminTabs";
 import { redirect } from "next/navigation";
 import connectToDB from "@/configs/db";
 import UserModel from "@/models/User";
-import HouseModel from "@/models/House"
-import ClientModel from "@/models/Client"
+import HouseModel from "@/models/House";
+import ClientModel from "@/models/Client";
+import ReqBuyModel from "@/models/ReqBuy";
 
 async function page({ params }) {
   connectToDB();
@@ -14,23 +15,18 @@ async function page({ params }) {
   const userAdmin = await UserModel.findOne({ _id: params.id });
 
   if (userAdmin.role === "USER") {
-
     redirect(`/userProfile/${params.id}`);
-
   } else if (userAdmin.role === "CONSULTANT") {
-
     redirect(`/consultantDetails/${params.id}`);
-
-  } else if(!userAdmin) {
-    redirect("/dashboard")
+  } else if (!userAdmin) {
+    redirect("/dashboard");
   }
 
-  const houses = await HouseModel.find({agencyID: userAdmin.guildID}).lean()
-  const clients = await ClientModel.find({  })
-    .populate("houses") 
+  const houses = await HouseModel.find({ agencyID: userAdmin.guildID }).lean();
+  const clients = await ClientModel.find({}).populate("houses").lean();
+  const reqBuys = await ReqBuyModel.find({ })
+    .populate("houses") // خانه‌های مربوط به هر درخواست خرید
     .lean();
-
-
 
   return (
     <PanelLayout>
@@ -43,8 +39,9 @@ async function page({ params }) {
                 className={`${styles.col12} ${styles.colLg7} ${styles.colXl8}`}
               >
                 <AdminTabs
-                houses={JSON.parse(JSON.stringify(houses))}
-                clients={JSON.parse(JSON.stringify(clients))}
+                  houses={JSON.parse(JSON.stringify(houses))}
+                  clients={JSON.parse(JSON.stringify(clients))}
+                  reqBuys={JSON.parse(JSON.stringify(reqBuys))}
                 />
                 {/* /.nav-tabs-custom */}
               </div>
