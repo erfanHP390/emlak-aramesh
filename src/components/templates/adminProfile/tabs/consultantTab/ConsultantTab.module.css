@@ -1,0 +1,328 @@
+/*====================  BASE STYLES  ====================*/
+.consultantsContainer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/*====================  HEADER SECTION  ====================*/
+.headerSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.sectionTitle {
+  font-size: 1.8rem;
+  color: var(--text-heading);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  color: var(--link-color);
+}
+
+/*====================  CONSULTANTS GRID  ====================*/
+.consultantsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+/*====================  CARD STYLES  ====================*/
+.consultantCard {
+  background: var(--input-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--box-shadow-primary);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid var(--input-border);
+}
+
+.consultantCard:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--box-shadow-hover);
+}
+
+/*====================  CARD HEADER  ====================*/
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: var(--input-bg);
+  border-bottom: 1px solid var(--input-border);
+}
+
+.consultantName {
+  color: var(--text-heading);
+  font-size: 1.2rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.consultantName:hover {
+  color: var(--link-hover);
+}
+
+.badgeMale,
+.badgeFemale {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.badgeMale {
+  background-color: rgba(25, 118, 210, 0.1);
+  color: #1976d2;
+}
+
+.badgeFemale {
+  background-color: rgba(194, 24, 91, 0.1);
+  color: #c2185b;
+}
+
+/*====================  IMAGE STYLES  ====================*/
+.cardImageContainer {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.consultantImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.consultantCard:hover .consultantImage {
+  transform: scale(1.05);
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  background-color: var(--scrollbar-track);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholderIcon {
+  font-size: 3rem;
+  color: var(--input-border);
+}
+
+/*====================  CARD BODY  ====================*/
+.cardBody {
+  padding: 20px;
+  flex-grow: 1;
+}
+
+/*====================  DETAILS ROW  ====================*/
+.detailsRow {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.consultantDetail {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.detailIcon {
+  color: var(--link-color);
+  min-width: 16px;
+}
+
+.detailLabel {
+  color: var(--text-primary);
+  opacity: 0.8;
+}
+
+.detailValue {
+  color: var(--text-heading);
+  font-weight: 500;
+}
+
+/*====================  STATS ROW  ====================*/
+.statsRow {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(138, 180, 255, 0.1);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+}
+
+.statIcon {
+  color: var(--link-color);
+  font-size: 0.9rem;
+}
+
+/*====================  DESCRIPTION STYLES  ====================*/
+.descriptionContainer {
+  margin-top: 15px;
+}
+
+.descriptionTitle {
+  font-size: 1rem;
+  color: var(--text-heading);
+  margin-bottom: 8px;
+}
+
+.descriptionText {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/*====================  SOCIALS STYLES  ====================*/
+.socialsContainer {
+  margin-top: 15px;
+}
+
+.socialsTitle {
+  font-size: 1rem;
+  color: var(--text-heading);
+  margin-bottom: 8px;
+}
+
+.socialsList {
+  display: flex;
+  gap: 12px;
+}
+
+.socialLink {
+  color: var(--text-primary);
+  transition: color 0.2s;
+  font-size: 1.5rem;
+  opacity: 0.7;
+}
+
+.socialLink:hover {
+  color: var(--link-hover);
+  opacity: 1;
+}
+
+.socialIcon {
+  transition: transform 0.2s;
+}
+
+.socialLink:hover .socialIcon {
+  transform: scale(1.1);
+}
+
+/*====================  CARD FOOTER  ====================*/
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: var(--input-bg);
+  border-top: 1px solid var(--input-border);
+  font-size: 0.8rem;
+  color: var(--text-primary);
+}
+
+.footerItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.footerIcon {
+  font-size: 0.9rem;
+  color: var(--link-color);
+}
+
+/*====================  BUTTON STYLES  ====================*/
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.loadMoreBtn {
+  background-color: var(--button-bg);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.loadMoreBtn:hover {
+  background-color: var(--button-hover);
+  transform: translateY(-2px);
+}
+
+/*====================  NO DATA STYLES  ====================*/
+.noData {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: var(--input-bg);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  border: 1px solid var(--input-border);
+}
+
+/*====================  RESPONSIVE STYLES  ====================*/
+@media (max-width: 768px) {
+  .headerSection {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .consultantsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .detailsRow {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sectionTitle {
+    font-size: 1.5rem;
+  }
+
+  .cardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
