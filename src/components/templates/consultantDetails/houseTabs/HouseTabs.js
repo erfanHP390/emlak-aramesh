@@ -5,7 +5,7 @@ import { FaMapMarkerAlt, FaHome, FaBed, FaCar, FaBuilding, FaCalendarAlt } from 
 
 function HouseTabs({ houses: initialHouses }) {
   // حالت‌های نمایش تدریجی
-  const [visibleHouses, setVisibleHouses] = useState(2);
+  const [visibleHouses, setVisibleHouses] = useState(3);
   const [houses, setHouses] = useState(initialHouses.slice(0, visibleHouses));
 
   // تابع برای فرمت کردن قیمت
