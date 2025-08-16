@@ -4,8 +4,9 @@ import styles from "../consultantDetails/ConsultantTabs/ConsultantTabs.module.cs
 import HouseTabs from "../consultantDetails/houseTabs/HouseTabs";
 import ClientTab from "./tabs/clientTab/ClientTab";
 import ReqBuysTab from "./tabs/reqBuysTab/ReqBuysTab";
+import ContactTabs from "./tabs/contactTabs/ContactTabs";
 
-function AdminTabs({houses , clients , reqBuys}) {
+function AdminTabs({ houses, clients, reqBuys, contacts }) {
   const [activeTab, setActiveTab] = useState("houses");
 
   return (
@@ -41,6 +42,16 @@ function AdminTabs({houses , clients , reqBuys}) {
             درخواست ها
           </button>
         </li>
+        <li className={styles.navItem}>
+          <button
+            className={`${styles.navLink} ${
+              activeTab === "contacts" ? styles.active : ""
+            }`}
+            onClick={() => setActiveTab("contacts")}
+          >
+            پیام ها
+          </button>
+        </li>
       </ul>
 
       <div className={styles.tabContent}>
@@ -49,14 +60,14 @@ function AdminTabs({houses , clients , reqBuys}) {
             activeTab === "houses" ? styles.active : ""
           }`}
         >
-            <HouseTabs houses={houses} />
+          <HouseTabs houses={houses} />
         </div>
         <div
           className={`${styles.tabPane} ${
             activeTab === "clients" ? styles.active : ""
           }`}
         >
-          <ClientTab  clients={clients} />
+          <ClientTab clients={clients} />
         </div>
         <div
           className={`${styles.tabPane} ${
@@ -64,6 +75,13 @@ function AdminTabs({houses , clients , reqBuys}) {
           }`}
         >
           <ReqBuysTab reqBuys={reqBuys} />
+        </div>
+        <div
+          className={`${styles.tabPane} ${
+            activeTab === "contacts" ? styles.active : ""
+          }`}
+        >
+          <ContactTabs contacts={contacts} />
         </div>
       </div>
     </div>
