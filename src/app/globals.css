@@ -948,6 +948,8 @@ select:focus {
 .rmdp-month-picker,
 .rmdp-year-picker {
   padding: 0.5rem !important;
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
 }
 
 .rmdp-ym {
