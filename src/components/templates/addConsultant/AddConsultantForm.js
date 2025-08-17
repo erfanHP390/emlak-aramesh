@@ -69,7 +69,7 @@ function AddConsultantForm() {
     }));
   };
 
-  // توابع مدیریت localStorage
+  // manage funcs localStorage
   const saveToLocalStorage = (key, data) => {
     if (typeof window !== "undefined") {
       localStorage.setItem(key, JSON.stringify(data));
@@ -90,7 +90,7 @@ function AddConsultantForm() {
     }
   };
 
-  // بارگذاری اطلاعات از localStorage هنگام لود کامپوننت
+  // load from localstorage
   useEffect(() => {
     const loadBasicInfo = loadFromLocalStorage("consultantBasicInfo");
     const loadAccountInfo = loadFromLocalStorage("consultantAccountInfo");
@@ -108,13 +108,12 @@ function AddConsultantForm() {
     }
   }, []);
 
-  // اعتبارسنجی نام کاربری/آیدی شبکه‌های اجتماعی
   const validateSocialUsernames = () => {
     const socialPatterns = {
-      0: /^[a-zA-Z0-9._]{1,30}$/, // اینستاگرام
-      1: /^[a-zA-Z0-9-]{3,100}$/, // لینکدین
-      2: /^[a-zA-Z0-9_]{5,32}$/, // تلگرام
-      3: /^(\+98|0)?9\d{9}$/, // واتساپ
+      0: /^[a-zA-Z0-9._]{1,30}$/, 
+      1: /^[a-zA-Z0-9-]{3,100}$/, 
+      2: /^[a-zA-Z0-9_]{5,32}$/, 
+      3: /^(\+98|0)?9\d{9}$/, 
     };
 
     const socialNames = ["اینستاگرام", "لینکدین", "تلگرام", "واتساپ"];
@@ -132,22 +131,22 @@ function AddConsultantForm() {
     return true;
   };
 
-  // ساخت لینک کامل برای شبکه‌های اجتماعی
+  // create link social-media
   const buildSocialLinks = () => {
     return formData.socials
       .map((username, index) => {
         if (!username) return null;
 
         switch (index) {
-          case 0: // اینستاگرام
+          case 0: 
             return `https://instagram.com/${username.replace(/^@/, "")}`;
-          case 1: // لینکدین
+          case 1: 
             return `https://linkedin.com/in/${username}`;
-          case 2: // تلگرام
+          case 2:
             return username.startsWith("@")
               ? `https://t.me/${username.substring(1)}`
               : `https://t.me/${username}`;
-          case 3: // واتساپ
+          case 3: 
             return `https://wa.me/${username
               .replace(/^0/, "98")
               .replace(/^\+/, "")}`;
@@ -158,7 +157,6 @@ function AddConsultantForm() {
       .filter((social) => social !== null);
   };
 
-  // ذخیره اطلاعات اولیه
   const saveBasicInfo = () => {
     const {
       firstName,
@@ -186,7 +184,6 @@ function AddConsultantForm() {
     toastSuccess("اطلاعات اولیه با موفقیت ذخیره شد", "top-center");
   };
 
-  // حذف اطلاعات اولیه
   const cancelBasicInfo = () => {
     removeFromLocalStorage("consultantBasicInfo");
     setFormData((prev) => ({
@@ -204,7 +201,6 @@ function AddConsultantForm() {
     toastSuccess("اطلاعات اولیه حذف شد", "top-center");
   };
 
-  // ذخیره اطلاعات حساب کاربری
   const saveAccountInfo = () => {
     const { agencyID, hisCode, password } = formData;
     const accountInfo = { agencyID, hisCode, password };
@@ -212,7 +208,6 @@ function AddConsultantForm() {
     toastSuccess("اطلاعات حساب کاربری با موفقیت ذخیره شد", "top-center");
   };
 
-  // حذف اطلاعات حساب کاربری
   const cancelAccountInfo = () => {
     removeFromLocalStorage("consultantAccountInfo");
     setFormData((prev) => ({
@@ -225,7 +220,6 @@ function AddConsultantForm() {
     toastSuccess("اطلاعات حساب کاربری حذف شد", "top-center");
   };
 
-  // ذخیره اطلاعات شبکه‌های اجتماعی
   const saveSocialInfo = () => {
     if (!validateSocialUsernames()) return;
 
@@ -236,7 +230,6 @@ function AddConsultantForm() {
     toastSuccess("اطلاعات شبکه‌های اجتماعی با موفقیت ذخیره شد", "top-center");
   };
 
-  // حذف اطلاعات شبکه‌های اجتماعی
   const cancelSocialInfo = () => {
     removeFromLocalStorage("consultantSocialInfo");
     setFormData((prev) => ({
@@ -440,7 +433,6 @@ function AddConsultantForm() {
         <div className={styles.contentWrapper}>
           <div className={styles.containerFull}>
             <section className={styles.contentSection}>
-              {/* فرم اطلاعات اولیه */}
               <div className={styles.formRow}>
                 <div className={styles.fullWidthColumn}>
                   <div className={styles.formBox}>
@@ -449,7 +441,6 @@ function AddConsultantForm() {
                     </div>
 
                     <div className={styles.boxBody}>
-                      {/* ردیف اول - دو فیلد */}
                       <div className={styles.responsiveRow}>
                         <div className={styles.responsiveCol}>
                           <div className={styles.formGroup}>
@@ -479,7 +470,6 @@ function AddConsultantForm() {
                         </div>
                       </div>
 
-                      {/* ردیف دوم - دو فیلد */}
                       <div className={styles.responsiveRow}>
                         <div className={styles.responsiveCol}>
                           <div className={styles.formGroup}>
@@ -509,7 +499,6 @@ function AddConsultantForm() {
                         </div>
                       </div>
 
-                      {/* ردیف سوم - دو فیلد */}
                       <div className={styles.responsiveRow}>
                         <div className={styles.responsiveCol}>
                           <div
@@ -539,7 +528,7 @@ function AddConsultantForm() {
                               type="number"
                               name="age"
                               className={styles.formControl}
-                              placeholder="سن را وارد کنید"
+                              placeholder="میزان سابقه کاری خود را وارد نمایید"
                               value={formData.age}
                               onChange={handleChange}
                             />
@@ -547,7 +536,6 @@ function AddConsultantForm() {
                         </div>
                       </div>
 
-                      {/* ردیف چهارم - دو فیلد */}
                       <div className={styles.responsiveRow}>
                         <div className={styles.responsiveCol}>
                           <div className={styles.formGroup}>
@@ -595,7 +583,6 @@ function AddConsultantForm() {
                         </div>
                       </div>
 
-                      {/* فیلد تکست اریا */}
                       <div className={styles.formGroup}>
                         <label className={styles.inputLabel}>توضیحات</label>
                         <textarea
@@ -629,7 +616,6 @@ function AddConsultantForm() {
                 </div>
               </div>
 
-              {/* بخش اطلاعات حساب کاربری */}
               <div className={styles.formRow}>
                 <div className={styles.halfWidthColumn}>
                   <div className={styles.formBox}>
@@ -638,7 +624,6 @@ function AddConsultantForm() {
                     </div>
 
                     <div className={styles.boxBody}>
-                      {/* ردیف اول - دو فیلد */}
                       <div className={styles.responsiveRow}>
                         <div className={styles.responsiveCol}>
                           <div className={styles.formGroup}>
@@ -672,7 +657,6 @@ function AddConsultantForm() {
                         </div>
                       </div>
 
-                      {/* ردیف دوم - دو فیلد */}
                       <div className={styles.responsiveRow}>
                         <div className={styles.responsiveCol}>
                           <div className={styles.formGroup}>
@@ -726,7 +710,6 @@ function AddConsultantForm() {
                   </div>
                 </div>
 
-                {/* بخش شبکه‌های اجتماعی */}
                 <div className={styles.halfWidthColumn}>
                   <div className={styles.formBox}>
                     <div className={styles.boxHeader}>
@@ -734,7 +717,6 @@ function AddConsultantForm() {
                     </div>
 
                     <div className={styles.boxBody}>
-                      {/* ردیف اول - دو فیلد */}
                       <div className={styles.responsiveRow}>
                         <div className={styles.responsiveCol}>
                           <div className={styles.formGroup}>
@@ -768,7 +750,6 @@ function AddConsultantForm() {
                         </div>
                       </div>
 
-                      {/* ردیف دوم - دو فیلد */}
                       <div className={styles.responsiveRow}>
                         <div className={styles.responsiveCol}>
                           <div className={styles.formGroup}>
