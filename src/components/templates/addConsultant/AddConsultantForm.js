@@ -12,72 +12,103 @@ import Loading from "@/app/loading";
 
 function AddConsultantForm() {
   const router = useRouter();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [agencyID, setAgencyID] = useState("");
-  const [phone, setPhone] = useState("");
-  const [birthDay, setBirthDay] = useState("");
-  const [age, setAge] = useState("");
-  const [sex, setSex] = useState("");
-  const [email, setEmail] = useState("");
-  const [img, setImg] = useState(null);
-  const [description, setDescription] = useState("");
-  const [password, setPassword] = useState("");
-  const [socials, setSocials] = useState(Array(4).fill(""));
-  const [hisCode, setHisCode] = useState("");
-  const [repeatPassword, setRepeatPassword] = useState("");
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    agencyID: "",
+    phone: "",
+    birthDay: "",
+    age: "",
+    sex: "",
+    email: "",
+    img: null,
+    description: "",
+    password: "",
+    socials: Array(4).fill(""),
+    hisCode: "",
+    repeatPassword: "",
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [hasWarned, setHasWarned] = useState(false);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSocialChange = (index, value) => {
+    const newSocials = [...formData.socials];
+    newSocials[index] = value;
+    setFormData((prev) => ({
+      ...prev,
+      socials: newSocials,
+    }));
+  };
+
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setFormData((prev) => ({
+        ...prev,
+        img: e.target.files[0],
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        img: null,
+      }));
+    }
+  };
+
+  const handleDateChange = (date) => {
+    setFormData((prev) => ({
+      ...prev,
+      birthDay: date ? date.toString() : "",
+    }));
+  };
+
   // توابع مدیریت localStorage
   const saveToLocalStorage = (key, data) => {
-    localStorage.setItem(key, JSON.stringify(data));
+    if (typeof window !== "undefined") {
+      localStorage.setItem(key, JSON.stringify(data));
+    }
   };
 
   const loadFromLocalStorage = (key) => {
-    const data = localStorage.getItem(key);
-    return data ? JSON.parse(data) : null;
+    if (typeof window !== "undefined") {
+      const data = localStorage.getItem(key);
+      return data ? JSON.parse(data) : null;
+    }
+    return null;
   };
 
   const removeFromLocalStorage = (key) => {
-    localStorage.removeItem(key);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem(key);
+    }
   };
 
   // بارگذاری اطلاعات از localStorage هنگام لود کامپوننت
   useEffect(() => {
     const loadBasicInfo = loadFromLocalStorage("consultantBasicInfo");
-    if (loadBasicInfo) {
-      setFirstName(loadBasicInfo.firstName || "");
-      setLastName(loadBasicInfo.lastName || "");
-      setPhone(loadBasicInfo.phone || "");
-      setEmail(loadBasicInfo.email || "");
-      setBirthDay(loadBasicInfo.birthDay || "");
-      setAge(loadBasicInfo.age || "");
-      setSex(loadBasicInfo.sex || "");
-      setImg(loadBasicInfo.img || null);
-      setDescription(loadBasicInfo.description || "");
-    }
-
     const loadAccountInfo = loadFromLocalStorage("consultantAccountInfo");
-    if (loadAccountInfo) {
-      setHisCode(loadAccountInfo.hisCode || "");
-      setPassword(loadAccountInfo.password || "");
-      setAgencyID(loadAccountInfo.agencyID || "");
-    }
-
     const loadSocialInfo = loadFromLocalStorage("consultantSocialInfo");
-    if (loadSocialInfo) {
-      const loadedSocials = Array.isArray(loadSocialInfo.socials)
-        ? [...loadSocialInfo.socials]
-        : [];
-      while (loadedSocials.length < 4) {
-        loadedSocials.push("");
-      }
-      setSocials(loadedSocials.slice(0, 4));
+
+    if (loadBasicInfo || loadAccountInfo || loadSocialInfo) {
+      setFormData((prev) => ({
+        ...prev,
+        ...loadBasicInfo,
+        ...loadAccountInfo,
+        socials: loadSocialInfo?.socials
+          ? [...loadSocialInfo.socials]
+          : Array(4).fill(""),
+      }));
     }
   }, []);
 
-  // اعتبارسنجی نام کاربری/آیدی شبکه‌های اجتماعی (فقط برای مقادیر پر شده)
+  // اعتبارسنجی نام کاربری/آیدی شبکه‌های اجتماعی
   const validateSocialUsernames = () => {
     const socialPatterns = {
       0: /^[a-zA-Z0-9._]{1,30}$/, // اینستاگرام
@@ -88,8 +119,8 @@ function AddConsultantForm() {
 
     const socialNames = ["اینستاگرام", "لینکدین", "تلگرام", "واتساپ"];
 
-    for (let i = 0; i < socials.length; i++) {
-      if (socials[i] && !socialPatterns[i].test(socials[i])) {
+    for (let i = 0; i < formData.socials.length; i++) {
+      if (formData.socials[i] && !socialPatterns[i].test(formData.socials[i])) {
         swalAlert(
           `مقدار وارد شده برای ${socialNames[i]} معتبر نیست`,
           "error",
@@ -101,9 +132,9 @@ function AddConsultantForm() {
     return true;
   };
 
-  // ساخت لینک کامل فقط برای شبکه‌های اجتماعی پر شده
+  // ساخت لینک کامل برای شبکه‌های اجتماعی
   const buildSocialLinks = () => {
-    return socials
+    return formData.socials
       .map((username, index) => {
         if (!username) return null;
 
@@ -129,6 +160,17 @@ function AddConsultantForm() {
 
   // ذخیره اطلاعات اولیه
   const saveBasicInfo = () => {
+    const {
+      firstName,
+      lastName,
+      phone,
+      email,
+      birthDay,
+      age,
+      sex,
+      img,
+      description,
+    } = formData;
     const basicInfo = {
       firstName,
       lastName,
@@ -147,25 +189,25 @@ function AddConsultantForm() {
   // حذف اطلاعات اولیه
   const cancelBasicInfo = () => {
     removeFromLocalStorage("consultantBasicInfo");
-    setFirstName("");
-    setLastName("");
-    setPhone("");
-    setEmail("");
-    setBirthDay("");
-    setAge("");
-    setSex("");
-    setImg(null);
-    setDescription("");
+    setFormData((prev) => ({
+      ...prev,
+      firstName: "",
+      lastName: "",
+      phone: "",
+      email: "",
+      birthDay: "",
+      age: "",
+      sex: "",
+      img: null,
+      description: "",
+    }));
     toastSuccess("اطلاعات اولیه حذف شد", "top-center");
   };
 
   // ذخیره اطلاعات حساب کاربری
   const saveAccountInfo = () => {
-    const accountInfo = {
-      agencyID,
-      hisCode,
-      password,
-    };
+    const { agencyID, hisCode, password } = formData;
+    const accountInfo = { agencyID, hisCode, password };
     saveToLocalStorage("consultantAccountInfo", accountInfo);
     toastSuccess("اطلاعات حساب کاربری با موفقیت ذخیره شد", "top-center");
   };
@@ -173,9 +215,13 @@ function AddConsultantForm() {
   // حذف اطلاعات حساب کاربری
   const cancelAccountInfo = () => {
     removeFromLocalStorage("consultantAccountInfo");
-    setHisCode("");
-    setPassword("");
-    setAgencyID("");
+    setFormData((prev) => ({
+      ...prev,
+      hisCode: "",
+      password: "",
+      repeatPassword: "",
+      agencyID: "",
+    }));
     toastSuccess("اطلاعات حساب کاربری حذف شد", "top-center");
   };
 
@@ -184,7 +230,7 @@ function AddConsultantForm() {
     if (!validateSocialUsernames()) return;
 
     const socialInfo = {
-      socials,
+      socials: formData.socials,
     };
     saveToLocalStorage("consultantSocialInfo", socialInfo);
     toastSuccess("اطلاعات شبکه‌های اجتماعی با موفقیت ذخیره شد", "top-center");
@@ -193,11 +239,30 @@ function AddConsultantForm() {
   // حذف اطلاعات شبکه‌های اجتماعی
   const cancelSocialInfo = () => {
     removeFromLocalStorage("consultantSocialInfo");
-    setSocials(Array(4).fill(""));
+    setFormData((prev) => ({
+      ...prev,
+      socials: Array(4).fill(""),
+    }));
     toastSuccess("اطلاعات شبکه‌های اجتماعی حذف شد", "top-center");
   };
 
   const addPerson = async () => {
+    const {
+      firstName,
+      lastName,
+      hisCode,
+      agencyID,
+      phone,
+      birthDay,
+      age,
+      sex,
+      email,
+      img,
+      password,
+      description,
+      repeatPassword,
+    } = formData;
+
     if (
       !firstName ||
       !lastName ||
@@ -254,32 +319,32 @@ function AddConsultantForm() {
 
     const formattedSocials = buildSocialLinks();
 
-    const formData = new FormData();
-    formData.append("firstName", firstName);
-    formData.append("lastName", lastName);
-    formData.append("hisCode", hisCode);
-    formData.append("agencyID", agencyID);
-    formData.append("phone", phone);
-    formData.append("birthDay", birthDay);
-    formData.append("age", age);
-    formData.append("sex", sex);
-    formData.append("email", email);
-    formData.append("description", description);
-    formData.append("password", password);
+    const formDataToSend = new FormData();
+    formDataToSend.append("firstName", firstName);
+    formDataToSend.append("lastName", lastName);
+    formDataToSend.append("hisCode", hisCode);
+    formDataToSend.append("agencyID", agencyID);
+    formDataToSend.append("phone", phone);
+    formDataToSend.append("birthDay", birthDay);
+    formDataToSend.append("age", age);
+    formDataToSend.append("sex", sex);
+    formDataToSend.append("email", email);
+    formDataToSend.append("description", description);
+    formDataToSend.append("password", password);
 
     if (img instanceof File) {
-      formData.append("img", img);
+      formDataToSend.append("img", img);
     }
 
     formattedSocials.forEach((social) => {
-      formData.append("socials", social);
+      formDataToSend.append("socials", social);
     });
 
     try {
       setIsLoading(true);
       const res = await fetch("/api/consultants", {
         method: "POST",
-        body: formData,
+        body: formDataToSend,
       });
 
       if (res.status === 201) {
@@ -300,7 +365,7 @@ function AddConsultantForm() {
         );
         router.replace("/allConsultants");
       } else if (res.status === 400) {
-        // const errorData = await res.json();
+        const errorData = await res.json();
         setIsLoading(false);
         toastError(
           errorData.message || "لطفا تمامی موارد را ارسال نمایید",
@@ -391,10 +456,11 @@ function AddConsultantForm() {
                             <label className={styles.inputLabel}>نام</label>
                             <input
                               type="text"
+                              name="firstName"
                               className={styles.formControl}
                               placeholder="نام را وارد کنید"
-                              value={firstName}
-                              onChange={(e) => setFirstName(e.target.value)}
+                              value={formData.firstName}
+                              onChange={handleChange}
                             />
                           </div>
                         </div>
@@ -403,10 +469,11 @@ function AddConsultantForm() {
                             <label className={styles.inputLabel}>فامیلی</label>
                             <input
                               type="text"
+                              name="lastName"
                               className={styles.formControl}
                               placeholder="فامیلی را وارد کنید"
-                              value={lastName}
-                              onChange={(e) => setLastName(e.target.value)}
+                              value={formData.lastName}
+                              onChange={handleChange}
                             />
                           </div>
                         </div>
@@ -419,10 +486,11 @@ function AddConsultantForm() {
                             <label className={styles.inputLabel}>تلفن</label>
                             <input
                               type="text"
+                              name="phone"
                               className={styles.formControl}
                               placeholder="شماره تلفن را وارد کنید"
-                              value={phone}
-                              onChange={(e) => setPhone(e.target.value)}
+                              value={formData.phone}
+                              onChange={handleChange}
                             />
                           </div>
                         </div>
@@ -431,10 +499,11 @@ function AddConsultantForm() {
                             <label className={styles.inputLabel}>ایمیل</label>
                             <input
                               type="text"
+                              name="email"
                               className={styles.formControl}
                               placeholder="آدرس ایمیل را وارد کنید"
-                              value={email}
-                              onChange={(e) => setEmail(e.target.value)}
+                              value={formData.email}
+                              onChange={handleChange}
                             />
                           </div>
                         </div>
@@ -445,7 +514,7 @@ function AddConsultantForm() {
                         <div className={styles.responsiveCol}>
                           <div
                             className={`${styles.formGroup} ${styles.datePickerContainer}`}
-                            onClick={() => notifWarn()}
+                            onClick={notifWarn}
                           >
                             <label className={styles.inputLabel}>
                               تاریخ تولد
@@ -453,10 +522,8 @@ function AddConsultantForm() {
                             <DatePicker
                               inputClass="rmdp-input"
                               placeholder="تاریخ را انتخاب کنید"
-                              value={birthDay}
-                              onChange={(date) =>
-                                setBirthDay(date ? date.toString() : "")
-                              }
+                              value={formData.birthDay}
+                              onChange={handleDateChange}
                               calendar={persian}
                               locale={persian_fa}
                               calendarPosition="bottom-right"
@@ -470,10 +537,11 @@ function AddConsultantForm() {
                             <label className={styles.inputLabel}>سن</label>
                             <input
                               type="number"
+                              name="age"
                               className={styles.formControl}
                               placeholder="سن را وارد کنید"
-                              value={age}
-                              onChange={(e) => setAge(e.target.value)}
+                              value={formData.age}
+                              onChange={handleChange}
                             />
                           </div>
                         </div>
@@ -486,8 +554,9 @@ function AddConsultantForm() {
                             <label className={styles.inputLabel}>جنسیت</label>
                             <select
                               className={`${styles.formSelect} select2 Anjoman_Regular `}
-                              value={sex}
-                              onChange={(event) => setSex(event.target.value)}
+                              name="sex"
+                              value={formData.sex}
+                              onChange={handleChange}
                             >
                               <option value="">انتخاب کنید</option>
                               <option value="male">مرد</option>
@@ -505,16 +574,7 @@ function AddConsultantForm() {
                                 type="file"
                                 className={styles.fileInput}
                                 id="profileImage"
-                                onChange={(event) => {
-                                  if (
-                                    event.target.files &&
-                                    event.target.files[0]
-                                  ) {
-                                    setImg(event.target.files[0]);
-                                  } else {
-                                    setImg(null);
-                                  }
-                                }}
+                                onChange={handleFileChange}
                               />
                               <label
                                 htmlFor="profileImage"
@@ -525,9 +585,9 @@ function AddConsultantForm() {
                                 />
                                 <span>انتخاب فایل</span>
                               </label>
-                              {img && (
+                              {formData.img && (
                                 <span className={styles.fileName}>
-                                  {img.name || "فایل انتخاب شده"}
+                                  {formData.img.name || "فایل انتخاب شده"}
                                 </span>
                               )}
                             </div>
@@ -540,12 +600,11 @@ function AddConsultantForm() {
                         <label className={styles.inputLabel}>توضیحات</label>
                         <textarea
                           rows={4}
+                          name="description"
                           className={`${styles.formTextarea} Anjoman_Regular`}
                           placeholder="توضیحات اضافه را وارد کنید"
-                          value={description}
-                          onChange={(event) =>
-                            setDescription(event.target.value)
-                          }
+                          value={formData.description}
+                          onChange={handleChange}
                         ></textarea>
                       </div>
                     </div>
@@ -588,12 +647,11 @@ function AddConsultantForm() {
                             </label>
                             <input
                               type="text"
+                              name="agencyID"
                               className={styles.formControl}
                               placeholder="شناسه صنفی"
-                              value={agencyID}
-                              onChange={(event) =>
-                                setAgencyID(event.target.value)
-                              }
+                              value={formData.agencyID}
+                              onChange={handleChange}
                             />
                           </div>
                         </div>
@@ -604,12 +662,11 @@ function AddConsultantForm() {
                             </label>
                             <input
                               type="text"
+                              name="hisCode"
                               className={styles.formControl}
                               placeholder="کدمشاور را وارد کنید"
-                              value={hisCode}
-                              onChange={(event) =>
-                                setHisCode(event.target.value)
-                              }
+                              value={formData.hisCode}
+                              onChange={handleChange}
                             />
                           </div>
                         </div>
@@ -624,12 +681,11 @@ function AddConsultantForm() {
                             </label>
                             <input
                               type="password"
+                              name="password"
                               className={styles.formControl}
                               placeholder="کلمه عبور را وارد کنید"
-                              value={password}
-                              onChange={(event) =>
-                                setPassword(event.target.value)
-                              }
+                              value={formData.password}
+                              onChange={handleChange}
                             />
                           </div>
                         </div>
@@ -640,12 +696,11 @@ function AddConsultantForm() {
                             </label>
                             <input
                               type="password"
+                              name="repeatPassword"
                               className={styles.formControl}
                               placeholder="لطفا کلمه عبور خود را تکرار کنید"
-                              value={repeatPassword}
-                              onChange={(event) =>
-                                setRepeatPassword(event.target.value)
-                              }
+                              value={formData.repeatPassword}
+                              onChange={handleChange}
                             />
                           </div>
                         </div>
@@ -690,12 +745,10 @@ function AddConsultantForm() {
                               type="text"
                               className={styles.formControl}
                               placeholder="نام کاربری اینستاگرام (مثال: username)"
-                              value={socials[0] || ""}
-                              onChange={(e) => {
-                                const newSocials = [...socials];
-                                newSocials[0] = e.target.value;
-                                setSocials(newSocials);
-                              }}
+                              value={formData.socials[0] || ""}
+                              onChange={(e) =>
+                                handleSocialChange(0, e.target.value)
+                              }
                             />
                           </div>
                         </div>
@@ -706,12 +759,10 @@ function AddConsultantForm() {
                               type="text"
                               className={styles.formControl}
                               placeholder="شناسه پروفایل لینکدین (مثال: username)"
-                              value={socials[1] || ""}
-                              onChange={(e) => {
-                                const newSocials = [...socials];
-                                newSocials[1] = e.target.value;
-                                setSocials(newSocials);
-                              }}
+                              value={formData.socials[1] || ""}
+                              onChange={(e) =>
+                                handleSocialChange(1, e.target.value)
+                              }
                             />
                           </div>
                         </div>
@@ -726,12 +777,10 @@ function AddConsultantForm() {
                               type="text"
                               className={styles.formControl}
                               placeholder="آیدی تلگرام (مثال: username یا @username)"
-                              value={socials[2] || ""}
-                              onChange={(e) => {
-                                const newSocials = [...socials];
-                                newSocials[2] = e.target.value;
-                                setSocials(newSocials);
-                              }}
+                              value={formData.socials[2] || ""}
+                              onChange={(e) =>
+                                handleSocialChange(2, e.target.value)
+                              }
                             />
                           </div>
                         </div>
@@ -742,12 +791,10 @@ function AddConsultantForm() {
                               type="text"
                               className={styles.formControl}
                               placeholder="شماره واتساپ (مثال: 09123456789)"
-                              value={socials[3] || ""}
-                              onChange={(e) => {
-                                const newSocials = [...socials];
-                                newSocials[3] = e.target.value;
-                                setSocials(newSocials);
-                              }}
+                              value={formData.socials[3] || ""}
+                              onChange={(e) =>
+                                handleSocialChange(3, e.target.value)
+                              }
                             />
                           </div>
                         </div>
@@ -770,8 +817,8 @@ function AddConsultantForm() {
                         ذخیره اطلاعات
                       </button>
                       <button
-                        onClick={(event) => {
-                          event.preventDefault();
+                        onClick={(e) => {
+                          e.preventDefault();
                           setIsLoading(true);
                           addPerson();
                         }}
