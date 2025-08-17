@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 async function page() {
   connectToDB();
   const user = await authUser();
-  const consultant = await ConsultantModel.findOne({ email: user.email });
+  const consultant = await ConsultantModel.findOne({ email: user?.email });
 
   const admin = await authAdmin();
   const consultantLoggedIn = await authConsultant();
@@ -23,13 +23,9 @@ async function page() {
   }
 
   return (
-    <>
-      <PanelLayout>
-        <>
-          <AddHome consultant={consultant} />
-        </>
-      </PanelLayout>
-    </>
+    <PanelLayout>
+      <AddHome consultant={consultant} />
+    </PanelLayout>
   );
 }
 

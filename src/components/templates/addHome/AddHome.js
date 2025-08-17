@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import styles from "./AddHome.module.css";
-import { FaCloudUploadAlt } from "react-icons/fa";
+import { FaCloudUploadAlt, FaSave, FaTrash } from "react-icons/fa";
 import Loading from "@/app/loading";
 import { swalAlert, toastError, toastSuccess } from "@/utils/alerts";
 import { toPersianDigits } from "@/utils/constants";
@@ -22,7 +22,6 @@ function AddHome({ consultant }) {
   };
 
   const router = useRouter();
-  const [rentalType, setRentalType] = useState("option1");
   const [amenities, setAmenities] = useState({
     pool: false,
     terrace: false,
@@ -37,7 +36,6 @@ function AddHome({ consultant }) {
     vipReception: false,
     panoramicView: false,
   });
-  const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
   // --------------- info - house --------------------
   const [name, setName] = useState("");
   const [clientName, setClientName] = useState("");
@@ -62,7 +60,7 @@ function AddHome({ consultant }) {
   const [consultantCode, setConsultantCode] = useState(
     consultant ? consultant.hisCode : ""
   );
-  const [codeHouse, setCodeHouse] = useState();
+  const [codeHouse, setCodeHouse] = useState("");
   const [meterage, setMeterage] = useState("");
   const [kind, setKind] = useState("");
 
@@ -128,14 +126,6 @@ function AddHome({ consultant }) {
     loadData();
   }, []);
 
-  const toggleDropdown = (index) => {
-    setOpenDropdownIndex((prevIndex) => (prevIndex === index ? null : index));
-  };
-
-  const handleRentalTypeChange = (e) => {
-    setRentalType(e.target.value);
-  };
-
   const handleAmenityChange = (e) => {
     const { name, checked } = e.target;
     setAmenities((prev) => ({
@@ -179,11 +169,7 @@ function AddHome({ consultant }) {
   };
 
   useEffect(() => {
-    const createdCodeHouse = () => {
-      setCodeHouse(Math.floor(Math.random() * 99999));
-    };
-
-    createdCodeHouse();
+    setCodeHouse(Math.floor(Math.random() * 99999).toString());
   }, []);
 
   // ذخیره اطلاعات اولیه
@@ -320,51 +306,6 @@ function AddHome({ consultant }) {
       !images.length ||
       !consultantCode
     ) {
-      console.log(
-        "name =>>",
-        name,
-        "clientName +>>",
-        clientName,
-        "floor =>> ",
-        floor,
-        "location:: ",
-        location,
-        "description::: ",
-        description,
-        "agencyID::",
-        agencyID,
-        "status::",
-        status,
-        "fullAddress::",
-        fullAddress,
-        "bedrooms::",
-        bedrooms,
-        "storage::",
-        storage,
-        "parking::",
-        parking,
-        "yearBuilt::",
-        yearBuilt,
-        "elevator::",
-        elevator,
-        "masterRoom::",
-        masterRoom,
-        "price::",
-        price,
-        "features::",
-        features,
-        "images::",
-        images,
-        "consultantCode::",
-        consultantCode,
-        "codeHouse::",
-        codeHouse,
-        "meterage::",
-        meterage,
-        "kind::",
-        kind
-      );
-
       setIsLoading(false);
       return swalAlert("لطفا تمام فیلدهای ضروری را پر کنید", "error", "فهمیدم");
     }
@@ -389,10 +330,6 @@ function AddHome({ consultant }) {
     formData.append("codeHouse", codeHouse);
     formData.append("meterage", meterage);
     formData.append("kind", kind);
-
-    // features.forEach((feature) => {
-    //   formData.append("features", feature);
-    // });
 
     images.forEach((image) => {
       formData.append("images", image);
@@ -419,98 +356,111 @@ function AddHome({ consultant }) {
       }
     });
 
-    const res = await fetch("/api/homes", {
-      method: "POST",
-      body: formData,
-    });
-
-    const data = await res.json();
-
-    console.log("response =>> ", data.message);
-
-    if (res.status === 201) {
-      setName("");
-      setClientName("");
-      setFloor("");
-      setLocation("");
-      setDescription("");
-      setAgencyID("");
-      setStatus("");
-      setFullAddress("");
-      setBedrooms("");
-      setStorage("");
-      setParking("");
-      setYearBuilt("");
-      setElevator("");
-      setPrice("");
-      setMasterRoom("");
-      setKind("");
-      setMeterage("");
-      setFeatures([]);
-      setImages([]);
-      setConsultantCode("");
-      setAmenities({
-        pool: false,
-        terrace: false,
-        jacuzzi: false,
-        sauna: false,
-        gym: false,
-        securitySystem: false,
-        smartHome: false,
-        professionalKitchen: false,
-        homeCinema: false,
-        wineCellar: false,
-        vipReception: false,
-        panoramicView: false,
+    try {
+      const res = await fetch("/api/homes", {
+        method: "POST",
+        body: formData,
       });
-      removeFromLocalStorage("basicInfo");
-      removeFromLocalStorage("propertyInfo");
-      removeFromLocalStorage("detailsInfo");
-      removeFromLocalStorage("amenitiesInfo");
-      removeFromLocalStorage("imagesInfo");
-      setIsLoading(false);
-      toastSuccess(
-        "ملک با موفقیت ثبت شد",
-        "top-center",
-        5000,
-        false,
-        true,
-        true,
-        true,
-        undefined,
-        "colored"
-      );
-      router.replace("/houseList");
-    } else if (res.status === 400) {
+
+      const data = await res.json();
+
+      if (res.status === 201) {
+        setName("");
+        setClientName("");
+        setFloor("");
+        setLocation("");
+        setDescription("");
+        setAgencyID("");
+        setStatus("");
+        setFullAddress("");
+        setBedrooms("");
+        setStorage("");
+        setParking("");
+        setYearBuilt("");
+        setElevator("");
+        setPrice("");
+        setMasterRoom("");
+        setKind("");
+        setMeterage("");
+        setFeatures([]);
+        setImages([]);
+        setConsultantCode("");
+        setAmenities({
+          pool: false,
+          terrace: false,
+          jacuzzi: false,
+          sauna: false,
+          gym: false,
+          securitySystem: false,
+          smartHome: false,
+          professionalKitchen: false,
+          homeCinema: false,
+          wineCellar: false,
+          vipReception: false,
+          panoramicView: false,
+        });
+        removeFromLocalStorage("basicInfo");
+        removeFromLocalStorage("propertyInfo");
+        removeFromLocalStorage("detailsInfo");
+        removeFromLocalStorage("amenitiesInfo");
+        removeFromLocalStorage("imagesInfo");
+        setIsLoading(false);
+        toastSuccess(
+          "ملک با موفقیت ثبت شد",
+          "top-center",
+          5000,
+          false,
+          true,
+          true,
+          true,
+          undefined,
+          "colored"
+        );
+        router.replace("/houseList");
+      } else if (res.status === 400) {
+        setIsLoading(false);
+        toastError(
+          "لطفا اطلاعات خواسته شده را بطور کامل وارد نمایید",
+          "top-center",
+          5000,
+          false,
+          true,
+          true,
+          true,
+          undefined,
+          "colored"
+        );
+      } else if (res.status === 404) {
+        setIsLoading(false);
+        toastError(
+          "مشاوری با این اطلاعات یافت نشد",
+          "top-center",
+          5000,
+          false,
+          true,
+          true,
+          true,
+          undefined,
+          "colored"
+        );
+      } else if (res.status === 500) {
+        setIsLoading(false);
+        toastError(
+          "خطا در سرور، لطفا بعدا تلاش کنید",
+          "top-center",
+          5000,
+          false,
+          true,
+          true,
+          true,
+          undefined,
+          "colored"
+        );
+      }
+    } catch (error) {
       setIsLoading(false);
       toastError(
-        "لطفا اطلاعات خواسته شده را بطور کامل وارد نمایید",
-        "top-center",
-        5000,
-        false,
-        true,
-        true,
-        true,
-        undefined,
-        "colored"
-      );
-    } else if (res.status === 404) {
-      setIsLoading(false);
-      toastError(
-        "مشاوری با این اطلاعات یافت نشد",
-        "top-center",
-        5000,
-        false,
-        true,
-        true,
-        true,
-        undefined,
-        "colored"
-      );
-    } else if (res.status === 500) {
-      setIsLoading(false);
-      toastError(
-        "خطا در سرور، لطفا بعدا تلاش کنید",
+        "خطا در ارسال درخواست",
         "top-center",
         5000,
         false,
@@ -557,7 +507,7 @@ function AddHome({ consultant }) {
                               className={styles["form-control"]}
                               placeholder="نام ملک"
                               value={name}
-                              onChange={(event) => setName(event.target.value)}
+                              onChange={(e) => setName(e.target.value)}
                             />
                           </div>
                         </div>
@@ -568,9 +518,7 @@ function AddHome({ consultant }) {
                               className={styles["form-control"]}
                               placeholder="نام مشتری(درصورت وجود)"
                               value={clientName}
-                              onChange={(event) =>
-                                setClientName(event.target.value)
-                              }
+                              onChange={(e) => setClientName(e.target.value)}
                             />
                           </div>
                         </div>
@@ -581,7 +529,7 @@ function AddHome({ consultant }) {
                               className={styles["form-control"]}
                               placeholder="طبقه"
                               value={floor}
-                              onChange={(event) => setFloor(event.target.value)}
+                              onChange={(e) => setFloor(e.target.value)}
                             />
                           </div>
                         </div>
@@ -592,9 +540,7 @@ function AddHome({ consultant }) {
                               className={styles["form-control"]}
                               placeholder="لوکیشن"
                               value={location}
-                              onChange={(event) =>
-                                setLocation(event.target.value)
-                              }
+                              onChange={(e) => setLocation(e.target.value)}
                             />
                           </div>
                         </div>
@@ -605,9 +551,7 @@ function AddHome({ consultant }) {
                               className={styles["form-control"]}
                               placeholder="متر"
                               value={meterage}
-                              onChange={(event) =>
-                                setMeterage(event.target.value)
-                              }
+                              onChange={(e) => setMeterage(e.target.value)}
                             />
                           </div>
                         </div>
@@ -618,7 +562,7 @@ function AddHome({ consultant }) {
                               className={styles["form-control"]}
                               placeholder="نوع (آپارتمان، ویلا، سوئیت، اداری)"
                               value={kind}
-                              onChange={(event) => setKind(event.target.value)}
+                              onChange={(e) => setKind(e.target.value)}
                             />
                           </div>
                         </div>
@@ -632,9 +576,7 @@ function AddHome({ consultant }) {
                                 className={`${styles["form-control"]} ${styles["no-resize"]}`}
                                 placeholder="توضیحات"
                                 value={description}
-                                onChange={(event) =>
-                                  setDescription(event.target.value)
-                                }
+                                onChange={(e) => setDescription(e.target.value)}
                               />
                             </div>
                           </div>
@@ -647,7 +589,7 @@ function AddHome({ consultant }) {
                         onClick={cancelBasicInfo}
                         className={`${styles.btn} ${styles["btn-danger"]} ${styles["me-1"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
                       >
-                        <i className={`${styles.ti} ${styles["ti-trash"]}`} />{" "}
+                        <FaTrash className={`${styles.ti} ${styles["ti-trash"]}`} />{" "}
                         لغو
                       </button>
                       <button
@@ -655,7 +597,7 @@ function AddHome({ consultant }) {
                         onClick={saveBasicInfo}
                         className={`${styles.btn} ${styles["btn-primary"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
                       >
-                        <i
+                        <FaSave
                           className={`${styles.ti} ${styles["ti-save-alt"]}`}
                         />{" "}
                         ذخیره
@@ -677,9 +619,7 @@ function AddHome({ consultant }) {
                               className={styles["form-control"]}
                               placeholder="شناسه صنفی"
                               value={agencyID}
-                              onChange={(event) =>
-                                setAgencyID(event.target.value)
-                              }
+                              onChange={(e) => setAgencyID(e.target.value)}
                             />
                           </div>
                         </div>
@@ -690,8 +630,8 @@ function AddHome({ consultant }) {
                               className={styles["form-control"]}
                               placeholder="کد مشاور (در صورت وجود)"
                               value={consultantCode}
-                              onChange={(event) =>
-                                setConsultantCode(event.target.value)
+                              onChange={(e) =>
+                                setConsultantCode(e.target.value)
                               }
                             />
                           </div>
@@ -706,9 +646,7 @@ function AddHome({ consultant }) {
                               className={styles["form-control"]}
                               placeholder="فروش/اجاره"
                               value={status}
-                              onChange={(event) =>
-                                setStatus(event.target.value)
-                              }
+                              onChange={(e) => setStatus(e.target.value)}
                             />
                           </div>
                         </div>
@@ -722,7 +660,7 @@ function AddHome({ consultant }) {
                               className={styles["form-control"]}
                               placeholder="قیمت"
                               value={price}
-                              onChange={(event) => setPrice(event.target.value)}
+                              onChange={(e) => setPrice(e.target.value)}
                             />
                           </div>
                         </div>
@@ -733,9 +671,7 @@ function AddHome({ consultant }) {
                               className={`${styles["form-control"]} ${styles["no-resize"]}`}
                               placeholder="ادرس کامل"
                               value={fullAddress}
-                              onChange={(event) =>
-                                setFullAddress(event.target.value)
-                              }
+                              onChange={(e) => setFullAddress(e.target.value)}
                             />
                           </div>
                         </div>
@@ -747,7 +683,7 @@ function AddHome({ consultant }) {
                         onClick={cancelPropertyInfo}
                         className={`${styles.btn} ${styles["btn-danger"]} ${styles["me-1"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
                       >
-                        <i className={`${styles.ti} ${styles["ti-trash"]}`} />{" "}
+                        <FaTrash className={`${styles.ti} ${styles["ti-trash"]}`} />{" "}
                         لغو
                       </button>
                       <button
@@ -755,7 +691,7 @@ function AddHome({ consultant }) {
                         onClick={savePropertyInfo}
                         className={`${styles.btn} ${styles["btn-primary"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
                       >
-                        <i
+                        <FaSave
                           className={`${styles.ti} ${styles["ti-save-alt"]}`}
                         />{" "}
                         ذخیره
@@ -781,9 +717,7 @@ function AddHome({ consultant }) {
                               className={styles["form-control"]}
                               placeholder="اتاق خواب "
                               value={bedrooms}
-                              onChange={(event) =>
-                                setBedrooms(event.target.value)
-                              }
+                              onChange={(e) => setBedrooms(e.target.value)}
                             />
                           </div>
                         </div>
@@ -798,9 +732,7 @@ function AddHome({ consultant }) {
                               className={styles["form-control"]}
                               placeholder="انباری"
                               value={storage}
-                              onChange={(event) =>
-                                setStorage(event.target.value)
-                              }
+                              onChange={(e) => setStorage(e.target.value)}
                             />
                           </div>
                         </div>
@@ -815,9 +747,7 @@ function AddHome({ consultant }) {
                               className={styles["form-control"]}
                               placeholder="پارکینگ"
                               value={parking}
-                              onChange={(event) =>
-                                setParking(event.target.value)
-                              }
+                              onChange={(e) => setParking(e.target.value)}
                             />
                           </div>
                         </div>
@@ -832,9 +762,7 @@ function AddHome({ consultant }) {
                               className={styles["form-control"]}
                               placeholder="سال ساخت"
                               value={yearBuilt}
-                              onChange={(event) =>
-                                setYearBuilt(event.target.value)
-                              }
+                              onChange={(e) => setYearBuilt(e.target.value)}
                             />
                           </div>
                         </div>
@@ -849,9 +777,7 @@ function AddHome({ consultant }) {
                               className={styles["form-control"]}
                               placeholder="آسانسور"
                               value={elevator}
-                              onChange={(event) =>
-                                setElevator(event.target.value)
-                              }
+                              onChange={(e) => setElevator(e.target.value)}
                             />
                           </div>
                         </div>
@@ -866,9 +792,7 @@ function AddHome({ consultant }) {
                               className={styles["form-control"]}
                               placeholder="اتاق مستر"
                               value={masterRoom}
-                              onChange={(event) =>
-                                setMasterRoom(event.target.value)
-                              }
+                              onChange={(e) => setMasterRoom(e.target.value)}
                             />
                           </div>
                         </div>
@@ -880,7 +804,7 @@ function AddHome({ consultant }) {
                         onClick={cancelDetailsInfo}
                         className={`${styles.btn} ${styles["btn-danger"]} ${styles["me-1"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
                       >
-                        <i className={`${styles.ti} ${styles["ti-trash"]}`} />{" "}
+                        <FaTrash className={`${styles.ti} ${styles["ti-trash"]}`} />{" "}
                         لغو
                       </button>
                       <button
@@ -888,7 +812,7 @@ function AddHome({ consultant }) {
                         onClick={saveDetailsInfo}
                         className={`${styles.btn} ${styles["btn-primary"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
                       >
-                        <i
+                        <FaSave
                           className={`${styles.ti} ${styles["ti-save-alt"]}`}
                         />{" "}
                         ذخیره
@@ -1074,7 +998,7 @@ function AddHome({ consultant }) {
                         onClick={cancelAmenitiesInfo}
                         className={`${styles.btn} ${styles["btn-danger"]} ${styles["me-1"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
                       >
-                        <i className={`${styles.ti} ${styles["ti-trash"]}`} />{" "}
+                        <FaTrash className={`${styles.ti} ${styles["ti-trash"]}`} />{" "}
                         لغو
                       </button>
                       <button
@@ -1082,7 +1006,7 @@ function AddHome({ consultant }) {
                         onClick={saveAmenitiesInfo}
                         className={`${styles.btn} ${styles["btn-primary"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
                       >
-                        <i
+                        <FaSave
                           className={`${styles.ti} ${styles["ti-save-alt"]}`}
                         />{" "}
                         ذخیره
@@ -1094,10 +1018,7 @@ function AddHome({ consultant }) {
                           addHouse();
                         }}
                         className={`${styles.btn} ${styles["btn-success"]} ${styles["ms-1"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
-                      >
-                        <i
-                          className={`${styles.ti} ${styles["ti-save-alt"]}`}
-                        />{" "}
+                      >{" "}
                         ارسال نهایی
                       </button>
                     </div>

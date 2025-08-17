@@ -519,7 +519,6 @@ textarea.form-control {
   }
   
   .box-footer {
-    flex-direction: column;
     gap: 10px;
   }
   
@@ -613,5 +612,11 @@ textarea.form-control {
 
   .mdi-upload {
     font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .box-footer {
+    flex-direction: column;
   }
 }
