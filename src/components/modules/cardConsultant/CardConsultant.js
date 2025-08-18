@@ -18,7 +18,6 @@ function CardConsultant({ image, firstName, lastName, phone, email, socials , _i
   const renderSocialIcons = () => {
     if (!socials || !socials.length) return null;
 
-    // اگر socials آرایه‌ای از لینک‌های مستقیم باشد
     if (typeof socials[0] === "string" && socials[0].startsWith("http")) {
       return (
         <>
@@ -110,7 +109,6 @@ function CardConsultant({ image, firstName, lastName, phone, email, socials , _i
         </>
       );
     }
-    // اگر socials آرایه‌ای از نام شبکه‌ها باشد (فرمت قدیمی)
     else {
       const socialNetworks = socials[0]
         .split(",")
