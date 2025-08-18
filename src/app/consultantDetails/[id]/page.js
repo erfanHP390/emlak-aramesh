@@ -10,74 +10,82 @@ import { authConsultant, authUser } from "@/utils/authUser";
 import { redirect } from "next/navigation";
 import ReqBuyModel from "@/models/ReqBuy";
 import ClientModel from "@/models/Client";
-import HouseModel from "@/models/House";
+
+export const dynamic = "force-dynamic";
 
 async function Page({ params }) {
-  connectToDB();
-  const consultant = await ConsultantModel.findOne({ _id: params.id })
-    .populate("clients")
-    .populate("houses")
-    .lean();
+  try {
+    await connectToDB();
 
-  const reqBuys = await ReqBuyModel.find({ consultant: params.id })
-    .populate("houses") // خانه‌های مربوط به هر درخواست خرید
-    .lean();
+    const consultant = await ConsultantModel.findOne({ _id: params.id })
+      .populate("clients")
+      .populate("houses")
+      .lean();
 
-  const clients = await ClientModel.find({ consultant: params.id })
-    .populate("houses") // خانه‌های مربوط به هر مشتری
-    .lean();
+    if (!consultant) {
+      redirect("/dashboard");
+      return null;
+    }
 
-  const user = await authUser();
-  if (!user) {
-    redirect("/login");
-  }
+    const [reqBuys, clients, user, consultantLoggedIn] = await Promise.all([
+      ReqBuyModel.find({ consultant: params.id }).populate("houses").lean(),
+      ClientModel.find({ consultant: params.id }).populate("houses").lean(),
+      authUser(),
+      authConsultant(),
+    ]);
 
-  const consultantLoggedIn = await authConsultant();
-  if (!consultantLoggedIn) {
-    redirect("/allConsultants");
-  }
+    if (!user) {
+      redirect("/login");
+      return null;
+    }
 
-  if(!consultant) {
-    redirect("/dashboard")
-  }
+    if (!consultantLoggedIn) {
+      redirect("/allConsultants");
+      return null;
+    }
 
-  return (
-    <PanelLayout>
-      <div className={styles.contentWrapper}>
-        <div className={styles.containerFull}>
-          {/* Main content */}
-          <section className={styles.content}>
-            <div className={styles.row}>
-              <div
-                className={`${styles.col12} ${styles.colLg5} ${styles.colXl4}`}
-              >
-                <ConsultantInfo
-                  consultant={JSON.parse(JSON.stringify(consultant))}
-                  clients={JSON.parse(JSON.stringify(consultant.clients))}
-                  houses={JSON.parse(JSON.stringify(consultant.houses))}
-                />
-                <ConsultantCallInfo
-                  consultant={JSON.parse(JSON.stringify(consultant))}
-                />
+    const consultantData = JSON.parse(JSON.stringify(consultant));
+    const clientsData = JSON.parse(JSON.stringify(clients || []));
+    const housesData = JSON.parse(JSON.stringify(consultant.houses || []));
+    const reqBuysData = JSON.parse(JSON.stringify(reqBuys || []));
+
+    return (
+      <PanelLayout>
+        <div className={styles.contentWrapper}>
+          <div className={styles.containerFull}>
+            <section className={styles.content}>
+              <div className={styles.row}>
+                <div
+                  className={`${styles.col12} ${styles.colLg5} ${styles.colXl4}`}
+                >
+                  <ConsultantInfo
+                    consultant={consultantData}
+                    clients={consultantData.clients || []}
+                    houses={housesData}
+                  />
+                  <ConsultantCallInfo consultant={consultantData} />
+                </div>
+                <div
+                  className={`${styles.col12} ${styles.colLg7} ${styles.colXl8}`}
+                >
+                  <ConsultantTabs
+                    houses={housesData}
+                    consultant={consultantData}
+                    clients={clientsData}
+                    reqBuys={reqBuysData}
+                  />
+                </div>
               </div>
-              <div
-                className={`${styles.col12} ${styles.colLg7} ${styles.colXl8}`}
-              >
-                <ConsultantTabs
-                  houses={JSON.parse(JSON.stringify(consultant.houses))}
-                  consultant={JSON.parse(JSON.stringify(consultant))}
-                  clients={JSON.parse(JSON.stringify(clients))}
-                  reqBuys={JSON.parse(JSON.stringify(reqBuys))}
-                />
-                {/* /.nav-tabs-custom */}
-              </div>
-            </div>
-          </section>
-          {/* /.content */}
+            </section>
+          </div>
         </div>
-      </div>
-    </PanelLayout>
-  );
+      </PanelLayout>
+    );
+  } catch (error) {
+    console.error("Error in consultant details page:", error);
+    redirect("/dashboard");
+    return null;
+  }
 }
 
 export default Page;

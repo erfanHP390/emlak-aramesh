@@ -7,6 +7,12 @@
   margin-bottom: 30px;
 }
 
+@media (max-width: 1068.98px) and (min-width: 994px) {
+  .housesContainer {
+    box-shadow: none;
+  }
+}
+
 .sectionTitle {
   color: var(--text-heading);
   font-size: 1.4rem;
