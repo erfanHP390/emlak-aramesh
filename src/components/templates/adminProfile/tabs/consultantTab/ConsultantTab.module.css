@@ -1,3 +1,4 @@
+/* ConsultantTab.module.css */
 /*====================  BASE STYLES  ====================*/
 .consultantsContainer {
   width: 100%;
@@ -71,6 +72,10 @@
   font-size: 1.2rem;
   text-decoration: none;
   transition: color 0.2s;
+  white-space: normal;
+  word-break: normal;
+  overflow: visible;
+  text-overflow: clip;
 }
 
 .consultantName:hover {
@@ -83,6 +88,8 @@
   border-radius: 20px;
   font-size: 0.8rem;
   font-weight: 500;
+  white-space: nowrap;
+  margin-right: 8px;
 }
 
 .badgeMale {
@@ -134,11 +141,20 @@
   flex-grow: 1;
 }
 
-/*====================  DETAILS ROW  ====================*/
+/*====================  DETAILS CONTAINER  ====================*/
+.detailsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
 .detailsRow {
   display: flex;
   gap: 15px;
-  margin-bottom: 15px;
+}
+
+.detail_row_fix {
+  flex-direction: column !important;
 }
 
 .consultantDetail {
@@ -147,21 +163,30 @@
   align-items: center;
   gap: 8px;
   font-size: 0.9rem;
+  min-width: 0;
+  white-space: nowrap;
 }
 
 .detailIcon {
   color: var(--link-color);
   min-width: 16px;
+  flex-shrink: 0;
 }
 
 .detailLabel {
   color: var(--text-primary);
   opacity: 0.8;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .detailValue {
   color: var(--text-heading);
   font-weight: 500;
+  white-space: normal;
+  /* word-break: break-word; */
+  overflow: visible;
+  text-overflow: clip;
 }
 
 /*====================  STATS ROW  ====================*/
@@ -203,6 +228,9 @@
   color: var(--text-primary);
   line-height: 1.6;
   opacity: 0.9;
+  word-break: normal;
+  white-space: normal;
+  overflow: visible;
 }
 
 /*====================  SOCIALS STYLES  ====================*/
@@ -219,6 +247,7 @@
 .socialsList {
   display: flex;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .socialLink {
@@ -251,12 +280,15 @@
   border-top: 1px solid var(--input-border);
   font-size: 0.8rem;
   color: var(--text-primary);
+  flex-wrap: wrap;
 }
 
 .footerItem {
   display: flex;
   align-items: center;
   gap: 5px;
+  margin: 3px 0;
+  white-space: nowrap;
 }
 
 .footerIcon {
@@ -280,6 +312,7 @@
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.3s, transform 0.2s;
+  white-space: nowrap;
 }
 
 .loadMoreBtn:hover {
@@ -296,9 +329,28 @@
   color: var(--text-primary);
   font-size: 1.1rem;
   border: 1px solid var(--input-border);
+  word-break: normal;
 }
 
 /*====================  RESPONSIVE STYLES  ====================*/
+@media (max-width: 1024px) {
+  .consultantsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 875px) {
+  .detailsRow {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .consultantDetail {
+    width: 100%;
+    white-space: normal;
+  }
+}
+
 @media (max-width: 768px) {
   .headerSection {
     flex-direction: column;
@@ -309,20 +361,147 @@
     grid-template-columns: 1fr;
   }
 
-  .detailsRow {
-    flex-direction: column;
-    gap: 10px;
+  .sectionTitle {
+    font-size: 1.6rem;
+  }
+
+  .consultantName {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .consultantsContainer {
+    padding: 15px;
+  }
+
+  .cardImageContainer {
+    height: 180px;
+  }
+
+  .cardBody {
+    padding: 15px;
+  }
+
+  .cardFooter {
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .sectionTitle {
+    font-size: 1.4rem;
+  }
+
+  .cardHeader {
+    padding: 12px 15px;
+  }
+
+  .consultantDetail {
+    font-size: 0.85rem;
+  }
+
+  .statItem {
+    font-size: 0.75rem;
+  }
+
+  .descriptionText {
+    font-size: 0.85rem;
+  }
+
+  .loadMoreBtn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
   }
 }
 
 @media (max-width: 480px) {
   .sectionTitle {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   .cardHeader {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
     gap: 10px;
+  }
+
+  .cardImageContainer {
+    height: 160px;
+  }
+
+  .footerItem {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .sectionTitle {
+    font-size: 1.2rem;
+  }
+
+  .consultantName {
+    font-size: 1rem;
+  }
+
+  .cardImageContainer {
+    height: 150px;
+  }
+
+  .cardBody {
+    padding: 12px;
+  }
+
+  .detailLabel,
+  .detailValue {
+    font-size: 0.8rem;
+  }
+
+  .noData {
+    padding: 30px 15px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 348px) {
+  .consultantsContainer {
+    padding: 10px;
+  }
+
+  .cardImageContainer {
+    height: 140px;
+  }
+
+  .detailsRow {
+    gap: 8px;
+  }
+
+  .detailValue {
+    font-size: 0.6rem;
+  }
+
+  .statItem {
+    font-size: 0.6rem;
+  }
+
+  .consultantDetail {
+    gap: 6px;
+    flex-wrap: nowrap;
+  }
+
+  .footerItem {
+    font-size: 0.7rem;
+    white-space: normal;
+  }
+
+  .sectionTitle {
+    font-size: 1.1rem;
+  }
+
+  .loadMoreBtn {
+    width: auto;
+    padding: 8px 16px;
   }
 }

@@ -1,4 +1,4 @@
-/* سبک‌های اصلی */
+/* HouseTabs.module.css */
 .housesContainer {
   padding: 20px;
   background-color: var(--bg-primary);
@@ -21,7 +21,6 @@
   margin-left: 0.5rem;
 }
 
-/* گرید املاک */
 .housesGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -29,7 +28,6 @@
   margin-top: 15px;
 }
 
-/* کارت ملک */
 .houseCard {
   background-color: var(--input-bg);
   border-radius: 10px;
@@ -59,7 +57,6 @@
   flex: 1;
 }
 
-/* نشان‌ها (Badges) */
 .badgePrimary {
   padding: 4px 10px;
   border-radius: 20px;
@@ -70,7 +67,6 @@
   margin-right: 10px;
 }
 
-/* تصویر ملک */
 .cardImage {
   height: 200px;
   overflow: hidden;
@@ -102,7 +98,6 @@
   font-size: 3rem;
 }
 
-/* بدنه کارت */
 .cardBody {
   padding: 15px;
 }
@@ -140,7 +135,6 @@
   text-align: left;
 }
 
-/* قیمت */
 .priceContainer {
   display: flex;
   justify-content: space-between;
@@ -161,7 +155,6 @@
   font-family: 'Anjoman_SemiBold';
 }
 
-/* ویژگی‌ها */
 .featuresContainer {
   margin-top: 15px;
   padding-top: 15px;
@@ -182,6 +175,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  font-family: 'Anjoman_regular';
 }
 
 .featureItem {
@@ -190,6 +184,7 @@
   border-radius: 4px;
   font-size: 0.8rem;
   color: var(--text-primary);
+  font-family: 'Anjoman_regular';
 }
 
 .featureMore {
@@ -201,7 +196,6 @@
   cursor: pointer;
 }
 
-/* فوتر کارت */
 .cardFooter {
   display: flex;
   justify-content: space-between;
@@ -213,12 +207,12 @@
   font-family: 'Anjoman_Regular';
 }
 
-.date, .code {
+.date,
+.code {
   display: flex;
   align-items: center;
 }
 
-/* حالت عدم وجود داده */
 .noData {
   color: var(--text-primary);
   text-align: center;
@@ -228,7 +222,6 @@
   font-family: 'Anjoman_Regular';
 }
 
-/* دکمه نمایش بیشتر */
 .loadMoreBtn {
   font-family: 'Anjoman_Medium', sans-serif;
   background-color: var(--button-bg);
@@ -265,10 +258,13 @@
   padding: 1rem 0;
 }
 
-/* حالت واکنش‌گرا */
 @media (max-width: 768px) {
   .housesGrid {
     grid-template-columns: 1fr;
+  }
+
+  .sectionTitle {
+    font-size: 1.3rem;
   }
 
   .loadMoreBtn {
@@ -278,6 +274,30 @@
 }
 
 @media (max-width: 576px) {
+  .housesContainer {
+    padding: 15px;
+  }
+
+  .sectionTitle {
+    font-size: 1.2rem;
+  }
+
+  .cardHeader {
+    padding: 12px;
+  }
+
+  .cardImage {
+    height: 180px;
+  }
+
+  .cardBody {
+    padding: 12px;
+  }
+
+  .houseDetail {
+    font-size: 0.9rem;
+  }
+
   .detailsRow {
     flex-direction: column;
     gap: 8px;
@@ -286,5 +306,158 @@
   .houseDetail {
     width: 100%;
     justify-content: space-between;
+  }
+
+  .priceContainer {
+    align-items: flex-start;
+    gap: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sectionTitle {
+    font-size: 1.1rem;
+  }
+
+  .cardImage {
+    height: 160px;
+  }
+
+  .houseName {
+    font-size: 1rem;
+  }
+
+  .detailLabel {
+    min-width: 70px;
+    font-size: 0.85rem;
+  }
+
+  .detailValue {
+    font-size: 0.85rem;
+  }
+
+  .priceLabel,
+  .priceValue {
+    font-size: 0.9rem;
+  }
+
+  .cardFooter {
+    align-items: flex-start;
+    gap: 5px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .housesContainer {
+    padding: 12px;
+  }
+
+  .cardImage {
+    height: 150px;
+  }
+
+  .houseDetail {
+    margin-bottom: 8px;
+  }
+
+  .featuresTitle {
+    font-size: 0.85rem;
+  }
+
+  .featureItem,
+  .featureMore {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .sectionTitle {
+    font-size: 1rem;
+  }
+
+  .cardImage {
+    height: 140px;
+  }
+
+  .houseName {
+    font-size: 0.95rem;
+  }
+
+  .detailLabel {
+    min-width: 65px;
+    font-size: 0.8rem;
+  }
+
+  .detailValue {
+    font-size: 0.8rem;
+  }
+
+  .priceLabel,
+  .priceValue {
+    font-size: 0.85rem;
+  }
+
+  .loadMoreBtn {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 348px) {
+  .priceContainer {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 320px) {
+  .housesContainer {
+    padding: 10px;
+  }
+
+  .cardImage {
+    height: 130px;
+  }
+
+  .cardHeader,
+  .cardBody {
+    padding: 10px;
+  }
+
+  .houseName {
+    font-size: 0.9rem;
+  }
+
+  .badgePrimary {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+  }
+
+  .detailLabel {
+    min-width: 60px;
+    font-size: 0.75rem;
+  }
+
+  .detailValue {
+    font-size: 0.75rem;
+  }
+
+  .priceLabel,
+  .priceValue {
+    font-size: 0.8rem;
+  }
+
+  .featuresList {
+    gap: 6px;
+  }
+
+  .featureItem,
+  .featureMore {
+    font-size: 0.7rem;
+    padding: 3px 6px;
+  }
+
+  .cardFooter {
+    font-size: 0.7rem;
   }
 }

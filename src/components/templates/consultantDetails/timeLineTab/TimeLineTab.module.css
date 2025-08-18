@@ -1,4 +1,4 @@
-/* سبک‌های اصلی */
+/* TimeLineTab.module.css */
 .tabPane {
   padding: 20px;
   background-color: var(--bg-primary);
@@ -33,7 +33,6 @@
   margin-left: 0.5rem;
 }
 
-/* کارت‌ها */
 .cardsContainer {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -70,7 +69,6 @@
   margin: 0;
 }
 
-/* بدنه کارت */
 .cardBody {
   margin-bottom: 15px;
 }
@@ -89,7 +87,7 @@
 }
 
 .value {
-  text-align: left;
+  text-align: right;
   max-width: 60%;
 }
 
@@ -101,7 +99,6 @@
   text-align: right !important;
 }
 
-/* اطلاعات خانه */
 .houseInfo {
   margin-top: 15px;
   padding-top: 15px;
@@ -132,7 +129,6 @@
   font-family: 'Anjoman_Regular';
 }
 
-/* فوتر کارت */
 .cardFooter {
   display: flex;
   justify-content: flex-end;
@@ -145,10 +141,9 @@
   align-items: center;
   gap: 5px;
   opacity: 0.8;
-    font-family: 'Anjoman_Regular';
+  font-family: 'Anjoman_Regular';
 }
 
-/* نشان‌ها (Badges) */
 .badgeDanger,
 .badgeSuccess,
 .badgeInfo {
@@ -173,7 +168,6 @@
   color: #3b82f6;
 }
 
-/* حالت عدم وجود داده */
 .noData {
   color: var(--text-primary);
   text-align: center;
@@ -182,22 +176,6 @@
   border-radius: 8px;
   font-family: 'Anjoman_Regular';
 }
-
-/* حالت واکنش‌گرا */
-@media (max-width: 768px) {
-  .cardsContainer {
-    grid-template-columns: 1fr;
-  }
-
-  .card {
-    padding: 15px;
-  }
-
-  .sectionTitle {
-    font-size: 1.2rem;
-  }
-}
-
 
 .noHouse {
   color: var(--text-primary);
@@ -208,23 +186,6 @@
   text-align: center;
   margin-top: 10px;
   font-family: 'Anjoman_Regular';
-}
-
-/* بهبود responsive */
-@media (max-width: 576px) {
-  .houseDetails {
-    padding: 8px;
-  }
-  
-  .houseDetail {
-    flex-direction: column;
-    gap: 4px;
-  }
-  
-  .label, .value {
-    width: 100%;
-    max-width: 100%;
-  }
 }
 
 .loadMoreBtn {
@@ -264,10 +225,138 @@
   padding: 1rem 0;
 }
 
-/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .cardsContainer {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
+  .cardsContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .sectionTitle {
+    font-size: 1.2rem;
+  }
+
   .loadMoreBtn {
     padding: 0.6rem 1.5rem;
     font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .tabPane {
+    padding: 15px;
+  }
+
+  .sectionTitle {
+    font-size: 1.1rem;
+  }
+
+  .clientName {
+    font-size: 1rem;
+  }
+
+  .houseTitle {
+    font-size: 0.95rem;
+  }
+
+  .houseDetails {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .houseDetails {
+    padding: 8px;
+  }
+
+  .houseDetail {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .label,
+  .value {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .cardText {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tabPane {
+    padding: 12px;
+  }
+
+  .sectionTitle {
+    font-size: 1rem;
+  }
+
+  .card {
+    padding: 12px;
+  }
+
+  .clientName {
+    font-size: 0.95rem;
+  }
+
+  .badgeDanger,
+  .badgeSuccess,
+  .badgeInfo {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+  }
+
+  .houseDetail {
+    font-size: 0.85rem;
+  }
+
+  .date {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .sectionTitle {
+    font-size: 0.95rem;
+  }
+
+  .cardText,
+  .houseDetail {
+    font-size: 0.8rem;
+  }
+
+  .loadMoreBtn {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .tabPane {
+    padding: 10px;
+  }
+
+  .card {
+    padding: 10px;
+  }
+
+  .houseTitle {
+    font-size: 0.9rem;
+  }
+
+  .houseDetail {
+    font-size: 0.75rem;
   }
 }
