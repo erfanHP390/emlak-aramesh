@@ -13,7 +13,6 @@ function ContactTabs({ contacts: initialContacts }) {
     return str?.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
   };
 
-  // تابع برای تاریخ فارسی
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("fa-IR", {
@@ -34,7 +33,6 @@ function ContactTabs({ contacts: initialContacts }) {
   return (
     <>
       <div className={`${styles.tabPane} ${styles.active}`} id="usertimeline">
-        {/* بخش تماس‌ها */}
         <div className={styles.section}>
           <h2 className={`${styles.sectionTitle} Anjoman_Bold`}>
             <FaEnvelope className={styles.icon} /> تماس‌ها

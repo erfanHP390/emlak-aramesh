@@ -8,7 +8,14 @@ import ContactTabs from "./tabs/contactTabs/ContactTabs";
 import ConsultantTab from "./tabs/consultantTab/ConsultantTab";
 import UserTab from "./tabs/userTab/UserTab";
 
-function AdminTabs({ houses, clients, reqBuys, contacts, consultants, users }) {
+function AdminTabs({
+  houses = [],
+  clients = [],
+  reqBuys = [],
+  contacts = [],
+  consultants = [],
+  users = [],
+}) {
   const [activeTab, setActiveTab] = useState("houses");
 
   return (
@@ -117,7 +124,7 @@ function AdminTabs({ houses, clients, reqBuys, contacts, consultants, users }) {
             activeTab === "users" ? styles.active : ""
           }`}
         >
-          <UserTab  users={users} />
+          <UserTab users={users} />
         </div>
       </div>
     </div>

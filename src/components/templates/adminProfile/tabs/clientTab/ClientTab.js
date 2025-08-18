@@ -1,14 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import styles from "../../../consultantDetails/timeLineTab/TimeLineTab.module.css";
-import { CiImageOn } from "react-icons/ci";
 import {
   FaMapMarkerAlt,
   FaClock,
   FaHome,
   FaUser,
-  FaPhone,
-  FaEnvelope,
 } from "react-icons/fa";
 
 function ClientTab({ clients: initialClients }) {
@@ -17,7 +14,6 @@ function ClientTab({ clients: initialClients }) {
     initialClients.slice(0, visibleClients)
   );
 
-  // تابع برای فرمت کردن قیمت
   const formatPrice = (price) => {
     return new Intl.NumberFormat("fa-IR").format(price) + " تومان";
   };
@@ -26,7 +22,6 @@ function ClientTab({ clients: initialClients }) {
     return str?.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
   };
 
-  // تابع برای تاریخ فارسی
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("fa-IR", {
@@ -47,7 +42,6 @@ function ClientTab({ clients: initialClients }) {
   return (
     <>
       <div className={`${styles.tabPane} ${styles.active}`} id="usertimeline">
-        {/* بخش مشتریان */}
         <div className={styles.section}>
           <h2 className={`${styles.sectionTitle} Anjoman_Bold`}>
             <FaUser className={styles.icon} /> مشتریان
@@ -80,7 +74,7 @@ function ClientTab({ clients: initialClients }) {
                       </p>
                       {client.houses.length > 0 &&
                         client.houses.map((house) => (
-                          <div className={styles.houseInfo}>
+                          <div key={house._id} className={styles.houseInfo}>
                             <h4
                               className={`${styles.houseTitle} Anjoman_Medium`}
                             >

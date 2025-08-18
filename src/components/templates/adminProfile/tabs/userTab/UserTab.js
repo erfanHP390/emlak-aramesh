@@ -4,7 +4,6 @@ import styles from "../../../consultantDetails/timeLineTab/TimeLineTab.module.cs
 import {
   FaUser,
   FaEnvelope,
-  FaShieldAlt,
   FaCalendarAlt,
   FaCheckCircle,
   FaTimesCircle,
@@ -61,8 +60,6 @@ function UserTab({ users: initialUsers = [] }) {
     }
   };
 
-  const safeInitialUsers = Array.isArray(initialUsers) ? initialUsers : [];
-
   return (
     <>
       <div className={`${styles.tabPane} ${styles.active}`} id="usertimeline">
@@ -71,12 +68,12 @@ function UserTab({ users: initialUsers = [] }) {
             <FaUser className={styles.icon} /> کاربران
           </h2>
 
-          {safeInitialUsers.length > 0 ? (
+          {initialUsers.length > 0 ? (
             <>
               <div className={styles.cardsContainer}>
                 {users.map((user) => (
                   <div
-                    key={user._id?.$oid || Math.random()}
+                    key={user._id || Math.random().toString()}
                     className={styles.card}
                   >
                     <div className={styles.cardHeader}>
@@ -115,7 +112,7 @@ function UserTab({ users: initialUsers = [] }) {
                         <span className={styles.label}>کد صنفی:</span>
                         <span className={styles.value}>
                           {user.guildID
-                            ? toPersianStrDigits(Number(user.guildID))
+                            ? toPersianStrDigits(user.guildID)
                             : "ثبت نشده"}
                         </span>
                       </p>
@@ -148,7 +145,7 @@ function UserTab({ users: initialUsers = [] }) {
                   </div>
                 ))}
               </div>
-              {visibleUsers < safeInitialUsers.length && (
+              {visibleUsers < initialUsers.length && (
                 <div className={styles.buttonContainer}>
                   <button
                     className={styles.loadMoreBtn}

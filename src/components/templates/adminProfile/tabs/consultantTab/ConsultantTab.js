@@ -75,7 +75,11 @@ function ConsultantTab({ consultants: initialConsultants }) {
                     {consultant.firstName} {consultant.lastName}
                   </Link>
                   <span
-                    className={`${consultant.sex === "male" ? styles.badgeMale : styles.badgeFemale} Anjoman_Medium`}
+                    className={`${
+                      consultant.sex === "male"
+                        ? styles.badgeMale
+                        : styles.badgeFemale
+                    } Anjoman_Medium`}
                   >
                     {consultant.sex === "male" ? "آقا" : "خانم"}
                   </span>
@@ -97,39 +101,65 @@ function ConsultantTab({ consultants: initialConsultants }) {
                 </div>
 
                 <div className={styles.cardBody}>
-                  <div className={styles.detailsRow}>
-                    <div className={styles.consultantDetail}>
-                      <FaIdCard className={styles.detailIcon} />
-                      <span className={`${styles.detailLabel} Anjoman_Medium`}>کد مشاور:</span>
-                      <span className={`${styles.detailValue} Anjoman_Medium`}>
-                        {toPersianDigits(consultant.hisCode)}
-                      </span>
+                  <div className={styles.detailsContainer}>
+                    <div className={styles.detailsRow}>
+                      <div className={styles.consultantDetail}>
+                        <FaIdCard className={styles.detailIcon} />
+                        <span
+                          className={`${styles.detailLabel} Anjoman_Medium`}
+                        >
+                          کد مشاور:
+                        </span>
+                        <span
+                          className={`${styles.detailValue} Anjoman_Medium`}
+                        >
+                          {toPersianDigits(consultant.hisCode)}
+                        </span>
+                      </div>
+
+                      <div className={styles.consultantDetail}>
+                        <FaPhone className={styles.detailIcon} />
+                        <span
+                          className={`${styles.detailLabel} Anjoman_Medium`}
+                        >
+                          تلفن:
+                        </span>
+                        <span
+                          className={`${styles.detailValue} Anjoman_Medium`}
+                        >
+                          {toPersianDigits(consultant.phone)}
+                        </span>
+                      </div>
                     </div>
 
-                    <div className={styles.consultantDetail}>
-                      <FaPhone className={styles.detailIcon} />
-                      <span className={`${styles.detailLabel} Anjoman_Medium`}>تلفن:</span>
-                      <span className={`${styles.detailValue} Anjoman_Medium`}>
-                        {toPersianDigits(consultant.phone)}
-                      </span>
-                    </div>
-                  </div>
+                    <div className={`${styles.detailsRow} ${styles.detail_row_fix}`}>
+                      <div className={styles.consultantDetail}>
+                        <FaBirthdayCake className={styles.detailIcon} />
+                        <span
+                          className={`${styles.detailLabel} Anjoman_Medium`}
+                        >
+                          سن:
+                        </span>
+                        <span
+                          className={`${styles.detailValue} Anjoman_Medium`}
+                        >
+                          {toPersianDigits(consultant.age)} سال
+                        </span>
+                      </div>
 
-                  <div className={styles.detailsRow}>
-                    <div className={styles.consultantDetail}>
-                      <FaBirthdayCake className={styles.detailIcon} />
-                      <span className={`${styles.detailLabel} Anjoman_Medium`}>سن:</span>
-                      <span className={`${styles.detailValue} Anjoman_Medium`}>
-                        {toPersianDigits(consultant.age)} سال
-                      </span>
-                    </div>
-
-                    <div className={styles.consultantDetail}>
-                      <FaEnvelope className={styles.detailIcon} />
-                      <span className={`${styles.detailLabel} Anjoman_Medium`}>ایمیل:</span>
-                      <span className={`${styles.detailValue} Anjoman_Medium`}>
-                        {consultant.email}
-                      </span>
+                      <div className={styles.consultantDetail}>
+                        <FaEnvelope className={styles.detailIcon} />
+                        <span
+                          className={`${styles.detailLabel} Anjoman_Medium`}
+                        >
+                          ایمیل:
+                        </span>
+                        <span
+                          className={`${styles.detailValue} Anjoman_Medium`}
+                        >
+                          {consultant.email}
+                        </span>
+                      </div>
                     </div>
                   </div>
 
@@ -137,15 +167,13 @@ function ConsultantTab({ consultants: initialConsultants }) {
                     <div className={`${styles.statItem} Anjoman_Medium`}>
                       <FaHome className={styles.statIcon} />
                       <span>
-                        {toPersianDigits(consultant.houses.length)}{" "}
-                        ملک
+                        {toPersianDigits(consultant.houses.length)} ملک
                       </span>
                     </div>
                     <div className={`${styles.statItem} Anjoman_Medium`}>
                       <FaUsers className={styles.statIcon} />
                       <span>
-                        {toPersianDigits(consultant.clients.length)}{" "}
-                        مشتری
+                        {toPersianDigits(consultant.clients.length)} مشتری
                       </span>
                     </div>
                   </div>

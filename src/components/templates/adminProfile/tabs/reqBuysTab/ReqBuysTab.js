@@ -1,21 +1,20 @@
 "use client";
 import React, { useState } from "react";
 import styles from "../../../consultantDetails/timeLineTab/TimeLineTab.module.css";
-import { CiImageOn } from "react-icons/ci";
 import {
   FaMapMarkerAlt,
   FaClock,
   FaHome,
-  FaUser,
   FaPhone,
   FaEnvelope,
 } from "react-icons/fa";
 
-function ReqBuysTab({ reqBuys: initialReqBuys }) {
+function ReqBuysTab({ reqBuys: initialReqBuys = [] }) {
   const [visibleReqBuys, setVisibleReqBuys] = useState(3);
   const [reqBuys, setReqBuys] = useState(
     initialReqBuys.slice(0, visibleReqBuys)
   );
+
   const formatPrice = (price) => {
     return new Intl.NumberFormat("fa-IR").format(price) + " تومان";
   };
@@ -24,7 +23,6 @@ function ReqBuysTab({ reqBuys: initialReqBuys }) {
     return str?.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
   };
 
-  // تابع برای تاریخ فارسی
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("fa-IR", {
@@ -45,7 +43,6 @@ function ReqBuysTab({ reqBuys: initialReqBuys }) {
   return (
     <>
       <div className={`${styles.tabPane} ${styles.active}`} id="usertimeline">
-        {/* بخش درخواست‌های خرید */}
         <div className={styles.section}>
           <h2 className={`${styles.sectionTitle} Anjoman_Bold`}>
             <FaEnvelope className={styles.icon} /> درخواست‌های خرید
@@ -86,9 +83,9 @@ function ReqBuysTab({ reqBuys: initialReqBuys }) {
                         </span>
                       </p>
 
-                      {req.houses.length > 0 &&
+                      {req.houses?.length > 0 &&
                         req.houses.map((house) => (
-                          <div className={styles.houseInfo}>
+                          <div key={house._id} className={styles.houseInfo}>
                             <h4
                               className={`${styles.houseTitle} Anjoman_Medium`}
                             >

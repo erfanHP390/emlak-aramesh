@@ -9,39 +9,39 @@ import HouseModel from "@/models/House";
 import ClientModel from "@/models/Client";
 import ReqBuyModel from "@/models/ReqBuy";
 import ContactModel from "@/models/Contact";
-import ConsultantModel from "@/models/Consultant"
+import ConsultantModel from "@/models/Consultant";
 
 async function page({ params }) {
   connectToDB();
 
   const userAdmin = await UserModel.findOne({ _id: params.id });
 
+  if (!userAdmin) {
+    redirect("/dashboard");
+  }
+
   if (userAdmin.role === "USER") {
     redirect(`/userProfile/${params.id}`);
   } else if (userAdmin.role === "CONSULTANT") {
     redirect(`/consultantDetails/${params.id}`);
-  } else if (!userAdmin) {
-    redirect("/dashboard");
   }
 
   const houses = await HouseModel.find({ agencyID: userAdmin.guildID }).lean();
   const clients = await ClientModel.find({}).populate("houses").lean();
   const reqBuys = await ReqBuyModel.find({})
-    .populate("houses") // خانه‌های مربوط به هر درخواست خرید
+    .populate("houses")
     .lean();
   const contacts = await ContactModel.find({}).lean();
-  const consultants = await ConsultantModel.find({  })
+  const consultants = await ConsultantModel.find({})
     .populate("clients")
     .populate("houses")
     .lean();
-    const users = await UserModel.find({}).lean()
-
+  const users = await UserModel.find({}).lean();
 
   return (
     <PanelLayout>
       <div className={styles.contentWrapper}>
         <div className={styles.containerFull}>
-          {/* Main content */}
           <section className={styles.content}>
             <div className={styles.row}>
               <div
@@ -55,11 +55,9 @@ async function page({ params }) {
                   consultants={JSON.parse(JSON.stringify(consultants))}
                   users={JSON.parse(JSON.stringify(users))}
                 />
-                {/* /.nav-tabs-custom */}
               </div>
             </div>
           </section>
-          {/* /.content */}
         </div>
       </div>
     </PanelLayout>

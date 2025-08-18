@@ -1,25 +1,28 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./HouseTabs.module.css";
-import { FaMapMarkerAlt, FaHome, FaBed, FaCar, FaBuilding, FaCalendarAlt } from "react-icons/fa";
+import {
+  FaMapMarkerAlt,
+  FaHome,
+  FaBed,
+  FaCar,
+  FaBuilding,
+  FaCalendarAlt,
+} from "react-icons/fa";
 import Link from "next/link";
 
 function HouseTabs({ houses: initialHouses }) {
-  // حالت‌های نمایش تدریجی
   const [visibleHouses, setVisibleHouses] = useState(3);
   const [houses, setHouses] = useState(initialHouses.slice(0, visibleHouses));
 
-  // تابع برای فرمت کردن قیمت
   const formatPrice = (price) => {
     return new Intl.NumberFormat("fa-IR").format(price) + " تومان";
   };
 
-  // تابع برای تبدیل اعداد به فارسی
   const toPersianDigits = (str) => {
     return str?.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
   };
 
-  // تابع برای تاریخ فارسی
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("fa-IR", {
@@ -29,7 +32,6 @@ function HouseTabs({ houses: initialHouses }) {
     });
   };
 
-  // تابع برای بارگذاری موارد بیشتر
   const loadMoreHouses = () => {
     const newVisibleHouses = visibleHouses + 3;
     setVisibleHouses(newVisibleHouses);
@@ -48,19 +50,20 @@ function HouseTabs({ houses: initialHouses }) {
             {houses.map((house) => (
               <div key={house._id} className={styles.houseCard}>
                 <div className={styles.cardHeader}>
-                  <Link href={`/houseDetails/${house._id}`} className={`${styles.houseName} Anjoman_SemiBold`}>
+                  <Link
+                    href={`/houseDetails/${house._id}`}
+                    className={`${styles.houseName} Anjoman_SemiBold`}
+                  >
                     {house.name}
                   </Link>
-                  <span className={styles.badgePrimary}>
-                    {house.status}
-                  </span>
+                  <span className={styles.badgePrimary}>{house.status}</span>
                 </div>
 
                 <div className={styles.cardImage}>
                   {house.images && house.images.length > 0 ? (
-                    <img 
-                      src={house.images[0]} 
-                      alt={house.name} 
+                    <img
+                      src={house.images[0]}
+                      alt={house.name}
                       className={styles.houseImage}
                     />
                   ) : (
@@ -110,7 +113,8 @@ function HouseTabs({ houses: initialHouses }) {
 
                     <div className={styles.houseDetail}>
                       <span className={styles.detailLabel}>
-                        <FaCalendarAlt className={styles.detailIcon} /> سال ساخت:
+                        <FaCalendarAlt className={styles.detailIcon} /> سال
+                        ساخت:
                       </span>
                       <span className={styles.detailValue}>
                         {toPersianDigits(house.yearBuilt)}
@@ -136,7 +140,8 @@ function HouseTabs({ houses: initialHouses }) {
                         ))}
                         {house.features.length > 3 && (
                           <li className={styles.featureMore}>
-                            +{toPersianDigits(house.features.length - 3)} مورد دیگر
+                            +{toPersianDigits(house.features.length - 3)} مورد
+                            دیگر
                           </li>
                         )}
                       </ul>
@@ -158,10 +163,7 @@ function HouseTabs({ houses: initialHouses }) {
 
           {visibleHouses < initialHouses.length && (
             <div className={styles.buttonContainer}>
-              <button
-                className={styles.loadMoreBtn}
-                onClick={loadMoreHouses}
-              >
+              <button className={styles.loadMoreBtn} onClick={loadMoreHouses}>
                 نمایش املاک بیشتر
               </button>
             </div>
