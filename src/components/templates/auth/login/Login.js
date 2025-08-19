@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import styles from "./Login.module.css";
 import { useEffect, useState } from "react";
 import { swalAlert, toastError, toastSuccess } from "@/utils/alerts";
-import { validateEmail, validatePassword } from "@/utils/auth";
+import { validateEmail } from "@/utils/auth";
 import { FaUserAlt } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import Link from "next/link";
