@@ -5,7 +5,6 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import styles from "../HouseDetails.module.css";
 
-// تنظیمات آیکون مارکر
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl:
@@ -17,7 +16,7 @@ L.Icon.Default.mergeOptions({
 });
 
 function MapHouse({ fullAddress }) {
-  const [position, setPosition] = useState([35.6892, 51.389]); // موقعیت پیش‌فرض (تهران)
+  const [position, setPosition] = useState([35.6892, 51.389]); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [foundAddress, setFoundAddress] = useState("");
@@ -36,7 +35,6 @@ function MapHouse({ fullAddress }) {
         setLoading(true);
         setError(null);
 
-        // روش اول: استفاده از Nominatim با پارامترهای بهینه‌شده
         let response = await fetch(
           `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
             fullAddress
@@ -56,7 +54,6 @@ function MapHouse({ fullAddress }) {
           return;
         }
 
-        // روش دوم: جستجوی گسترده‌تر بدون فیلتر کشور
         response = await fetch(
           `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
             fullAddress
@@ -76,7 +73,6 @@ function MapHouse({ fullAddress }) {
           return;
         }
 
-        // روش سوم: تقسیم آدرس به بخش‌های کوچکتر
         const addressParts = fullAddress.split("،").map((part) => part.trim());
         for (let i = addressParts.length; i > 0; i--) {
           const partialAddress = addressParts.slice(0, i).join("، ");
@@ -105,7 +101,7 @@ function MapHouse({ fullAddress }) {
       } catch (err) {
         console.error("خطا در دریافت موقعیت:", err);
         setError("آدرس حدودی موقعیت");
-        setPosition([35.6892, 51.389]); // موقعیت مرکز تهران
+        setPosition([35.6892, 51.389]); 
         setFoundAddress("تهران، ایران");
         setMapReady(true);
       } finally {

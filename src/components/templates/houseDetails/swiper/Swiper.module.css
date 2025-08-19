@@ -80,7 +80,6 @@
   background: #f5f5f5;
 }
 
-/* دکمه‌های ناوبری سفارشی */
 .swiper_nav_btn {
   position: absolute;
   top: 50%;
@@ -125,7 +124,6 @@
   right: 20px;
 }
 
-/* نشانگر اسلاید */
 .swiper-pagination {
   position: absolute;
   bottom: 20px !important;
@@ -148,7 +146,6 @@
   border-radius: 5px;
 }
 
-/* افکت hover برای thumbnails */
 .thumbnail_container {
   position: relative;
 }

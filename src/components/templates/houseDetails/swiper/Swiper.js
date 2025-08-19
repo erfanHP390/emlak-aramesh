@@ -31,7 +31,6 @@ function ImageSwiper({ images }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Swiper اصلی برای تصاویر بزرگ */}
       <div className={swiperStyles.main_swiper}>
         <Swiper
           spaceBetween={10}
@@ -63,7 +62,6 @@ function ImageSwiper({ images }) {
             </SwiperSlide>
           ))}
 
-          {/* دکمه‌های ناوبری سفارشی */}
           <div
             className={`${swiperStyles.swiper_button_prev} ${swiperStyles.swiper_nav_btn}`}
           >
@@ -99,7 +97,6 @@ function ImageSwiper({ images }) {
         </Swiper>
       </div>
 
-      {/* Swiper کوچک برای thumbnails */}
       <div className={swiperStyles.thumbnail_swiper}>
         <Swiper
           onSwiper={setThumbsSwiper}

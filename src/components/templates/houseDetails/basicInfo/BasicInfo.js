@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "../HouseDetails.module.css";
+import { FaLocationArrow } from "react-icons/fa";
 
 function BasicInfo({ house }) {
   return (
@@ -16,7 +17,7 @@ function BasicInfo({ house }) {
               </a>
             </h3>
             <p className={styles["text-muted"]}>
-              <i className={`${styles.mdi} ${styles["mdi-pin"]}`} />
+              <FaLocationArrow className={`${styles.mdi} ${styles["mdi-pin"]}`} />
               {house.location}
             </p>
             <p className={`${styles["text-muted"]} ${styles["mb-20"]}`}>

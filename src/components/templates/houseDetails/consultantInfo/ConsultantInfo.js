@@ -91,7 +91,7 @@ function ConsultantInfo({ consultant }) {
             onClick={handleToggleSocials}
             className={`${styles.btn} ${styles["btn-primary"]} ${styles["contact-btn"]}`}
           >
-            <i className={`${styles.ti} ${styles["ti-phone"]}`} /> تماس با مشاور
+            <FaPhone className={`${styles.ti} ${styles["ti-phone"]}`} /> تماس با مشاور
           </button>
 
           {showSocials && renderSocialIcons()}
