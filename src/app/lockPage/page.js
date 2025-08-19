@@ -1,20 +1,21 @@
 import LockScreen from "@/components/templates/auth/lockScreen/lockScreen";
 import connectToDB from "@/configs/db";
 import { authUser } from "@/utils/authUser";
-import React from "react";
-import UserModel from "@/models/User";
 import ConsultantModel from "@/models/Consultant";
+import { redirect } from "next/navigation";
 
-async function page() {
-  connectToDB();
+export default async function Page() {
+  await connectToDB();
+
   const user = await authUser();
-  const consultant = await ConsultantModel.findOne({ email : user.email})
+  if (!user) redirect("/login");
 
-  return (
-    <>
-      <LockScreen user={user} consultant={consultant} />
-    </>
-  );
+  const consultant = await ConsultantModel.findOne({
+    email: user.email,
+  }).lean();
+
+  const safeUser = JSON.parse(JSON.stringify(user));
+  const safeConsultant = JSON.parse(JSON.stringify(consultant || null));
+
+  return <LockScreen user={safeUser} consultant={safeConsultant} />;
 }
-
-export default page;
