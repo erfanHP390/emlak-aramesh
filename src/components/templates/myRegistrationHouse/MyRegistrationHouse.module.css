@@ -1,3 +1,4 @@
+/* MyRegistrationHouse.module.css */
 /*====================  BASE STYLES  ====================*/
 .content-wrapper {
   background-color: var(--bg-primary);
@@ -5,12 +6,12 @@
   padding: 20px;
   direction: rtl;
   margin-top: 8.5rem;
-  /* اضافه شده */
   transition: box-shadow 0.3s ease;
 }
 
 .container-full {
   width: 100%;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 15px;
 }
@@ -19,14 +20,13 @@
 .box {
   background-color: var(--input-bg);
   border-radius: 8px;
-  box-shadow: var(--box-shadow-primary); /* تغییر به متغیر */
+  box-shadow: var(--box-shadow-primary); 
   margin-bottom: 30px;
   overflow: hidden;
-  border: 1px solid var(--input-border); /* اضافه شده */
-  transition: all 0.3s ease; /* اضافه شده */
+  border: 1px solid var(--input-border); 
+  transition: all 0.3s ease; 
 }
 
-/* اضافه شده */
 .box:hover {
   box-shadow: var(--box-shadow-hover);
 }
@@ -129,6 +129,11 @@
 /* Responsive columns */
 .col-12 {
   width: 100%;
+}
+
+.col-12 {
+  text-align: center;
+  margin-top: 3rem;
 }
 
 @media (min-width: 768px) {
@@ -257,4 +262,51 @@
   font-size: 1rem;
   margin-bottom: 20px;
   font-family: 'Anjoman_Regular';
+}
+
+/*====================  GRID CONTAINER - RESPONSIVE ====================*/
+.grid_container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  width: 100%;
+  padding: 0 15px;
+}
+
+@media (max-width: 1200px) {
+  .grid_container {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 992px) {
+  .grid_container {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid_container {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .grid_container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 348px) {
+  .form-group {
+    text-align: center;
+  }
+  .btn-info {
+    margin-top: 0.5rem;
+  }
 }

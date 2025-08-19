@@ -3,8 +3,8 @@ import React from "react";
 import styles from "./CardHouse.module.css";
 import { MdOutlineBedroomParent, MdCalendarMonth } from "react-icons/md";
 import { FaRegBuilding, FaChessKing, FaParking } from "react-icons/fa";
-import { toPersianDigits } from "@/utils/constants";
 import Link from "next/link";
+import { FaMapLocation } from "react-icons/fa6";
 
 function CardHouse({
   _id,
@@ -28,9 +28,7 @@ function CardHouse({
 
   return (
     <>
-      <div
-        className={`${styles["col-xl-3"]} ${styles["col-lg-4"]} ${styles["col-md-6"]} ${styles["col-12"]}`}
-      >
+      <div className={styles.card_wrapper}>
         <div className={`${styles.box} ${styles["property-card"]}`}>
           <div className={styles["box-body"]}>
             <div
@@ -59,7 +57,7 @@ function CardHouse({
                 <p
                   className={`${styles["text-muted"]} ${styles["property-location"]}  Anjoman_Regular`}
                 >
-                  <i
+                  <FaMapLocation
                     className={`${styles.mdi} ${styles["mdi-pin"]} ${styles["me-5"]}`}
                   />
                   {location}

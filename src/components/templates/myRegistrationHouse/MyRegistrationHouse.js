@@ -1,11 +1,11 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import styles from "./MyRegistrationHouse.module.css";
 import CardHouse from "@/components/modules/cardHouse/CardHouse";
 import { toPersianDigits } from "@/utils/constants";
 
 function MyRegistrationHouse({ houses: initialHouses }) {
-  const [visibleHouses, setVisibleHouses] = useState(6);
+  const [visibleHouses, setVisibleHouses] = useState(3);
   const [houses, setHouses] = useState(initialHouses.slice(0, visibleHouses));
   const [tempFilters, setTempFilters] = useState({
     status: "",
@@ -22,7 +22,6 @@ function MyRegistrationHouse({ houses: initialHouses }) {
     specialFeatures: [],
   });
 
-  // استخراج مقادیر منحصر به فرد برای فیلترها از دیتابیس
   const uniqueStatuses = [
     ...new Set(initialHouses.map((house) => house.status)),
   ];
@@ -42,14 +41,12 @@ function MyRegistrationHouse({ houses: initialHouses }) {
     ...new Set(initialHouses.map((house) => house.floor)),
   ].sort((a, b) => parseInt(a) - parseInt(b));
 
-  // ویژگی‌های کلی
   const generalFeatures = [
     { id: "elevator", label: "آسانسور", value: "دارد" },
     { id: "storage", label: "انباری", value: "دارد" },
     { id: "masterRoom", label: "مسترروم", value: "1" },
   ];
 
-  // ویژگی‌های اختصاصی
   const specialFeatures = [
     { id: "pool", label: "استخر خصوصی" },
     { id: "terrace", label: "تراس پانوراما" },
@@ -67,41 +64,33 @@ function MyRegistrationHouse({ houses: initialHouses }) {
 
   const applyFilters = () => {
     const filteredHouses = initialHouses.filter((house) => {
-      // فیلتر بر اساس وضعیت
       if (tempFilters.status && house.status !== tempFilters.status)
         return false;
 
-      // فیلتر بر اساس نوع ملک
       if (tempFilters.kind && house.kind !== tempFilters.kind) return false;
 
-      // فیلتر بر اساس شهر
       if (tempFilters.city) {
         const houseCity = house.location.split("،")[0].trim();
         if (houseCity !== tempFilters.city) return false;
       }
 
-      // فیلتر بر اساس تعداد اتاق خواب
       if (tempFilters.bedrooms && house.bedrooms !== tempFilters.bedrooms)
         return false;
 
-      // فیلتر بر اساس طبقه
       if (tempFilters.floor && house.floor !== tempFilters.floor) return false;
 
-      // فیلتر بر اساس محدوده قیمت
       if (tempFilters.priceRange) {
         const price = parseInt(house.price);
         const [min, max] = tempFilters.priceRange.split("-").map(Number);
         if (price < min || price > max) return false;
       }
 
-      // فیلتر بر اساس منطقه (متراژ)
       if (tempFilters.area) {
         const [min, max] = tempFilters.area.split("-").map(Number);
         const meterage = parseInt(house.meterage);
         if (meterage < min || meterage > max) return false;
       }
 
-      // فیلتر بر اساس ویژگی‌های کلی
       if (tempFilters.elevator && house.elevator !== tempFilters.elevator)
         return false;
       if (tempFilters.storage && house.storage !== tempFilters.storage)
@@ -109,7 +98,6 @@ function MyRegistrationHouse({ houses: initialHouses }) {
       if (tempFilters.masterRoom && house.masterRoom !== tempFilters.masterRoom)
         return false;
 
-      // فیلتر بر اساس ویژگی‌های اختصاصی
       if (tempFilters.specialFeatures.length > 0) {
         const hasAllFeatures = tempFilters.specialFeatures.every((feature) =>
           house.features.includes(feature)
@@ -120,7 +108,7 @@ function MyRegistrationHouse({ houses: initialHouses }) {
       return true;
     });
 
-    setVisibleHouses(6); // Reset visible houses when applying new filters
+    setVisibleHouses(6);
     setHouses(filteredHouses.slice(0, 6));
   };
 
@@ -313,7 +301,7 @@ function MyRegistrationHouse({ houses: initialHouses }) {
                               1 تا 5 میلیارد
                             </option>
                             <option value="5000000000-10000000000">
-                              5 تا 10 میلیارد
+                              5 تا 10 миллиارد
                             </option>
                             <option value="10000000000-20000000000">
                               10 تا 20 میلیارد
@@ -366,7 +354,6 @@ function MyRegistrationHouse({ houses: initialHouses }) {
                       </div>
                     </div>
 
-                    {/* ویژگی‌های کلی */}
                     <div className={styles.row}>
                       <div className={styles["col-12"]}>
                         <div className={styles["form-group"]}>
@@ -402,7 +389,6 @@ function MyRegistrationHouse({ houses: initialHouses }) {
                       </div>
                     </div>
 
-                    {/* ویژگی‌های اختصاصی */}
                     <div className={styles.row}>
                       <div className={styles["col-12"]}>
                         <div className={styles["form-group"]}>
@@ -458,54 +444,56 @@ function MyRegistrationHouse({ houses: initialHouses }) {
                   </div>
                 </div>
               </div>
-
-              {houses.length > 0 ? (
-                <>
-                  {houses.map((house) => (
-                    <CardHouse
-                      key={house._id}
-                      {...house}
-                      img={house.images}
-                      consultant={house.consultant}
-                    />
-                  ))}
-
-                  {visibleHouses < initialHouses.length && (
-                    <div className={styles["col-12"]}>
-                      <div className={styles["form-group"]}>
-                        <button
-                          onClick={loadMore}
-                          className={`${styles.btn} ${styles["btn-rounded"]} ${styles["btn-info"]}`}
-                        >
-                          نمایش خانه‌های بیشتر
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </>
-              ) : (
-                <div className={styles["col-12"]}>
-                  <div className={styles["no-results"]}>
-                    <svg
-                      className={styles["no-results-icon"]}
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M11,15H13V17H11V15M11,7H13V13H11V7M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20Z"
+              <div className={styles.grid_container}>
+                {" "}
+                {houses.length > 0 ? (
+                  <>
+                    {houses.map((house) => (
+                      <CardHouse
+                        key={house._id}
+                        {...house}
+                        img={house.images}
+                        consultant={house.consultant}
                       />
-                    </svg>
-                    <h3 className={styles["no-results-title"]}>
-                      نتیجه‌ای یافت نشد
-                    </h3>
-                    <p className={styles["no-results-text"]}>
-                      لطفاً فیلترهای جستجو را تغییر دهید یا بازنشانی کنید
-                    </p>
+                    ))}
+                  </>
+                ) : (
+                  <div className={styles["col-12"]}>
+                    <div className={styles["no-results"]}>
+                      <svg
+                        className={styles["no-results-icon"]}
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M11,15H13V17H11V15M11,7H13V13H11V7M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20Z"
+                        />
+                      </svg>
+                      <h3 className={styles["no-results-title"]}>
+                        نتیجه‌ای یافت نشد
+                      </h3>
+                      <p className={styles["no-results-text"]}>
+                        لطفاً فیلترهای جستجو را تغییر دهید یا بازنشانی کنید
+                      </p>
+                      <button
+                        onClick={resetFilters}
+                        className={`${styles.btn} ${styles["btn-rounded"]} ${styles["btn-info"]}`}
+                      >
+                        بازنشانی فیلترها
+                      </button>
+                    </div>
+                  </div>
+                )}{" "}
+              </div>
+
+              {visibleHouses < initialHouses.length && (
+                <div className={styles["col-12"]}>
+                  <div className={styles["form-group"]}>
                     <button
-                      onClick={resetFilters}
+                      onClick={loadMore}
                       className={`${styles.btn} ${styles["btn-rounded"]} ${styles["btn-info"]}`}
                     >
-                      بازنشانی فیلترها
+                      نمایش خانه‌های بیشتر
                     </button>
                   </div>
                 </div>
