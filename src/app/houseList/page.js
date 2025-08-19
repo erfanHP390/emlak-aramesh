@@ -7,7 +7,7 @@ import ConsultantModel from "@/models/Consultant";
 import { authUser } from "@/utils/authUser";
 import { redirect } from "next/navigation";
 
-async function page() {
+async function Page() {
   await connectToDB();
   const user = await authUser();
   if (!user) redirect("/login");
@@ -21,4 +21,4 @@ async function page() {
     </PanelLayout>
   );
 }
-export default page;
+export default Page;

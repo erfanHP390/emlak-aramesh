@@ -7,7 +7,7 @@ import CardConsultant from "@/components/modules/cardConsultant/CardConsultant";
 import { authUser } from "@/utils/authUser";
 import { redirect } from "next/navigation";
 
-async function page() {
+async function Page() {
   try {
     await connectToDB();
     const user = await authUser()
@@ -60,4 +60,4 @@ async function page() {
   }
 }
 
-export default page;
+export default Page;

@@ -2,7 +2,7 @@ import PanelLayout from '@/components/layouts/PanelLayout'
 import MainPricing from '@/components/templates/pricing/MainPricing'
 import React from 'react'
 
-function page() {
+function Page() {
   return (
     <PanelLayout>
       <MainPricing />
@@ -10,4 +10,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

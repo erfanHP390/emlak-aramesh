@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import styles from "./MainPricing.module.css";
-import { toPersianDigits } from "@/utils/constants";
 
 function MainPricing() {
   return (
@@ -16,7 +15,6 @@ function MainPricing() {
           </p>
 
           <div className={styles.pricingRow}>
-            {/* پایه */}
             <div className={styles.pricingColumn}>
               <div className={`${styles.pricingBox} ${styles.basicBox}`}>
                 <h4 className={`${styles.pricingTitle} Anjoman_SemiBold`}>
@@ -32,7 +30,8 @@ function MainPricing() {
                   </ul>
                 </div>
                 <div className={`${styles.priceTag} Anjoman_Bold`}>
-                  <sup className="Anjoman_Medium">تومان</sup>{Number(2900000).toLocaleString("fa-IR")}
+                  <sup className="Anjoman_Medium">تومان</sup>
+                  {Number(2900000).toLocaleString("fa-IR")}
                   <span>/ماهیانه</span>
                 </div>
                 <a
@@ -44,7 +43,6 @@ function MainPricing() {
               </div>
             </div>
 
-            {/* حرفه ای */}
             <div className={styles.pricingColumn}>
               <div
                 className={`${styles.pricingBox} ${styles.proBox} ${styles.highlightedBox}`}
@@ -65,7 +63,8 @@ function MainPricing() {
                   </ul>
                 </div>
                 <div className={`${styles.priceTag} Anjoman_Bold`}>
-                  <sup className="Anjoman_Medium">تومان</sup>{Number(7900000).toLocaleString("fa-IR")}
+                  <sup className="Anjoman_Medium">تومان</sup>
+                  {Number(7900000).toLocaleString("fa-IR")}
                   <span>/ماهیانه</span>
                 </div>
                 <a
@@ -77,7 +76,6 @@ function MainPricing() {
               </div>
             </div>
 
-            {/* سازمانی */}
             <div className={styles.pricingColumn}>
               <div className={`${styles.pricingBox} ${styles.premiumBox}`}>
                 <h4 className={`${styles.pricingTitle} Anjoman_SemiBold`}>
@@ -96,7 +94,8 @@ function MainPricing() {
                   </ul>
                 </div>
                 <div className={`${styles.priceTag} Anjoman_Bold`}>
-                  <sup className="Anjoman_Medium">تومان</sup>{Number(19900000).toLocaleString("fa-IR")}
+                  <sup className="Anjoman_Medium">تومان</sup>
+                  {Number(19900000).toLocaleString("fa-IR")}
                   <span>/ماهیانه</span>
                 </div>
                 <a

@@ -15,7 +15,7 @@ import ReqBuyModel from "@/models/ReqBuy";
 
 export const dynamic = "force-dynamic";
 
-async function page() {
+async function Page() {
   try {
     await connectToDB();
 
@@ -91,10 +91,10 @@ async function page() {
       </PanelLayout>
     );
   } catch (error) {
-    console.error("Error in dashboard page:", error);
+    console.error("Error in dashboard Page:", error);
     redirect("/dashboard");
     return null;
   }
 }
 
-export default page;
+export default Page;

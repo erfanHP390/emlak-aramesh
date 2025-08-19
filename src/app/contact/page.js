@@ -7,7 +7,7 @@ import React from "react";
 
 export const dynamic = "force-dynamic";
 
-async function page() {
+async function Page() {
   try {
     await connectToDB();
     const user = await authUser();
@@ -23,10 +23,10 @@ async function page() {
       </PanelLayout>
     );
   } catch (error) {
-    console.error("Error in contact page:", error);
+    console.error("Error in contact Page:", error);
     redirect("/dashboard");
     return null;
   }
 }
 
-export default page;
+export default Page;

@@ -5,7 +5,7 @@ import { authAdmin, authConsultant, authUser } from "@/utils/authUser";
 import { redirect } from "next/navigation";
 import React from "react";
 
-async function page() {
+async function Page() {
   connectToDB();
   const admin = await authAdmin();
   const consultant = await authConsultant();
@@ -26,4 +26,4 @@ async function page() {
   );
 }
 
-export default page;
+export default Page;

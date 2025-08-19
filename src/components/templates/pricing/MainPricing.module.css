@@ -23,37 +23,43 @@
 
 .sectionTitle {
   color: var(--text-heading);
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
 }
 
 .sectionSubtitle {
   color: var(--text-primary);
-  font-size: 1.1rem;
+  font-size: clamp(1rem, 2vw, 1.2rem);
   margin-bottom: 2.5rem;
   opacity: 0.9;
+  line-height: 1.5;
+  max-width: 600px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
+/*====================  PRICING GRID LAYOUT  ====================*/
 .pricingRow {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
   justify-content: center;
-  gap: 1.5rem;
-  margin: 0 -15px;
+  align-items: stretch;
+  margin: 0 auto;
+  max-width: 1200px;
 }
 
 .pricingColumn {
-  flex: 1;
-  min-width: 300px;
-  padding: 0 15px;
-  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 /*====================  PRICING BOX STYLES  ====================*/
 .pricingBox {
   background-color: var(--input-bg);
   border-radius: 16px;
-  padding: 2.5rem;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -70,8 +76,14 @@
 }
 
 .highlightedBox {
-  border: 1px solid var(--button-bg);
+  border: 2px solid var(--button-bg);
   background-color: rgba(138, 180, 255, 0.05);
+  transform: scale(1.02);
+  z-index: 2;
+}
+
+.highlightedBox:hover {
+  transform: translateY(-8px) scale(1.02);
 }
 
 .bestValueBadge {
@@ -84,15 +96,17 @@
   font-size: 0.85rem;
   border-bottom-right-radius: 16px;
   font-family: 'Anjoman_Medium';
+  z-index: 3;
 }
 
 /*====================  TITLE STYLES  ====================*/
 .pricingTitle {
   color: var(--text-heading);
-  font-size: 1.5rem;
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
   margin-bottom: 1.5rem;
   position: relative;
   padding-bottom: 1rem;
+  line-height: 1.4;
 }
 
 .pricingTitle::after {
@@ -124,41 +138,49 @@
   text-align: right;
 }
 
-.pricingFeatures p {
-  margin-bottom: 1rem;
-  line-height: 1.7;
+.featuresList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.featuresList li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
   color: var(--text-primary);
   position: relative;
   padding-right: 1.5rem;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
 }
 
-.pricingFeatures p::before {
+.featuresList li::before {
   content: '•';
   position: absolute;
   right: 0;
   color: var(--link-color);
   font-size: 1.2rem;
+  top: 0;
 }
 
 /*====================  PRICE TAG  ====================*/
 .priceTag {
   margin: 2rem 0;
-  font-size: 2.5rem;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
   color: var(--text-heading);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
 }
 
 .priceTag sup {
-  font-size: 1rem;
-  margin-left: 0.25rem;
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
   opacity: 0.8;
 }
 
 .priceTag span {
-  font-size: 1rem;
-  margin-right: 0.25rem;
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
   opacity: 0.8;
 }
 
@@ -167,17 +189,19 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.875rem 1.75rem;
+  padding: clamp(0.75rem, 1.5vw, 0.875rem) clamp(1.25rem, 2.5vw, 1.75rem);
   border-radius: 50px;
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-align: center;
   border: 2px solid transparent;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
   cursor: pointer;
   position: relative;
   overflow: hidden;
   z-index: 1;
+  width: 100%;
+  margin-top: auto;
 }
 
 .pricingButton::before {
@@ -205,6 +229,7 @@
 .basicButton:hover {
   background-color: #dc2626;
   box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+  transform: translateY(-2px);
 }
 
 .proButton {
@@ -216,6 +241,7 @@
 .proButton:hover {
   background-color: var(--button-hover);
   box-shadow: 0 6px 20px rgba(94, 146, 243, 0.4);
+  transform: translateY(-2px);
 }
 
 .premiumButton {
@@ -227,53 +253,118 @@
 .premiumButton:hover {
   background-color: #059669;
   box-shadow: 0 6px 20px rgba(5, 150, 105, 0.4);
+  transform: translateY(-2px);
 }
 
 /*====================  RESPONSIVE STYLES  ====================*/
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
   .pricingRow {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
   }
-
+  
   .highlightedBox {
-    margin-top: 0;
+    transform: scale(1);
   }
-
-  .pricingBox {
-    padding: 2rem;
+  
+  .highlightedBox:hover {
+    transform: translateY(-8px);
   }
 }
 
 @media (max-width: 768px) {
-  .pricingColumn {
-    min-width: 100%;
-    margin-bottom: 1.5rem;
-  }
-
-  .sectionTitle {
-    font-size: 1.75rem;
-  }
-
-  .sectionSubtitle {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 576px) {
   .pricingWrapper {
     padding: 2rem 1rem;
+    margin-top: 2rem;
   }
-
+  
+  .pricingSection {
+    padding: 1.5rem 0;
+  }
+  
+  .pricingRow {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    gap: 1.5rem;
+  }
+  
   .pricingBox {
     padding: 1.75rem;
   }
-
-  .priceTag {
-    font-size: 2.2rem;
+  
+  .sectionTitle {
+    margin-bottom: 0.5rem;
   }
+  
+  .sectionSubtitle {
+    margin-bottom: 2rem;
+  }
+}
 
+@media (max-width: 480px) {
+  .pricingWrapper {
+    padding: 1.5rem 0.75rem;
+  }
+  
+  .pricingBox {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+  
+  .pricingTitle {
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+  }
+  
+  .featuresList li {
+    margin-bottom: 0.5rem;
+    padding-right: 1.25rem;
+  }
+  
+  .priceTag {
+    margin: 1.5rem 0;
+  }
+  
+  .bestValueBadge {
+    font-size: 0.75rem;
+    padding: 0.4rem 1.25rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .pricingBox {
+    padding: 1.25rem;
+  }
+  
+  .featuresList li {
+    font-size: 0.85rem;
+  }
+  
+  .priceTag {
+    font-size: 1.5rem;
+  }
+  
   .pricingButton {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.95rem;
+    padding: 0.65rem 1.15rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Animation for highlighted box on mobile */
+@media (max-width: 768px) {
+  .highlightedBox {
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(138, 180, 255, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(138, 180, 255, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(138, 180, 255, 0);
+    }
   }
 }

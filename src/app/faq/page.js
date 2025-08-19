@@ -2,7 +2,7 @@ import PanelLayout from '@/components/layouts/PanelLayout'
 import MainFaq from '@/components/templates/mainFaq/MainFaq'
 import React from 'react'
 
-function page() {
+function Page() {
   return (
     <PanelLayout>
       <MainFaq />
@@ -10,4 +10,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

@@ -1,7 +1,7 @@
 import Login from '@/components/templates/auth/login/Login'
 import React from 'react'
 
-async function page() {
+async function Page() {
 
   return (
     <>
@@ -10,4 +10,4 @@ async function page() {
   )
 }
 
-export default page
+export default Page

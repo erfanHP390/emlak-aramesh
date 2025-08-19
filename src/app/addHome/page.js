@@ -6,7 +6,7 @@ import React from "react";
 import ConsultantModel from "@/models/Consultant";
 import { redirect } from "next/navigation";
 
-async function page() {
+async function Page() {
   connectToDB();
   const user = await authUser();
   const consultant = await ConsultantModel.findOne({ email: user?.email });
@@ -29,4 +29,4 @@ async function page() {
   );
 }
 
-export default page;
+export default Page;

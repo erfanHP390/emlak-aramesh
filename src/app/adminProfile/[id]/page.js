@@ -11,7 +11,7 @@ import ReqBuyModel from "@/models/ReqBuy";
 import ContactModel from "@/models/Contact";
 import ConsultantModel from "@/models/Consultant";
 
-async function page({ params }) {
+async function Page({ params }) {
   connectToDB();
 
   const userAdmin = await UserModel.findOne({ _id: params.id });
@@ -64,4 +64,4 @@ async function page({ params }) {
   );
 }
 
-export default page;
+export default Page;
