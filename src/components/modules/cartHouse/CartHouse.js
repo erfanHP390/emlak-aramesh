@@ -1,13 +1,12 @@
 import React from "react";
 import styles from "./CartHouse.module.css";
-import { toPersianDigits } from "@/utils/constants";
 import {
   MdOutlineBedroomParent,
-  MdCalendarMonth,
   MdGasMeter,
 } from "react-icons/md";
-import { FaRegBuilding, FaChessKing, FaParking } from "react-icons/fa";
+import { FaRegBuilding,  FaParking } from "react-icons/fa";
 import Link from "next/link";
+import { FaMapLocation } from "react-icons/fa6";
 
 function CartHouse({
   _id,
@@ -49,7 +48,7 @@ function CartHouse({
             </div>
             <div className={styles["location-section"]}>
               <p className={styles.location}>
-                <i className={styles["location-icon"]} />
+                <FaMapLocation className={styles["location-icon"]} />
                 {location}
               </p>
             </div>

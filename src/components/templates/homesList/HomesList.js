@@ -22,7 +22,6 @@ function HomesList({ houses: initialHouses }) {
     specialFeatures: [],
   });
 
-  // استخراج مقادیر منحصر به فرد برای فیلترها از دیتابیس
   const uniqueStatuses = [
     ...new Set(initialHouses.map((house) => house.status)),
   ];
@@ -42,14 +41,12 @@ function HomesList({ houses: initialHouses }) {
     ...new Set(initialHouses.map((house) => house.floor)),
   ].sort((a, b) => parseInt(a) - parseInt(b));
 
-  // ویژگی‌های کلی
   const generalFeatures = [
     { id: "elevator", label: "آسانسور", value: "دارد" },
     { id: "storage", label: "انباری", value: "دارد" },
     { id: "masterRoom", label: "مسترروم", value: "1" },
   ];
 
-  // ویژگی‌های اختصاصی
   const specialFeatures = [
     { id: "pool", label: "استخر خصوصی" },
     { id: "terrace", label: "تراس پانوراما" },
@@ -67,41 +64,40 @@ function HomesList({ houses: initialHouses }) {
 
   const applyFilters = () => {
     const filteredHouses = initialHouses.filter((house) => {
-      // فیلتر بر اساس وضعیت
       if (tempFilters.status && house.status !== tempFilters.status)
         return false;
 
-      // فیلتر بر اساس نوع ملک
       if (tempFilters.kind && house.kind !== tempFilters.kind) return false;
 
-      // فیلتر بر اساس شهر
       if (tempFilters.city) {
-        const houseCity = house.location.split("،")[0].trim();
+        const houseCity = house.location?.split("،")[0].trim();
         if (houseCity !== tempFilters.city) return false;
       }
 
-      // فیلتر بر اساس تعداد اتاق خواب
-      if (tempFilters.bedrooms && house.bedrooms !== tempFilters.bedrooms)
+      if (
+        tempFilters.bedrooms &&
+        String(house.bedrooms) !== String(tempFilters.bedrooms)
+      )
         return false;
 
-      // فیلتر بر اساس طبقه
-      if (tempFilters.floor && house.floor !== tempFilters.floor) return false;
+      if (
+        tempFilters.floor &&
+        String(house.floor) !== String(tempFilters.floor)
+      )
+        return false;
 
-      // فیلتر بر اساس محدوده قیمت
       if (tempFilters.priceRange) {
-        const price = parseInt(house.price);
+        const price = Number(house.price) || 0;
         const [min, max] = tempFilters.priceRange.split("-").map(Number);
         if (price < min || price > max) return false;
       }
 
-      // فیلتر بر اساس منطقه (متراژ)
       if (tempFilters.area) {
         const [min, max] = tempFilters.area.split("-").map(Number);
-        const meterage = parseInt(house.meterage);
+        const meterage = Number(house.meterage) || 0;
         if (meterage < min || meterage > max) return false;
       }
 
-      // فیلتر بر اساس ویژگی‌های کلی
       if (tempFilters.elevator && house.elevator !== tempFilters.elevator)
         return false;
       if (tempFilters.storage && house.storage !== tempFilters.storage)
@@ -109,10 +105,9 @@ function HomesList({ houses: initialHouses }) {
       if (tempFilters.masterRoom && house.masterRoom !== tempFilters.masterRoom)
         return false;
 
-      // فیلتر بر اساس ویژگی‌های اختصاصی
       if (tempFilters.specialFeatures.length > 0) {
         const hasAllFeatures = tempFilters.specialFeatures.every((feature) =>
-          house.features.includes(feature)
+          (house.features || []).includes(feature)
         );
         if (!hasAllFeatures) return false;
       }
@@ -120,7 +115,7 @@ function HomesList({ houses: initialHouses }) {
       return true;
     });
 
-    setVisibleHouses(6); // Reset visible houses when applying new filters
+    setVisibleHouses(6);
     setHouses(filteredHouses.slice(0, 6));
   };
 
@@ -316,7 +311,6 @@ function HomesList({ houses: initialHouses }) {
                       </select>
                     </div>
 
-                    {/* ویژگی‌های کلی */}
                     <div className={styles["form-group"]}>
                       <h5
                         className={`${styles["feature-title"]} Anjoman_Medium`}
@@ -352,7 +346,6 @@ function HomesList({ houses: initialHouses }) {
                       </div>
                     </div>
 
-                    {/* ویژگی‌های اختصاصی */}
                     <div className={styles["form-group"]}>
                       <h5
                         className={`${styles["feature-title"]} Anjoman_Medium`}
@@ -392,7 +385,9 @@ function HomesList({ houses: initialHouses }) {
                         placeholder="منطقه (اختیاری)"
                       />
                     </div>
-                    <div className={`${styles["form-group"]} ${styles["form-btns"]}`}>
+                    <div
+                      className={`${styles["form-group"]} ${styles["form-btns"]}`}
+                    >
                       <button
                         type="button"
                         onClick={resetFilters}

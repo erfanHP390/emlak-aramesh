@@ -7,26 +7,18 @@ import ConsultantModel from "@/models/Consultant";
 import { authUser } from "@/utils/authUser";
 import { redirect } from "next/navigation";
 
-
 async function page() {
-
-   await connectToDB();
-
+  await connectToDB();
   const user = await authUser();
-
-  if (!user) {
-    redirect("/login")
-  }
+  if (!user) redirect("/login");
 
   const consultant = await ConsultantModel.findOne({ user: user._id });
   const houses = await HouseModel.find().populate("consultant").lean();
 
-
   return (
     <PanelLayout>
-    <HomesList  houses={JSON.parse(JSON.stringify(houses))}   />
+      <HomesList houses={JSON.parse(JSON.stringify(houses || []))} />
     </PanelLayout>
   );
 }
-
 export default page;
