@@ -5,17 +5,33 @@ import { FaMarker, FaTrashAlt } from "react-icons/fa";
 import swal from "sweetalert";
 import { toastError, toastSuccess } from "@/utils/alerts";
 import { useRouter } from "next/navigation";
+import Loading from "@/app/loading";
 
-function VisitTable({ clients }) {
+function VisitTable({ clients = [] }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentClient, setCurrentClient] = useState(null);
-  const [name, setName] = useState("");
-  const [codeHouse, setCodeHouse] = useState("");
-  const [kindBuy, setKindBuy] = useState("");
-  const [status, setStatus] = useState("");
-  const [clientID, setClientID] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    codeHouse: "",
+    kindBuy: "",
+    status: "",
+    clientID: "",
+  });
+
+  const getStatusClass = (status) => {
+    switch (status) {
+      case "پرداخت شده":
+        return `${styles.label} ${styles.labelSuccess}`;
+      case "بدهکار":
+        return `${styles.label} ${styles.labelWarning}`;
+      case "ناموفق":
+        return `${styles.label} ${styles.labelError}`;
+      default:
+        return `${styles.label}`;
+    }
+  };
 
   const removeClient = async (clientID) => {
     swal({
@@ -24,82 +40,21 @@ function VisitTable({ clients }) {
       buttons: ["نه", "آره"],
     }).then(async (result) => {
       if (result) {
-        const res = await fetch(`/api/clients/${clientID}`, {
-          method: "DELETE",
-        });
-        if (res.status === 200) {
-          toastSuccess(
-            "اطلاعات بازدیدکننده با موفقیت حذف شد",
-            "top-center",
-            5000,
-            false,
-            true,
-            true,
-            true,
-            undefined,
-            "colored"
-          );
-          router.refresh();
-        } else if (res.status === 401) {
-          toastError(
-            "فقط مشاور/مدیر سایت اجازه حذف بازدیدکننده را دارد",
-            "top-center",
-            5000,
-            false,
-            true,
-            true,
-            true,
-            undefined,
-            "colored"
-          );
-        } else if (res.status === 400) {
-          toastError(
-            "شناسه بازدیدکننده ارسال نشده است",
-            "top-center",
-            5000,
-            false,
-            true,
-            true,
-            true,
-            undefined,
-            "colored"
-          );
-        } else if (res.status === 422) {
-          toastError(
-            "شناسه بازدیدکننده نامعتبر است",
-            "top-center",
-            5000,
-            false,
-            true,
-            true,
-            true,
-            undefined,
-            "colored"
-          );
-        } else if (res.status === 404) {
-          toastError(
-            "بازدیدکننده یافت نشد",
-            "top-center",
-            5000,
-            false,
-            true,
-            true,
-            true,
-            undefined,
-            "colored"
-          );
-        } else if (res.status === 500) {
-          toastError(
-            "خطا در سرور ، لطفا بعدا تلاش کنید",
-            "top-center",
-            5000,
-            false,
-            true,
-            true,
-            true,
-            undefined,
-            "colored"
-          );
+        try {
+          const res = await fetch(`/api/clients/${clientID}`, {
+            method: "DELETE",
+          });
+
+          if (res.status === 200) {
+            toastSuccess("اطلاعات بازدیدکننده با موفقیت حذف شد");
+            router.refresh();
+          } else {
+            const errorData = await res.json();
+            toastError(errorData.message || "خطا در حذف بازدیدکننده");
+          }
+        } catch (error) {
+          console.error("Error deleting client:", error);
+          toastError("خطا در ارتباط با سرور");
         }
       }
     });
@@ -107,133 +62,69 @@ function VisitTable({ clients }) {
 
   const openEditModal = (client) => {
     setCurrentClient(client);
-    setName(client.name);
-    setCodeHouse(client.codeHouse);
-    setKindBuy(client.kindBuy);
-    setStatus(client.status);
+    setFormData({
+      name: client.name || "",
+      codeHouse: client.houses?.[0]?.codeHouse || "",
+      kindBuy: client.kindBuy || "",
+      status: client.status || "",
+      clientID: client._id || "",
+    });
     setIsModalOpen(true);
-    setClientID(client._id);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
     setCurrentClient(null);
-    setName("");
-    setCodeHouse("");
-    setKindBuy("");
-    setStatus("");
+    setFormData({
+      name: "",
+      codeHouse: "",
+      kindBuy: "",
+      status: "",
+      clientID: "",
+    });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const updateClient = async () => {
     setIsLoading(true);
-    const clientData = {
-      name,
-      codeHouse,
-      kindBuy,
-      status,
-    };
+    try {
+      const res = await fetch(`/api/clients/${formData.clientID}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          codeHouse: formData.codeHouse,
+          kindBuy: formData.kindBuy,
+          status: formData.status,
+        }),
+      });
 
-    const res = await fetch(`/api/clients/${clientID}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(clientData),
-    });
-
-    if (res.status === 200) {
-      toastSuccess(
-        "اطلاعات بازدیدکننده با موفقیت ویرایش شد",
-        "top-center",
-        5000,
-        false,
-        true,
-        true,
-        true,
-        undefined,
-        "colored"
-      );
-      closeModal();
-      router.refresh();
-    } else if (res.status === 401) {
-      toastError(
-        "فقط مشاور/مدیر سایت اجازه ویرایش بازدیدکننده را دارد",
-        "top-center",
-        5000,
-        false,
-        true,
-        true,
-        true,
-        undefined,
-        "colored"
-      );
-    } else if (res.status === 400) {
-      toastError(
-        "شناسه بازدیدکننده ارسال نشده است",
-        "top-center",
-        5000,
-        false,
-        true,
-        true,
-        true,
-        undefined,
-        "colored"
-      );
-    } else if (res.status === 422) {
-      toastError(
-        "شناسه بازدیدکننده نامعتبر است",
-        "top-center",
-        5000,
-        false,
-        true,
-        true,
-        true,
-        undefined,
-        "colored"
-      );
-    } else if (res.status === 404) {
-      toastError(
-        "بازدیدکننده یافت نشد",
-        "top-center",
-        5000,
-        false,
-        true,
-        true,
-        true,
-        undefined,
-        "colored"
-      );
-    } else if (res.status === 500) {
-      toastError(
-        "خطا در سرور ، لطفا بعدا تلاش کنید",
-        "top-center",
-        5000,
-        false,
-        true,
-        true,
-        true,
-        undefined,
-        "colored"
-      );
+      if (res.status === 200) {
+        toastSuccess("اطلاعات بازدیدکننده با موفقیت ویرایش شد");
+        closeModal();
+        router.refresh();
+      } else {
+        const errorData = await res.json();
+        toastError(errorData.message || "خطا در ویرایش بازدیدکننده");
+      }
+    } catch (error) {
+      console.error("Error updating client:", error);
+      toastError("خطا در ارتباط با سرور");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const getStatusClass = (status) => {
-  switch(status) {
-    case 'پرداخت شده':
-      return `${styles.label} ${styles.labelSuccess}`;
-    case 'بدهکار':
-      return `${styles.label} ${styles.labelWarning}`;
-    case 'ناموفق':
-      return `${styles.label} ${styles.labelError}`;
-    default:
-      return `${styles.label}`;
-  }
-};
+  if (isLoading) return <Loading />;
 
   return (
     <div className={`${styles.colXl8} ${styles.col12}`}>
-      {/* Modal ویرایش */}
       {isModalOpen && (
         <div className={styles.modalOverlay}>
           <div className={styles.modalContainer}>
@@ -248,8 +139,9 @@ function VisitTable({ clients }) {
                 <label className={styles.formLabel}>نام مشتری</label>
                 <input
                   type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
                   className={styles.formInput}
                 />
               </div>
@@ -257,8 +149,9 @@ function VisitTable({ clients }) {
                 <label className={styles.formLabel}>کد ملک</label>
                 <input
                   type="text"
-                  value={codeHouse}
-                  onChange={(e) => setCodeHouse(e.target.value)}
+                  name="codeHouse"
+                  value={formData.codeHouse}
+                  onChange={handleInputChange}
                   className={styles.formInput}
                 />
               </div>
@@ -266,16 +159,18 @@ function VisitTable({ clients }) {
                 <label className={styles.formLabel}>نوع</label>
                 <input
                   type="text"
-                  value={kindBuy}
-                  onChange={(e) => setKindBuy(e.target.value)}
+                  name="kindBuy"
+                  value={formData.kindBuy}
+                  onChange={handleInputChange}
                   className={styles.formInput}
                 />
               </div>
               <div className={styles.formGroup}>
                 <label className={styles.formLabel}>وضعیت</label>
                 <select
-                  value={status}
-                  onChange={(e) => setStatus(e.target.value)}
+                  name="status"
+                  value={formData.status}
+                  onChange={handleInputChange}
                   className={styles.formInput}
                 >
                   <option value="پرداخت شده">پرداخت شده</option>
@@ -288,21 +183,22 @@ function VisitTable({ clients }) {
               <button
                 className={`${styles.modalButton} ${styles.cancelButton}`}
                 onClick={closeModal}
+                disabled={isLoading}
               >
                 انصراف
               </button>
               <button
                 className={`${styles.modalButton} ${styles.saveButton}`}
                 onClick={updateClient}
+                disabled={isLoading}
               >
-                ذخیره تغییرات
+                {isLoading ? "در حال ذخیره..." : "ذخیره تغییرات"}
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* جدول اصلی */}
       <div className={styles.tableContainer}>
         <div className={styles.tableHeader}>
           <h4 className={styles.tableTitle}>بازدید املاک</h4>
@@ -321,37 +217,47 @@ function VisitTable({ clients }) {
                 </tr>
               </thead>
               <tbody>
-                {clients.map((client) => (
-                  <tr key={client._id}>
-                    <td>{client.name}</td>
-                    <td>{client.codeHouse}</td>
-                    <td>{client.kindBuy}</td>
-                    <td>
-                      {new Date(client.createdAt).toLocaleDateString("fa-IR")}
-                    </td>
-                    <td>
-                      <span
-                        className={getStatusClass(client.status)}
-                      >
-                        {client.status}
-                      </span>
-                    </td>
-                    <td className={styles.actionsCell}>
-                      <div
-                        className={styles.actionLink}
-                        onClick={() => openEditModal(client)}
-                      >
-                        <FaMarker />
-                      </div>
-                      <div
-                        className={styles.actionLink}
-                        onClick={() => removeClient(client._id)}
-                      >
-                        <FaTrashAlt />
-                      </div>
+                {clients.length > 0 ? (
+                  clients.map((client) => (
+                    <tr key={client._id}>
+                      <td>{client.name || "نامشخص"}</td>
+                      <td>{client.houses?.[0]?.codeHouse || "نامشخص"}</td>
+                      <td>{client.kindBuy || "نامشخص"}</td>
+                      <td>
+                        {client.createdAt
+                          ? new Date(client.createdAt).toLocaleDateString(
+                              "fa-IR"
+                            )
+                          : "نامشخص"}
+                      </td>
+                      <td>
+                        <span className={getStatusClass(client.status)}>
+                          {client.status || "نامشخص"}
+                        </span>
+                      </td>
+                      <td className={styles.actionsCell}>
+                        <div
+                          className={styles.actionLink}
+                          onClick={() => openEditModal(client)}
+                        >
+                          <FaMarker />
+                        </div>
+                        <div
+                          className={styles.actionLink}
+                          onClick={() => removeClient(client._id)}
+                        >
+                          <FaTrashAlt />
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="6" className={styles.noData}>
+                      هیچ بازدیدی یافت نشد
                     </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>

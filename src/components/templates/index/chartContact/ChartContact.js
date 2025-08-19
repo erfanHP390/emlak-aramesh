@@ -20,7 +20,6 @@ const ChartContact = () => {
 
   const COLORS = ["#8ab4ff", "#6bd098", "#fcc468", "#ff9e7d"];
 
-  // تابع سفارشی برای tooltip
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
@@ -35,7 +34,6 @@ const ChartContact = () => {
     return null;
   };
 
-  // تابع سفارشی برای legend
   const renderLegend = (props) => {
     const { payload } = props;
     return (

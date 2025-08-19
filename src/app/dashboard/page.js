@@ -13,72 +13,88 @@ import ClientModel from "@/models/Client";
 import ConsultantModel from "@/models/Consultant";
 import ReqBuyModel from "@/models/ReqBuy";
 
+export const dynamic = "force-dynamic";
+
 async function page() {
-  connectToDB();
-  let reqBuys;
-  const user = await authUser();
-  const consultantLoggedIn = await authConsultant();
-  const clients = await ClientModel.find({});
-  const admin = await authAdmin();
-  const consultant = await ConsultantModel.findOne({ user: user._id })
-    .populate("clients")
-    .populate("houses")
-    .lean();
+  try {
+    await connectToDB();
 
-  if (!user) {
-    redirect("/login");
-  }
+    const user = await authUser();
+    if (!user) {
+      redirect("/login");
+      return null;
+    }
 
-  if (!consultantLoggedIn && !admin) {
-    redirect("/houseList");
-  }
+    const [consultantLoggedIn, admin] = await Promise.all([
+      authConsultant(),
+      authAdmin(),
+    ]);
 
-  if (consultant) {
-    reqBuys = await ReqBuyModel.find({ consultant: consultant._id })
-      .populate("consultant")
-      .lean();
-  }
+    if (!consultantLoggedIn && !admin) {
+      redirect("/houseList");
+      return null;
+    }
 
-  return (
-    <>
+    const [clients, consultant] = await Promise.all([
+      ClientModel.find({}).populate("houses").lean(),
+      ConsultantModel.findOne({ user: user._id })
+        .populate("clients")
+        .populate("houses")
+        .lean(),
+    ]);
+
+    let reqBuys = [];
+    if (consultant) {
+      reqBuys = await ReqBuyModel.find({ consultant: consultant._id })
+        .populate("consultant")
+        .lean();
+    }
+
+    const consultantData = consultant
+      ? JSON.parse(JSON.stringify(consultant))
+      : null;
+    const reqBuysData = JSON.parse(JSON.stringify(reqBuys));
+    const clientsData = JSON.parse(JSON.stringify(clients));
+
+    return (
       <PanelLayout>
-        <>
-          <div className={styles.wrapper}>
-            <div className={styles.contentWrapper}>
-              <div className={styles.containerFull}>
-                <section className={styles.content}>
-                  <div className={styles.row}>
-                    <Status />
-                  </div>
-                  <div className={styles.row_secondary}>
-                    <ChartContact />
-                    <Reservation />
-                  </div>
-                  <div className={styles.row_third}>
-                    {consultant && (
-                      <div className={styles.userInfo_wrapper}>
-                        <UserInfo
-                          consultant={JSON.parse(JSON.stringify(consultant))}
-                          reqBuys={JSON.parse(JSON.stringify(reqBuys))}
-                          clients={JSON.parse(
-                            JSON.stringify(consultant.clients)
-                          )}
-                          houses={JSON.parse(JSON.stringify(consultant.houses))}
-                        />
-                      </div>
-                    )}
-                    <div className={styles.visitTable_wrapper}>
-                      <VisitTable clients={clients} />
+        <div className={styles.wrapper}>
+          <div className={styles.contentWrapper}>
+            <div className={styles.containerFull}>
+              <section className={styles.content}>
+                <div className={styles.row}>
+                  <Status />
+                </div>
+                <div className={styles.row_secondary}>
+                  <ChartContact />
+                  <Reservation />
+                </div>
+                <div className={styles.row_third}>
+                  {consultantData && (
+                    <div className={styles.userInfo_wrapper}>
+                      <UserInfo
+                        consultant={consultantData}
+                        reqBuys={reqBuysData}
+                        clients={consultantData.clients || []}
+                        houses={consultantData.houses || []}
+                      />
                     </div>
+                  )}
+                  <div className={styles.visitTable_wrapper}>
+                    <VisitTable clients={clientsData} />
                   </div>
-                </section>
-              </div>
+                </div>
+              </section>
             </div>
           </div>
-        </>
+        </div>
       </PanelLayout>
-    </>
-  );
+    );
+  } catch (error) {
+    console.error("Error in dashboard page:", error);
+    redirect("/dashboard");
+    return null;
+  }
 }
 
 export default page;

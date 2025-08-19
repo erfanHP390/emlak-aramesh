@@ -7,7 +7,7 @@
 }
 
 .chartBox {
-  min-width: 0; /* Prevent overflow */
+  min-width: 0; 
 }
 
 /* ==================== BASE STYLES ==================== */

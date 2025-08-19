@@ -5,7 +5,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden; /* جلوگیری از اسکرول افقی */
+  overflow-x: hidden; 
 }
 
 .contentWrapper {
@@ -19,7 +19,7 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 1rem;
-  overflow-x: hidden; /* جلوگیری از اسکرول افقی */
+  overflow-x: hidden; 
 }
 
 .content {
@@ -51,33 +51,29 @@
 .userInfo_wrapper,
 .visitTable_wrapper {
   width: 100%;
-  overflow: hidden; /* جلوگیری از سرریز محتوا */
+  overflow: hidden; 
 }
 
 /* ==================== RESPONSIVE BREAKPOINTS ==================== */
 
-/* موبایل کوچک (348px به بالا) */
 @media (min-width: 348px) {
   .contentWrapper {
     padding: 1rem;
   }
 }
 
-/* موبایل متوسط (480px به بالا) */
 @media (min-width: 480px) {
   .row_secondary {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* موبایل بزرگ (568px به بالا) */
 @media (min-width: 568px) {
   .contentWrapper {
     padding: 1.25rem;
   }
 }
 
-/* تبلت کوچک (676px به بالا) */
 @media (min-width: 676px) {
   .row {
     grid-template-columns: repeat(1, 1fr);
@@ -90,7 +86,6 @@
   }
 }
 
-/* تبلت (768px به بالا) */
 @media (min-width: 768px) {
   .contentWrapper {
     padding: 1.5rem;
@@ -111,7 +106,6 @@
   }
 }
 
-/* تبلت بزرگ (993px به بالا) */
 @media (max-width: 993px) {
   .row {
     grid-template-columns: repeat(1, 1fr);
@@ -128,7 +122,6 @@
   }
 }
 
-/* دسکتاپ (1200px به بالا) */
 @media (min-width: 1200px) {
   .row {
     grid-template-columns: repeat(1, 1fr);
@@ -139,7 +132,6 @@
   }
 }
 
-/* تنظیمات خاص برای موبایل‌های خیلی کوچک (زیر 480px) */
 @media (max-width: 479px) {
   .row,
   .row_secondary {

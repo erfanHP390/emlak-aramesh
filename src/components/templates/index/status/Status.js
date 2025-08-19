@@ -18,8 +18,8 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { FaChevronUp } from "react-icons/fa";
 
-// داده‌های نمونه برای نمودارها
 const revenueData = [
   { name: "فروردین", value: 35 },
   { name: "اردیبهشت", value: 42 },
@@ -51,7 +51,6 @@ const COLORS = ["#0088FE", "#FFBB28", "#00C49F", "#FF8042"];
 function Status() {
   return (
     <div className={styles.gridContainer}>
-      {/* درآمد کل */}
       <div className={styles.chartBox}>
         <div className={styles.box}>
           <div className={styles.boxBody}>
@@ -63,7 +62,7 @@ function Status() {
                 </span>
               </h3>
               <div className={`${styles.changeIndicator} ${styles.danger}`}>
-                <i className="mdi mdi-chevron-down mdi-24px" />{" "}
+                <FaChevronUp className="mdi mdi-chevron-down mdi-24px" />{" "}
                 <span>
                   <small>58.7%</small>
                 </span>
@@ -86,7 +85,6 @@ function Status() {
         </div>
       </div>
 
-      {/* بازدیدکنندگان */}
       <div className={styles.chartBox}>
         <div className={styles.box}>
           <div className={styles.boxBody}>
@@ -98,7 +96,7 @@ function Status() {
                 </span>
               </h3>
               <div className={`${styles.changeIndicator} ${styles.success}`}>
-                <i className="mdi mdi-chevron-up mdi-24px" />{" "}
+                <FaChevronUp className="mdi mdi-chevron-up mdi-24px" />{" "}
                 <span>
                   <small>97.5%</small>
                 </span>
@@ -128,7 +126,6 @@ function Status() {
         </div>
       </div>
 
-      {/* رزروها */}
       <div className={styles.chartBox}>
         <div className={styles.box}>
           <div className={styles.boxBody}>
@@ -140,7 +137,7 @@ function Status() {
                 </span>
               </h3>
               <div className={`${styles.changeIndicator} ${styles.success}`}>
-                <i className="mdi mdi-chevron-up mdi-24px" />{" "}
+                <FaChevronUp className="mdi mdi-chevron-up mdi-24px" />{" "}
                 <span>
                   <small>89.13%</small>
                 </span>
@@ -169,7 +166,6 @@ function Status() {
         </div>
       </div>
 
-      {/* سود */}
       <div className={styles.chartBox}>
         <div className={styles.box}>
           <div className={styles.boxBody}>
@@ -181,7 +177,7 @@ function Status() {
                 </span>
               </h3>
               <div className={`${styles.changeIndicator} ${styles.danger}`}>
-                <i className="mdi mdi-chevron-down mdi-24px" />{" "}
+                <FaChevronUp className="mdi mdi-chevron-down mdi-24px" />{" "}
                 <span>
                   <small>56.48%</small>
                 </span>
