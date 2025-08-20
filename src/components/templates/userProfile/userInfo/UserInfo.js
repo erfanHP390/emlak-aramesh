@@ -1,8 +1,5 @@
 import React from "react";
 import styles from "../../consultantDetails/consultantInfo/ConsultantInfo.module.css";
-import { toPersianDigits } from "@/utils/constants";
-import { IoMdCall } from "react-icons/io";
-import { MdEmail } from "react-icons/md";
 
 function ConsultantInfo({ user }) {
   return (

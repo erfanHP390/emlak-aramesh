@@ -1,9 +1,26 @@
 "use client"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../consultantDetails/ConsultantTabs/ConsultantTabs.module.css";
 import EditUserInfo from "./editUserInfo/EditUserInfo";
+import TimeLineTab from "../../consultantDetails/timeLineTab/TimeLineTab";
+import HouseTabs from "../../consultantDetails/houseTabs/HouseTabs";
 
-function UserTabs({ user }) {
+function UserTabs({ user , clients , reqBuys , clientHouses }) {
+  
+  const [reqHouses, setReqHouses] = useState([]);
+  const [allHouses, setAllHouses] = useState([]);
+
+  useEffect(() => {
+    const housesFromReqBuys = reqBuys.flatMap(req => req.houses || []);
+    const combinedHouses = [...housesFromReqBuys, ...clientHouses];
+    
+    const uniqueHouses = combinedHouses.filter((house, index, self) =>
+      index === self.findIndex((h) => h._id === house._id)
+    );
+    
+    setAllHouses(uniqueHouses);
+  }, [reqBuys, clientHouses]);
+
   const [activeTab, setActiveTab] = useState("timeline");
 
   return (
@@ -48,14 +65,14 @@ function UserTabs({ user }) {
               activeTab === "timeline" ? styles.active : ""
             }`}
           >
-            {/* <TimeLineTab clients={clients} reqBuys={reqBuys} /> */}
+            <TimeLineTab clients={clients} reqBuys={reqBuys} />
           </div>
           <div
             className={`${styles.tabPane} ${
               activeTab === "myHouses" ? styles.active : ""
             }`}
           >
-            {/* <HouseTabs houses={houses} /> */}
+            <HouseTabs houses={allHouses} />
           </div>
           <div
             className={`${styles.tabPane} ${
