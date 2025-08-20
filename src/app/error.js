@@ -41,9 +41,8 @@ function Error({ error, reset }) {
         <div className={styles.errorActions}>
           <button
             className={`${styles.errorButton} Anjoman_Medium`}
-            onClick={() => (window.location.href = "/")}
+            onClick={() => (window.location.href = "/dashboard")}
           >
-            {/* خانه آیکون */}
             <svg /* ... */>...</svg>
             بازگشت به خانه
           </button>
@@ -52,7 +51,6 @@ function Error({ error, reset }) {
             className={`${styles.errorButton} Anjoman_Medium`}
             onClick={() => reset?.()}
           >
-            {/* آیکون تلاش مجدد */}
             <svg /* ... */>...</svg>
             تلاش مجدد
           </button>
@@ -61,7 +59,6 @@ function Error({ error, reset }) {
             className={`${styles.errorButton} Anjoman_Medium`}
             onClick={() => (window.location.href = "/contact")}
           >
-            {/* آیکون گزارش مشکل */}
             <svg /* ... */>...</svg>
             گزارش مشکل
           </button>
