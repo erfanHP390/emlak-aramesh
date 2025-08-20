@@ -257,7 +257,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 1.25rem;
-  color: #d1d5db;
+  color: var(--text-primary);
 }
 
 .socialTitle {
@@ -271,12 +271,13 @@
 .socialTitle:after {
   content: '';
   flex: 1;
-  border-bottom: 1px solid #374151;
+  border-bottom: 1px solid var(--input-border);
 }
 
 .socialButtons {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-evenly;
   gap: 0.75rem;
 }
 
@@ -286,11 +287,17 @@
   justify-content: center;
   padding: 0.875rem;
   border-radius: 8px;
-  color: #f3f4f6;
+  color: #fff;
   font-family: 'Anjoman_Medium';
-  font-size: 0.95rem;
+  font-size: 2rem;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.2s;
+}
+
+@media (max-width: 576px) {
+  .socialLogin {
+    height: 25vh;
+  }
 }
 
 .socialButton i {

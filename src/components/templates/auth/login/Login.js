@@ -4,7 +4,7 @@ import styles from "./Login.module.css";
 import { useEffect, useState } from "react";
 import { swalAlert, toastError, toastSuccess } from "@/utils/alerts";
 import { validateEmail } from "@/utils/auth";
-import { FaUserAlt } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTwitter, FaUserAlt } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import Link from "next/link";
 import Loading from "@/app/loading";
@@ -253,34 +253,34 @@ export default function Login() {
             </div>
 
             {/* ---------- Social ---------- */}
-            <div className={styles.socialLogin}>
-              <div className={styles.socialTitleContainer}>
-                <div className={`${styles.socialTitle} Anjoman_Regular`}>
-                  یا با روش های زیر وارد شوید
-                </div>
-              </div>
-
-              <div className={styles.socialButtons}>
-                <a
-                  href="/auth/facebook"
-                  className={`${styles.socialButton} ${styles.facebookButton} Anjoman_Medium`}
-                >
-                  <i className="fab fa-facebook-f"></i> ورود با فیسبوک
-                </a>
-                <a
-                  href="/auth/twitter"
-                  className={`${styles.socialButton} ${styles.twitterButton} Anjoman_Medium`}
-                >
-                  <i className="fab fa-twitter"></i> ورود با توییتر
-                </a>
-                <a
-                  href="/auth/instagram"
-                  className={`${styles.socialButton} ${styles.instagramButton} Anjoman_Medium`}
-                >
-                  <i className="fab fa-instagram"></i> ورود با اینستاگرام
-                </a>
+          <div className={styles.socialLogin}>
+            <div className={styles.socialTitleContainer}>
+              <div className={`${styles.socialTitle} Anjoman_Regular`}>
+                یا با روش های زیر ثبت نام کنید
               </div>
             </div>
+
+            <div className={styles.socialButtons}>
+              <a
+                href="/auth/facebook"
+                className={`${styles.socialButton} ${styles.facebookButton} Anjoman_Medium`}
+              >
+                <FaFacebook className="fab fa-facebook-f"/>
+              </a>
+              <a
+                href="/auth/twitter"
+                className={`${styles.socialButton} ${styles.twitterButton} Anjoman_Medium`}
+              >
+                <FaTwitter className="fab fa-twitter"/>
+              </a>
+              <a
+                href="/auth/instagram"
+                className={`${styles.socialButton} ${styles.instagramButton} Anjoman_Medium`}
+              >
+                <FaInstagram className="fab fa-instagram" />
+              </a>
+            </div>
+          </div>
           </div>
         </>
       )}

@@ -4,7 +4,7 @@ import styles from "./register.module.css";
 import { useState } from "react";
 import { swalAlert, toastError, toastSuccess } from "@/utils/alerts";
 import { validateEmail, validatePassword } from "@/utils/auth";
-import { FaUserAlt, FaIdCard } from "react-icons/fa";
+import { FaUserAlt, FaIdCard, FaInstagram, FaTwitter, FaFacebook } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import Link from "next/link";
@@ -13,7 +13,6 @@ import Loading from "@/app/loading";
 export default function Register() {
   const router = useRouter();
 
-  /* --------- state --------- */
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,67 +20,129 @@ export default function Register() {
   const [isReadRules, setIsReadRules] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  /* --------- helpers --------- */
   const registerUser = async () => {
+    if (isLoading) return;
+
+    setIsLoading(true);
+
     if (!isReadRules) {
+      swalAlert("لطفا شرایط و قوانین را مطالعه فرمایید", "error", "فهمیدم");
       setIsLoading(false);
-      return swalAlert(
-        "لطفا شرایط و قوانین را مطالعه فرمایید",
-        "error",
-        "فهمیدم"
-      );
+      return;
     }
     if (!name.trim()) {
+      swalAlert("نام نمی تواند خالی باشد", "error", "تلاش مجدد");
       setIsLoading(false);
-      return swalAlert("نام نمی تواند خالی باشد", "error", "تلاش مجدد");
+      return;
     }
     if (!validateEmail(email)) {
+      swalAlert("ایمیل نامعتبر است", "error", "تلاش مجدد");
       setIsLoading(false);
-      return swalAlert("ایمیل نامعتبر است", "error", "تلاش مجدد");
+      return;
     }
     if (!validatePassword(password)) {
-      setIsLoading(false);
-      return swalAlert(
+      swalAlert(
         "رمز عبور نامعتبر است. رمز عبور باید شامل حداقل یک کاراکتر، یک حرف بزرگ، یک حرف کوچک و عدد باشد",
         "error",
         "تلاش مجدد"
       );
+      setIsLoading(false);
+      return;
     }
 
     const userData = guildID
       ? { name, email, password, guildID }
       : { name, email, password };
-    const res = await fetch("/api/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userData),
-    });
 
-    if (res.status === 201) {
-      setName("");
-      setGuildID("");
-      setEmail("");
-      setPassword("");
-      setIsLoading(false);
-      toastSuccess(
-        "ثبت نام با موفقیت انجام شد",
-        "top-center",
-        5000,
-        false,
-        true,
-        true,
-        true,
-        undefined,
-        "colored"
-      );
-    } else if (res.status === 422) {
-      setName("");
-      setGuildID("");
-      setEmail("");
-      setPassword("");
-      setIsLoading(false);
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
+        body: JSON.stringify(userData),
+      });
+
+      if (res.status === 201) {
+        setName("");
+        setGuildID("");
+        setEmail("");
+        setPassword("");
+        toastSuccess(
+          "ثبت نام با موفقیت انجام شد",
+          "top-center",
+          5000,
+          false,
+          true,
+          true,
+          true,
+          undefined,
+          "colored"
+        );
+        // router.replace("/login");
+      } else if (res.status === 422) {
+        setName("");
+        setGuildID("");
+        setEmail("");
+        setPassword("");
+        toastError(
+          "نام / ایمیل شما قبلا ثبت شده است لطفا دوباره اقدام کنید",
+          "top-center",
+          5000,
+          false,
+          true,
+          true,
+          true,
+          undefined,
+          "colored"
+        );
+      } else if (res.status === 419) {
+        setName("");
+        setGuildID("");
+        setEmail("");
+        setPassword("");
+        toastError(
+          "شماره تلفن/ایمیل باید فرمت معتبر و رمزعبور حداقل از 8 کاراکتر نماد و حرف بزرگ و کوچک و نماد تشکیل شده باشد",
+          "top-center",
+          5000,
+          false,
+          true,
+          true,
+          true,
+          undefined,
+          "colored"
+        );
+      } else if (res.status === 500) {
+        setName("");
+        setGuildID("");
+        setEmail("");
+        setPassword("");
+        toastError(
+          "خطا در سرور، لطفا بعدا تلاش کنید",
+          "top-center",
+          5000,
+          false,
+          true,
+          true,
+          true,
+          undefined,
+          "colored"
+        );
+      } else {
+        toastError(
+          "خطای نامشخص. لطفا دوباره تلاش کنید.",
+          "top-center",
+          5000,
+          false,
+          true,
+          true,
+          true,
+          undefined,
+          "colored"
+        );
+      }
+    } catch (err) {
       toastError(
-        "نام / ایمیل شما قبلا ثبت شده است لطفا دوباره اقدام کنید",
+        "خطا در ارتباط با سرور. اتصال اینترنت را بررسی کنید.",
         "top-center",
         5000,
         false,
@@ -91,51 +152,17 @@ export default function Register() {
         undefined,
         "colored"
       );
-    } else if (res.status === 419) {
-      setName("");
-      setGuildID("");
-      setEmail("");
-      setPassword("");
+    } finally {
       setIsLoading(false);
-      toastError(
-        "شماره تلفن/ایمیل باید فرمت معتبر و رمزعبور حداقل از 8 کاراکتر نماد و حرف بزرگ و کوچک و نماد تشکیل شده باشد",
-        "top-center",
-        5000,
-        false,
-        true,
-        true,
-        true,
-        undefined,
-        "colored"
-      );
-    } else if (res.status === 500) {
-      setName("");
-      setGuildID("");
-      setEmail("");
-      setPassword("");
-      setIsLoading(false);
-      toastError(
-        "خطا در سرور، لطفا بعدا تلاش کنید",
-        "top-center",
-        5000,
-        false,
-        true,
-        true,
-        true,
-        undefined,
-        "colored"
-      );
     }
   };
 
-  /* ------------------------------------------------------------------ */
   return (
     <>
       {isLoading ? (
         <Loading />
       ) : (
         <div className={`${styles.registerContainer} register-bg`}>
-          {/* ---------- Card ---------- */}
           <div className={styles.registerCard}>
             <div className={styles.registerHeader}>
               <h2 className={`${styles.registerTitle} Anjoman_Bold`}>
@@ -146,10 +173,8 @@ export default function Register() {
               </p>
             </div>
 
-            {/* ---------- Form ---------- */}
             <div className={styles.registerForm}>
               <form method="post" action="/api/register">
-                {/* Full Name */}
                 <div className={styles.inputGroup}>
                   <input
                     type="text"
@@ -159,13 +184,13 @@ export default function Register() {
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    autoComplete="name"
                   />
                   <span className={styles.inputIcon}>
                     <FaUserAlt className={styles.iconUser} />
                   </span>
                 </div>
 
-                {/* Email */}
                 <div className={styles.inputGroup}>
                   <input
                     type="email"
@@ -175,13 +200,13 @@ export default function Register() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    autoComplete="email"
                   />
                   <span className={styles.inputIcon}>
                     <MdEmail className={styles.iconEmail} />
                   </span>
                 </div>
 
-                {/* Guild ID */}
                 <div className={styles.inputGroup}>
                   <input
                     type="text"
@@ -199,7 +224,6 @@ export default function Register() {
                   </span>
                 </div>
 
-                {/* Password */}
                 <div className={styles.inputGroup}>
                   <input
                     type="password"
@@ -209,13 +233,13 @@ export default function Register() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    autoComplete="new-password"
                   />
                   <span className={styles.inputIcon}>
                     <RiLockPasswordFill className={styles.iconPassword} />
                   </span>
                 </div>
 
-                {/* Terms */}
                 <label className={styles.termsCheckbox}>
                   <input
                     type="checkbox"
@@ -237,13 +261,11 @@ export default function Register() {
                   </span>
                 </label>
 
-                {/* Submit */}
                 <button
                   type="submit"
                   className={`${styles.submitButton} Anjoman_Medium`}
                   onClick={(e) => {
                     e.preventDefault();
-                    setIsLoading(true);
                     registerUser();
                   }}
                 >
@@ -251,7 +273,6 @@ export default function Register() {
                 </button>
               </form>
 
-              {/* Login Link */}
               <div className={`${styles.loginLink} Anjoman_Regular`}>
                 حساب کاربری دارید؟{" "}
                 <Link href={"/login"} className="Anjoman_Medium">
@@ -261,7 +282,6 @@ export default function Register() {
             </div>
           </div>
 
-          {/* ---------- Social ---------- */}
           <div className={styles.socialLogin}>
             <div className={styles.socialTitleContainer}>
               <div className={`${styles.socialTitle} Anjoman_Regular`}>
@@ -274,19 +294,19 @@ export default function Register() {
                 href="/auth/facebook"
                 className={`${styles.socialButton} ${styles.facebookButton} Anjoman_Medium`}
               >
-                <i className="fab fa-facebook-f"></i> ثبت نام با فیسبوک
+                <FaFacebook className="fab fa-facebook-f"/>
               </a>
               <a
                 href="/auth/twitter"
                 className={`${styles.socialButton} ${styles.twitterButton} Anjoman_Medium`}
               >
-                <i className="fab fa-twitter"></i> ثبت نام با توییتر
+                <FaTwitter className="fab fa-twitter"/>
               </a>
               <a
                 href="/auth/instagram"
                 className={`${styles.socialButton} ${styles.instagramButton} Anjoman_Medium`}
               >
-                <i className="fab fa-instagram"></i> ثبت نام با اینستاگرام
+                <FaInstagram className="fab fa-instagram" />
               </a>
             </div>
           </div>
