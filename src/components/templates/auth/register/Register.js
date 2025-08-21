@@ -4,11 +4,18 @@ import styles from "./register.module.css";
 import { useState } from "react";
 import { swalAlert, toastError, toastSuccess } from "@/utils/alerts";
 import { validateEmail, validatePassword } from "@/utils/auth";
-import { FaUserAlt, FaIdCard, FaInstagram, FaTwitter, FaFacebook } from "react-icons/fa";
+import {
+  FaUserAlt,
+  FaIdCard,
+  FaInstagram,
+  FaTwitter,
+  FaFacebook,
+} from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import Link from "next/link";
 import Loading from "@/app/loading";
+import { IoEyeOffSharp, IoEyeSharp } from "react-icons/io5";
 
 export default function Register() {
   const router = useRouter();
@@ -19,6 +26,7 @@ export default function Register() {
   const [guildID, setGuildID] = useState("");
   const [isReadRules, setIsReadRules] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const registerUser = async () => {
     if (isLoading) return;
@@ -78,7 +86,7 @@ export default function Register() {
           undefined,
           "colored"
         );
-        // router.replace("/login");
+        router.replace("/login");
       } else if (res.status === 422) {
         setName("");
         setGuildID("");
@@ -226,7 +234,7 @@ export default function Register() {
 
                 <div className={styles.inputGroup}>
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     className={styles.inputField}
                     placeholder="رمز عبور"
                     name="Password"
@@ -237,6 +245,16 @@ export default function Register() {
                   />
                   <span className={styles.inputIcon}>
                     <RiLockPasswordFill className={styles.iconPassword} />
+                  </span>
+                  <span
+                    className={styles.passwordToggle}
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <IoEyeOffSharp className={styles.eyeIcon} />
+                    ) : (
+                      <IoEyeSharp className={styles.eyeIcon} />
+                    )}
                   </span>
                 </div>
 
@@ -294,13 +312,13 @@ export default function Register() {
                 href="/auth/facebook"
                 className={`${styles.socialButton} ${styles.facebookButton} Anjoman_Medium`}
               >
-                <FaFacebook className="fab fa-facebook-f"/>
+                <FaFacebook className="fab fa-facebook-f" />
               </a>
               <a
                 href="/auth/twitter"
                 className={`${styles.socialButton} ${styles.twitterButton} Anjoman_Medium`}
               >
-                <FaTwitter className="fab fa-twitter"/>
+                <FaTwitter className="fab fa-twitter" />
               </a>
               <a
                 href="/auth/instagram"

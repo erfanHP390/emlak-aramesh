@@ -9,6 +9,7 @@ import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import Loading from "@/app/loading";
+import { IoEyeOffSharp, IoEyeSharp } from "react-icons/io5";
 
 function EditConsultantInfo({ consultant = {} }) {
   const router = useRouter();
@@ -25,6 +26,7 @@ function EditConsultantInfo({ consultant = {} }) {
   const [fileName, setFileName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [hasWarned, setHasWarned] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -188,14 +190,26 @@ function EditConsultantInfo({ consultant = {} }) {
             <label htmlFor="password" className={styles.controlLabel}>
               پسورد
             </label>
-            <input
-              type="password"
-              className={styles.formControl}
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
+            <div className={styles.passwordInputContainer}>
+              <input
+                type={showPassword ? "text" : "password"}
+                className={styles.formControl}
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              <span
+                className={styles.passwordToggle}
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <IoEyeOffSharp className={styles.eyeIcon} />
+                ) : (
+                  <IoEyeSharp className={styles.eyeIcon} />
+                )}
+              </span>
+            </div>
           </div>
 
           <div className={styles.formGroup}>

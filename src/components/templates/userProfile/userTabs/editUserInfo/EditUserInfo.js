@@ -9,6 +9,7 @@ import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import Loading from "@/app/loading";
+import { IoEyeOffSharp, IoEyeSharp } from "react-icons/io5";
 
 function EditUserInfo({ user }) {
   const router = useRouter();
@@ -17,6 +18,7 @@ function EditUserInfo({ user }) {
   const [email, setEmail] = useState(user?.email);
   const [isLoading, setIsLoading] = useState(false);
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <>
@@ -77,16 +79,27 @@ function EditUserInfo({ user }) {
                   <label htmlFor="inputPhone" className={styles.controlLabel}>
                     پسورد
                   </label>
-                  <input
-                    type="password"
-                    className={styles.formControl}
-                    id="inputPhone"
-                    placeholder=""
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                  />
+                  <div className={styles.passwordInputContainer}>
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      className={styles.formControl}
+                      id="inputPhone"
+                      placeholder=""
+                      value={password}
+                      onChange={(event) => setPassword(event.target.value)}
+                    />
+                    <span
+                      className={styles.passwordToggle}
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? (
+                        <IoEyeOffSharp className={styles.eyeIcon} />
+                      ) : (
+                        <IoEyeSharp className={styles.eyeIcon} />
+                      )}
+                    </span>
+                  </div>
                 </div>
-
 
                 {/* دکمه ارسال */}
                 <div className={styles.submitGroup}>

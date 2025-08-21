@@ -29,6 +29,43 @@
   gap: 0.5rem;
 }
 
+/* Password Input Container */
+.passwordInputContainer {
+  position: relative;
+}
+
+/* Password Toggle */
+.passwordToggle {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--text-primary);
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.passwordToggle:hover {
+  opacity: 1;
+}
+
+.eyeIcon {
+  font-size: 1.2rem;
+}
+
+/* تطبیق استایل برای فیلد پسورد با آیکون اضافی */
+.passwordInputContainer .formControl {
+  padding-right: 1rem;
+  padding-left: 3rem; /* فضای بیشتر برای آیکون چشم در سمت چپ */
+}
+
 /* Labels */
 .controlLabel {
   font-size: 1.25rem;
@@ -98,6 +135,14 @@
   font-size: 1.25rem;
 }
 
+.fileName {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  font-family: 'Anjoman_Regular';
+}
+
 textarea.formControl {
   min-height: 100px;
   resize: vertical;
@@ -113,11 +158,14 @@ textarea.formControl {
 .currentImageInfo {
   color: var(--text-primary);
   font-family: 'Anjoman_Medium';
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
 }
 
 .currentImageInfo a {
     color: var(--text-primary) !important;
   font-family: 'Anjoman_Medium' !important;
+  text-decoration: underline;
 }
 
 .icon {
@@ -146,6 +194,16 @@ textarea.formControl {
   background-color: var(--button-hover);
 }
 
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Date Picker Container */
+.datePickerContainer {
+  cursor: pointer;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .box {
@@ -164,7 +222,20 @@ textarea.formControl {
     padding: 0.5rem 0.75rem;
   }
   
+  .passwordInputContainer .formControl {
+    padding-left: 2.5rem;
+  }
+  
+  .passwordToggle {
+    left: 10px;
+  }
+  
   .submitButton {
     padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+  }
+  
+  .controlLabel {
+    font-size: 1.1rem;
   }
 }
