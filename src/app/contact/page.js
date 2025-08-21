@@ -8,7 +8,6 @@ import React from "react";
 export const dynamic = "force-dynamic";
 
 async function Page() {
-  try {
     await connectToDB();
     const user = await authUser();
 
@@ -22,11 +21,6 @@ async function Page() {
         <ContactForm user={JSON.parse(JSON.stringify(user))} />
       </PanelLayout>
     );
-  } catch (error) {
-    console.error("Error in contact Page:", error);
-    redirect("/dashboard");
-    return null;
-  }
 }
 
 export default Page;

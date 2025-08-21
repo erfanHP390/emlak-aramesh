@@ -8,7 +8,6 @@ import { authUser } from "@/utils/authUser";
 import { redirect } from "next/navigation";
 
 async function Page() {
-  try {
     await connectToDB();
     const user = await authUser()
     const consultants = await ConsultantModel.find({}).lean();
@@ -42,22 +41,7 @@ async function Page() {
         </div>
       </PanelLayout>
     );
-  } catch (error) {
-    console.error("Error fetching consultants:", error);
-    return (
-      <PanelLayout>
-        <div className={styles.contentWrapper}>
-          <div className={styles.containerFull}>
-            <section className={styles.contentSection}>
-              <div className={styles.errorMessage}>
-                <p>خطا در بارگذاری اطلاعات مشاوران</p>
-              </div>
-            </section>
-          </div>
-        </div>
-      </PanelLayout>
-    );
   }
-}
+
 
 export default Page;

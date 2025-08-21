@@ -16,13 +16,11 @@ import ReqBuyModel from "@/models/ReqBuy";
 export const dynamic = "force-dynamic";
 
 async function Page() {
-  try {
     await connectToDB();
 
     const user = await authUser();
     if (!user) {
       redirect("/login");
-      return null;
     }
 
     const [consultantLoggedIn, admin] = await Promise.all([
@@ -32,7 +30,6 @@ async function Page() {
 
     if (!consultantLoggedIn && !admin) {
       redirect("/houseList");
-      return null;
     }
 
     const [clients, consultant] = await Promise.all([
@@ -90,11 +87,6 @@ async function Page() {
         </div>
       </PanelLayout>
     );
-  } catch (error) {
-    console.error("Error in dashboard Page:", error);
-    redirect("/dashboard");
-    return null;
-  }
 }
 
 export default Page;

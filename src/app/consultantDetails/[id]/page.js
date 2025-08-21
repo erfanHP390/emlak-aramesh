@@ -14,7 +14,6 @@ import ClientModel from "@/models/Client";
 export const dynamic = "force-dynamic";
 
 async function Page({ params }) {
-  try {
     await connectToDB();
 
     const consultant = await ConsultantModel.findOne({ _id: params.id })
@@ -81,11 +80,6 @@ async function Page({ params }) {
         </div>
       </PanelLayout>
     );
-  } catch (error) {
-    console.error("Error in consultant details page:", error);
-    redirect("/dashboard");
-    return null;
-  }
 }
 
 export default Page;
