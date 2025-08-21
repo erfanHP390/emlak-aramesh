@@ -14,72 +14,87 @@ import ClientModel from "@/models/Client";
 export const dynamic = "force-dynamic";
 
 async function Page({ params }) {
-    await connectToDB();
+  await connectToDB();
 
-    const consultant = await ConsultantModel.findOne({ _id: params.id })
-      .populate("clients")
-      .populate("houses")
-      .lean();
+  const consultant = await ConsultantModel.findOne({ _id: params.id })
+    .populate("clients")
+    .populate("houses")
+    .lean();
 
-    if (!consultant) {
-      redirect("/dashboard");
-      return null;
-    }
+  if (!consultant) {
+    redirect("/dashboard");
+  }
 
-    const [reqBuys, clients, user, consultantLoggedIn] = await Promise.all([
-      ReqBuyModel.find({ consultant: params.id }).populate("houses").lean(),
-      ClientModel.find({ consultant: params.id }).populate("houses").lean(),
-      authUser(),
-      authConsultant(),
-    ]);
+  const [reqBuys, clients, user, consultantLoggedIn] = await Promise.all([
+    ReqBuyModel.find({ consultant: params.id }).populate("houses").lean(),
+    ClientModel.find({ consultant: params.id }).populate("houses").lean(),
+    authUser(),
+    authConsultant(),
+  ]);
 
-    if (!user) {
-      redirect("/login");
-      return null;
-    }
+  if (!user) {
+    redirect("/login");
+    return null;
+  }
 
-    if (!consultantLoggedIn) {
-      redirect("/allConsultants");
-      return null;
-    }
+  if (user.role === "USER") {
+    redirect(`/userProfile/${user._id}`);
+  }
 
-    const consultantData = JSON.parse(JSON.stringify(consultant));
-    const clientsData = JSON.parse(JSON.stringify(clients || []));
-    const housesData = JSON.parse(JSON.stringify(consultant.houses || []));
-    const reqBuysData = JSON.parse(JSON.stringify(reqBuys || []));
+  if (user.role === "ADMIN") {
+    redirect(`/adminProfile/${user._id}`);
+  }
 
-    return (
-      <PanelLayout>
-        <div className={styles.contentWrapper}>
-          <div className={styles.containerFull}>
-            <section className={styles.content}>
-              <div className={styles.row}>
-                <div
-                  className={`${styles.col12} ${styles.colLg5} ${styles.colXl4}`}
-                >
-                  <ConsultantInfo
-                    consultant={consultantData}
-                    clients={consultantData.clients || []}
-                    houses={housesData}
-                  />
-                  <ConsultantCallInfo consultant={consultantData} />
-                </div>
-                <div
-                  className={`${styles.col12} ${styles.colLg7} ${styles.colXl8}`}
-                >
-                  <ConsultantTabs
-                    houses={housesData}
-                    consultant={consultantData}
-                    clients={clientsData}
-                    reqBuys={reqBuysData}
-                  />
-                </div>
+  const consultantProfile = await ConsultantModel.findOne({
+    user: user._id,
+  });
+
+  if (consultant._id.toString() !== consultantProfile._id.toString()) {
+    redirect(`/consultantDetails/${consultantProfile._id}`);
+  }
+
+  if (!consultantLoggedIn) {
+    redirect("/allConsultants");
+    return null;
+  }
+
+  const consultantData = JSON.parse(JSON.stringify(consultant));
+  const clientsData = JSON.parse(JSON.stringify(clients || []));
+  const housesData = JSON.parse(JSON.stringify(consultant.houses || []));
+  const reqBuysData = JSON.parse(JSON.stringify(reqBuys || []));
+
+  return (
+    <PanelLayout>
+      <div className={styles.contentWrapper}>
+        <div className={styles.containerFull}>
+          <section className={styles.content}>
+            <div className={styles.row}>
+              <div
+                className={`${styles.col12} ${styles.colLg5} ${styles.colXl4}`}
+              >
+                <ConsultantInfo
+                  consultant={consultantData}
+                  clients={consultantData.clients || []}
+                  houses={housesData}
+                />
+                <ConsultantCallInfo consultant={consultantData} />
               </div>
-            </section>
-          </div>
+              <div
+                className={`${styles.col12} ${styles.colLg7} ${styles.colXl8}`}
+              >
+                <ConsultantTabs
+                  houses={housesData}
+                  consultant={consultantData}
+                  clients={clientsData}
+                  reqBuys={reqBuysData}
+                />
+              </div>
+            </div>
+          </section>
         </div>
-      </PanelLayout>
-    );
+      </div>
+    </PanelLayout>
+  );
 }
 
 export default Page;
