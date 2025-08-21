@@ -7,6 +7,7 @@ import ReqBuysTab from "./tabs/reqBuysTab/ReqBuysTab";
 import ContactTabs from "./tabs/contactTabs/ContactTabs";
 import ConsultantTab from "./tabs/consultantTab/ConsultantTab";
 import UserTab from "./tabs/userTab/UserTab";
+import EditUserInfo from "../userProfile/userTabs/editUserInfo/EditUserInfo";
 
 function AdminTabs({
   houses = [],
@@ -15,6 +16,7 @@ function AdminTabs({
   contacts = [],
   consultants = [],
   users = [],
+  admin,
 }) {
   const [activeTab, setActiveTab] = useState("houses");
 
@@ -81,6 +83,16 @@ function AdminTabs({
             کاربران
           </button>
         </li>
+        <li className={styles.navItem}>
+          <button
+            className={`${styles.navLink} ${
+              activeTab === "setting" ? styles.active : ""
+            }`}
+            onClick={() => setActiveTab("setting")}
+          >
+            تنظیمات
+          </button>
+        </li>
       </ul>
 
       <div className={styles.tabContent}>
@@ -125,6 +137,13 @@ function AdminTabs({
           }`}
         >
           <UserTab users={users} />
+        </div>
+        <div
+          className={`${styles.tabPane} ${
+            activeTab === "setting" ? styles.active : ""
+          }`}
+        >
+          <EditUserInfo user={admin} />
         </div>
       </div>
     </div>

@@ -54,6 +54,7 @@ async function Page({ params }) {
                   contacts={JSON.parse(JSON.stringify(contacts))}
                   consultants={JSON.parse(JSON.stringify(consultants))}
                   users={JSON.parse(JSON.stringify(users))}
+                  admin={userAdmin}
                 />
               </div>
             </div>
