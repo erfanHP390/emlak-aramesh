@@ -68,7 +68,6 @@ function Sidebar({
   });
 
   useEffect(() => {
-    // بستن تمام ساب منوها وقتی سایدبار بسته می‌شود
     if (!isOpen) {
       setOpenSubmenus({
         propertyType: false,
@@ -132,17 +131,24 @@ function Sidebar({
     });
   };
 
+  const getProfileUrlPerson = () => {
+    if (admin) {
+      return `/adminProfile/${admin._id}`;
+    } else if (consultantInfo) {
+      return `/consultantDetails/${consultantInfo._id}`;
+    } else if (user) {
+      return `/userProfile/${user._id}`;
+    } else {
+      return "#"; // اگر هیچ‌کدوم نبود
+    }
+  };
+
   return (
     <aside
       className={`${styles.sidebarContainer} ${isOpen ? styles.open : ""}`}
-            style={{ transform: isOpen ? 'translateX(0)' : 'translateX(100%)' }}
-
+      style={{ transform: isOpen ? "translateX(0)" : "translateX(100%)" }}
     >
-      {/* دکمه بستن برای حالت موبایل */}
-      <button 
-        className={styles.closeButton} 
-        onClick={toggleSidebar} // اینجا تابع را مستقیماً فراخوانی کنید
-      >
+      <button className={styles.closeButton} onClick={toggleSidebar}>
         <FaTimes />
       </button>
 
@@ -160,30 +166,30 @@ function Sidebar({
         <div className="info mt-20">
           <span className={styles.userName}>{user ? user.name : "کاربر"}</span>
           <div className={styles.userDropdown}>
-            <a className={styles.dropdownItem} href="#">
+            <Link className={styles.dropdownItem} href={getProfileUrlPerson()}>
               <FaUser className={styles.dropdownIcon} />
               پروفایل
-            </a>
-            <a className={styles.dropdownItem} href="#">
-              <FaEnvelope className={styles.dropdownIcon} />
-              صندوق ورودی
-            </a>
-            <a className={styles.dropdownItem} href="#">
+            </Link>
+            <Link className={styles.dropdownItem} href={"/houseList"}>
+              <BiSolidBuildingHouse className={styles.dropdownIcon} />
+              املاک
+            </Link>
+            <Link className={styles.dropdownItem} href={"/contact"}>
               <FaLink className={styles.dropdownIcon} />
               ارتباطات
-            </a>
-            <div className={styles.dropdownDivider} />
+            </Link>
+            {/* <div className={styles.dropdownDivider} />
             <a className={styles.dropdownItem} href="#">
               <FaCog className={styles.dropdownIcon} />
               تنظیمات
-            </a>
+            </a> */}
           </div>
         </div>
 
         <div className={styles.userSettings}>
-          <a href="#" title="تنظیمات">
+          <Link href={"/soon"} title="تنظیمات">
             <FaCog className={styles.icon_font} />
-          </a>
+          </Link>
           <a href="#" title="خروج" onClick={() => signOutUser()}>
             <FaSignOutAlt className={styles.icon_font} />
           </a>
@@ -224,15 +230,16 @@ function Sidebar({
             </>
           )}
 
-          <li className={styles.menuItem}>
-            <Link href={"/addHome"} className={styles.menuLink}>
-              <FaPlusCircle className={styles.menuIcon} />
-              <span className={styles.menuText}>ثبت ملک</span>
-            </Link>
-          </li>
+          {admin || consultant ? (
+            <li className={styles.menuItem}>
+              <Link href={"/addHome"} className={styles.menuLink}>
+                <FaPlusCircle className={styles.menuIcon} />
+                <span className={styles.menuText}>ثبت ملک</span>
+              </Link>
+            </li>
+          ) : null}
 
           {/* Property Type Submenu */}
-
 
           {/* Consultants Submenu */}
           <li className={styles.menuItem}>
@@ -264,7 +271,7 @@ function Sidebar({
                     <span className={styles.text_link}>همه مشاوران</span>
                   </Link>
                 </li>
-                {admin && (
+                {admin || consultant ? (
                   <li className={styles.submenuItem}>
                     <Link
                       href={"/addConsultant"}
@@ -274,13 +281,7 @@ function Sidebar({
                       <span className={styles.text_link}>عضویت مشاور</span>
                     </Link>
                   </li>
-                )}
-                <li className={styles.submenuItem}>
-                  <a href="agentprofile.html" className={styles.submenuLink}>
-                    <RiProfileFill className={styles.submenuIcon} />
-                    <span className={styles.text_link}>پروفایل من</span>
-                  </a>
-                </li>
+                ) : null}
               </ul>
             </div>
           </li>
@@ -310,31 +311,16 @@ function Sidebar({
             >
               <ul className={styles.submenu}>
                 <li className={styles.submenuItem}>
-                  <a href="invoice.html" className={styles.submenuLink}>
+                  <Link href= {"/soon"} className={styles.submenuLink}>
                     <FaFileInvoice className={styles.submenuIcon} />
-                    <span className={styles.text_link}>فاکتور</span>
-                  </a>
+                    <span className={styles.text_link}>قرارداد</span>
+                  </Link>
                 </li>
                 <li className={styles.submenuItem}>
-                  <a href="invoicelist.html" className={styles.submenuLink}>
+                  <Link href={"/soon"} className={styles.submenuLink}>
                     <FaFileInvoice className={styles.submenuIcon} />
-                    <span className={styles.text_link}>لیست فاکتورها</span>
-                  </a>
-                </li>
-                <li className={styles.submenuItem}>
-                  <a href="extra_profile.html" className={styles.submenuLink}>
-                    <FaUser className={styles.submenuIcon} />
-                    <span className={styles.text_link}>پروفایل کاربر</span>
-                  </a>
-                </li>
-                <li className={styles.submenuItem}>
-                  <a
-                    href="contact_userlist_grid.html"
-                    className={styles.submenuLink}
-                  >
-                    <FaUserGroup className={styles.submenuIcon} />
-                    <span className={styles.text_link}>لیست کاربران</span>
-                  </a>
+                    <span className={styles.text_link}>لیست قراردادها</span>
+                  </Link>
                 </li>
                 <li className={styles.submenuItem}>
                   <Link href={"/faq"} className={styles.submenuLink}>
@@ -343,20 +329,20 @@ function Sidebar({
                   </Link>
                 </li>
                 <li className={styles.submenuItem}>
-                  <a href="sample_pricing.html" className={styles.submenuLink}>
+                  <Link href={"/pricing"} className={styles.submenuLink}>
                     <MdPriceChange className={styles.submenuIcon} />
                     <span className={styles.text_link}>قیمت</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
           </li>
 
           <li className={styles.menuItem}>
-            <a href="contact.html" className={styles.menuLink}>
+            <Link href={"/contact"} className={styles.menuLink}>
               <GrContact className={styles.menuIcon} />
               <span className={styles.menuText}>ارتباطات</span>
-            </a>
+            </Link>
           </li>
 
           {/* Authentication Submenu */}
