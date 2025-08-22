@@ -139,7 +139,7 @@ function Sidebar({
     } else if (user) {
       return `/userProfile/${user._id}`;
     } else {
-      return "#"; // اگر هیچ‌کدوم نبود
+      return "#"; 
     }
   };
 

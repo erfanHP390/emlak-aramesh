@@ -12,6 +12,7 @@ import {
   FaUsers,
   FaExclamationTriangle,
   FaBars,
+  FaEnvelope,
 } from "react-icons/fa";
 import {
   MdEvent,
@@ -114,6 +115,18 @@ function Topbar({ user, consultant, admin, consultantInfo, toggleSidebar }) {
         }
       }
     });
+  };
+
+  const getProfileUrlPerson = () => {
+    if (admin) {
+      return `/adminProfile/${admin._id}`;
+    } else if (consultantInfo) {
+      return `/consultantDetails/${consultantInfo._id}`;
+    } else if (user) {
+      return `/userProfile/${user._id}`;
+    } else {
+      return "#";
+    }
   };
 
   return (
@@ -294,23 +307,19 @@ function Topbar({ user, consultant, admin, consultantInfo, toggleSidebar }) {
                     <li className={styles.userBody}>
                       <Link
                         className={styles.dropdownItem}
-                        href={
-                          consultant
-                            ? `/consultantDetails/${consultantInfo._id}`
-                            : `/dashboard+`
-                        }
+                        href={getProfileUrlPerson()}
                       >
                         <FaUser className={styles.dropdownIcon} />
                         <span className={styles.dropdownText}>پروفایل</span>
                       </Link>
-                      <a className={styles.dropdownItem} href="#">
-                        <FaWallet className={styles.dropdownIcon} />
-                        <span className={styles.dropdownText}>کیف پول</span>
-                      </a>
-                      <a className={styles.dropdownItem} href="#">
+                      <Link className={styles.dropdownItem} href={"/contact"}>
+                        <FaEnvelope className={styles.dropdownIcon} />
+                        <span className={styles.dropdownText}>ارتباطات</span>
+                      </Link>
+                      <Link className={styles.dropdownItem} href={"/soon"}>
                         <FaCog className={styles.dropdownIcon} />
                         <span className={styles.dropdownText}>تنظیمات</span>
-                      </a>
+                      </Link>
                       <div className={styles.dropdownDivider} />
                       <a
                         className={styles.dropdownItem}
@@ -327,9 +336,9 @@ function Topbar({ user, consultant, admin, consultantInfo, toggleSidebar }) {
             </li>
 
             <li className={styles.navItem}>
-              <a href="#" className={styles.navLink} title="تنظیمات">
+              <Link href={"/soon"} className={styles.navLink} title="تنظیمات">
                 <FaCog className={styles.svgIcon} />
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
