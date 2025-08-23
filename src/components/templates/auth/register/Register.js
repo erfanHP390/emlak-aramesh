@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import styles from "./register.module.css";
+import styles from "./Register.module.css";
 import { useState } from "react";
 import { swalAlert, toastError, toastSuccess } from "@/utils/alerts";
 import { validateEmail, validatePassword } from "@/utils/auth";
