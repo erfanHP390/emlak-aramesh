@@ -6,6 +6,8 @@ import HouseModel from "@/models/House";
 import ConsultantModel from "@/models/Consultant";
 import { authUser } from "@/utils/authUser";
 import { redirect, notFound } from "next/navigation";
+export const dynamic = "force-dynamic";
+
 
 export async function generateMetadata({ params }) {
   await connectToDB();
