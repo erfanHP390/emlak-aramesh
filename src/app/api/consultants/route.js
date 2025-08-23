@@ -130,7 +130,7 @@ export async function POST(req) {
       description,
       password: hashedPassword,
       socials,
-      img: `http://localhost:3000/uploads/${filename}`,
+      img: `/uploads/${filename}`,
     });
 
     return Response.json(

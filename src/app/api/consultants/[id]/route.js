@@ -134,7 +134,7 @@ export async function PUT(req, { params }) {
       const filename = Date.now() + img.name;
       const imgPath = path.join(process.cwd(), "public/uploads/" + filename);
       await writeFile(imgPath, buffer);
-      newImagePath = `http://localhost:3000/uploads/${filename}`;
+      newImagePath = `/uploads/${filename}`;
       updateData.img = newImagePath;
     }
 

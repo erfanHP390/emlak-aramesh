@@ -66,7 +66,7 @@ export async function POST(req) {
       const filename = Date.now() + "-" + img.name;
       const imgPath = path.join(process.cwd(), "public/uploads/", filename);
       await writeFile(imgPath, buffer);
-      imgUrl = `http://localhost:3000/uploads/${filename}`;
+      imgUrl = `/uploads/${filename}`;
     }
 
     await ContactModel.create({
