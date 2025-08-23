@@ -4,6 +4,8 @@ import connectToDB from "@/configs/db";
 import { authAdmin, authConsultant, authUser } from "@/utils/authUser";
 import { redirect } from "next/navigation";
 import React from "react";
+export const dynamic = "force-dynamic";
+
 
 export async function generateMetadata() {
   return {

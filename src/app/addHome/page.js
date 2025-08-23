@@ -5,6 +5,8 @@ import { authAdmin, authConsultant, authUser } from "@/utils/authUser";
 import React from "react";
 import ConsultantModel from "@/models/Consultant";
 import { redirect } from "next/navigation";
+export const dynamic = "force-dynamic";
+
 
 export async function generateMetadata() {
   return {

@@ -11,6 +11,8 @@ import ReqBuyModel from "@/models/ReqBuy";
 import ContactModel from "@/models/Contact";
 import ConsultantModel from "@/models/Consultant";
 import { authConsultant, authUser } from "@/utils/authUser";
+export const dynamic = "force-dynamic";
+
 
 export async function generateMetadata({ params })  {
   const user = await UserModel.findOne({ _id: params.id }).lean();

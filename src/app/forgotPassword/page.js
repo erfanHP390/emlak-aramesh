@@ -1,5 +1,7 @@
 import ForgotPass from "@/components/templates/auth/forgotPass/ForgotPass";
 import React from "react";
+export const dynamic = "force-dynamic";
+
 
 export async function generateMetadata() {
   return {

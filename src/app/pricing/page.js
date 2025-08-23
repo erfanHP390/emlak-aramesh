@@ -1,5 +1,7 @@
 import PanelLayout from "@/components/layouts/PanelLayout";
 import MainPricing from "@/components/templates/pricing/MainPricing";
+export const dynamic = "force-dynamic";
+
 
 export async function generateMetadata() {
   return {

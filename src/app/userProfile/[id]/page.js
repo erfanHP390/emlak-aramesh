@@ -10,7 +10,7 @@ import UserTabs from "@/components/templates/userProfile/userTabs/UserTabs";
 import ClientModel from "@/models/Client";
 import ReqBuysModel from "@/models/ReqBuy";
 import ConsultantModel from "@/models/Consultant";
-import { Metadata } from "next";
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params })  {
   const user = await UserModel.findOne({ _id: params.id }).lean();

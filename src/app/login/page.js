@@ -1,4 +1,6 @@
 import Login from "@/components/templates/auth/login/Login";
+export const dynamic = "force-dynamic";
+
 
 export async function generateMetadata() {
   return {

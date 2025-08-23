@@ -6,6 +6,8 @@ import ConsultantModel from "@/models/Consultant";
 import CardConsultant from "@/components/modules/cardConsultant/CardConsultant";
 import { authUser } from "@/utils/authUser";
 import { redirect } from "next/navigation";
+export const dynamic = "force-dynamic";
+
 
 export async function generateMetadata() {
   return {

@@ -1,4 +1,6 @@
 import ComingSoon from "@/components/templates/ComingSoon";
+export const dynamic = "force-dynamic";
+
 
 export async function generateMetadata() {
   return {
