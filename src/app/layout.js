@@ -5,50 +5,50 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ScrollTopBtn from "@/components/modules/ScrollTopBtn/ScrollTopBtn";
 
-// export const metadata = {
-//   title: "سیستم مدیریت دیجیتال املاک آرامش | پلتفرم جامع مدیریت املاک",
-//   description: "پلتفرم تخصصی مدیریت املاک و مشاورین املاک با قابلیت ثبت ملک، مدیریت مشتریان، پیگیری درخواست‌های خرید و بازدید آنلاین از املاک با شناسه صنفی اختصاصی",
-//   keywords: "مدیریت املاک, سیستم مدیریت املاک, نرم افزار املاک, ثبت ملک, مدیریت مشاورین املاک, پلتفرم املاک, دیجیتال مارکتینگ املاک, املاک آرامش",
-//   authors: [{ name: "املاک آرامش" }],
-//   creator: "املاک آرامش",
-//   publisher: "املاک آرامش",
-//   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
-//   viewport: "width=device-width, initial-scale=1.0",
-//     icons: {
-//     icon: "https://uxwing.com/wp-content/themes/uxwing/download/buildings-architecture-real-estate/houses-icon.png",
-//   },
-//   openGraph: {
-//     title: "سیستم مدیریت دیجیتال املاک آرامش | پلتفرم جامع مدیریت املاک",
-//     description: "پلتفرم تخصصی مدیریت املاک و مشاورین املاک با قابلیت ثبت ملک، مدیریت مشتریان و پیگیری درخواست‌های خرید",
-//     url: "https://yourdomain.com",
-//     siteName: "املاک آرامش",
-//     images: [
-//       {
-//         url: "/og-image.jpg",
-//         width: 800,
-//         height: 600,
-//         alt: "سیستم مدیریت دیجیتال املاک آرامش",
-//       },
-//     ],
-//     locale: "fa_IR",
-//     type: "website",
-//   },
-//   twitter: {
-//     card: "summary_large_image",
-//     title: "سیستم مدیریت دیجیتال املاک آرامش | پلتفرم جامع مدیریت املاک",
-//     description: "پلتفرم تخصصی مدیریت املاک و مشاورین املاک با قابلیت ثبت ملک، مدیریت مشتریان و پیگیری درخواست‌های خرید",
-//     images: ["/twitter-image.jpg"],
-//   },
-//   verification: {
-//     google: "your-google-verification-code",
-//     yandex: "your-yandex-verification-code",
-//     yahoo: "your-yahoo-verification-code",
-//   },
-//   alternates: {
-//     canonical: "https://yourdomain.com",
-//   },
-//   category: "real estate",
-// };
+export const metadata = {
+  title: "سیستم مدیریت دیجیتال املاک آرامش | پلتفرم جامع مدیریت املاک",
+  description: "پلتفرم تخصصی مدیریت املاک و مشاورین املاک با قابلیت ثبت ملک، مدیریت مشتریان، پیگیری درخواست‌های خرید و بازدید آنلاین از املاک با شناسه صنفی اختصاصی",
+  keywords: "مدیریت املاک, سیستم مدیریت املاک, نرم افزار املاک, ثبت ملک, مدیریت مشاورین املاک, پلتفرم املاک, دیجیتال مارکتینگ املاک, املاک آرامش",
+  authors: [{ name: "املاک آرامش" }],
+  creator: "املاک آرامش",
+  publisher: "املاک آرامش",
+  robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  viewport: "width=device-width, initial-scale=1.0",
+    icons: {
+    icon: "https://uxwing.com/wp-content/themes/uxwing/download/buildings-architecture-real-estate/houses-icon.png",
+  },
+  openGraph: {
+    title: "سیستم مدیریت دیجیتال املاک آرامش | پلتفرم جامع مدیریت املاک",
+    description: "پلتفرم تخصصی مدیریت املاک و مشاورین املاک با قابلیت ثبت ملک، مدیریت مشتریان و پیگیری درخواست‌های خرید",
+    url: "https://yourdomain.com",
+    siteName: "املاک آرامش",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 800,
+        height: 600,
+        alt: "سیستم مدیریت دیجیتال املاک آرامش",
+      },
+    ],
+    locale: "fa_IR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "سیستم مدیریت دیجیتال املاک آرامش | پلتفرم جامع مدیریت املاک",
+    description: "پلتفرم تخصصی مدیریت املاک و مشاورین املاک با قابلیت ثبت ملک، مدیریت مشتریان و پیگیری درخواست‌های خرید",
+    images: ["/twitter-image.jpg"],
+  },
+  verification: {
+    google: "your-google-verification-code",
+    yandex: "your-yandex-verification-code",
+    yahoo: "your-yahoo-verification-code",
+  },
+  alternates: {
+    canonical: "https://yourdomain.com",
+  },
+  category: "real estate",
+};
 
 export default function RootLayout({ children }) {
   return (
