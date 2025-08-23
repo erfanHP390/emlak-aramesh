@@ -15,86 +15,90 @@ import ReqBuyModel from "@/models/ReqBuy";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "داشبورد مدیریت | سیستم مدیریت املاک آرامش",
-  description: "داشبورد جامع مدیریت سیستم املاک آرامش شامل آمار، نمودارها، اطلاعات کاربری و مدیریت بازدیدهای املاک.",
-  keywords: "داشبورد مدیریت, آمار املاک, نمودارهای مدیریتی, سیستم املاک آرامش, مدیریت بازدیدها",
-  authors: [{ name: "املاک آرامش" }],
-  robots: "noindex, nofollow",
-};
+export async function generateMetadata() {
+  return {
+    title: "داشبورد مدیریت | سیستم مدیریت املاک آرامش",
+    description:
+      "داشبورد جامع مدیریت سیستم املاک آرامش شامل آمار، نمودارها، اطلاعات کاربری و مدیریت بازدیدهای املاک.",
+    keywords:
+      "داشبورد مدیریت, آمار املاک, نمودارهای مدیریتی, سیستم املاک آرامش, مدیریت بازدیدها",
+    authors: [{ name: "املاک آرامش" }],
+    robots: "noindex, nofollow",
+  };
+}
 
 async function Page() {
-    await connectToDB();
+  await connectToDB();
 
-    const user = await authUser();
-    if (!user) {
-      redirect("/login");
-    }
+  const user = await authUser();
+  if (!user) {
+    redirect("/login");
+  }
 
-    const [consultantLoggedIn, admin] = await Promise.all([
-      authConsultant(),
-      authAdmin(),
-    ]);
+  const [consultantLoggedIn, admin] = await Promise.all([
+    authConsultant(),
+    authAdmin(),
+  ]);
 
-    if (!consultantLoggedIn && !admin) {
-      redirect("/houseList");
-    }
+  if (!consultantLoggedIn && !admin) {
+    redirect("/houseList");
+  }
 
-    const [clients, consultant] = await Promise.all([
-      ClientModel.find({}).populate("houses").lean(),
-      ConsultantModel.findOne({ user: user._id })
-        .populate("clients")
-        .populate("houses")
-        .lean(),
-    ]);
+  const [clients, consultant] = await Promise.all([
+    ClientModel.find({}).populate("houses").lean(),
+    ConsultantModel.findOne({ user: user._id })
+      .populate("clients")
+      .populate("houses")
+      .lean(),
+  ]);
 
-    let reqBuys = [];
-    if (consultant) {
-      reqBuys = await ReqBuyModel.find({ consultant: consultant._id })
-        .populate("consultant")
-        .lean();
-    }
+  let reqBuys = [];
+  if (consultant) {
+    reqBuys = await ReqBuyModel.find({ consultant: consultant._id })
+      .populate("consultant")
+      .lean();
+  }
 
-    const consultantData = consultant
-      ? JSON.parse(JSON.stringify(consultant))
-      : null;
-    const reqBuysData = JSON.parse(JSON.stringify(reqBuys));
-    const clientsData = JSON.parse(JSON.stringify(clients));
+  const consultantData = consultant
+    ? JSON.parse(JSON.stringify(consultant))
+    : null;
+  const reqBuysData = JSON.parse(JSON.stringify(reqBuys));
+  const clientsData = JSON.parse(JSON.stringify(clients));
 
-    return (
-      <PanelLayout>
-        <div className={styles.wrapper}>
-          <div className={styles.contentWrapper}>
-            <div className={styles.containerFull}>
-              <section className={styles.content}>
-                <div className={styles.row}>
-                  <Status />
-                </div>
-                <div className={styles.row_secondary}>
-                  <ChartContact />
-                  <Reservation />
-                </div>
-                <div className={styles.row_third}>
-                  {consultantData && (
-                    <div className={styles.userInfo_wrapper}>
-                      <UserInfo
-                        consultant={consultantData}
-                        reqBuys={reqBuysData}
-                        clients={consultantData.clients || []}
-                        houses={consultantData.houses || []}
-                      />
-                    </div>
-                  )}
-                  <div className={styles.visitTable_wrapper}>
-                    <VisitTable clients={clientsData} />
+  return (
+    <PanelLayout>
+      <div className={styles.wrapper}>
+        <div className={styles.contentWrapper}>
+          <div className={styles.containerFull}>
+            <section className={styles.content}>
+              <div className={styles.row}>
+                <Status />
+              </div>
+              <div className={styles.row_secondary}>
+                <ChartContact />
+                <Reservation />
+              </div>
+              <div className={styles.row_third}>
+                {consultantData && (
+                  <div className={styles.userInfo_wrapper}>
+                    <UserInfo
+                      consultant={consultantData}
+                      reqBuys={reqBuysData}
+                      clients={consultantData.clients || []}
+                      houses={consultantData.houses || []}
+                    />
                   </div>
+                )}
+                <div className={styles.visitTable_wrapper}>
+                  <VisitTable clients={clientsData} />
                 </div>
-              </section>
-            </div>
+              </div>
+            </section>
           </div>
         </div>
-      </PanelLayout>
-    );
+      </div>
+    </PanelLayout>
+  );
 }
 
 export default Page;

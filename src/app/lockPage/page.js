@@ -3,7 +3,6 @@ import connectToDB from "@/configs/db";
 import { authUser } from "@/utils/authUser";
 import ConsultantModel from "@/models/Consultant";
 import { redirect } from "next/navigation";
-import { Metadata } from "next";
 
 export async function generateMetadata() {
   return {

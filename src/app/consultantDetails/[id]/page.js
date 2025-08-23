@@ -10,11 +10,9 @@ import { authConsultant, authUser } from "@/utils/authUser";
 import { redirect } from "next/navigation";
 import ReqBuyModel from "@/models/ReqBuy";
 import ClientModel from "@/models/Client";
-import { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
 
-// تابع برای تولید متادیتا
 export async function generateMetadata({ params }) {
   await connectToDB();
   const consultant = await ConsultantModel.findOne({ _id: params.id }).lean();
@@ -32,7 +30,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-// ساختار داده‌های سازمان‌یافته برای سئو
 const generateJsonLd = (consultant) => ({
   '@context': 'https://schema.org',
   '@type': 'RealEstateAgent',

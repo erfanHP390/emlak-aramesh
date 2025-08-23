@@ -1,53 +1,57 @@
-import PanelLayout from '@/components/layouts/PanelLayout'
-import MainPricing from '@/components/templates/pricing/MainPricing'
-import { Metadata } from "next";
+import PanelLayout from "@/components/layouts/PanelLayout";
+import MainPricing from "@/components/templates/pricing/MainPricing";
 
-export const metadata = {
-  title: "تعرفه‌ها و پلن‌های اشتراک | سیستم مدیریت املاک آرامش",
-  description: "پلن‌های اشتراک متنوع برای سیستم مدیریت املاک آرامش. پلن‌های پایه، حرفه‌ای و سازمانی با امکانات مختلف برای نیازهای متنوع کسب‌وکارهای املاک.",
-  keywords: "پلن اشتراک املاک, تعرفه سیستم املاک, نرم‌افزار مدیریت املاک, سامانه املاک آنلاین, پنل مشاورین املاک, سیستم CRM املاک",
-  openGraph: {
+export async function generateMetadata() {
+  return {
     title: "تعرفه‌ها و پلن‌های اشتراک | سیستم مدیریت املاک آرامش",
-    description: "پلن‌های اشتراک متنوع برای سیستم مدیریت املاک آرامش",
-    type: "website",
-  },
-};
+    description:
+      "پلن‌های اشتراک متنوع برای سیستم مدیریت املاک آرامش. پلن‌های پایه، حرفه‌ای و سازمانی با امکانات مختلف برای نیازهای متنوع کسب‌وکارهای املاک.",
+    keywords:
+      "پلن اشتراک املاک, تعرفه سیستم املاک, نرم‌افزار مدیریت املاک, سامانه املاک آنلاین, پنل مشاورین املاک, سیستم CRM املاک",
+    openGraph: {
+      title: "تعرفه‌ها و پلن‌های اشتراک | سیستم مدیریت املاک آرامش",
+      description: "پلن‌های اشتراک متنوع برای سیستم مدیریت املاک آرامش",
+      type: "website",
+    },
+  };
+}
 
 const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Product',
-  name: 'سیستم مدیریت املاک آرامش',
-  description: 'سامانه جامع مدیریت املاک، مشاورین و properties با قابلیت‌های پیشرفته',
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name: "سیستم مدیریت املاک آرامش",
+  description:
+    "سامانه جامع مدیریت املاک، مشاورین و properties با قابلیت‌های پیشرفته",
   offers: {
-    '@type': 'AggregateOffer',
+    "@type": "AggregateOffer",
     offerCount: 3,
     lowPrice: 2900000,
     highPrice: 19900000,
-    priceCurrency: 'IRR',
+    priceCurrency: "IRR",
     offers: [
       {
-        '@type': 'Offer',
-        name: 'پلن پایه',
+        "@type": "Offer",
+        name: "پلن پایه",
         price: 2900000,
-        priceCurrency: 'IRR',
-        description: 'پلن مناسب برای املاک کوچک با مدیریت تا 20 ملک'
+        priceCurrency: "IRR",
+        description: "پلن مناسب برای املاک کوچک با مدیریت تا 20 ملک",
       },
       {
-        '@type': 'Offer',
-        name: 'پلن حرفه‌ای',
+        "@type": "Offer",
+        name: "پلن حرفه‌ای",
         price: 7900000,
-        priceCurrency: 'IRR',
-        description: 'پلن کامل با CRM یکپارچه و وبسایت اختصاصی'
+        priceCurrency: "IRR",
+        description: "پلن کامل با CRM یکپارچه و وبسایت اختصاصی",
       },
       {
-        '@type': 'Offer',
-        name: 'پلن سازمانی',
+        "@type": "Offer",
+        name: "پلن سازمانی",
         price: 19900000,
-        priceCurrency: 'IRR',
-        description: 'پلن پیشرفته با امکانات نامحدود و پشتیبانی 24/7'
-      }
-    ]
-  }
+        priceCurrency: "IRR",
+        description: "پلن پیشرفته با امکانات نامحدود و پشتیبانی 24/7",
+      },
+    ],
+  },
 };
 
 function Page() {
@@ -61,7 +65,7 @@ function Page() {
         <MainPricing />
       </PanelLayout>
     </>
-  )
+  );
 }
 
-export default Page
+export default Page;

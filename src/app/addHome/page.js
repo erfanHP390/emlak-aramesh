@@ -6,13 +6,17 @@ import React from "react";
 import ConsultantModel from "@/models/Consultant";
 import { redirect } from "next/navigation";
 
-export const metadata = {
-  title: "افزودن ملک جدید | پنل مدیریت املاک آرامش",
-  description: "افزودن ملک جدید به سیستم مدیریت املاک آرامش. ثبت اطلاعات کامل ملک، امکانات، تصاویر و مشخصات فنی.",
-  keywords: "افزودن ملک, ثبت ملک جدید, مدیریت املاک, پنل مشاورین, سیستم املاک آرامش, ثبت ملک",
-  authors: [{ name: "املاک آرامش" }],
-  robots: "noindex, nofollow", // صفحات مدیریتی نباید ایندکس شوند
-};
+export async function generateMetadata() {
+  return {
+    title: "افزودن ملک جدید | پنل مدیریت املاک آرامش",
+    description:
+      "افزودن ملک جدید به سیستم مدیریت املاک آرامش. ثبت اطلاعات کامل ملک، امکانات، تصاویر و مشخصات فنی.",
+    keywords:
+      "افزودن ملک, ثبت ملک جدید, مدیریت املاک, پنل مشاورین, سیستم املاک آرامش, ثبت ملک",
+    authors: [{ name: "املاک آرامش" }],
+    robots: "noindex, nofollow", // صفحات مدیریتی نباید ایندکس شوند
+  };
+}
 
 async function Page() {
   connectToDB();

@@ -16,6 +16,10 @@ async function page() {
     redirect("/login");
   }
 
+  if(user) {
+    redirect("/dashboard")
+  }
+
   const admin = await authAdmin();
   const consultant = await authConsultant();
   

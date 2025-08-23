@@ -5,15 +5,19 @@ import HouseModel from "@/models/House";
 import ConsultantModel from "@/models/Consultant";
 import { authConsultant, authUser } from "@/utils/authUser";
 import { redirect } from "next/navigation";
-import { Metadata } from "next";
 
-// تولید متادیتا برای سئو
 export async function generateMetadata() {
+  const user = await authUser();
+
+  const consultant = await ConsultantModel.findOne({ user: user._id });
+
   return {
-    title: "مدیریت املاک ثبت‌شده | پنل مشاورین املاک آرامش",
-    description: "مدیریت و ویرایش املاک ثبت‌شده در سیستم املاک آرامش. مشاهده، ویرایش و حذف properties ثبت‌شده توسط مشاورین.",
-    keywords: "مدیریت املاک, پنل مشاورین, املاک ثبت‌شده, ویرایش ملک, سیستم املاک آرامش, مدیریت properties, پنل کاربری مشاورین",
-    robots: "noindex, nofollow", // صفحات پنل مدیریت نباید ایندکس شوند
+    title: `مدیریت املاک ثبت‌شده  ${`${consultant.firstName}  ${consultant.lastName}`}  | پنل مشاورین املاک آرامش`,
+    description:
+      "مدیریت و ویرایش املاک ثبت‌شده در سیستم املاک آرامش. مشاهده، ویرایش و حذف properties ثبت‌شده توسط مشاورین.",
+    keywords:
+      "مدیریت املاک, پنل مشاورین, املاک ثبت‌شده, ویرایش ملک, سیستم املاک آرامش, مدیریت properties, پنل کاربری مشاورین",
+    robots: "noindex, nofollow",
     openGraph: {
       title: "مدیریت املاک ثبت‌شده | پنل مشاورین املاک آرامش",
       description: "مدیریت و ویرایش املاک ثبت‌شده در سیستم املاک آرامش",
@@ -22,37 +26,36 @@ export async function generateMetadata() {
   };
 }
 
-// ساختار داده‌های سازمان‌یافته برای سئو
 const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  name: 'مدیریت املاک ثبت‌شده - پنل مشاورین املاک آرامش',
-  description: 'صفحه مدیریت املاک ثبت‌شده توسط مشاورین در سیستم املاک آرامش',
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "مدیریت املاک ثبت‌شده - پنل مشاورین املاک آرامش",
+  description: "صفحه مدیریت املاک ثبت‌شده توسط مشاورین در سیستم املاک آرامش",
   publisher: {
-    '@type': 'RealEstateAgent',
-    name: 'سیستم مدیریت املاک آرامش',
-  }
+    "@type": "RealEstateAgent",
+    name: "سیستم مدیریت املاک آرامش",
+  },
 };
 
 async function Page() {
   await connectToDB();
 
   const user = await authUser();
-  const consultantLoggedIn = await authConsultant()
+  const consultantLoggedIn = await authConsultant();
 
   if (!user) {
-    redirect("/login")
+    redirect("/login");
   }
 
   const consultant = await ConsultantModel.findOne({ user: user._id });
 
   if (!consultantLoggedIn) {
-    redirect("/dashboard")
+    redirect("/dashboard");
   }
 
   const houses = await HouseModel.find({ consultant: consultant._id })
     .populate("consultant")
-    .sort({ createdAt: -1 }) // مرتب سازی بر اساس جدیدترین
+    .sort({ createdAt: -1 })
     .lean();
 
   return (
