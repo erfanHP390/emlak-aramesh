@@ -12,6 +12,20 @@ import ContactModel from "@/models/Contact";
 import ConsultantModel from "@/models/Consultant";
 import { authConsultant, authUser } from "@/utils/authUser";
 
+export async function generateMetadata({ params })  {
+  const user = await UserModel.findOne({ _id: params.id }).lean();
+  
+  return {
+    title: `${user?.name || "مدیر"} | پروفایل مدیریت سیستم املاک آرامش`,
+    description: `پروفایل کاربر ${user?.name || ""} در سیستم مدیریت املاک آرامش. مدیریت اطلاعات شخصی، املاک خریداری شده و درخواست‌های خرید.`,
+    keywords: "پروفایل کاربر, مدیریت حساب کاربری, سیستم املاک آرامش, املاک خریداری شده, درخواست خرید ملک",
+    openGraph: {
+      title: `${user?.name || "کاربر"} | پروفایل کاربری`,
+      description: `پروفایل کاربر ${user?.name || ""} در سیستم مدیریت املاک آرامش`,
+    },
+  };
+}
+
 async function Page({ params }) {
   connectToDB();
 
@@ -22,23 +36,19 @@ async function Page({ params }) {
     redirect("/login");
   }
 
-  // اگر کاربر لاگین شده نقش یوزر داشت → بفرست به پروفایل خودش
   if (user.role === "USER") {
     redirect(`/userProfile/${user._id}`);
   }
 
-  // اگر نقش مشاور داشت → بفرست به صفحه خودش
   if (user.role === "CONSULTANT") {
     const consultantInfos = await ConsultantModel.findOne({user: consultant._id})
     redirect(`/consultantDetails/${consultantInfos._id}`);
   }
 
-  // اگر نقش ادمین داشت ولی آیدیش با params فرق داشت → نذارش
   if (user.role === "ADMIN" && user._id.toString() !== params.id) {
-    redirect("/dashboard"); // یا Forbidden
+    redirect("/dashboard");
   }
 
-  // حالا مطمئنیم فقط ادمینِ همون آیدی هست
   const userAdmin = await UserModel.findOne({ _id: params.id });
   if (!userAdmin) {
     redirect("/dashboard");

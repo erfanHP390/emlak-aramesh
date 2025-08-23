@@ -7,6 +7,14 @@ import CardConsultant from "@/components/modules/cardConsultant/CardConsultant";
 import { authUser } from "@/utils/authUser";
 import { redirect } from "next/navigation";
 
+export const metadata = {
+  title: "لیست مشاورین املاک | سیستم مدیریت املاک آرامش",
+  description: "مشاهده لیست کامل مشاورین املاک در سیستم مدیریت املاک آرامش. ارتباط مستقیم با مشاورین متخصص در زمینه خرید، فروش و اجاره املاک.",
+  keywords: "مشاورین املاک, لیست مشاورین, املاک آرامش, مشاورین متخصص, خرید ملک, فروش ملک, اجاره ملک",
+  authors: [{ name: "املاک آرامش" }],
+  robots: "index, follow",
+};
+
 async function Page() {
     await connectToDB();
     const user = await authUser()
