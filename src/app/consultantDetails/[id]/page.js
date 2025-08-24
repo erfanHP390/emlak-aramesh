@@ -97,16 +97,6 @@ async function Page({ params }) {
 
   return (
     <>
-      <head>
-        <title>پروفایل مشاور املاک | جزئیات مشاور املاک آرامش</title>
-        <meta name="description" content="مشاهده پروفایل کامل مشاور املاک، اطلاعات تماس، املاک منتشر شده و عملکرد مشاور در سیستم املاک آرامش" />
-        <meta name="robots" content="noindex, nofollow" />
-        <link rel="icon" href="https://uxwing.com/wp-content/themes/uxwing/download/buildings-architecture-real-estate/houses-icon.png" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
-        />
-      </head>
       <PanelLayout>
         <div className={styles.contentWrapper}>
           <div className={styles.containerFull}>
