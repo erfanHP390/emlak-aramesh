@@ -2,7 +2,6 @@ import PanelLayout from "@/components/layouts/PanelLayout";
 import ConsultantCallInfo from "@/components/templates/consultantDetails/consultantCallInfo/ConsultantCallInfo";
 import ConsultantInfo from "@/components/templates/consultantDetails/consultantInfo/ConsultantInfo";
 import ConsultantTabs from "@/components/templates/consultantDetails/ConsultantTabs/ConsultantTabs";
-import React from "react";
 import styles from "@/styles/consultantDetails.module.css";
 import connectToDB from "@/configs/db";
 import ConsultantModel from "@/models/Consultant";
@@ -11,7 +10,32 @@ import { redirect } from "next/navigation";
 import ReqBuyModel from "@/models/ReqBuy";
 import ClientModel from "@/models/Client";
 
-
+function generateJsonLd(consultant) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    "name": consultant.fullName || "مشاور املاک",
+    "description": consultant.bio || "مشاور املاک متخصص",
+    "url": `https://yourdomain.com/consultantDetails/${consultant._id}`,
+    "telephone": consultant.phone || "",
+    "email": consultant.email || "",
+    "image": consultant.img || "/default-consultant.jpg",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": consultant.city || "تهران",
+      "addressCountry": "IR"
+    },
+    "serviceArea": {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": 35.6892,
+        "longitude": 51.3890
+      },
+      "geoRadius": "50000"
+    }
+  };
+}
 
 async function Page({ params }) {
   await connectToDB();
@@ -67,6 +91,16 @@ async function Page({ params }) {
 
   return (
     <>
+      <head>
+        <title>پروفایل مشاور املاک | جزئیات مشاور املاک آرامش</title>
+        <meta name="description" content="مشاهده پروفایل کامل مشاور املاک، اطلاعات تماس، املاک منتشر شده و عملکرد مشاور در سیستم املاک آرامش" />
+        <meta name="robots" content="noindex, nofollow" />
+        <link rel="icon" href="https://uxwing.com/wp-content/themes/uxwing/download/buildings-architecture-real-estate/houses-icon.png" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
+        />
+      </head>
       <PanelLayout>
         <div className={styles.contentWrapper}>
           <div className={styles.containerFull}>
