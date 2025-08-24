@@ -13,19 +13,6 @@ import ClientModel from "@/models/Client";
 import ConsultantModel from "@/models/Consultant";
 import ReqBuyModel from "@/models/ReqBuy";
 
-export const dynamic = "force-dynamic";
-
-export async function generateMetadata() {
-  return {
-    title: "داشبورد مدیریت | سیستم مدیریت املاک آرامش",
-    description:
-      "داشبورد جامع مدیریت سیستم املاک آرامش شامل آمار، نمودارها، اطلاعات کاربری و مدیریت بازدیدهای املاک.",
-    keywords:
-      "داشبورد مدیریت, آمار املاک, نمودارهای مدیریتی, سیستم املاک آرامش, مدیریت بازدیدها",
-    authors: [{ name: "املاک آرامش" }],
-    robots: "noindex, nofollow",
-  };
-}
 
 async function Page() {
   await connectToDB();

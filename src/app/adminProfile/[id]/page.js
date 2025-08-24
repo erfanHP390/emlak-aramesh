@@ -11,22 +11,7 @@ import ReqBuyModel from "@/models/ReqBuy";
 import ContactModel from "@/models/Contact";
 import ConsultantModel from "@/models/Consultant";
 import { authConsultant, authUser } from "@/utils/authUser";
-export const dynamic = "force-dynamic";
 
-
-export async function generateMetadata({ params })  {
-  const user = await UserModel.findOne({ _id: params.id }).lean();
-  
-  return {
-    title: `${user?.name || "مدیر"} | پروفایل مدیریت سیستم املاک آرامش`,
-    description: `پروفایل کاربر ${user?.name || ""} در سیستم مدیریت املاک آرامش. مدیریت اطلاعات شخصی، املاک خریداری شده و درخواست‌های خرید.`,
-    keywords: "پروفایل کاربر, مدیریت حساب کاربری, سیستم املاک آرامش, املاک خریداری شده, درخواست خرید ملک",
-    openGraph: {
-      title: `${user?.name || "کاربر"} | پروفایل کاربری`,
-      description: `پروفایل کاربر ${user?.name || ""} در سیستم مدیریت املاک آرامش`,
-    },
-  };
-}
 
 async function Page({ params }) {
   connectToDB();

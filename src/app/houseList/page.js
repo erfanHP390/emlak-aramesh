@@ -6,20 +6,6 @@ import HouseModel from "@/models/House";
 import ConsultantModel from "@/models/Consultant";
 import { authUser } from "@/utils/authUser";
 import { redirect } from "next/navigation";
-export const dynamic = "force-dynamic";
-
-
-export async function generateMetadata() {
-  return {
-    title: "لیست املاک | سیستم مدیریت املاک آرامش",
-    description:
-      "جستجو و فیلتر پیشرفته املاک در سیستم مدیریت املاک آرامش. مشاهده انواع ملک با ویژگی‌های مختلف و قیمت‌های به روز.",
-    keywords:
-      "لیست املاک, جستجوی ملک, فیلتر املاک, خرید ملک, اجاره ملک, سیستم املاک آرامش",
-    authors: [{ name: "املاک آرامش" }],
-    robots: "index, follow",
-  };
-}
 
 async function Page() {
   await connectToDB();

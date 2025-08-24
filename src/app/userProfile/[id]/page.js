@@ -10,34 +10,7 @@ import UserTabs from "@/components/templates/userProfile/userTabs/UserTabs";
 import ClientModel from "@/models/Client";
 import ReqBuysModel from "@/models/ReqBuy";
 import ConsultantModel from "@/models/Consultant";
-export const dynamic = "force-dynamic";
 
-export async function generateMetadata({ params })  {
-  const user = await UserModel.findOne({ _id: params.id }).lean();
-  
-  return {
-    title: `${user?.name || "کاربر"} | پروفایل کاربری سیستم املاک آرامش`,
-    description: `پروفایل کاربر ${user?.name || ""} در سیستم مدیریت املاک آرامش. مدیریت اطلاعات شخصی، املاک خریداری شده و درخواست‌های خرید.`,
-    keywords: "پروفایل کاربر, مدیریت حساب کاربری, سیستم املاک آرامش, املاک خریداری شده, درخواست خرید ملک",
-    openGraph: {
-      title: `${user?.name || "کاربر"} | پروفایل کاربری`,
-      description: `پروفایل کاربر ${user?.name || ""} در سیستم مدیریت املاک آرامش`,
-    },
-  };
-}
-
-// ساختار داده‌های سازمان‌یافته برای سئو
-const generateJsonLd = (user) => ({
-  '@context': 'https://schema.org',
-  '@type': 'ProfilePage',
-  name: `پروفایل کاربر ${user?.name || ''}`,
-  description: `صفحه پروفایل کاربر ${user?.name || ''} در سیستم مدیریت املاک آرامش`,
-  subjectOf: {
-    '@type': 'Person',
-    name: user?.name,
-    email: user?.email
-  }
-});
 
 async function page({ params }) {
   await connectToDB();
@@ -85,10 +58,6 @@ async function page({ params }) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
-      />
       <PanelLayout>
         <div className={styles.contentWrapper}>
           <div className={styles.containerFull}>

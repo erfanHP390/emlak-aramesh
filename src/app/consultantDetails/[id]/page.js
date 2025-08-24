@@ -11,37 +11,7 @@ import { redirect } from "next/navigation";
 import ReqBuyModel from "@/models/ReqBuy";
 import ClientModel from "@/models/Client";
 
-export const dynamic = "force-dynamic";
 
-export async function generateMetadata({ params }) {
-  await connectToDB();
-  const consultant = await ConsultantModel.findOne({ _id: params.id }).lean();
-  
-  return {
-    title: `${consultant?.firstName || ''} ${consultant?.lastName || ''} | پروفایل مشاور سیستم املاک آرامش`,
-    description: `پروفایل مشاور املاک ${consultant?.firstName || ''} ${consultant?.lastName || ''} - مشاهده اطلاعات تماس، املاک ثبت شده و فعالیت‌های مشاور در سیستم مدیریت املاک آرامش.`,
-    keywords: `مشاور املاک ${consultant?.firstName || ''} ${consultant?.lastName || ''}, پروفایل مشاور, اطلاعات تماس مشاور, املاک ثبت شده, سیستم املاک آرامش, مشاورین املاک`,
-    authors: [{ name: "املاک آرامش" }],
-    robots: "noindex, nofollow",
-    openGraph: {
-      title: `${consultant?.firstName || ''} ${consultant?.lastName || ''} | مشاور املاک`,
-      description: `پروفایل مشاور املاک ${consultant?.firstName || ''} ${consultant?.lastName || ''} در سیستم مدیریت املاک آرامش`,
-    },
-  };
-}
-
-const generateJsonLd = (consultant) => ({
-  '@context': 'https://schema.org',
-  '@type': 'RealEstateAgent',
-  name: `${consultant?.firstName || ''} ${consultant?.lastName || ''}`,
-  description: `مشاور املاک در سیستم مدیریت املاک آرامش`,
-  email: consultant?.email,
-  telephone: consultant?.phone,
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: consultant?.location || 'نامشخص'
-  }
-});
 
 async function Page({ params }) {
   await connectToDB();
@@ -97,10 +67,6 @@ async function Page({ params }) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
-      />
       <PanelLayout>
         <div className={styles.contentWrapper}>
           <div className={styles.containerFull}>
