@@ -11,6 +11,21 @@ import ContactModel from "@/models/Contact";
 import ConsultantModel from "@/models/Consultant";
 import { authConsultant, authUser } from "@/utils/authUser";
 
+export async function generateMetadata({ params })  {
+  const user = await UserModel.findOne({ _id: params.id }).lean();
+  
+  return {
+    title: `${user?.name || "مدیر"} | پروفایل مدیریت سیستم املاک آرامش`,
+    description: `پروفایل کاربر ${user?.name || ""} در سیستم مدیریت املاک آرامش. مدیریت اطلاعات شخصی، املاک خریداری شده و درخواست‌های خرید.`,
+    keywords: "پروفایل کاربر, مدیریت حساب کاربری, سیستم املاک آرامش, املاک خریداری شده, درخواست خرید ملک",
+    openGraph: {
+      title: `${user?.name || "کاربر"} | پروفایل کاربری`,
+      description: `پروفایل کاربر ${user?.name || ""} در سیستم مدیریت املاک آرامش`,
+    },
+  };
+}
+
+
 async function Page({ params }) {
   connectToDB();
 
@@ -51,49 +66,9 @@ async function Page({ params }) {
     .lean();
   const users = await UserModel.find({}).lean();
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: "پنل مدیریت ادمین | پروفایل مدیر سیستم",
-    description: "مدیریت کامل سیستم املاک آرامش",
-    url: `https://yourdomain.com/adminProfile/${params.id}`,
-    breadcrumb: {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "خانه",
-          item: "https://yourdomain.com",
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "پنل مدیریت",
-          item: "https://yourdomain.com/dashboard",
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: "پروفایل ادمین",
-          item: `https://yourdomain.com/adminProfile/${params.id}`,
-        },
-      ],
-    },
-  };
 
   return (
     <>
-      <head>
-        <title>پنل مدیریت ادمین | پروفایل مدیر سیستم </title>
-        <meta name="description" content="مدیریت کامل سیستم املاک آرامش شامل مشاهده املاک، مشتریان، درخواست‌های خرید و مدیریت مشاورین" />
-        <meta name="robots" content="noindex, nofollow" />
-        <link rel="icon" href="https://uxwing.com/wp-content/themes/uxwing/download/buildings-architecture-real-estate/houses-icon.png" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
-      </head>
       <PanelLayout>
         <div className={styles.contentWrapper}>
           <div className={styles.containerFull}>

@@ -11,44 +11,32 @@ import ClientModel from "@/models/Client";
 import ReqBuysModel from "@/models/ReqBuy";
 import ConsultantModel from "@/models/Consultant";
 
-function generateJsonLd(user) {
+
+export async function generateMetadata({ params })  {
+  const user = await UserModel.findOne({ _id: params.id }).lean();
+  
   return {
-    "@context": "https://schema.org",
-    "@type": "ProfilePage",
-    name: `پروفایل کاربری ${user.fullname || user.email}`,
-    description: `صفحه پروفایل شخصی کاربر در سیستم مدیریت املاک آرامش`,
-    url: `https://yourdomain.com/userProfile/${user._id}`,
-    mainEntity: {
-      "@type": "Person",
-      name: user.fullname || "کاربر",
-      email: user.email,
-      telephone: user.phoneNumber || undefined,
-    },
-    breadcrumb: {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "خانه",
-          item: "https://yourdomain.com",
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "پنل کاربری",
-          item: "https://yourdomain.com/dashboard",
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: "پروفایل کاربری",
-          item: `https://yourdomain.com/userProfile/${user._id}`,
-        },
-      ],
+    title: `${user?.name || "کاربر"} | پروفایل کاربری سیستم املاک آرامش`,
+    description: `پروفایل کاربر ${user?.name || ""} در سیستم مدیریت املاک آرامش. مدیریت اطلاعات شخصی، املاک خریداری شده و درخواست‌های خرید.`,
+    keywords: "پروفایل کاربر, مدیریت حساب کاربری, سیستم املاک آرامش, املاک خریداری شده, درخواست خرید ملک",
+    openGraph: {
+      title: `${user?.name || "کاربر"} | پروفایل کاربری`,
+      description: `پروفایل کاربر ${user?.name || ""} در سیستم مدیریت املاک آرامش`,
     },
   };
 }
+
+const generateJsonLd = (user) => ({
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  name: `پروفایل کاربر ${user?.name || ''}`,
+  description: `صفحه پروفایل کاربر ${user?.name || ''} در سیستم مدیریت املاک آرامش`,
+  subjectOf: {
+    '@type': 'Person',
+    name: user?.name,
+    email: user?.email
+  }
+});
 
 async function Page({ params }) {
   await connectToDB();
@@ -97,22 +85,6 @@ async function Page({ params }) {
 
   return (
     <>
-      <head>
-        <title>{`${user.fullname || "پروفایل کاربری"} | سیستم مدیریت املاک آرامش`}</title>
-        <meta name="description" content={`پروفایل کاربری ${user.fullname || user.email} در سیستم مدیریت املاک آرامش`} />
-        <meta name="robots" content="noindex, nofollow" />
-        <link rel="icon" href="https://uxwing.com/wp-content/themes/uxwing/download/buildings-architecture-real-estate/houses-icon.png" />
-        <meta property="og:title" content={`${user.fullname || "پروفایل کاربری"} | املاک آرامش`} />
-        <meta property="og:description" content="پروفایل کاربری در سیستم مدیریت املاک آرامش" />
-        <meta property="og:url" content={`https://yourdomain.com/userProfile/${user._id}`} />
-        <meta property="og:site_name" content="املاک آرامش" />
-        <meta property="og:locale" content="fa_IR" />
-        <meta property="og:type" content="profile" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
-        />
-      </head>
       <PanelLayout>
         <div className={styles.contentWrapper}>
           <div className={styles.containerFull}>

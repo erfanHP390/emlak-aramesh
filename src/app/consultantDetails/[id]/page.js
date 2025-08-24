@@ -10,32 +10,38 @@ import { redirect } from "next/navigation";
 import ReqBuyModel from "@/models/ReqBuy";
 import ClientModel from "@/models/Client";
 
-function generateJsonLd(consultant) {
+// تابع برای تولید متادیتا
+export async function generateMetadata({ params }) {
+  await connectToDB();
+  const consultant = await ConsultantModel.findOne({ _id: params.id }).lean();
+  
   return {
-    "@context": "https://schema.org",
-    "@type": "RealEstateAgent",
-    "name": consultant.fullName || "مشاور املاک",
-    "description": consultant.bio || "مشاور املاک متخصص",
-    "url": `https://yourdomain.com/consultantDetails/${consultant._id}`,
-    "telephone": consultant.phone || "",
-    "email": consultant.email || "",
-    "image": consultant.img || "/default-consultant.jpg",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": consultant.city || "تهران",
-      "addressCountry": "IR"
+    title: `${consultant?.firstName || ''} ${consultant?.lastName || ''} | پروفایل مشاور سیستم املاک آرامش`,
+    description: `پروفایل مشاور املاک ${consultant?.firstName || ''} ${consultant?.lastName || ''} - مشاهده اطلاعات تماس، املاک ثبت شده و فعالیت‌های مشاور در سیستم مدیریت املاک آرامش.`,
+    keywords: `مشاور املاک ${consultant?.firstName || ''} ${consultant?.lastName || ''}, پروفایل مشاور, اطلاعات تماس مشاور, املاک ثبت شده, سیستم املاک آرامش, مشاورین املاک`,
+    authors: [{ name: "املاک آرامش" }],
+    robots: "noindex, nofollow",
+    openGraph: {
+      title: `${consultant?.firstName || ''} ${consultant?.lastName || ''} | مشاور املاک`,
+      description: `پروفایل مشاور املاک ${consultant?.firstName || ''} ${consultant?.lastName || ''} در سیستم مدیریت املاک آرامش`,
     },
-    "serviceArea": {
-      "@type": "GeoCircle",
-      "geoMidpoint": {
-        "@type": "GeoCoordinates",
-        "latitude": 35.6892,
-        "longitude": 51.3890
-      },
-      "geoRadius": "50000"
-    }
   };
 }
+
+// ساختار داده‌های سازمان‌یافته برای سئو
+const generateJsonLd = (consultant) => ({
+  '@context': 'https://schema.org',
+  '@type': 'RealEstateAgent',
+  name: `${consultant?.firstName || ''} ${consultant?.lastName || ''}`,
+  description: `مشاور املاک در سیستم مدیریت املاک آرامش`,
+  email: consultant?.email,
+  telephone: consultant?.phone,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: consultant?.location || 'نامشخص'
+  }
+});
+
 
 async function Page({ params }) {
   await connectToDB();
