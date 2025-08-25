@@ -8,20 +8,18 @@ export function middleware(request) {
   const url = request.nextUrl;
   const path = url.pathname;
 
-  const isAuthPage = path === "/login" || path === "/register";
+  const publicPaths = ["/", "/login", "/register", "/forgotPassword"];
+  const isAuthPage = publicPaths.includes(path);
   const isLockPage = path === "/lockPage";
 
-  // 1️⃣ اگر توکن وجود نداره → بفرست login
   if (!token && !isAuthPage) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // 2️⃣ اگر توکن هست و قفل فعاله → بفرست lockPage
   if (token && isLocked && !isLockPage) {
     return NextResponse.redirect(new URL("/lockPage", request.url));
   }
 
-  // 3️⃣ اگر توکن هست و قفل غیرفعاله، ولی مسیر login هست → بفرست به dashboard
   if (token && !isLocked && isAuthPage) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
@@ -30,7 +28,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: [
-    "/((?!_next|favicon.ico|images|fonts|api).*)",
-  ],
+  matcher: ["/((?!_next|favicon.ico|images|fonts|api).*)"],
 };
