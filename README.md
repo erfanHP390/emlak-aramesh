@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## داشبورد
+![home](./emlak-aramesh-gallery/dashboard.png)
+![home](./emlak-aramesh-gallery/dashboard-sec.png)
+![home](./emlak-aramesh-gallery/dashboard-m.png)
+![home](./emlak-aramesh-gallery/dashboard-m-sec.png)
+![home](./emlak-aramesh-gallery/light-dashboard.png)
+![home](./emlak-aramesh-gallery/light-dash-sec.png)
 
-## Getting Started
+## افزودن مشاور
+![add-consul](./emlak-aramesh-gallery/add-consultant.png)
+![add-consul](./emlak-aramesh-gallery/add-consultant-sec.png)
+## افزودن خانه 
+![add-home](./emlak-aramesh-gallery/add-home.png)
+![add-home](./emlak-aramesh-gallery/add-home-sec.png)
+![add-home](./emlak-aramesh-gallery/add-home-th.png)
+## پروفایل مدیریت / ادمین
+![admin-profile](./emlak-aramesh-gallery/admin-profile.png)
+![admin-profile](./emlak-aramesh-gallery/admin-profile-m.png)
+![admin-profile](./emlak-aramesh-gallery/admin-profile-r.png)
+![admin-profile](./emlak-aramesh-gallery/admin-profile-s.png)
+![admin-profile](./emlak-aramesh-gallery/admin-profile-sec.png)
+![admin-profile](./emlak-aramesh-gallery/admin-profile-u.png)
+![admin-profile](./emlak-aramesh-gallery/c-admin-profile.png)
+![admin-profile](./emlak-aramesh-gallery/consul-admin-profile.png)
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## همه مشاوران 
+![all-consultants](./emlak-aramesh-gallery/all-comsultant.png)
+## پروفایل مشاور
+![consul-profile](./emlak-aramesh-gallery/consul-profile.png)
+![consul-profile](./emlak-aramesh-gallery/consul-profile-sec.png)
+![consul-profile](./emlak-aramesh-gallery/consul-profile-th.png)
+![consul-profile](./emlak-aramesh-gallery/consul-profile-fo.png)
+## تماس با ما
+![contact-us](./emlak-aramesh-gallery/contact.png)
+![contact-us](./emlak-aramesh-gallery/contact-sec.png)
+## سوالات متداول
+![main-faq](./emlak-aramesh-gallery/faq.png)
+![main-faq](./emlak-aramesh-gallery/light-faq.png)
+## بازیابی رمز عبور
+![forgot-pass](./emlak-aramesh-gallery/forgot-password.png)
+## جزییات خانه
+![house-details](./emlak-aramesh-gallery/house-details.png)
+![house-details](./emlak-aramesh-gallery/house-details-sec.png)
+![house-details](./emlak-aramesh-gallery/house-details-th.png)
+![house-details](./emlak-aramesh-gallery/light-house-details.png)
+## لیست املاک
+![house-list](./emlak-aramesh-gallery/house-list.png)
+## قفل صفحه
+![lock-page](./emlak-aramesh-gallery/lock-screen.png)
+## ورود 
+![login](./emlak-aramesh-gallery/login.png)
+## یافت نشد
+![not-found](./emlak-aramesh-gallery/notfound.png)
+## قیمت و تعرفه ها
+![pricing](./emlak-aramesh-gallery/pricing.png)
+## ثبت نام
+![register](./emlak-aramesh-gallery/register.png)
+## بزودی
+![soon](./emlak-aramesh-gallery/soon.png)
+## پروفایل کاربر
+![user-profile](./emlak-aramesh-gallery/user-profile.png)
+![user-profile](./emlak-aramesh-gallery/user-profile-sec.png)
+![user-profile](./emlak-aramesh-gallery/user-profile-th.png)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
