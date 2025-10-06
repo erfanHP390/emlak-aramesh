@@ -21,9 +21,14 @@ function CardHouse({
   elevator,
   yearBuilt,
 }) {
+  const baseUrl =
+    typeof window !== "undefined"
+      ? window.location.origin
+      : "https://emlak-aramesh.vercel.app" || "http://localhost:3000";
+
   const imageUrl =
     Array.isArray(img) && img.length > 0
-      ? `http://localhost:3000${img[0]}`
+      ? `${baseUrl}${img[0]}`
       : "/images/house-bg-info.webp";
 
   return (
