@@ -350,6 +350,25 @@
   color: #6c757d;
 }
 
+/* استایل جدید برای بخش "فعلاً اعلانی وجود ندارد" */
+.noNotif {
+  padding: 20px;
+  text-align: center;
+  color: var(--text-muted);
+  font-family: 'Anjoman_Regular';
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  opacity: 0.8;
+}
+
+.noNotif::before {
+  content: "💬";
+  font-size: 1.2rem;
+}
+
 /* Media Queries */
 @media (max-width: 400px) {
   .notificationsDropdown,
