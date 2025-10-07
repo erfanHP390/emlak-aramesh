@@ -365,6 +365,16 @@ function AddHome({ consultant }) {
       const data = await res.json();
 
       if (res.status === 201) {
+         await fetch("/api/notifications", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            text: "خانه جدید با موفقیت ثبت شد",
+            type: "success",
+            link: "/houseList",
+            icon: "shopping",
+          }),
+        })
         setName("");
         setClientName("");
         setFloor("");
@@ -589,7 +599,9 @@ function AddHome({ consultant }) {
                         onClick={cancelBasicInfo}
                         className={`${styles.btn} ${styles["btn-danger"]} ${styles["me-1"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
                       >
-                        <FaTrash className={`${styles.ti} ${styles["ti-trash"]}`} />{" "}
+                        <FaTrash
+                          className={`${styles.ti} ${styles["ti-trash"]}`}
+                        />{" "}
                         لغو
                       </button>
                       <button
@@ -683,7 +695,9 @@ function AddHome({ consultant }) {
                         onClick={cancelPropertyInfo}
                         className={`${styles.btn} ${styles["btn-danger"]} ${styles["me-1"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
                       >
-                        <FaTrash className={`${styles.ti} ${styles["ti-trash"]}`} />{" "}
+                        <FaTrash
+                          className={`${styles.ti} ${styles["ti-trash"]}`}
+                        />{" "}
                         لغو
                       </button>
                       <button
@@ -804,7 +818,9 @@ function AddHome({ consultant }) {
                         onClick={cancelDetailsInfo}
                         className={`${styles.btn} ${styles["btn-danger"]} ${styles["me-1"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
                       >
-                        <FaTrash className={`${styles.ti} ${styles["ti-trash"]}`} />{" "}
+                        <FaTrash
+                          className={`${styles.ti} ${styles["ti-trash"]}`}
+                        />{" "}
                         لغو
                       </button>
                       <button
@@ -998,7 +1014,9 @@ function AddHome({ consultant }) {
                         onClick={cancelAmenitiesInfo}
                         className={`${styles.btn} ${styles["btn-danger"]} ${styles["me-1"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
                       >
-                        <FaTrash className={`${styles.ti} ${styles["ti-trash"]}`} />{" "}
+                        <FaTrash
+                          className={`${styles.ti} ${styles["ti-trash"]}`}
+                        />{" "}
                         لغو
                       </button>
                       <button
@@ -1018,7 +1036,8 @@ function AddHome({ consultant }) {
                           addHouse();
                         }}
                         className={`${styles.btn} ${styles["btn-success"]} ${styles["ms-1"]} ${styles["waves-effect"]} ${styles["waves-light"]}`}
-                      >{" "}
+                      >
+                        {" "}
                         ارسال نهایی
                       </button>
                     </div>
