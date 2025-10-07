@@ -4,7 +4,7 @@ import Topbar from "../modules/topbar/Topbar";
 import Sidebar from "../modules/sidebar/Sidebar";
 import styles from "./PanelLayout.module.css";
 
-function Wrapper({ user, consultant, consultantInfo, admin, children }) {
+function Wrapper({ user, consultant, consultantInfo, admin, children , notifications }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const toggleSidebar = () => {
@@ -27,6 +27,7 @@ function Wrapper({ user, consultant, consultantInfo, admin, children }) {
           consultant={consultant}
           consultantInfo={consultantInfo}
           admin={admin}
+          notifications={notifications}
           toggleSidebar={toggleSidebar}
         />
         {children}
