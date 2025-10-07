@@ -71,6 +71,16 @@ export default function Register() {
       });
 
       if (res.status === 201) {
+        await fetch("/api/notifications", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            text: `کاربر جدید ${name} با موفقیت ثبت شد`,
+            type: "success",
+            link: "/houseList",
+            icon: "users",
+          }),
+        });
         setName("");
         setGuildID("");
         setEmail("");
