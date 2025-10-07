@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styles from "./Topbar.module.css";
 import {
   FaSearch,
@@ -7,26 +7,28 @@ import {
   FaUser,
   FaCog,
   FaSignOutAlt,
-  FaWallet,
   FaShoppingCart,
   FaUsers,
   FaExclamationTriangle,
   FaBars,
   FaEnvelope,
+  FaClipboardList,
+  FaHome,
 } from "react-icons/fa";
-import {
-  MdEvent,
-  MdTaskAlt,
-  MdFullscreen,
-  MdFullscreenExit,
-} from "react-icons/md";
-import { useState, useRef } from "react";
+import { MdFullscreen, MdFullscreenExit } from "react-icons/md";
 import { toastSuccess } from "@/utils/alerts";
 import { useRouter } from "next/navigation";
 import swal from "sweetalert";
 import Link from "next/link";
 
-function Topbar({ user, consultant, admin, consultantInfo, toggleSidebar }) {
+function Topbar({
+  user,
+  consultant,
+  admin,
+  consultantInfo,
+  toggleSidebar,
+  notifications,
+}) {
   const router = useRouter();
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
@@ -35,6 +37,7 @@ function Topbar({ user, consultant, admin, consultantInfo, toggleSidebar }) {
   const notificationsRef = useRef(null);
   const userMenuRef = useRef(null);
 
+  // بستن منوها با کلیک بیرون
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -43,36 +46,24 @@ function Topbar({ user, consultant, admin, consultantInfo, toggleSidebar }) {
       ) {
         setIsNotificationsOpen(false);
       }
-
       if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
         setIsUserMenuOpen(false);
       }
     };
-
     if (isNotificationsOpen || isUserMenuOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isNotificationsOpen, isUserMenuOpen]);
 
+  // تغییر وضعیت تمام صفحه
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
-      if (document.documentElement.requestFullscreen) {
-        document.documentElement
-          .requestFullscreen()
-          .then(() => setIsFullscreen(true))
-          .catch((err) => console.error("Error entering fullscreen:", err));
-      }
+      document.documentElement
+        .requestFullscreen()
+        .then(() => setIsFullscreen(true));
     } else {
-      if (document.exitFullscreen) {
-        document
-          .exitFullscreen()
-          .then(() => setIsFullscreen(false))
-          .catch((err) => console.error("Error exiting fullscreen:", err));
-      }
+      document.exitFullscreen().then(() => setIsFullscreen(false));
     }
   };
 
@@ -88,6 +79,7 @@ function Topbar({ user, consultant, admin, consultantInfo, toggleSidebar }) {
     if (isNotificationsOpen) setIsNotificationsOpen(false);
   };
 
+  // خروج کاربر
   const signOutUser = async () => {
     swal({
       title: "آیا از خروج اطمینان دارید؟",
@@ -95,52 +87,80 @@ function Topbar({ user, consultant, admin, consultantInfo, toggleSidebar }) {
       buttons: ["نه", "آره"],
     }).then(async (result) => {
       if (result) {
-        const res = await fetch("/api/auth/signout", {
-          method: "POST",
-        });
-
+        const res = await fetch("/api/auth/signout", { method: "POST" });
         if (res.status === 200) {
-          toastSuccess(
-            "با موفقیت خارج شدید",
-            "top-center",
-            5000,
-            false,
-            true,
-            true,
-            true,
-            undefined,
-            "colored"
-          );
+          toastSuccess("با موفقیت خارج شدید", "top-center");
           router.replace("/login");
         }
       }
     });
   };
 
-  const getProfileUrlPerson = () => {
-    if (admin) {
-      return `/adminProfile/${admin._id}`;
-    } else if (consultantInfo) {
-      return `/consultantDetails/${consultantInfo._id}`;
-    } else if (user) {
-      return `/userProfile/${user._id}`;
-    } else {
-      return "#";
+  const getIcon = (icon) => {
+    switch (icon) {
+      case "users":
+        return (
+          <FaUsers
+            className={`${styles.notificationIcon} ${styles.textInfo}`}
+          />
+        );
+      case "shopping":
+        return (
+          <FaHome
+            className={`${styles.notificationIcon} ${styles.textSuccess}`}
+          />
+        );
+      case "warning":
+        return (
+          <FaExclamationTriangle
+            className={`${styles.notificationIcon} ${styles.textWarning}`}
+          />
+        );
+      case "task":
+        return (
+          <FaClipboardList
+            className={`${styles.notificationIcon} ${styles.textDanger}`}
+          />
+        );
+      default:
+        return (
+          <FaExclamationTriangle
+            className={`${styles.notificationIcon} ${styles.textInfo}`}
+          />
+        );
     }
+  };
+
+  const handleRead = async (id) => {
+    try {
+      await fetch(`/api/notifications/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ isRead: true }),
+      });
+      router.refresh();
+    } catch (err) {
+      console.error("خطا در بروزرسانی نوتیف:", err);
+    }
+  };
+
+  const getProfileUrlPerson = () => {
+    if (admin) return `/adminProfile/${admin._id}`;
+    if (consultantInfo) return `/consultantDetails/${consultantInfo._id}`;
+    if (user) return `/userProfile/${user._id}`;
+    return "#";
   };
 
   return (
     <header className={styles.topbarContainer}>
       <div className={styles.logoBox}>
-        <a href="index.html" className={styles.logo}>
+        <a href="/" className={styles.logo}>
           <div className={styles.logoMini}>
-            <span className="light-logo">
-              <img
-                src="/images/logo-w-bg.png"
-                alt="logo"
-                className={styles.logoImage}
-              />
-            </span>
+            <img
+              src="/images/logo-w-bg.png"
+              alt="logo"
+              className={styles.logoImage}
+            />
           </div>
           <div className={styles.logoLg}>
             <h1 className={styles.logoTitle}>املاک آرامش</h1>
@@ -154,7 +174,7 @@ function Topbar({ user, consultant, admin, consultantInfo, toggleSidebar }) {
             <li className={styles.navItem}>
               <button
                 className={styles.navLink}
-                onClick={toggleSidebar} // این خط باید دقیقاً همین باشد
+                onClick={toggleSidebar}
                 title="منو"
               >
                 <FaBars className={styles.svgIcon} />
@@ -167,8 +187,7 @@ function Topbar({ user, consultant, admin, consultantInfo, toggleSidebar }) {
                     <input
                       type="search"
                       className={styles.searchInput}
-                      placeholder="جستجو"
-                      aria-label="Search"
+                      placeholder="جستجو..."
                     />
                     <div className="input-group-append">
                       <button className={styles.searchButton} type="submit">
@@ -184,6 +203,7 @@ function Topbar({ user, consultant, admin, consultantInfo, toggleSidebar }) {
 
         <div className={styles.navbarCustomMenu}>
           <ul className={styles.navbarNav}>
+            {/* تمام صفحه */}
             <li className={`${styles.navItem} d-lg-inline-flex d-none`}>
               <a
                 href="#"
@@ -202,6 +222,7 @@ function Topbar({ user, consultant, admin, consultantInfo, toggleSidebar }) {
               </a>
             </li>
 
+            {/* اعلان‌ها */}
             <li
               ref={notificationsRef}
               className={`${styles.dropdown} ${styles.notificationsMenu} ${
@@ -215,8 +236,11 @@ function Topbar({ user, consultant, admin, consultantInfo, toggleSidebar }) {
                 onClick={toggleNotifications}
               >
                 <FaBell className={styles.svgIcon} />
-                <span className={styles.badge}>3</span>
+                {notifications?.length > 0 && (
+                  <span className={styles.badge}>{notifications.length}</span>
+                )}
               </a>
+
               {isNotificationsOpen && (
                 <div className={styles.dropdownMenuWrapper}>
                   <ul
@@ -230,53 +254,35 @@ function Topbar({ user, consultant, admin, consultantInfo, toggleSidebar }) {
                         </a>
                       </div>
                     </li>
+
                     <li>
                       <ul className={`${styles.menu} ${styles.smScroll}`}>
-                        <li>
-                          <a href="#" className={styles.dropdownItem}>
-                            <FaUsers
-                              className={`${styles.notificationIcon} ${styles.textInfo}`}
-                            />
-                            <span className={styles.notificationText}>
-                              گروه جدید مشاوران تصمیمات جدیدی را ...
-                            </span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#" className={styles.dropdownItem}>
-                            <FaExclamationTriangle
-                              className={`${styles.notificationIcon} ${styles.textWarning}`}
-                            />
-                            <span className={styles.notificationText}>
-                              خطایی در ثبت بوجود امد...
-                            </span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#" className={styles.dropdownItem}>
-                            <FaUsers
-                              className={`${styles.notificationIcon} ${styles.textDanger}`}
-                            />
-                            <span className={styles.notificationText}>
-                              بررسی کامل کارشناسان تائید شد...
-                            </span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#" className={styles.dropdownItem}>
-                            <FaShoppingCart
-                              className={`${styles.notificationIcon} ${styles.textSuccess}`}
-                            />
-                            <span className={styles.notificationText}>
-                              ثبت سفارش جدید اعلام شد
-                            </span>
-                          </a>
-                        </li>
+                        {notifications && notifications.length > 0 ? (
+                          notifications.map((n) => (
+                            <li key={n._id}>
+                              <a
+                                href={n.link || "#"}
+                                className={styles.dropdownItem}
+                                onClick={() => handleRead(n._id)}
+                              >
+                                {getIcon(n.icon)}
+                                <span className={styles.notificationText}>
+                                  {n.text}
+                                </span>
+                              </a>
+                            </li>
+                          ))
+                        ) : (
+                          <li className={styles.noNotif}>
+                            فعلاً اعلانی وجود ندارد
+                          </li>
+                        )}
                       </ul>
                     </li>
+
                     <li className={styles.dropdownDivider} />
                     <li className={styles.dropdownFooter}>
-                      <a href="#" className={styles.dropdownItem}>
+                      <a href="/notifications" className={styles.dropdownItem}>
                         مشاهده همه
                       </a>
                     </li>
@@ -285,6 +291,7 @@ function Topbar({ user, consultant, admin, consultantInfo, toggleSidebar }) {
               )}
             </li>
 
+            {/* منوی کاربر */}
             <li
               ref={userMenuRef}
               className={`${styles.dropdown} ${styles.userMenu} ${
@@ -312,11 +319,11 @@ function Topbar({ user, consultant, admin, consultantInfo, toggleSidebar }) {
                         <FaUser className={styles.dropdownIcon} />
                         <span className={styles.dropdownText}>پروفایل</span>
                       </Link>
-                      <Link className={styles.dropdownItem} href={"/contact"}>
+                      <Link className={styles.dropdownItem} href="/contact">
                         <FaEnvelope className={styles.dropdownIcon} />
                         <span className={styles.dropdownText}>ارتباطات</span>
                       </Link>
-                      <Link className={styles.dropdownItem} href={"/soon"}>
+                      <Link className={styles.dropdownItem} href="/soon">
                         <FaCog className={styles.dropdownIcon} />
                         <span className={styles.dropdownText}>تنظیمات</span>
                       </Link>
@@ -324,7 +331,7 @@ function Topbar({ user, consultant, admin, consultantInfo, toggleSidebar }) {
                       <a
                         className={styles.dropdownItem}
                         href="#"
-                        onClick={() => signOutUser()}
+                        onClick={signOutUser}
                       >
                         <FaSignOutAlt className={styles.dropdownIcon} />
                         <span className={styles.dropdownText}>خروج</span>
@@ -335,8 +342,9 @@ function Topbar({ user, consultant, admin, consultantInfo, toggleSidebar }) {
               )}
             </li>
 
+            {/* آیکون تنظیمات */}
             <li className={styles.navItem}>
-              <Link href={"/soon"} className={styles.navLink} title="تنظیمات">
+              <Link href="/soon" className={styles.navLink} title="تنظیمات">
                 <FaCog className={styles.svgIcon} />
               </Link>
             </li>
