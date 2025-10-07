@@ -369,7 +369,7 @@ function AddHome({ consultant }) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            text: "خانه جدید با موفقیت ثبت شد",
+            text: `خانه جدید ${name} با موفقیت ثبت شد`,
             type: "success",
             link: "/houseList",
             icon: "shopping",

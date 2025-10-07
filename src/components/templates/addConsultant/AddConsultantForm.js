@@ -110,10 +110,10 @@ function AddConsultantForm() {
 
   const validateSocialUsernames = () => {
     const socialPatterns = {
-      0: /^[a-zA-Z0-9._]{1,30}$/, 
-      1: /^[a-zA-Z0-9-]{3,100}$/, 
-      2: /^[a-zA-Z0-9_]{5,32}$/, 
-      3: /^(\+98|0)?9\d{9}$/, 
+      0: /^[a-zA-Z0-9._]{1,30}$/,
+      1: /^[a-zA-Z0-9-]{3,100}$/,
+      2: /^[a-zA-Z0-9_]{5,32}$/,
+      3: /^(\+98|0)?9\d{9}$/,
     };
 
     const socialNames = ["اینستاگرام", "لینکدین", "تلگرام", "واتساپ"];
@@ -138,15 +138,15 @@ function AddConsultantForm() {
         if (!username) return null;
 
         switch (index) {
-          case 0: 
+          case 0:
             return `https://instagram.com/${username.replace(/^@/, "")}`;
-          case 1: 
+          case 1:
             return `https://linkedin.com/in/${username}`;
           case 2:
             return username.startsWith("@")
               ? `https://t.me/${username.substring(1)}`
               : `https://t.me/${username}`;
-          case 3: 
+          case 3:
             return `https://wa.me/${username
               .replace(/^0/, "98")
               .replace(/^\+/, "")}`;
@@ -341,6 +341,16 @@ function AddConsultantForm() {
       });
 
       if (res.status === 201) {
+        await fetch("/api/notifications", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            text: `مشاور جدید ${firstName} - ${lastName} افزوده شد`,
+            type: "success",
+            link: "/allConsultants",
+            icon: "users",
+          }),
+        });
         cancelAccountInfo();
         cancelBasicInfo();
         cancelSocialInfo();
