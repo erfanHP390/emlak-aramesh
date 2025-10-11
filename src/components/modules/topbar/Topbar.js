@@ -33,11 +33,11 @@ function Topbar({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const notificationsRef = useRef(null);
   const userMenuRef = useRef(null);
 
-  // بستن منوها با کلیک بیرون
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -56,7 +56,6 @@ function Topbar({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isNotificationsOpen, isUserMenuOpen]);
 
-  // تغییر وضعیت تمام صفحه
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement
@@ -79,7 +78,6 @@ function Topbar({
     if (isNotificationsOpen) setIsNotificationsOpen(false);
   };
 
-  // خروج کاربر
   const signOutUser = async () => {
     swal({
       title: "آیا از خروج اطمینان دارید؟",
@@ -151,6 +149,18 @@ function Topbar({
     return "#";
   };
 
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+      setSearchQuery("");
+    }
+  };
+
   return (
     <header className={styles.topbarContainer}>
       <div className={styles.logoBox}>
@@ -180,14 +190,21 @@ function Topbar({
                 <FaBars className={styles.svgIcon} />
               </button>
             </li>
+
             <li className={`${styles.navItem} d-lg-inline-flex d-none`}>
               <div className={styles.searchBx}>
-                <form className={styles.searchForm}>
+                <form
+                  className={styles.searchForm}
+                  onSubmit={handleSearchSubmit}
+                >
                   <div className="input-group">
                     <input
                       type="search"
                       className={styles.searchInput}
                       placeholder="جستجو..."
+                      value={searchQuery}
+                      onChange={handleSearch}
+                      dir="rtl"
                     />
                     <div className="input-group-append">
                       <button className={styles.searchButton} type="submit">
@@ -203,7 +220,6 @@ function Topbar({
 
         <div className={styles.navbarCustomMenu}>
           <ul className={styles.navbarNav}>
-            {/* تمام صفحه */}
             <li className={`${styles.navItem} d-lg-inline-flex d-none`}>
               <a
                 href="#"
@@ -222,7 +238,6 @@ function Topbar({
               </a>
             </li>
 
-            {/* اعلان‌ها */}
             <li
               ref={notificationsRef}
               className={`${styles.dropdown} ${styles.notificationsMenu} ${
@@ -291,7 +306,6 @@ function Topbar({
               )}
             </li>
 
-            {/* منوی کاربر */}
             <li
               ref={userMenuRef}
               className={`${styles.dropdown} ${styles.userMenu} ${
@@ -342,7 +356,6 @@ function Topbar({
               )}
             </li>
 
-            {/* آیکون تنظیمات */}
             <li className={styles.navItem}>
               <Link href="/soon" className={styles.navLink} title="تنظیمات">
                 <FaCog className={styles.svgIcon} />
