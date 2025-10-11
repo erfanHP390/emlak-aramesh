@@ -1,0 +1,131 @@
+.searchingResult {
+  padding: 20px 0;
+  background: var(--bg-primary);
+  min-height: 100vh;
+  margin-top: 5.5rem;
+}
+
+.searchHeader {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 30px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  color: white;
+  box-shadow: var(--box-shadow-primary);
+}
+
+:global(.light) .searchHeader {
+  background: linear-gradient(135deg, #2f6dff 0%, #5e35b1 100%);
+}
+
+.searchTitle {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: white;
+}
+
+.searchQuery {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  color: white;
+}
+
+.noResults {
+  text-align: center;
+  padding: 80px 20px;
+  background: var(--bg-primary);
+  border-radius: 12px;
+  box-shadow: var(--box-shadow-primary);
+  margin: 20px 0;
+}
+
+:global(.light) .noResults {
+  background: #ffffff;
+}
+
+.noResultsIcon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+}
+
+.noResultsTitle {
+  font-size: 1.8rem;
+  color: #8B2E2C;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+:global(.light) .noResultsTitle {
+  color: #d32f2f;
+}
+
+.noResultsText {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.resultsSection {
+  margin-bottom: 50px;
+  background: var(--bg-primary);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: var(--box-shadow-primary);
+}
+
+:global(.light) .resultsSection {
+  background: #ffffff;
+}
+
+.sectionTitle {
+  font-size: 1.8rem;
+  color: var(--text-heading);
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #667eea;
+  font-weight: 600;
+}
+
+:global(.light) .sectionTitle {
+  color: #1f2937;
+  border-bottom-color: #2f6dff;
+}
+
+.consultantsGrid {
+  display: grid;
+  /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.housesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 25px;
+}
+
+@media (max-width: 768px) {
+  .searchTitle {
+    font-size: 2rem;
+  }
+  
+  .consultantsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .housesGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .resultsSection {
+    padding: 15px;
+  }
+  
+  .searchHeader {
+    padding: 20px 15px;
+  }
+}
