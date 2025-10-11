@@ -24,11 +24,17 @@ function CardHouse({
   const baseUrl =
     typeof window !== "undefined"
       ? window.location.origin
-      : "https://emlak-aramesh.vercel.app" || "http://localhost:3000";
+      : process.env.NODE_ENV === "production"
+      ? "https://emlak-aramesh.vercel.app"
+      : "http://localhost:3000";
 
   const imageUrl =
     Array.isArray(img) && img.length > 0
-      ? `${baseUrl}${img[0]}`
+      ? `${
+          img[0].startsWith("http")
+            ? img[0]
+            : `${baseUrl}${img[0].startsWith("/") ? img[0] : "/" + img[0]}`
+        }`
       : "/images/house-bg-info.webp";
 
   return (
