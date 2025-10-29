@@ -303,7 +303,7 @@ export default function Register() {
 
               <div className={`${styles.loginLink} Anjoman_Regular`}>
                 حساب کاربری دارید؟{" "}
-                <Link href={"/login"} className="Anjoman_Medium">
+                <Link href={"/"} className="Anjoman_Medium">
                   وارد شوید
                 </Link>
               </div>

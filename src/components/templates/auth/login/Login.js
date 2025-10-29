@@ -180,7 +180,7 @@ export default function Login() {
                       placeholder="ایمیل"
                       name="email"
                       required
-                      value={email}
+                      value={email ? email : "admin@email.com"}
                       onChange={(e) => setEmail(e.target.value)}
                     />
                     <span className={styles.inputIcon}>
@@ -196,7 +196,7 @@ export default function Login() {
                       placeholder="رمز عبور"
                       name="password"
                       required
-                      value={password}
+                      value={password ? password : "@Admin1212"}
                       onChange={(e) => setPassword(e.target.value)}
                     />
                     <span className={styles.inputIcon}>
@@ -252,7 +252,7 @@ export default function Login() {
                 {/* Register Link */}
                 <div className={`${styles.registerLink} Anjoman_Regular`}>
                   حساب کاربری ندارید؟{" "}
-                  <Link href={"/"} className="Anjoman_Medium">
+                  <Link href={"/register"} className="Anjoman_Medium">
                     ثبت نام کنید
                   </Link>
                 </div>
