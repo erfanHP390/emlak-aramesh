@@ -10,6 +10,9 @@ import Link from "next/link";
 import Loading from "@/app/loading";
 import { IoEyeOffSharp, IoEyeSharp } from "react-icons/io5";
 
+const DEFAULT_EMAIL = "admin@email.com";
+const DEFAULT_PASSWORD = "@Admin1212";
+
 export default function Login() {
   const router = useRouter();
 
@@ -28,17 +31,25 @@ export default function Login() {
       if (getUserInfoLogin) {
         setEmail(getUserInfoLogin.email);
         setPassword(getUserInfoLogin.password);
+      } else {
+        setEmail(DEFAULT_EMAIL);
+        setPassword(DEFAULT_PASSWORD);
       }
     }
   }, []);
 
   const loginUser = async () => {
-    if (!validateEmail(email)) {
+    const finalEmail = email.trim() || DEFAULT_EMAIL;
+    const finalPassword = password.trim() || DEFAULT_PASSWORD;
+
+    console.log(finalEmail, finalPassword);
+
+    if (!validateEmail(finalEmail)) {
       setIsLoading(false);
       return swalAlert("ایمیل نامعتبر است", "error", "تلاش مجدد");
     }
 
-    const user = { email, password };
+    const user = { email: finalEmail, password: finalPassword };
 
     if (rememberMe) {
       localStorage.setItem("userLogin", JSON.stringify(user));
@@ -180,7 +191,7 @@ export default function Login() {
                       placeholder="ایمیل"
                       name="email"
                       required
-                      value={email ? email : "admin@email.com"}
+                      value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
                     <span className={styles.inputIcon}>
@@ -196,7 +207,7 @@ export default function Login() {
                       placeholder="رمز عبور"
                       name="password"
                       required
-                      value={password ? password : "@Admin1212"}
+                      value={password}
                       onChange={(e) => setPassword(e.target.value)}
                     />
                     <span className={styles.inputIcon}>
