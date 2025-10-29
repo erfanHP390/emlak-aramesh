@@ -65,6 +65,7 @@ export default function Login() {
       setEmail("");
       setPassword("");
       setIsLoading(false);
+
       toastSuccess(
         "ورود با موفقیت انجام شد",
         "top-center",
@@ -76,7 +77,10 @@ export default function Login() {
         undefined,
         "colored"
       );
-      router.push("/dashboard");
+
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 500);
     } else if (res.status === 401) {
       setEmail("");
       setPassword("");
