@@ -125,7 +125,7 @@ function Sidebar({
             undefined,
             "colored"
           );
-          router.replace("/login");
+          router.replace("/");
         }
       }
     });
